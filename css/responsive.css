@@ -1,0 +1,587 @@
+/* ==========================================================================
+   TOEIC MASTER RESPONSIVE — responsive.css
+   Mobile-First Optimization, Touch Drawer, Breakpoints
+   ========================================================================== */
+
+/* Mobile Bottom Navigation Bar for Exam */
+.mobile-exam-bottom-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 90;
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border-glass);
+  padding: 10px 16px;
+  padding-bottom: max(10px, env(safe-area-inset-bottom, 10px));
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+/* Mobile Drawer (Bottom Sheet) */
+.mobile-palette-drawer {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-normal);
+}
+
+.mobile-palette-drawer.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.drawer-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-height: 85vh;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-glass);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  padding: 20px 18px;
+  padding-bottom: max(20px, env(safe-area-inset-bottom, 20px));
+  display: flex;
+  flex-direction: column;
+  transform: translateY(100%);
+  transition: transform var(--transition-normal);
+  box-shadow: var(--shadow-lg);
+}
+
+.mobile-palette-drawer.open .drawer-content {
+  transform: translateY(0);
+}
+
+.drawer-drag-handle {
+  width: 44px;
+  height: 5px;
+  background: var(--border-subtle);
+  border-radius: var(--radius-full);
+  margin: -8px auto 14px;
+}
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+/* Eliminate nested scroll traps in mobile palette drawer */
+.drawer-palette-scroll {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  max-height: calc(85vh - 160px);
+  padding-right: 2px;
+}
+
+.mobile-palette-drawer .palette-grid {
+  max-height: none !important;
+  overflow-y: visible !important;
+}
+
+/* ── Responsive Breakpoints ── */
+@media (max-width: 1024px) {
+  .exam-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding-bottom: 100px;
+  }
+
+  .exam-sidebar-col {
+    display: none; /* Hidden on tablet/mobile, opened via drawer */
+  }
+
+  /* Unify: Hide duplicate timer and submit from top navbar on mobile/tablet */
+  .exam-navbar #desktop-timer-wrap,
+  .exam-navbar .nav-links {
+    display: none !important;
+  }
+
+  .mobile-exam-bottom-bar {
+    display: flex;
+  }
+
+  .mobile-palette-drawer {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 12px;
+  }
+
+  .app-navbar {
+    padding: 10px 14px;
+  }
+
+  .exam-navbar {
+    padding: 8px 12px;
+    gap: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .exam-navbar .nav-brand {
+    width: auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .exam-exit-link {
+    padding: 5px 8px;
+    font-size: 0.82rem;
+  }
+
+  .exam-navbar .brand-badge {
+    padding: 3px 8px;
+    font-size: 0.78rem;
+  }
+
+  .header-audio-player {
+    flex: 1;
+    min-width: 0;
+    max-width: none;
+    margin: 0;
+    padding: 3px 8px;
+    gap: 8px;
+  }
+
+  .header-audio-player .master-lc-play-btn {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    font-size: 0.76rem;
+  }
+
+  .header-audio-player .master-lc-times {
+    font-size: 0.68rem;
+  }
+
+  @media (max-width: 380px) {
+    .exam-exit-link .exit-label {
+      display: none;
+    }
+  }
+
+  .mobile-exam-bottom-bar {
+    padding: 10px 14px;
+    gap: 8px;
+  }
+
+  .mobile-exam-bottom-bar .exam-timer {
+    background: rgba(6, 182, 212, 0.08);
+    border: 1px solid rgba(6, 182, 212, 0.3);
+    padding: 6px 10px;
+    border-radius: var(--radius-full);
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--cyan);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  .mobile-exam-bottom-bar .btn-secondary {
+    padding: 7px 12px;
+    font-size: 0.82rem;
+    border-radius: var(--radius-full);
+  }
+
+  .mobile-exam-bottom-bar .btn-danger {
+    padding: 7px 14px;
+    font-size: 0.85rem;
+    border-radius: var(--radius-full);
+  }
+
+  .nav-brand {
+    font-size: 1.05rem;
+    gap: 6px;
+  }
+
+  .brand-badge {
+    padding: 2px 6px;
+    font-size: 0.72rem;
+  }
+
+  .nav-link-btn {
+    padding: 6px 10px;
+    font-size: 0.82rem;
+  }
+
+  .hero-section {
+    padding: 32px 0 24px;
+  }
+
+  .hero-title {
+    font-size: 1.85rem;
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+
+  .hero-subtitle {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+
+  .mode-tabs {
+    flex-direction: column;
+    width: 100%;
+    border-radius: var(--radius-lg);
+    padding: 4px;
+    margin-bottom: 24px;
+  }
+
+  .mode-tab-btn {
+    padding: 10px 14px;
+    font-size: 0.88rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .tests-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .test-card {
+    padding: 18px 16px;
+  }
+
+  .test-title {
+    font-size: 1.15rem;
+  }
+
+  /* Requirement 1: Make images full-width on mobile */
+  .question-item .q-image-container,
+  .passages-card .q-image-container,
+  .group-review-card .q-image-container,
+  .interactive-passage-container {
+    margin-left: -12px;
+    margin-right: -12px;
+    width: calc(100% + 24px);
+    max-width: none;
+    border-radius: 4px;
+    border-left: none;
+    border-right: none;
+  }
+
+  .q-image-container img,
+  .interactive-passage-img {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: none !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+
+  /* Requirement 3: Compact question cards and smaller font size */
+  .question-item {
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 10px;
+  }
+
+  .passages-card, .group-review-card {
+    padding: 10px 12px;
+    margin-bottom: 12px;
+  }
+
+  .question-header {
+    margin-bottom: 4px;
+  }
+
+  .q-number-badge {
+    font-size: 0.84rem;
+  }
+
+  .question-text {
+    font-size: 0.88rem;
+    line-height: 1.45;
+    margin-bottom: 6px;
+  }
+
+  .options-group {
+    gap: 6px;
+  }
+
+  .option-btn {
+    padding: 7px 10px;
+    font-size: 0.86rem;
+    min-height: 40px;
+    gap: 8px;
+  }
+
+  .option-letter {
+    width: 24px;
+    height: 24px;
+    font-size: 0.78rem;
+  }
+
+  .audio-player-box {
+    padding: 5px 10px;
+    margin-bottom: 6px;
+  }
+
+  .audio-play-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 0.85rem;
+  }
+
+  .palette-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+  }
+
+  .palette-btn {
+    height: 38px;
+    font-size: 0.82rem;
+  }
+
+  .score-val {
+    font-size: 2.2rem;
+  }
+
+  .score-circle-wrap {
+    width: 130px;
+    height: 130px;
+    margin-bottom: 16px;
+  }
+
+  .part-breakdown-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .explanation-toggle-btn {
+    font-size: 0.78rem;
+    padding: 4px 8px;
+  }
+
+  .explanation-panel {
+    padding: 8px 10px;
+    font-size: 0.82rem;
+  }
+
+  .translation-box {
+    font-size: 0.84rem;
+    padding: 6px 8px;
+  }
+
+  .interactive-passage-container {
+    padding: 8px 10px;
+  }
+
+  .passage-click-hint {
+    font-size: 0.78rem;
+    padding: 5px 8px;
+  }
+
+  .group-subquestion-item {
+    padding: 8px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.65rem;
+  }
+
+  /* Compact Navbar */
+  .app-navbar {
+    padding: 8px 12px;
+  }
+
+  .nav-brand {
+    font-size: 0.98rem;
+    gap: 6px;
+  }
+
+  .nav-links {
+    gap: 6px;
+  }
+
+  .nav-link-btn {
+    padding: 5px 8px;
+    font-size: 0.8rem;
+  }
+
+  .theme-toggle-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 0.95rem;
+  }
+
+  .palette-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+  }
+
+  .palette-btn {
+    height: 38px;
+    font-size: 0.82rem;
+  }
+
+  .mobile-exam-bottom-bar {
+    padding: 8px 12px;
+    padding-bottom: max(8px, env(safe-area-inset-bottom, 8px));
+  }
+
+  .exam-timer {
+    font-size: 1rem;
+  }
+
+  .sentence-text-en {
+    font-size: 0.92rem;
+  }
+
+  .sentence-text-vi {
+    font-size: 0.88rem;
+    padding: 6px 10px;
+  }
+
+  .sentence-lookup-card {
+    padding: 12px 14px;
+    margin-top: 10px;
+  }
+
+  .sentence-close-btn {
+    padding: 2px 8px;
+    font-size: 1.4rem;
+  }
+
+  /* Interactive Sentence Coordinates on Mobile */
+  .sentence-overlay-box {
+    border: 1px dashed rgba(99, 102, 241, 0.18);
+    background: transparent;
+  }
+
+  .sentence-overlay-box.active {
+    background: rgba(99, 102, 241, 0.06);
+    border: 1.5px dashed var(--accent-primary);
+    box-shadow: 0 0 4px rgba(99, 102, 241, 0.25);
+  }
+
+  /* Action buttons on Result page */
+  .result-hero .result-action-btns .btn {
+    width: 100%;
+    white-space: normal;
+    text-align: center;
+    padding: 12px 14px;
+    font-size: 0.92rem;
+  }
+}
+
+/* Mobile Optimization for Review Mode (Result Page) */
+@media (max-width: 768px) {
+  .review-q-card {
+    padding: 10px 10px;
+    margin-bottom: 10px;
+  }
+
+  .group-review-card {
+    padding: 10px 8px;
+    margin-bottom: 10px;
+  }
+
+  .group-subquestion-item {
+    padding: 6px 8px;
+  }
+
+  .review-opt-card {
+    padding: 5px 8px;
+    gap: 7px;
+  }
+
+  .review-opt-card .review-opt-letter {
+    width: 19px;
+    height: 19px;
+    min-width: 19px;
+    font-size: 0.70rem;
+    margin-top: 1px;
+  }
+
+  .review-opt-en {
+    font-size: 0.88rem;
+    line-height: 1.35;
+  }
+
+  .review-opt-vi {
+    font-size: 0.78rem;
+    line-height: 1.35;
+  }
+
+  .opt-mark-icon {
+    width: 15px;
+    height: 15px;
+    min-width: 15px;
+    font-size: 0.80rem;
+    margin-top: 1px;
+  }
+}
+
+/* Super narrow mobile (e.g. 320px - 380px: iPhone SE, Galaxy Fold front screen) */
+@media (max-width: 380px) {
+  .exam-exit-link .exit-label {
+    display: none;
+  }
+
+  .brand-badge {
+    display: none;
+  }
+
+  .mobile-palette-btn-text {
+    display: none;
+  }
+
+  .mobile-exam-bottom-bar {
+    padding: 8px 8px;
+    padding-bottom: max(8px, env(safe-area-inset-bottom, 8px));
+    gap: 5px;
+  }
+
+  .mobile-exam-bottom-bar .mobile-timer-pill {
+    padding: 4px 6px;
+    font-size: 0.88rem;
+    gap: 2px;
+  }
+
+  .mobile-exam-bottom-bar .mobile-palette-trigger {
+    padding: 5px 8px;
+    font-size: 0.78rem;
+  }
+
+  .mobile-exam-bottom-bar .mobile-submit-trigger {
+    padding: 5px 8px;
+    font-size: 0.8rem;
+  }
+
+  .palette-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+  }
+}

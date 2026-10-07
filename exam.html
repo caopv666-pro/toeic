@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Phòng Thi TOEIC Online — TOEIC Master</title>
+  <meta name="description" content="Giao diện thi thử TOEIC trực tuyến chuẩn định dạng ETS, tự động tính giờ và lưu tiến độ.">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Top Sticky Navigation Bar -->
+  <nav class="app-navbar exam-navbar">
+    <div class="nav-brand">
+      <a href="index.html" class="exam-exit-link" title="Thoát phòng thi về trang chủ">
+        <span class="exit-arrow">←</span>
+        <span class="exit-label">Thoát</span>
+      </a>
+      <span class="brand-badge" id="exam-header-title">Đề thi</span>
+    </div>
+
+    <!-- Integrated Header Audio Player (Listening parts) -->
+    <div class="header-audio-player" id="master-lc-card" style="display: none;">
+      <audio id="master-audio-element" preload="metadata"></audio>
+      <button class="master-lc-play-btn" id="master-play-btn" onclick="ExamEngine.toggleMasterAudio()" title="Bắt đầu / Tạm dừng phần nghe">
+        ▶
+      </button>
+      <div class="master-lc-bar" title="Quy chế thi ETS: Không được tua âm thanh khi thi">
+        <div class="master-lc-fill" id="master-audio-fill"></div>
+      </div>
+      <div class="master-lc-times">
+        <span id="master-audio-cur">00:00</span>
+        <span class="master-audio-divider">/</span>
+        <span id="master-audio-dur">--:--</span>
+      </div>
+    </div>
+
+    <!-- Center Countdown Timer -->
+    <div class="exam-timer" id="desktop-timer-wrap">
+      <span class="timer-icon">⏱️</span>
+      <span class="exam-timer-val">120:00</span>
+    </div>
+
+    <div class="nav-links">
+      <button class="btn btn-danger btn-sm" onclick="ExamEngine.confirmSubmit()" id="btn-submit-top">
+        Nộp bài
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Exam Workspace -->
+  <main class="container">
+    
+    <!-- Loading State -->
+    <div id="exam-loading-state" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; gap: 20px;">
+      <div style="width: 50px; height: 50px; border: 4px solid var(--border-glass); border-top-color: var(--accent-primary); border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
+      <p style="color: var(--text-secondary); font-size: 1.1rem; font-weight: 500;">Đang chuẩn bị đề thi và âm thanh...</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="exam-error-state" style="display: none; padding: 40px; text-align: center; max-width: 600px; margin: 40px auto; background: var(--bg-glass-card); border-radius: 16px; border: 1px solid var(--danger);">
+      <h3 style="color: var(--danger); margin-bottom: 12px; font-size: 1.3rem;">⚠️ Lỗi tải dữ liệu</h3>
+      <p class="error-msg-text" style="color: var(--text-secondary); margin-bottom: 24px;"></p>
+      <a href="index.html" class="btn btn-primary">Quay lại Trang chủ</a>
+    </div>
+
+    <!-- Main Exam 2-Column Grid -->
+    <div class="exam-layout" id="exam-main-layout" style="display: none;">
+      
+      <!-- Left Column: Questions List -->
+      <div class="exam-content-col" id="exam-questions-list">
+        <!-- Rendered dynamically by ExamEngine -->
+      </div>
+
+      <!-- Right Column: Question Palette (Sticky on PC) -->
+      <aside class="exam-sidebar-col">
+        <div class="glass-panel" style="padding: 20px; border-radius: var(--radius-lg);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <h3 style="font-size: 1.05rem;">Bảng Câu Hỏi</h3>
+            <span style="font-size: 0.85rem; color: var(--text-muted);">200 câu</span>
+          </div>
+
+          <!-- Palette Container -->
+          <div class="palette-container-wrapper">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <button class="btn btn-danger" onclick="ExamEngine.confirmSubmit()" style="width: 100%; margin-top: 20px;">
+            Nộp bài & Xem điểm
+          </button>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- Mobile Floating Bottom Bar -->
+  <div class="mobile-exam-bottom-bar" id="mobile-bar">
+    <div class="exam-timer mobile-timer-pill">
+      <span>⏱️</span>
+      <span class="exam-timer-val">120:00</span>
+    </div>
+    
+    <button class="btn btn-secondary btn-sm mobile-palette-trigger" onclick="ExamEngine.openMobileDrawer()">
+      📋 <span class="mobile-palette-btn-text">Bảng câu</span> (<span id="mobile-answered-badge">0/200</span>)
+    </button>
+
+    <button class="btn btn-danger btn-sm mobile-submit-trigger" onclick="ExamEngine.confirmSubmit()">
+      Nộp bài
+    </button>
+  </div>
+
+  <!-- Mobile Question Palette Drawer (Bottom Sheet) -->
+  <div class="mobile-palette-drawer" id="mobile-drawer" onclick="if(event.target === this) ExamEngine.closeMobileDrawer()">
+    <div class="drawer-content">
+      <div class="drawer-drag-handle"></div>
+      <div class="drawer-header">
+        <h3 style="font-size: 1.1rem;">Bảng Câu Hỏi</h3>
+        <button onclick="ExamEngine.closeMobileDrawer()" style="font-size: 1.4rem; color: var(--text-muted);">&times;</button>
+      </div>
+
+      <div class="palette-container-wrapper drawer-palette-scroll">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <button class="btn btn-danger" onclick="ExamEngine.confirmSubmit()" style="width: 100%; margin-top: 16px;">
+        Nộp bài thi ngay
+      </button>
+    </div>
+  </div>
+
+  <!-- Modern In-App Submit Confirmation Modal -->
+  <div class="submit-confirm-modal" id="submit-confirm-modal" style="display: none;">
+    <div class="modal-backdrop" onclick="ExamEngine.closeSubmitModal()"></div>
+    <div class="modal-card animate-scale-up">
+      <div class="modal-header">
+        <div class="modal-header-icon">⚠️</div>
+        <h3>Xác Nhận Nộp Bài Thi</h3>
+        <button class="modal-close-btn" onclick="ExamEngine.closeSubmitModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="submit-stats-row">
+          <div class="submit-stat-box stat-done">
+            <span class="stat-number" id="modal-stat-done">0</span>
+            <span class="stat-label">Đã làm</span>
+          </div>
+          <div class="submit-stat-box stat-left">
+            <span class="stat-number" id="modal-stat-left">200</span>
+            <span class="stat-label">Chưa làm</span>
+          </div>
+        </div>
+        <p class="submit-warning-text" id="modal-warning-text">
+          Bạn vẫn còn câu hỏi chưa hoàn thành. Bạn có chắc chắn muốn nộp bài để xem điểm không?
+        </p>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" onclick="ExamEngine.closeSubmitModal()">
+          Tiếp tục làm bài
+        </button>
+        <button class="btn btn-danger" id="btn-modal-confirm-submit" onclick="ExamEngine.executeSubmit()">
+          Xác nhận nộp bài
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+
+  <!-- JavaScript Modules -->
+  <script src="js/app-config.js"></script>
+  <script src="js/storage-service.js"></script>
+  <script src="js/audio-controller.js"></script>
+  <script src="js/ui-renderer.js"></script>
+  <script src="js/exam-engine.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      StorageService.initTheme();
+      AudioController.init();
+      
+      // Update header with test name
+      const urlParams = new URLSearchParams(window.location.search);
+      const testId = urlParams.get('test') || 1;
+      const titleBadge = document.getElementById('exam-header-title');
+      if (titleBadge) {
+        titleBadge.textContent = `Test ${testId < 10 ? '0' : ''}${testId}`;
+      }
+
+      // Initialize Exam
+      ExamEngine.init().then(() => {
+        document.getElementById('exam-main-layout').style.display = 'grid';
+      });
+    });
+
+    function toggleTheme() {
+      const current = StorageService.getTheme();
+      const next = current === 'dark' ? 'light' : 'dark';
+      StorageService.setTheme(next);
+    }
+  </script>
+</body>
+</html>

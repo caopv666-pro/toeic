@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Kết Quả Thi — TOEIC Master</title>
+  <meta name="description" content="Kết quả bài thi TOEIC trực tuyến, phân tích điểm số chuẩn ETS và lời giải chi tiết từng câu.">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <style>
+    /* Styling for Filter Tabs in Result Page */
+    .filter-tabs-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding: 16px 20px;
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+    }
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+    .filter-row-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      min-width: 90px;
+    }
+    .filter-tabs-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      flex: 1;
+    }
+    .filter-tab-btn {
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      background: var(--bg-tertiary);
+      color: var(--text-secondary);
+      font-size: 0.86rem;
+      font-weight: 600;
+      border: 1px solid var(--border-glass);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .filter-tab-btn:hover {
+      background: var(--bg-glass-hover);
+      color: var(--text-primary);
+    }
+    .filter-tab-btn.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+      box-shadow: 0 2px 10px var(--accent-primary-glow);
+    }
+    .filter-pill-btn {
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      font-weight: 600;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .filter-pill-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+    }
+    .filter-pill-btn.active {
+      background: var(--accent-secondary);
+      color: #0f172a;
+      border-color: var(--accent-secondary);
+      font-weight: 700;
+    }
+    [data-theme="light"] .filter-tab-btn {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      color: #334155;
+    }
+    [data-theme="light"] .filter-tab-btn:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+    [data-theme="light"] .filter-tab-btn.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+    }
+    [data-theme="light"] .filter-pill-btn {
+      background: #ffffff;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+    }
+    [data-theme="light"] .filter-pill-btn:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+      border-color: #94a3b8;
+    }
+    [data-theme="light"] .filter-pill-btn.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+    }
+    .tab-count {
+      font-size: 0.76rem;
+      opacity: 0.85;
+      font-family: var(--font-heading, monospace);
+    }
+    .score-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      max-width: 600px;
+      margin: 0 auto 32px;
+    }
+    .score-summary-card {
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      text-align: center;
+    }
+    .score-summary-title {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    .score-summary-val {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      font-family: var(--font-heading);
+    }
+    .result-action-btns {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .review-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .review-toggle-all-btns {
+      display: flex;
+      gap: 8px;
+    }
+    @media (max-width: 640px) {
+      .score-summary-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin-bottom: 24px;
+      }
+      .score-summary-card {
+        padding: 10px 4px;
+      }
+      .score-summary-title {
+        font-size: 0.72rem;
+      }
+      .score-summary-val {
+        font-size: 1.15rem;
+      }
+      .result-action-btns {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        margin-bottom: 28px;
+      }
+      .result-action-btns .btn {
+        width: 100%;
+        white-space: normal;
+        text-align: center;
+        padding: 12px 14px;
+        font-size: 0.95rem;
+      }
+      .review-section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+      .review-toggle-all-btns {
+        width: 100%;
+        display: flex;
+        gap: 8px;
+      }
+      .review-toggle-all-btns .btn {
+        flex: 1;
+        font-size: 0.76rem;
+        padding: 6px 8px;
+        white-space: nowrap;
+        text-align: center;
+      }
+      .filter-tabs-bar {
+        padding: 12px 12px;
+        gap: 10px;
+      }
+      .filter-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+      .filter-row-label {
+        min-width: auto;
+        font-size: 0.74rem;
+      }
+      .filter-tabs-group {
+        width: 100%;
+      }
+      #part-filter-group {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 6px;
+      }
+      #part-filter-group .filter-pill-btn {
+        flex-shrink: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <nav class="app-navbar">
+    <div class="nav-brand">
+      <a href="index.html" style="color: inherit; display: flex; align-items: center; gap: 8px;">
+        <span>🎯 TOEIC Master</span>
+      </a>
+      <span class="brand-badge">Bảng Điểm</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link-btn">Trang chủ</a>
+      <a href="history.html" class="nav-link-btn">Lịch sử thi</a>
+      <button class="theme-toggle-btn" onclick="toggleTheme()" title="Đổi giao diện">
+        🌓
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container" style="padding-bottom: 80px;">
+    
+    <!-- Result Hero Section -->
+    <section class="result-hero animate-fade-in">
+      <h1 id="result-test-title" style="font-size: 2rem; margin-bottom: 8px;">EST 2022 — Test 01</h1>
+      <p id="result-time-spent" style="color: var(--text-secondary); font-size: 1rem; margin-bottom: 28px;">
+        ⏱️ Thời gian làm bài: 0 phút
+      </p>
+
+      <!-- Circular Scaled Score 10 - 990 -->
+      <div class="score-circle-wrap">
+        <div class="score-circle-inner">
+          <div class="score-val" id="result-total-score">0</div>
+          <div class="score-max">/ 990 ĐIỂM</div>
+        </div>
+      </div>
+
+      <!-- Scaled Scores & Correct Answers Counts -->
+      <div class="score-summary-grid">
+        <div class="score-summary-card">
+          <div class="score-summary-title">🎧 Listening (LC)</div>
+          <div class="score-summary-val" id="result-lc-score" style="color: var(--accent-primary);">0 / 495</div>
+        </div>
+        <div class="score-summary-card">
+          <div class="score-summary-title">📖 Reading (RC)</div>
+          <div class="score-summary-val" id="result-rc-score" style="color: var(--accent-secondary);">0 / 495</div>
+        </div>
+        <div class="score-summary-card">
+          <div class="score-summary-title">🎯 Số câu đúng</div>
+          <div class="score-summary-val" id="result-total-correct" style="color: var(--success);">0 / 200</div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="result-action-btns">
+        <button class="btn btn-primary btn-lg result-btn-detail" onclick="ResultViewer.showDetailedReviewSection()" id="btn-show-detail">
+          📝 Xem Chi Tiết Bài Làm & Lời Giải ➔
+        </button>
+        <button class="btn btn-secondary btn-lg result-btn-retake" onclick="retakeExam()">
+          🔄 Làm lại đề này
+        </button>
+      </div>
+    </section>
+
+    <!-- Part Breakdown Grid -->
+    <section style="margin-bottom: 40px;">
+      <h2 style="font-size: 1.3rem; margin-bottom: 18px; display: flex; align-items: center; gap: 8px;">
+        <span>📊</span> Đánh Giá Từng Phần (Part 1 - 7)
+      </h2>
+      <div class="part-breakdown-grid" id="result-part-breakdown">
+        <!-- Rendered dynamically by ResultViewer -->
+      </div>
+    </section>
+
+    <!-- Detailed Review Section (Hidden until user clicks 'Xem Chi Tiết Bài Làm') -->
+    <section id="detailed-review-section" style="display: none; scroll-margin-top: 90px;" class="animate-fade-in">
+      <div class="review-section-header">
+        <h2 style="font-size: 1.5rem; display: flex; align-items: center; gap: 8px;">
+          <span>📝</span> Chi Tiết Bài Làm & Đáp Án
+        </h2>
+        <div class="review-toggle-all-btns">
+          <button class="btn btn-secondary btn-sm" onclick="ResultViewer.toggleAllExplanations(true)">
+            🔽 Mở tất cả giải thích
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="ResultViewer.toggleAllExplanations(false)">
+            🔼 Đóng tất cả giải thích
+          </button>
+        </div>
+      </div>
+
+      <!-- Filter Tabs Bar -->
+      <div class="filter-tabs-bar">
+        <!-- Status Filter Row -->
+        <div class="filter-row">
+          <span class="filter-row-label">Kết quả:</span>
+          <div class="filter-tabs-group" id="status-filter-group">
+            <button class="filter-tab-btn active" data-status="all" onclick="ResultViewer.setStatusFilter('all')">
+              Tất cả <span class="tab-count" id="count-all">(200)</span>
+            </button>
+            <button class="filter-tab-btn" data-status="correct" onclick="ResultViewer.setStatusFilter('correct')">
+              ✅ Đúng <span class="tab-count" id="count-correct">(0)</span>
+            </button>
+            <button class="filter-tab-btn" data-status="wrong" onclick="ResultViewer.setStatusFilter('wrong')">
+              ❌ Sai <span class="tab-count" id="count-wrong">(0)</span>
+            </button>
+            <button class="filter-tab-btn" data-status="unanswered" onclick="ResultViewer.setStatusFilter('unanswered')">
+              ⚪ Chưa làm <span class="tab-count" id="count-unanswered">(0)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Part Filter Row -->
+        <div class="filter-row" style="padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.08);">
+          <span class="filter-row-label">Phần thi:</span>
+          <div class="filter-tabs-group" id="part-filter-group">
+            <button class="filter-pill-btn active" data-part="all" onclick="ResultViewer.setPartFilter('all')">
+              Tất cả Part
+            </button>
+            <button class="filter-pill-btn" data-part="part1" onclick="ResultViewer.setPartFilter('part1')">Part 1</button>
+            <button class="filter-pill-btn" data-part="part2" onclick="ResultViewer.setPartFilter('part2')">Part 2</button>
+            <button class="filter-pill-btn" data-part="part3" onclick="ResultViewer.setPartFilter('part3')">Part 3</button>
+            <button class="filter-pill-btn" data-part="part4" onclick="ResultViewer.setPartFilter('part4')">Part 4</button>
+            <button class="filter-pill-btn" data-part="part5" onclick="ResultViewer.setPartFilter('part5')">Part 5</button>
+            <button class="filter-pill-btn" data-part="part6" onclick="ResultViewer.setPartFilter('part6')">Part 6</button>
+            <button class="filter-pill-btn" data-part="part7" onclick="ResultViewer.setPartFilter('part7')">Part 7</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review Questions Container -->
+      <div id="review-questions-container">
+        <!-- Rendered dynamically by ResultViewer -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- JavaScript Modules -->
+  <script src="js/app-config.js"></script>
+  <script src="js/storage-service.js"></script>
+  <script src="js/audio-controller.js"></script>
+  <script src="js/ui-renderer.js"></script>
+  <script src="js/result-viewer.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      StorageService.initTheme();
+      AudioController.init();
+      ResultViewer.init();
+    });
+
+    function toggleTheme() {
+      const current = StorageService.getTheme();
+      const next = current === 'dark' ? 'light' : 'dark';
+      StorageService.setTheme(next);
+    }
+
+    function retakeExam() {
+      const r = ResultViewer.resultData;
+      if (r && r.testId) {
+        window.location.href = `exam.html?test=${r.testId}&mode=${r.mode || 'full'}${r.partFilter ? '&part=' + r.partFilter : ''}`;
+      } else {
+        window.location.href = 'index.html';
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>TOEIC Master — Nền tảng Thi thử & Luyện thi TOEIC Chuẩn ETS</title>
+  <meta name="description" content="Nền tảng thi thử TOEIC trực tuyến chuẩn format ETS 2022, audio cắt từng câu, chấm điểm 990 tự động và lời giải chi tiết.">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <style>
+    .part-filter-btn {
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: var(--radius-full);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-glass);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .part-filter-btn:hover {
+      background: var(--bg-glass-hover);
+      color: var(--text-primary);
+    }
+    .part-filter-btn.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+      box-shadow: 0 2px 10px var(--accent-primary-glow);
+    }
+    [data-theme="light"] .part-filter-btn {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      color: #475569;
+    }
+    [data-theme="light"] .part-filter-btn:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+    [data-theme="light"] .part-filter-btn.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <nav class="app-navbar">
+    <div class="nav-brand">
+      <span>🎯 TOEIC Master</span>
+      <span class="brand-badge">ETS 2022</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link-btn active">Trang chủ</a>
+      <a href="history.html" class="nav-link-btn">Lịch sử thi</a>
+      <button class="theme-toggle-btn" id="theme-btn" onclick="toggleTheme()" title="Đổi giao diện Sáng / Tối">
+        🌓
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container">
+    
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <h1 class="hero-title">Luyện Thi TOEIC Trực Tuyến</h1>
+      <p class="hero-subtitle">
+        Trọn bộ 10 đề thi ETS 2022 chuẩn định dạng mới nhất. Audio cắt từng câu không giật lag, tính giờ 120 phút chuẩn thi thật và xem lời giải phân tích chi tiết.
+      </p>
+
+      <!-- Active Session Alert (If in progress) -->
+      <div id="resume-banner" style="display: none; max-width: 600px; margin: 0 auto 30px; padding: 16px 20px; background: rgba(99, 102, 241, 0.15); border: 1px solid var(--accent-primary); border-radius: var(--radius-lg); text-align: left;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+          <div>
+            <span style="color: var(--accent-secondary); font-weight: 700; font-size: 0.9rem;">⚠️ BÀI THI ĐANG LÀM DỞ</span>
+            <p id="resume-desc" style="color: var(--text-primary); font-size: 0.95rem; margin-top: 4px;"></p>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="resumeActiveExam()">Làm tiếp ➔</button>
+        </div>
+      </div>
+
+      <!-- Mode Selector Tabs -->
+      <div class="mode-tabs">
+        <button class="mode-tab-btn active" id="tab-full" onclick="switchMode('full')">
+          ⏱️ Thi Full Test (200 câu - 120 phút)
+        </button>
+        <button class="mode-tab-btn" id="tab-part" onclick="switchMode('part')">
+          🎯 Luyện tập theo Part
+        </button>
+      </div>
+
+      <!-- Part Filter Pills (Visible when 'part' mode is selected) -->
+      <div id="part-selector-wrap" style="display: none; justify-content: center; flex-wrap: wrap; gap: 8px; margin-bottom: 36px;">
+        <button class="part-filter-btn active" data-part="part1" onclick="selectPartFilter('part1', this)">Part 1 (Ảnh - 6c)</button>
+        <button class="part-filter-btn" data-part="part2" onclick="selectPartFilter('part2', this)">Part 2 (Hỏi đáp - 25c)</button>
+        <button class="part-filter-btn" data-part="part3" onclick="selectPartFilter('part3', this)">Part 3 (Hội thoại - 39c)</button>
+        <button class="part-filter-btn" data-part="part4" onclick="selectPartFilter('part4', this)">Part 4 (Bài nói - 30c)</button>
+        <button class="part-filter-btn" data-part="part5" onclick="selectPartFilter('part5', this)">Part 5 (Điền câu - 30c)</button>
+        <button class="part-filter-btn" data-part="part6" onclick="selectPartFilter('part6', this)">Part 6 (Đoạn văn - 16c)</button>
+        <button class="part-filter-btn" data-part="part7" onclick="selectPartFilter('part7', this)">Part 7 (Đọc hiểu - 54c)</button>
+      </div>
+    </section>
+
+    <!-- Tests 1 - 10 Grid -->
+    <section>
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; flex-wrap: wrap; gap: 8px;">
+        <h2 style="font-size: 1.5rem;">Danh Sách 10 Đề Thi ETS 2022</h2>
+        <span style="color: var(--text-muted); font-size: 0.9rem;">10 đề thi • 2.000 câu hỏi • 540 audio cuts</span>
+      </div>
+
+      <div class="tests-grid" id="tests-card-grid">
+        <!-- Rendered dynamically by script -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Scripts -->
+  <script src="js/app-config.js"></script>
+  <script src="js/storage-service.js"></script>
+  <script>
+    let currentMode = 'full';
+    let selectedPart = 'part1';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      StorageService.initTheme();
+      checkActiveSession();
+      renderTestCards();
+    });
+
+    function toggleTheme() {
+      const current = StorageService.getTheme();
+      const next = current === 'dark' ? 'light' : 'dark';
+      StorageService.setTheme(next);
+    }
+
+    function checkActiveSession() {
+      const saved = StorageService.getActiveSession();
+      if (saved && saved.userAnswers && Object.keys(saved.userAnswers).length > 0) {
+        const banner = document.getElementById('resume-banner');
+        const desc = document.getElementById('resume-desc');
+        const count = Object.keys(saved.userAnswers).length;
+        desc.textContent = `Test ${saved.testId} • Đã làm ${count} câu • Còn ${Math.floor(saved.timeRemaining / 60)} phút`;
+        banner.style.display = 'block';
+      }
+    }
+
+    function resumeActiveExam() {
+      const saved = StorageService.getActiveSession();
+      if (saved) {
+        let url = `exam.html?test=${saved.testId}&mode=${saved.mode}`;
+        if (saved.partFilter) url += `&part=${saved.partFilter}`;
+        window.location.href = url;
+      }
+    }
+
+    function switchMode(mode) {
+      currentMode = mode;
+      document.getElementById('tab-full').classList.toggle('active', mode === 'full');
+      document.getElementById('tab-part').classList.toggle('active', mode === 'part');
+      document.getElementById('part-selector-wrap').style.display = mode === 'part' ? 'flex' : 'none';
+      renderTestCards();
+    }
+
+    function selectPartFilter(partKey, btnEl) {
+      selectedPart = partKey;
+      document.querySelectorAll('.part-filter-btn').forEach(b => b.classList.remove('active'));
+      btnEl.classList.add('active');
+      renderTestCards();
+    }
+
+    function renderTestCards() {
+      const grid = document.getElementById('tests-card-grid');
+      let html = '';
+
+      for (let t = 1; t <= 10; t++) {
+        const testNumStr = t < 10 ? `0${t}` : `${t}`;
+        const isFull = currentMode === 'full';
+        const qCount = isFull ? 200 : AppConfig.PARTS[selectedPart].count;
+        const timeEstimate = isFull ? '120 phút' : `${Math.round(qCount * 0.8)} phút`;
+        const partName = isFull ? 'Full 7 Parts (LC + RC)' : AppConfig.PARTS[selectedPart].name;
+
+        html += `
+          <div class="test-card">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-family: var(--font-mono); color: var(--accent-secondary); font-size: 0.8rem; font-weight: 700;">TEST #${testNumStr}</span>
+                <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: var(--success); font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: 600;">Chuẩn ETS</span>
+              </div>
+              <h3 class="test-title">EST 2022 — Test ${testNumStr}</h3>
+              <div class="test-meta">
+                <span class="test-meta-badge">📝 ${qCount} câu hỏi</span>
+                <span class="test-meta-badge">⏱️ ${timeEstimate}</span>
+                <span class="test-meta-badge">🎯 ${isFull ? 'Full 200' : selectedPart.toUpperCase()}</span>
+              </div>
+              <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 20px;">
+                ${partName}. Trọn bộ âm thanh cắt chất lượng cao, hình ảnh rõ nét và lời giải song ngữ.
+              </p>
+            </div>
+            <button class="btn btn-primary" onclick="startExam(${t})">
+              Bắt đầu làm bài ➔
+            </button>
+          </div>
+        `;
+      }
+      grid.innerHTML = html;
+    }
+
+    function startExam(testId) {
+      let url = `exam.html?test=${testId}&mode=${currentMode}`;
+      if (currentMode === 'part') {
+        url += `&part=${selectedPart}`;
+      }
+      window.location.href = url;
+    }
+  </script>
+</body>
+</html>
