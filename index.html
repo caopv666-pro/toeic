@@ -83,7 +83,10 @@
             <span style="color: var(--accent-secondary); font-weight: 700; font-size: 0.9rem;">⚠️ BÀI THI ĐANG LÀM DỞ</span>
             <p id="resume-desc" style="color: var(--text-primary); font-size: 0.95rem; margin-top: 4px;"></p>
           </div>
-          <button class="btn btn-primary btn-sm" onclick="resumeActiveExam()">Làm tiếp ➔</button>
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <button class="btn btn-secondary btn-sm" onclick="discardActiveExam()" style="border: 1px solid var(--border-color); background: transparent; color: var(--text-secondary);" title="Hủy bỏ bài thi đang làm dở">Hủy ✕</button>
+            <button class="btn btn-primary btn-sm" onclick="resumeActiveExam()">Làm tiếp ➔</button>
+          </div>
         </div>
       </div>
 
@@ -137,9 +140,7 @@
     });
 
     function toggleTheme() {
-      const current = StorageService.getTheme();
-      const next = current === 'dark' ? 'light' : 'dark';
-      StorageService.setTheme(next);
+      StorageService.toggleTheme();
     }
 
     function checkActiveSession() {
@@ -148,7 +149,13 @@
         const banner = document.getElementById('resume-banner');
         const desc = document.getElementById('resume-desc');
         const count = Object.keys(saved.userAnswers).length;
-        desc.textContent = `Test ${saved.testId} • Đã làm ${count} câu • Còn ${Math.floor(saved.timeRemaining / 60)} phút`;
+        const partLabel = saved.mode === 'part' && saved.partFilter && AppConfig.PARTS[saved.partFilter] 
+          ? ` • ${AppConfig.PARTS[saved.partFilter].name.split(':')[0]}`
+          : ' (Full Test)';
+        const total = saved.mode === 'part' && saved.partFilter && AppConfig.PARTS[saved.partFilter]
+          ? AppConfig.PARTS[saved.partFilter].count
+          : 200;
+        desc.textContent = `Test ${saved.testId}${partLabel} • Đã làm ${count}/${total} câu • Còn ${Math.floor(saved.timeRemaining / 60)} phút`;
         banner.style.display = 'block';
       }
     }
@@ -159,6 +166,14 @@
         let url = `exam.html?test=${saved.testId}&mode=${saved.mode}`;
         if (saved.partFilter) url += `&part=${saved.partFilter}`;
         window.location.href = url;
+      }
+    }
+
+    function discardActiveExam() {
+      if (confirm('Bạn có chắc chắn muốn hủy bài thi đang làm dở? Toàn bộ tiến độ chưa nộp sẽ bị xóa.')) {
+        StorageService.clearActiveSession();
+        const banner = document.getElementById('resume-banner');
+        if (banner) banner.style.display = 'none';
       }
     }
 
@@ -181,11 +196,21 @@
       const grid = document.getElementById('tests-card-grid');
       let html = '';
 
+      const PART_TIME_ESTIMATES = {
+        part1: '6 phút',
+        part2: '12 phút',
+        part3: '20 phút',
+        part4: '15 phút',
+        part5: '15 phút',
+        part6: '12 phút',
+        part7: '55 phút'
+      };
+
       for (let t = 1; t <= 10; t++) {
         const testNumStr = t < 10 ? `0${t}` : `${t}`;
         const isFull = currentMode === 'full';
         const qCount = isFull ? 200 : AppConfig.PARTS[selectedPart].count;
-        const timeEstimate = isFull ? '120 phút' : `${Math.round(qCount * 0.8)} phút`;
+        const timeEstimate = isFull ? '120 phút' : (PART_TIME_ESTIMATES[selectedPart] || '15 phút');
         const partName = isFull ? 'Full 7 Parts (LC + RC)' : AppConfig.PARTS[selectedPart].name;
 
         html += `

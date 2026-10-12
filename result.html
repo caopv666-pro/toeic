@@ -393,9 +393,7 @@
     });
 
     function toggleTheme() {
-      const current = StorageService.getTheme();
-      const next = current === 'dark' ? 'light' : 'dark';
-      StorageService.setTheme(next);
+      StorageService.toggleTheme();
     }
 
     function retakeExam() {

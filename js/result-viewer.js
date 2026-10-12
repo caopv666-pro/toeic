@@ -8,69 +8,135 @@ const ResultViewer = {
   currentStatusFilter: 'all', // 'all', 'correct', 'wrong', 'unanswered'
   currentPartFilter: 'all',   // 'all', 'part1', 'part2', 'part3', 'part4', 'part5', 'part6', 'part7'
 
-  async init() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlTestId = parseInt(urlParams.get('test')) || null;
-    const urlResultId = urlParams.get('id');
+  _getStorage() {
+    return (typeof StorageService !== 'undefined')
+      ? StorageService
+      : (typeof window !== 'undefined' && window.StorageService ? window.StorageService : (typeof global !== 'undefined' ? global.StorageService : null));
+  },
 
-    if (urlResultId) {
-      const history = StorageService.getExamHistory();
-      const match = history.find(h => h.id === urlResultId);
+  _getConfig() {
+    const defaultParts = {
+      part1: { name: 'Part 1: Photographs', count: 6, section: 'listening' },
+      part2: { name: 'Part 2: Question-Response', count: 25, section: 'listening' },
+      part3: { name: 'Part 3: Conversations', count: 39, section: 'listening' },
+      part4: { name: 'Part 4: Short Talks', count: 30, section: 'listening' },
+      part5: { name: 'Part 5: Incomplete Sentences', count: 30, section: 'reading' },
+      part6: { name: 'Part 6: Text Completion', count: 16, section: 'reading' },
+      part7: { name: 'Part 7: Reading Comprehension', count: 54, section: 'reading' }
+    };
+    const cfg = (typeof AppConfig !== 'undefined')
+      ? AppConfig
+      : (typeof window !== 'undefined' && window.AppConfig ? window.AppConfig : (typeof global !== 'undefined' ? global.AppConfig : null));
+    if (cfg) return cfg;
+    return {
+      PARTS: defaultParts,
+      getDatabaseUrl: () => 'data/database_compiled.json',
+      resolveAssetUrl: (p) => p || '',
+      getPartByQuestionNum: (qNum) => {
+        if (!qNum || qNum < 1 || qNum > 200) return null;
+        if (qNum <= 6) return { key: 'part1', ...defaultParts.part1 };
+        if (qNum <= 31) return { key: 'part2', ...defaultParts.part2 };
+        if (qNum <= 70) return { key: 'part3', ...defaultParts.part3 };
+        if (qNum <= 100) return { key: 'part4', ...defaultParts.part4 };
+        if (qNum <= 130) return { key: 'part5', ...defaultParts.part5 };
+        if (qNum <= 146) return { key: 'part6', ...defaultParts.part6 };
+        return { key: 'part7', ...defaultParts.part7 };
+      }
+    };
+  },
+
+  async init() {
+    const searchStr = (typeof window !== 'undefined' && window.location && window.location.search) ? window.location.search : '';
+    const urlParams = new URLSearchParams(searchStr);
+    let urlTestId = null;
+    const rawTest = urlParams.get('test');
+    if (rawTest) {
+      const match = String(rawTest).match(/[+-]?\d+/);
+      if (match) {
+        const parsed = parseInt(match[0], 10);
+        if (!isNaN(parsed)) {
+          urlTestId = Math.min(10, Math.max(1, parsed));
+        }
+      }
+    }
+    const urlResultId = urlParams.get('id');
+    const storage = this._getStorage();
+
+    if (urlResultId && storage && typeof storage.getExamHistory === 'function') {
+      const history = storage.getExamHistory();
+      const match = Array.isArray(history) ? history.find(h => h && h.id === urlResultId) : null;
       if (match) {
         this.resultData = match;
       }
     }
 
-    if (!this.resultData && urlTestId) {
-      const current = StorageService.getCurrentResult();
-      if (current && parseInt(current.testId) === urlTestId) {
+    if (!this.resultData && urlTestId && storage) {
+      const current = (typeof storage.getCurrentResult === 'function') ? storage.getCurrentResult() : null;
+      if (current && parseInt(current.testId, 10) === urlTestId) {
         this.resultData = current;
-      } else {
-        const history = StorageService.getExamHistory();
-        const match = history.find(h => parseInt(h.testId) === urlTestId);
+      } else if (typeof storage.getExamHistory === 'function') {
+        const history = storage.getExamHistory();
+        const match = Array.isArray(history) ? history.find(h => h && parseInt(h.testId, 10) === urlTestId) : null;
         if (match) {
           this.resultData = match;
         }
       }
     }
 
-    if (!this.resultData) {
-      this.resultData = StorageService.getCurrentResult();
+    if (!this.resultData && storage && typeof storage.getCurrentResult === 'function') {
+      this.resultData = storage.getCurrentResult();
     }
 
     // If user requested a specific ?test=N and current resultData does not match, or if no resultData:
-    if (urlTestId && (!this.resultData || parseInt(this.resultData.testId) !== urlTestId)) {
+    if (urlTestId && (!this.resultData || parseInt(this.resultData.testId, 10) !== urlTestId)) {
       await this.loadReviewModeFromDB(urlTestId);
     }
 
     if (!this.resultData) {
-      alert('Không tìm thấy kết quả bài thi. Đang chuyển về trang chủ...');
-      window.location.href = 'index.html';
-      return;
+      console.warn('Không tìm thấy kết quả bài thi. Đang chuyển về trang chủ...');
+      if (typeof window !== 'undefined' && window.location) {
+        try { window.location.href = 'index.html'; } catch (_) {}
+      }
+      return false;
     }
 
-    this.renderSummary();
-    this.updateFilterCounts();
+    if (this.resultData && this.resultData.mode === 'part' && this.resultData.partFilter) {
+      this.currentPartFilter = this.resultData.partFilter;
+    }
+
+    if (typeof this.renderSummary === 'function') this.renderSummary();
+    if (typeof this.updateFilterCounts === 'function') this.updateFilterCounts();
 
     // CRITICAL: Always rehydrate full media (images, audio, passages) and clean explanations before render
-    await this.rehydrateExplanationsFromDB();
-    this.renderDetailedReview();
+    if (typeof this.rehydrateExplanationsFromDB === 'function') await this.rehydrateExplanationsFromDB();
+    if (typeof this.renderDetailedReview === 'function') this.renderDetailedReview();
+    return true;
   },
 
   async loadReviewModeFromDB(testId) {
     try {
-      const url = AppConfig.getDatabaseUrl();
+      const clampedId = (Number.isFinite(testId) && testId >= 1 && testId <= 10) ? Math.floor(testId) : 1;
+      const config = this._getConfig();
+      const storage = this._getStorage();
+      const url = (config && typeof config.getDatabaseUrl === 'function')
+        ? config.getDatabaseUrl()
+        : 'data/database_compiled.json';
+      if (typeof fetch !== 'function') return false;
       const res = await fetch(url);
-      if (!res.ok) return;
+      if (!res.ok) {
+        console.warn(`Fetch database returned HTTP ${res.status}`);
+        return false;
+      }
       const db = await res.json();
       const tests = db.tests || (Array.isArray(db) ? db : [db]);
-      const currentTest = tests.find(t => t.testId === testId || t.id === testId) || tests[0];
-      if (!currentTest) return;
+      const currentTest = tests.find(t => t.testId === clampedId || t.id === clampedId) || tests[0];
+      if (!currentTest) return false;
 
       const detailedQuestions = [];
       const partStats = {};
-      Object.keys(AppConfig.PARTS).forEach(k => {
-        partStats[k] = { total: AppConfig.PARTS[k].count, correct: AppConfig.PARTS[k].count, answered: AppConfig.PARTS[k].count };
+      const partsConfig = (config && config.PARTS) ? config.PARTS : {};
+      Object.keys(partsConfig).forEach(k => {
+        partStats[k] = { total: partsConfig[k]?.count || 0, correct: partsConfig[k]?.count || 0, answered: partsConfig[k]?.count || 0 };
       });
 
       const lc = currentTest.listening || {};
@@ -268,8 +334,10 @@ const ResultViewer = {
       });
 
       this.resultData = {
-        testId: testId,
-        testTitle: `EST 2022 — Test ${testId < 10 ? '0' : ''}${testId} (Chế độ xem đáp án & giải thích)`,
+        id: 'review_test_' + clampedId,
+        date: new Date().toISOString(),
+        testId: clampedId,
+        testTitle: `EST 2022 — Test ${clampedId < 10 ? '0' : ''}${clampedId} (Chế độ xem đáp án & giải thích)`,
         mode: 'review',
         partFilter: null,
         totalCorrect: 200,
@@ -284,9 +352,13 @@ const ResultViewer = {
         timeSpentSeconds: 0
       };
 
-      StorageService.setCurrentResult(this.resultData);
+      if (storage && typeof storage.setCurrentResult === 'function') {
+        try { storage.setCurrentResult(this.resultData); } catch (_) {}
+      }
+      return true;
     } catch (e) {
       console.warn('loadReviewModeFromDB failed:', e);
+      return false;
     }
   },
 
@@ -297,50 +369,158 @@ const ResultViewer = {
     return `${m} phút ${s > 0 ? s + 's' : ''}`;
   },
 
+  escapeHtml(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  },
+
   // ── Render Top Overview (Score Hero & Part Breakdown) ──
   renderSummary() {
-    const r = this.resultData;
-    const titleEl = document.getElementById('result-test-title');
-    if (titleEl) titleEl.textContent = r.testTitle;
+    if (!this.resultData || typeof this.resultData !== 'object' || Array.isArray(this.resultData)) {
+      return false;
+    }
+    if (typeof document === 'undefined') return false;
 
+    const r = this.resultData;
+    const isPartMode = r.mode === 'part';
+    const config = this._getConfig();
+    const partsConfig = (config && config.PARTS) ? config.PARTS : {};
+
+    const titleEl = document.getElementById('result-test-title');
+    if (titleEl && r.testTitle) titleEl.textContent = r.testTitle;
+
+    const timeSpent = Number.isFinite(r.timeSpentSeconds) ? Math.max(0, Math.floor(r.timeSpentSeconds)) : 0;
     const timeEl = document.getElementById('result-time-spent');
-    if (timeEl) timeEl.textContent = `⏱️ Thời gian làm bài: ${this.formatTime(r.timeSpentSeconds)}`;
+    if (timeEl) timeEl.textContent = `⏱️ Thời gian làm bài: ${this.formatTime(timeSpent)}`;
 
     const totalScoreEl = document.getElementById('result-total-score');
-    if (totalScoreEl) totalScoreEl.textContent = r.totalScore;
-
+    const scoreMaxEl = document.querySelector('.score-max');
     const lcScoreEl = document.getElementById('result-lc-score');
-    if (lcScoreEl) lcScoreEl.textContent = `${r.scaledLC} / 495`;
-
     const rcScoreEl = document.getElementById('result-rc-score');
-    if (rcScoreEl) rcScoreEl.textContent = `${r.scaledRC} / 495`;
-
     const totalCorrectEl = document.getElementById('result-total-correct');
-    if (totalCorrectEl) totalCorrectEl.textContent = `${r.totalCorrect} / ${r.totalQuestions}`;
+
+    const totalQ = Number.isFinite(r.totalQuestions) && r.totalQuestions > 0 ? r.totalQuestions : 1;
+    const totalCorr = Number.isFinite(r.totalCorrect) && r.totalCorrect >= 0 ? r.totalCorrect : 0;
+    const rawAcc = Number.isFinite(r.accuracyRate) ? r.accuracyRate : Math.round((totalCorr / totalQ) * 100);
+    const accuracy = Math.max(0, Math.min(100, Math.floor(rawAcc) || 0));
+
+    if (isPartMode) {
+      if (totalScoreEl) totalScoreEl.textContent = `${accuracy}%`;
+      if (scoreMaxEl) scoreMaxEl.textContent = `ĐỘ CHÍNH XÁC (${totalCorr}/${totalQ})`;
+
+      // Update 3 overview cards
+      const lcCard = (lcScoreEl && typeof lcScoreEl.closest === 'function') ? lcScoreEl.closest('.score-summary-card') : null;
+      const rcCard = (rcScoreEl && typeof rcScoreEl.closest === 'function') ? rcScoreEl.closest('.score-summary-card') : null;
+      const totalCard = (totalCorrectEl && typeof totalCorrectEl.closest === 'function') ? totalCorrectEl.closest('.score-summary-card') : null;
+
+      if (lcCard) {
+        const title = lcCard.querySelector('.score-summary-title');
+        if (title) title.textContent = '🎯 Số câu đúng';
+        lcScoreEl.textContent = `${totalCorr} / ${totalQ}`;
+      }
+      if (rcCard) {
+        const title = rcCard.querySelector('.score-summary-title');
+        if (title) title.textContent = '📊 Tỷ lệ chính xác';
+        rcScoreEl.textContent = `${accuracy}%`;
+        rcScoreEl.style.color = accuracy >= 80 ? 'var(--success)' : (accuracy >= 50 ? 'var(--warning)' : 'var(--danger)');
+      }
+      if (totalCard) {
+        const title = totalCard.querySelector('.score-summary-title');
+        if (title) title.textContent = '⏱️ Tốc độ trung bình';
+        const avgSec = Math.round(timeSpent / totalQ);
+        totalCorrectEl.textContent = `${avgSec}s / câu`;
+      }
+    } else {
+      if (totalScoreEl) totalScoreEl.textContent = Number.isFinite(r.totalScore) ? r.totalScore : 0;
+      if (scoreMaxEl) scoreMaxEl.textContent = '/ 990 ĐIỂM';
+      if (lcScoreEl) lcScoreEl.textContent = `${Number.isFinite(r.scaledLC) ? r.scaledLC : 0} / 495`;
+      if (rcScoreEl) rcScoreEl.textContent = `${Number.isFinite(r.scaledRC) ? r.scaledRC : 0} / 495`;
+      if (totalCorrectEl) totalCorrectEl.textContent = `${totalCorr} / ${totalQ}`;
+    }
 
     // Render Part Breakdown Grid
     const partGrid = document.getElementById('result-part-breakdown');
-    if (partGrid && r.partStats) {
+    if (partGrid) {
       let partHtml = '';
-      for (const [key, stat] of Object.entries(r.partStats)) {
-        const partInfo = AppConfig.PARTS[key];
-        const pct = stat.total > 0 ? Math.round((stat.correct / stat.total) * 100) : 0;
-        partHtml += `
-          <div class="part-stat-card">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span style="font-weight: 700; font-size: 0.95rem;">${partInfo?.name || key}</span>
-              <span style="font-weight: 700; color: ${pct >= 70 ? 'var(--success)' : (pct >= 50 ? 'var(--warning)' : 'var(--danger)')};">
-                ${pct}% (${stat.correct}/${stat.total})
+      if (isPartMode && r.partFilter) {
+        const pKey = r.partFilter;
+        const partInfo = partsConfig[pKey];
+        const partName = this.escapeHtml(partInfo?.name || pKey.toUpperCase());
+        let badge = '🏆 Xuất sắc';
+        let advice = 'Bạn đã nắm rất vững kiến thức và kỹ năng của phần thi này!';
+        let color = 'var(--success)';
+        if (accuracy < 50) {
+          badge = '⚠️ Cần cố gắng';
+          advice = 'Hãy xem kỹ lời giải chi tiết, từ vựng và cấu trúc ngữ pháp từng câu bên dưới.';
+          color = 'var(--danger)';
+        } else if (accuracy < 75) {
+          badge = '🥈 Khá tốt';
+          advice = 'Nắm vững kiến thức cơ bản. Hãy kiểm tra các câu làm sai để tránh bẫy ETS.';
+          color = 'var(--warning)';
+        }
+
+        partHtml = `
+          <div class="part-stat-card" style="grid-column: 1 / -1; padding: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+              <div>
+                <span style="font-weight: 800; font-size: 1.15rem; color: var(--text-primary);">${partName}</span>
+                <span class="badge" style="margin-left: 10px; background: rgba(99, 102, 241, 0.15); color: var(--accent-secondary); font-size: 0.8rem; padding: 3px 10px; border-radius: 6px;">${this.escapeHtml(badge)}</span>
+              </div>
+              <span style="font-weight: 800; font-size: 1.1rem; color: ${color};">
+                ${accuracy}% (${totalCorr}/${totalQ} câu)
               </span>
             </div>
-            <div class="part-progress-bar">
-              <div class="part-progress-fill" style="width: ${pct}%; background: ${pct >= 70 ? 'var(--success)' : (pct >= 50 ? 'var(--warning)' : 'var(--danger)')};"></div>
+            <div class="part-progress-bar" role="progressbar" aria-valuenow="${accuracy}" aria-valuemin="0" aria-valuemax="100" aria-label="Tỷ lệ chính xác ${accuracy}%" style="height: 10px; margin-bottom: 12px;">
+              <div class="part-progress-fill" style="width: ${accuracy}%; background: ${color};"></div>
             </div>
+            <p style="color: var(--text-secondary); font-size: 0.92rem; margin: 0;">💡 <strong>Đánh giá năng lực:</strong> ${this.escapeHtml(advice)}</p>
           </div>
         `;
+      } else if (r.partStats && typeof r.partStats === 'object') {
+        for (const [key, stat] of Object.entries(r.partStats)) {
+          if (!stat || typeof stat !== 'object') continue;
+          const partInfo = partsConfig[key];
+          const partName = this.escapeHtml(partInfo?.name || key);
+          const statTotal = Number.isFinite(stat.total) && stat.total > 0 ? stat.total : 0;
+          const statCorrect = Number.isFinite(stat.correct) && stat.correct >= 0 ? stat.correct : 0;
+          const pct = statTotal > 0 ? Math.max(0, Math.min(100, Math.round((statCorrect / statTotal) * 100))) : 0;
+          const color = pct >= 70 ? 'var(--success)' : (pct >= 50 ? 'var(--warning)' : 'var(--danger)');
+
+          partHtml += `
+            <div class="part-stat-card">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 700; font-size: 0.95rem;">${partName}</span>
+                <span style="font-weight: 700; color: ${color};">
+                  ${pct}% (${statCorrect}/${statTotal})
+                </span>
+              </div>
+              <div class="part-progress-bar" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100" aria-label="Tỷ lệ chính xác ${partName}: ${pct}%">
+                <div class="part-progress-fill" style="width: ${pct}%; background: ${color};"></div>
+              </div>
+            </div>
+          `;
+        }
       }
       partGrid.innerHTML = partHtml;
     }
+
+    // Adapt Part filter pills in review section
+    const partGroup = document.getElementById('part-filter-group');
+    if (partGroup && isPartMode && r.partFilter) {
+      const pInfo = partsConfig[r.partFilter];
+      const pLabel = this.escapeHtml(pInfo?.name ? pInfo.name.split(':')[0] : String(r.partFilter).toUpperCase());
+      partGroup.innerHTML = `
+        <button class="filter-pill-btn active" data-part="${this.escapeHtml(r.partFilter)}" style="pointer-events: none;">
+          ${pLabel} (${totalQ} câu)
+        </button>
+      `;
+    }
+    return true;
   },
 
   // ── Show / Hide Detailed Review Section ──
@@ -354,55 +534,90 @@ const ResultViewer = {
   },
 
   // ── Update Filter Button Counts (Real-time numbers for all/correct/wrong/unanswered) ──
+  // ── Update Filter Button Counts (Real-time numbers for all/correct/wrong/unanswered) ──
   updateFilterCounts() {
-    if (!this.resultData || !this.resultData.detailedQuestions) return;
-    const questions = this.resultData.detailedQuestions;
+    if (!this.resultData || !this.resultData.detailedQuestions || !Array.isArray(this.resultData.detailedQuestions)) return false;
+    const questions = this.resultData.detailedQuestions.filter(Boolean);
     const total = questions.length;
     let correct = 0;
     let wrong = 0;
     let unanswered = 0;
 
     questions.forEach(q => {
+      const hasChoice = Boolean(q && q.userChoice && String(q.userChoice).trim());
       if (q.isCorrect) {
         correct++;
-      } else if (q.userChoice) {
+      } else if (hasChoice) {
         wrong++;
       } else {
         unanswered++;
       }
     });
 
-    const cAll = document.getElementById('count-all');
-    if (cAll) cAll.textContent = `(${total})`;
-    const cCorrect = document.getElementById('count-correct');
-    if (cCorrect) cCorrect.textContent = `(${correct})`;
-    const cWrong = document.getElementById('count-wrong');
-    if (cWrong) cWrong.textContent = `(${wrong})`;
-    const cUnanswered = document.getElementById('count-unanswered');
-    if (cUnanswered) cUnanswered.textContent = `(${unanswered})`;
+    if (typeof document !== 'undefined') {
+      const cAll = document.getElementById('count-all');
+      if (cAll) cAll.textContent = `(${total})`;
+      const cCorrect = document.getElementById('count-correct');
+      if (cCorrect) cCorrect.textContent = `(${correct})`;
+      const cWrong = document.getElementById('count-wrong');
+      if (cWrong) cWrong.textContent = `(${wrong})`;
+      const cUnanswered = document.getElementById('count-unanswered');
+      if (cUnanswered) cUnanswered.textContent = `(${unanswered})`;
+    }
+    return { total, correct, wrong, unanswered };
   },
 
   // ── Status Filter: All / Correct / Wrong / Unanswered ──
   setStatusFilter(status) {
-    this.currentStatusFilter = status;
-    document.querySelectorAll('#status-filter-group .filter-tab-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.status === status);
-    });
-    this.renderDetailedReview();
+    const raw = (typeof status === 'string') ? status.trim().toLowerCase() : '';
+    const valid = ['all', 'correct', 'wrong', 'unanswered'];
+    const targetStatus = valid.includes(raw) ? raw : 'all';
+    this.currentStatusFilter = targetStatus;
+
+    if (typeof document !== 'undefined') {
+      // Auto-reveal detailed review section if hidden
+      const section = document.getElementById('detailed-review-section');
+      if (section && (section.style.display === 'none' || !section.style.display)) {
+        section.style.display = 'block';
+      }
+
+      document.querySelectorAll('#status-filter-group .filter-tab-btn').forEach(btn => {
+        const isActive = btn.dataset.status === targetStatus;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+    }
+
+    if (typeof this.renderDetailedReview === 'function') {
+      this.renderDetailedReview();
+    }
+    return targetStatus;
   },
 
   // ── Part Filter: All / Part 1 .. Part 7 ──
   setPartFilter(part) {
-    this.currentPartFilter = part;
-    document.querySelectorAll('#part-filter-group .filter-pill-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.part === part);
-    });
-    this.renderDetailedReview();
+    const raw = (typeof part === 'string') ? part.trim().toLowerCase() : '';
+    const valid = ['all', 'part1', 'part2', 'part3', 'part4', 'part5', 'part6', 'part7'];
+    const targetPart = valid.includes(raw) ? raw : 'all';
+    this.currentPartFilter = targetPart;
+
+    if (typeof document !== 'undefined') {
+      document.querySelectorAll('#part-filter-group .filter-pill-btn').forEach(btn => {
+        const isActive = btn.dataset.part === targetPart;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+    }
+
+    if (typeof this.renderDetailedReview === 'function') {
+      this.renderDetailedReview();
+    }
+    return targetPart;
   },
 
   // Backward compatibility
   setFilter(filterType) {
-    this.setStatusFilter(filterType);
+    return this.setStatusFilter(filterType);
   },
 
   // ── Render Detailed Review List (Grouped for Part 3, 4, 6, 7; Single for 1, 2, 5) ──
@@ -415,8 +630,11 @@ const ResultViewer = {
 
     // Filter by Part
     if (this.currentPartFilter !== 'all') {
+      const config = this._getConfig();
       filtered = filtered.filter(q => {
-        const pInfo = AppConfig.getPartByQuestionNum(q.questionNumber);
+        const pInfo = (config && typeof config.getPartByQuestionNum === 'function')
+          ? config.getPartByQuestionNum(q.questionNumber)
+          : null;
         const pKey = pInfo ? pInfo.key : (q.part || '');
         return pKey.toLowerCase() === this.currentPartFilter.toLowerCase();
       });
@@ -426,9 +644,15 @@ const ResultViewer = {
     if (this.currentStatusFilter === 'correct') {
       filtered = filtered.filter(q => q.isCorrect);
     } else if (this.currentStatusFilter === 'wrong') {
-      filtered = filtered.filter(q => q.userChoice && !q.isCorrect);
+      filtered = filtered.filter(q => {
+        const hasChoice = Boolean(q && q.userChoice && String(q.userChoice).trim());
+        return hasChoice && !q.isCorrect;
+      });
     } else if (this.currentStatusFilter === 'unanswered') {
-      filtered = filtered.filter(q => !q.userChoice);
+      filtered = filtered.filter(q => {
+        const hasChoice = Boolean(q && q.userChoice && String(q.userChoice).trim());
+        return !hasChoice;
+      });
     }
 
     if (filtered.length === 0) {
@@ -499,15 +723,20 @@ const ResultViewer = {
 
   // ── Render Standalone Question Review (Part 1, Part 2, Part 5) ──
   renderSingleQuestionReview(q) {
+    const config = this._getConfig();
     const qNum = q.questionNumber;
     const userChoice = q.userChoice;
     const correctChoice = q.correctChoice;
     const isCorrect = q.isCorrect;
     const hasExplanation = Boolean(q.explanation || q.translation || q.analysis || q.optionsTranslation);
     const audioUrl = q.audioUrl;
-    const imgUrl = AppConfig.resolveAssetUrl(q.imageUrl);
+    const imgUrl = (config && typeof config.resolveAssetUrl === 'function')
+      ? config.resolveAssetUrl(q.imageUrl)
+      : (q.imageUrl || '');
     const playerId = `review_player_${qNum}`;
-    const partInfo = AppConfig.getPartByQuestionNum(qNum);
+    const partInfo = (config && typeof config.getPartByQuestionNum === 'function')
+      ? config.getPartByQuestionNum(qNum)
+      : null;
     const partKey = partInfo ? partInfo.key : (q.part || '');
 
     // Clean redundant ETS boilerplate prompt for Part 1 photographs
@@ -1005,7 +1234,11 @@ const ResultViewer = {
   // ── Dynamically rehydrate latest explanations from DB if any questions were missing explanations ──
   async rehydrateExplanationsFromDB() {
     try {
-      const url = AppConfig.getDatabaseUrl();
+      const config = this._getConfig();
+      const url = (config && typeof config.getDatabaseUrl === 'function')
+        ? config.getDatabaseUrl()
+        : 'data/database_compiled.json';
+      if (typeof fetch !== 'function') return;
       const res = await fetch(url);
       if (!res.ok) return;
       const db = await res.json();
@@ -1136,7 +1369,10 @@ const ResultViewer = {
       });
 
       if (hasUpdates) {
-        StorageService.setCurrentResult(this.resultData);
+        const storage = this._getStorage();
+        if (storage && typeof storage.setCurrentResult === 'function') {
+          try { storage.setCurrentResult(this.resultData); } catch (_) {}
+        }
       }
     } catch (e) {
       console.warn('Rehydrate explanations skipped:', e);
@@ -1164,3 +1400,11 @@ const ResultViewer = {
     }).join('');
   }
 };
+
+if (typeof window !== 'undefined') {
+  window.ResultViewer = ResultViewer;
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = ResultViewer;
+}

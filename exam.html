@@ -82,7 +82,7 @@
         <div class="glass-panel" style="padding: 20px; border-radius: var(--radius-lg);">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
             <h3 style="font-size: 1.05rem;">Bảng Câu Hỏi</h3>
-            <span style="font-size: 0.85rem; color: var(--text-muted);">200 câu</span>
+            <span style="font-size: 0.85rem; color: var(--text-muted);" id="sidebar-total-badge">-- câu</span>
           </div>
 
           <!-- Palette Container -->
@@ -135,13 +135,13 @@
   </div>
 
   <!-- Modern In-App Submit Confirmation Modal -->
-  <div class="submit-confirm-modal" id="submit-confirm-modal" style="display: none;">
+  <div class="submit-confirm-modal" id="submit-confirm-modal" role="dialog" aria-modal="true" aria-labelledby="modal-confirm-title" style="display: none;">
     <div class="modal-backdrop" onclick="ExamEngine.closeSubmitModal()"></div>
     <div class="modal-card animate-scale-up">
       <div class="modal-header">
-        <div class="modal-header-icon">⚠️</div>
-        <h3>Xác Nhận Nộp Bài Thi</h3>
-        <button class="modal-close-btn" onclick="ExamEngine.closeSubmitModal()">&times;</button>
+        <div class="modal-header-icon" aria-hidden="true">⚠️</div>
+        <h3 id="modal-confirm-title">Xác Nhận Nộp Bài Thi</h3>
+        <button class="modal-close-btn" onclick="ExamEngine.closeSubmitModal()" aria-label="Đóng hộp thoại">&times;</button>
       </div>
       <div class="modal-body">
         <div class="submit-stats-row">
@@ -196,15 +196,16 @@
       }
 
       // Initialize Exam
-      ExamEngine.init().then(() => {
-        document.getElementById('exam-main-layout').style.display = 'grid';
+      ExamEngine.init().then((success) => {
+        if (success) {
+          const mainLayout = document.getElementById('exam-main-layout');
+          if (mainLayout) mainLayout.style.display = 'grid';
+        }
       });
     });
 
     function toggleTheme() {
-      const current = StorageService.getTheme();
-      const next = current === 'dark' ? 'light' : 'dark';
-      StorageService.setTheme(next);
+      StorageService.toggleTheme();
     }
   </script>
 </body>

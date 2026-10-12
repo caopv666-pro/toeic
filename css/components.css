@@ -396,6 +396,16 @@
   transform: scale(1.08);
 }
 
+.audio-play-btn.playing {
+  padding-left: 0;
+  box-shadow: 0 0 12px var(--accent-primary);
+}
+
+.audio-player-box.playing {
+  border-color: rgba(99, 102, 241, 0.5);
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.15);
+}
+
 .audio-progress-wrap {
   flex: 1;
   display: flex;
@@ -1448,6 +1458,10 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
   margin-top: 10px;
+}
+
+.listening-blind-options.part2-blind-options {
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .blind-opt-btn {
