@@ -160,15 +160,17 @@ const ExamEngine = {
     this.allQuestionsMap = {};
     const lc = test.listening || {};
     const rc = test.reading || {};
+    const getPartQuestions = (p) => Array.isArray(p) ? p : (Array.isArray(p?.questions) ? p.questions : []);
+    const getPartGroups = (p) => Array.isArray(p) ? p : (Array.isArray(p?.groups) ? p.groups : []);
 
     // Part 1 & 2
-    (lc.part1?.questions || []).forEach(q => {
+    getPartQuestions(lc.part1).forEach(q => {
       q.part = 'part1';
       q.groupId = 'p1_q' + q.questionNumber;
       q.expectedRange = [q.questionNumber, q.questionNumber];
       this.allQuestionsMap[q.questionNumber] = q;
     });
-    (lc.part2?.questions || []).forEach(q => {
+    getPartQuestions(lc.part2).forEach(q => {
       q.part = 'part2';
       q.groupId = 'p2_q' + q.questionNumber;
       q.expectedRange = [q.questionNumber, q.questionNumber];
@@ -176,7 +178,7 @@ const ExamEngine = {
     });
 
     // Part 3 & 4
-    (lc.part3?.groups || []).forEach((g, gIdx) => {
+    getPartGroups(lc.part3).forEach((g, gIdx) => {
       const gid = g.groupId || `p3_g${gIdx + 1}`;
       const range = g.expectedRange || [g.questions?.[0]?.questionNumber, g.questions?.[g.questions.length - 1]?.questionNumber];
       (g.questions || []).forEach((q, idx) => {
@@ -185,13 +187,14 @@ const ExamEngine = {
         q.expectedRange = range;
         q.groupTranscript = g.transcript || '';
         q.groupTranslation = g.passageTranslation || g.translation || '';
+        q.groupSentences = g.sentences || [];
         q.groupAudioUrl = g.audioUrl || q.audioUrl || '';
         q.groupPassages = g.passages || [];
         q.isFirstInGroup = idx === 0;
         this.allQuestionsMap[q.questionNumber] = q;
       });
     });
-    (lc.part4?.groups || []).forEach((g, gIdx) => {
+    getPartGroups(lc.part4).forEach((g, gIdx) => {
       const gid = g.groupId || `p4_g${gIdx + 1}`;
       const range = g.expectedRange || [g.questions?.[0]?.questionNumber, g.questions?.[g.questions.length - 1]?.questionNumber];
       (g.questions || []).forEach((q, idx) => {
@@ -200,6 +203,7 @@ const ExamEngine = {
         q.expectedRange = range;
         q.groupTranscript = g.transcript || '';
         q.groupTranslation = g.passageTranslation || g.translation || '';
+        q.groupSentences = g.sentences || [];
         q.groupAudioUrl = g.audioUrl || q.audioUrl || '';
         q.groupPassages = g.passages || [];
         q.isFirstInGroup = idx === 0;
@@ -208,7 +212,8 @@ const ExamEngine = {
     });
 
     // Part 5
-    (rc.part5?.questions || lc.part5?.questions || []).forEach(q => {
+    const p5List = getPartQuestions(rc.part5).length > 0 ? getPartQuestions(rc.part5) : getPartQuestions(lc.part5);
+    p5List.forEach(q => {
       q.part = 'part5';
       q.groupId = 'p5_q' + q.questionNumber;
       q.expectedRange = [q.questionNumber, q.questionNumber];
@@ -216,7 +221,7 @@ const ExamEngine = {
     });
 
     // Part 6 & 7
-    (rc.part6?.groups || []).forEach((g, gIdx) => {
+    getPartGroups(rc.part6).forEach((g, gIdx) => {
       const gid = g.groupId || `p6_g${gIdx + 1}`;
       const range = g.expectedRange || [g.questions?.[0]?.questionNumber, g.questions?.[g.questions.length - 1]?.questionNumber];
       (g.questions || []).forEach((q, idx) => {
@@ -225,11 +230,12 @@ const ExamEngine = {
         q.expectedRange = range;
         q.groupPassages = g.passages || [];
         q.groupTranslation = g.passageTranslation || g.translation || '';
+        q.groupSentences = g.sentences || [];
         q.isFirstInGroup = idx === 0;
         this.allQuestionsMap[q.questionNumber] = q;
       });
     });
-    (rc.part7?.groups || []).forEach((g, gIdx) => {
+    getPartGroups(rc.part7).forEach((g, gIdx) => {
       const gid = g.groupId || `p7_g${gIdx + 1}`;
       const range = g.expectedRange || [g.questions?.[0]?.questionNumber, g.questions?.[g.questions.length - 1]?.questionNumber];
       (g.questions || []).forEach((q, idx) => {
@@ -238,6 +244,7 @@ const ExamEngine = {
         q.expectedRange = range;
         q.groupPassages = g.passages || [];
         q.groupTranslation = g.passageTranslation || g.translation || '';
+        q.groupSentences = g.sentences || [];
         q.isFirstInGroup = idx === 0;
         this.allQuestionsMap[q.questionNumber] = q;
       });
@@ -272,11 +279,15 @@ const ExamEngine = {
     const saved = storage.getActiveSession();
     if (!saved || typeof saved !== 'object') return false;
 
+    const currentBook = (typeof AppConfig !== 'undefined' && typeof AppConfig.getSelectedBook === 'function')
+      ? AppConfig.getSelectedBook()
+      : 'EST 2022';
+    const isBookMatch = !saved.bookName || String(saved.bookName).trim() === String(currentBook).trim();
     const isTestMatch = Number(saved.testId) === Number(this.testId);
     const isModeMatch = String(saved.mode || 'full').trim().toLowerCase() === String(this.mode || 'full').trim().toLowerCase();
     const isPartMatch = (saved.partFilter ? String(saved.partFilter).trim().toLowerCase() : null) === (this.partFilter ? String(this.partFilter).trim().toLowerCase() : null);
 
-    if (isTestMatch && isModeMatch && isPartMatch) {
+    if (isBookMatch && isTestMatch && isModeMatch && isPartMatch) {
       const lastUpdated = Number(saved.lastUpdated) || 0;
       if (lastUpdated > 0 && Date.now() - lastUpdated < 24 * 3600 * 1000) {
         // Whitelist and sanitize userAnswers
@@ -368,8 +379,13 @@ const ExamEngine = {
       : (typeof window !== 'undefined' && window.StorageService ? window.StorageService : (typeof global !== 'undefined' ? global.StorageService : null));
     if (!storage || typeof storage.saveActiveSession !== 'function') return false;
 
+    const currentBook = (typeof AppConfig !== 'undefined' && typeof AppConfig.getSelectedBook === 'function')
+      ? AppConfig.getSelectedBook()
+      : 'EST 2022';
+
     try {
       storage.saveActiveSession({
+        bookName: currentBook,
         testId: this.testId,
         mode: this.mode,
         partFilter: this.partFilter,
@@ -692,6 +708,8 @@ const ExamEngine = {
     const lc = this.testData.listening || {};
     const rc = this.testData.reading || {};
     const isPartMode = this.mode === 'part';
+    const getPartQuestions = (p) => Array.isArray(p) ? p : (Array.isArray(p?.questions) ? p.questions : []);
+    const getPartGroups = (p) => Array.isArray(p) ? p : (Array.isArray(p?.groups) ? p.groups : []);
 
     const shouldRenderPart = (partKey) => {
       if (this.mode === 'full') return true;
@@ -717,7 +735,7 @@ const ExamEngine = {
     // Part 1
     if (shouldRenderPart('part1')) {
       html += renderPartDivider('Part 1', 'Photographs', 'Câu 1 – 6');
-      (lc.part1?.questions || []).forEach(q => {
+      getPartQuestions(lc.part1).forEach(q => {
         html += UIRenderer.renderPart1(q, this.userAnswers[q.questionNumber], this.flaggedQuestions.has(q.questionNumber), isPartMode);
       });
     }
@@ -725,7 +743,7 @@ const ExamEngine = {
     // Part 2
     if (shouldRenderPart('part2')) {
       html += renderPartDivider('Part 2', 'Question-Response', 'Câu 7 – 31');
-      (lc.part2?.questions || []).forEach(q => {
+      getPartQuestions(lc.part2).forEach(q => {
         html += UIRenderer.renderPart2(q, this.userAnswers[q.questionNumber], this.flaggedQuestions.has(q.questionNumber), isPartMode);
       });
     }
@@ -733,7 +751,7 @@ const ExamEngine = {
     // Part 3
     if (shouldRenderPart('part3')) {
       html += renderPartDivider('Part 3', 'Conversations', 'Câu 32 – 70');
-      (lc.part3?.groups || []).forEach(g => {
+      getPartGroups(lc.part3).forEach(g => {
         html += UIRenderer.renderGroupAudio(g, 'part3', this.userAnswers, this.flaggedQuestions, isPartMode);
       });
     }
@@ -741,7 +759,7 @@ const ExamEngine = {
     // Part 4
     if (shouldRenderPart('part4')) {
       html += renderPartDivider('Part 4', 'Short Talks', 'Câu 71 – 100');
-      (lc.part4?.groups || []).forEach(g => {
+      getPartGroups(lc.part4).forEach(g => {
         html += UIRenderer.renderGroupAudio(g, 'part4', this.userAnswers, this.flaggedQuestions, isPartMode);
       });
     }
@@ -749,7 +767,8 @@ const ExamEngine = {
     // Part 5
     if (shouldRenderPart('part5')) {
       html += renderPartDivider('Part 5', 'Incomplete Sentences', 'Câu 101 – 130');
-      (rc.part5?.questions || lc.part5?.questions || []).forEach(q => {
+      const p5List = getPartQuestions(rc.part5).length > 0 ? getPartQuestions(rc.part5) : getPartQuestions(lc.part5);
+      p5List.forEach(q => {
         html += UIRenderer.renderPart5(q, this.userAnswers[q.questionNumber], this.flaggedQuestions.has(q.questionNumber));
       });
     }
@@ -757,7 +776,7 @@ const ExamEngine = {
     // Part 6
     if (shouldRenderPart('part6')) {
       html += renderPartDivider('Part 6', 'Text Completion', 'Câu 131 – 146');
-      (rc.part6?.groups || []).forEach(g => {
+      getPartGroups(rc.part6).forEach(g => {
         html += UIRenderer.renderReadingGroup(g, 'part6', this.userAnswers, this.flaggedQuestions);
       });
     }
@@ -765,7 +784,7 @@ const ExamEngine = {
     // Part 7
     if (shouldRenderPart('part7')) {
       html += renderPartDivider('Part 7', 'Reading Comprehension', 'Câu 147 – 200');
-      (rc.part7?.groups || []).forEach(g => {
+      getPartGroups(rc.part7).forEach(g => {
         html += UIRenderer.renderReadingGroup(g, 'part7', this.userAnswers, this.flaggedQuestions);
       });
     }
@@ -1126,8 +1145,10 @@ const ExamEngine = {
         translation: qObj.translation || qObj.questionTranslation || '',
         optionsTranslation: qObj.optionsTranslation || {},
         analysis: qObj.analysis || '',
+        tips: qObj.tips || '',
         groupTranscript: qObj.groupTranscript || '',
         groupTranslation: qObj.groupTranslation || '',
+        groupSentences: qObj.groupSentences || [],
         groupPassages: qObj.groupPassages || [],
         isFirstInGroup: Boolean(qObj.isFirstInGroup)
       });
@@ -1167,12 +1188,15 @@ const ExamEngine = {
       }
     }
 
+    const currentBook = (typeof AppConfig !== 'undefined' && typeof AppConfig.getSelectedBook === 'function')
+      ? AppConfig.getSelectedBook()
+      : 'EST 2022';
     const testNum = (Number.isFinite(this.testId) && this.testId > 0) ? Math.floor(this.testId) : 1;
     const testNumStr = testNum < 10 ? `0${testNum}` : `${testNum}`;
     const partInfo = this.partFilter ? partsConfig[this.partFilter] : null;
     const testTitle = isPartMode
-      ? `EST 2022 — Test ${testNumStr} (${partInfo?.name || (typeof this.partFilter === 'string' ? this.partFilter.toUpperCase() : 'PART')})`
-      : `EST 2022 — Test ${testNumStr}`;
+      ? `${currentBook} — Test ${testNumStr} (${partInfo?.name || (typeof this.partFilter === 'string' ? this.partFilter.toUpperCase() : 'PART')})`
+      : `${currentBook} — Test ${testNumStr}`;
 
     const resultId = 'result_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
     const resultDate = new Date().toISOString();
@@ -1180,6 +1204,7 @@ const ExamEngine = {
     const resultPayload = {
       id: resultId,
       date: resultDate,
+      bookName: currentBook,
       testId: testNum,
       testTitle,
       mode: this.mode,

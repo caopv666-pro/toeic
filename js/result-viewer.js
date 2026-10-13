@@ -182,9 +182,17 @@ const ResultViewer = {
 
       const lc = currentTest.listening || {};
       const rc = currentTest.reading || {};
+      const getPartQuestions = (p) => Array.isArray(p) ? p : (Array.isArray(p?.questions) ? p.questions : []);
+      const getPartGroups = (p) => Array.isArray(p) ? p : (Array.isArray(p?.groups) ? p.groups : []);
+      const buildSentencesTrans = (sentences) => Array.isArray(sentences)
+        ? sentences.filter(s => s && s.translation).map(s => (s.speaker ? `[${s.speaker}] ${s.translation}` : s.translation)).join('\n')
+        : '';
+      const buildPassagesTrans = (passages) => Array.isArray(passages)
+        ? passages.flatMap(p => Array.isArray(p?.sentences) ? p.sentences.map(s => s?.translation).filter(Boolean) : []).join('\n')
+        : '';
 
       // Part 1
-      (lc.part1?.questions || []).forEach(q => {
+      getPartQuestions(lc.part1).forEach(q => {
         detailedQuestions.push({
           questionNumber: q.questionNumber,
           part: 'part1',
@@ -201,15 +209,17 @@ const ResultViewer = {
           translation: q.questionTranslation || q.translation || '',
           optionsTranslation: q.optionsTranslation || {},
           analysis: q.analysis || '',
+          tips: q.tips || '',
           groupTranscript: '',
           groupTranslation: '',
+          groupSentences: [],
           groupPassages: [],
           isFirstInGroup: true
         });
       });
 
       // Part 2
-      (lc.part2?.questions || []).forEach(q => {
+      getPartQuestions(lc.part2).forEach(q => {
         detailedQuestions.push({
           questionNumber: q.questionNumber,
           part: 'part2',
@@ -226,17 +236,20 @@ const ResultViewer = {
           translation: q.questionTranslation || q.translation || '',
           optionsTranslation: q.optionsTranslation || {},
           analysis: q.analysis || '',
+          tips: q.tips || '',
           groupTranscript: '',
           groupTranslation: '',
+          groupSentences: [],
           groupPassages: [],
           isFirstInGroup: true
         });
       });
 
       // Part 3
-      (lc.part3?.groups || []).forEach((g, gIdx) => {
+      getPartGroups(lc.part3).forEach((g, gIdx) => {
         const gid = g.groupId || `p3_g${gIdx + 1}`;
         const range = g.expectedRange || [g.questions?.[0]?.questionNumber, g.questions?.[g.questions.length - 1]?.questionNumber];
+        const synthTrans = g.passageTranslation || g.translation || buildSentencesTrans(g.sentences);
         (g.questions || []).forEach((q, idx) => {
           detailedQuestions.push({
             questionNumber: q.questionNumber,
@@ -254,8 +267,10 @@ const ResultViewer = {
             translation: q.questionTranslation || q.translation || '',
             optionsTranslation: q.optionsTranslation || {},
             analysis: q.analysis || '',
+            tips: q.tips || '',
             groupTranscript: g.transcript || '',
-            groupTranslation: g.passageTranslation || g.translation || '',
+            groupTranslation: synthTrans,
+            groupSentences: g.sentences ? JSON.parse(JSON.stringify(g.sentences)) : [],
             groupPassages: g.passages ? JSON.parse(JSON.stringify(g.passages, (k, v) => k === '_parentGroup' ? undefined : v)) : [],
             isFirstInGroup: idx === 0
           });
@@ -263,9 +278,10 @@ const ResultViewer = {
       });
 
       // Part 4
-      (lc.part4?.groups || []).forEach((g, gIdx) => {
+      getPartGroups(lc.part4).forEach((g, gIdx) => {
         const gid = g.groupId || `p4_g${gIdx + 1}`;
         const range = g.expectedRange || [g.questions?.[0]?.questionNumber, g.questions?.[g.questions.length - 1]?.questionNumber];
+        const synthTrans = g.passageTranslation || g.translation || buildSentencesTrans(g.sentences);
         (g.questions || []).forEach((q, idx) => {
           detailedQuestions.push({
             questionNumber: q.questionNumber,
@@ -283,8 +299,10 @@ const ResultViewer = {
             translation: q.questionTranslation || q.translation || '',
             optionsTranslation: q.optionsTranslation || {},
             analysis: q.analysis || '',
+            tips: q.tips || '',
             groupTranscript: g.transcript || '',
-            groupTranslation: g.passageTranslation || g.translation || '',
+            groupTranslation: synthTrans,
+            groupSentences: g.sentences ? JSON.parse(JSON.stringify(g.sentences)) : [],
             groupPassages: g.passages ? JSON.parse(JSON.stringify(g.passages, (k, v) => k === '_parentGroup' ? undefined : v)) : [],
             isFirstInGroup: idx === 0
           });
@@ -292,7 +310,7 @@ const ResultViewer = {
       });
 
       // Part 5
-      (rc.part5?.questions || []).forEach(q => {
+      getPartQuestions(rc.part5).forEach(q => {
         detailedQuestions.push({
           questionNumber: q.questionNumber,
           part: 'part5',
@@ -309,17 +327,20 @@ const ResultViewer = {
           translation: q.questionTranslation || q.translation || '',
           optionsTranslation: q.optionsTranslation || {},
           analysis: q.analysis || '',
+          tips: q.tips || '',
           groupTranscript: '',
           groupTranslation: '',
+          groupSentences: [],
           groupPassages: [],
           isFirstInGroup: true
         });
       });
 
       // Part 6
-      (rc.part6?.groups || []).forEach((g, gIdx) => {
+      getPartGroups(rc.part6).forEach((g, gIdx) => {
         const gid = g.groupId || `p6_g${gIdx + 1}`;
         const range = g.expectedRange || [g.questions?.[0]?.questionNumber, g.questions?.[g.questions.length - 1]?.questionNumber];
+        const synthTrans = g.passageTranslation || g.translation || buildSentencesTrans(g.sentences) || buildPassagesTrans(g.passages);
         (g.questions || []).forEach((q, idx) => {
           detailedQuestions.push({
             questionNumber: q.questionNumber,
@@ -337,8 +358,10 @@ const ResultViewer = {
             translation: q.questionTranslation || q.translation || '',
             optionsTranslation: q.optionsTranslation || {},
             analysis: q.analysis || '',
+            tips: q.tips || '',
             groupTranscript: '',
-            groupTranslation: g.passageTranslation || g.translation || '',
+            groupTranslation: synthTrans,
+            groupSentences: g.sentences ? JSON.parse(JSON.stringify(g.sentences)) : [],
             groupPassages: g.passages ? JSON.parse(JSON.stringify(g.passages, (k, v) => k === '_parentGroup' ? undefined : v)) : [],
             isFirstInGroup: idx === 0
           });
@@ -346,9 +369,10 @@ const ResultViewer = {
       });
 
       // Part 7
-      (rc.part7?.groups || []).forEach((g, gIdx) => {
+      getPartGroups(rc.part7).forEach((g, gIdx) => {
         const gid = g.groupId || `p7_g${gIdx + 1}`;
         const range = g.expectedRange || [g.questions?.[0]?.questionNumber, g.questions?.[g.questions.length - 1]?.questionNumber];
+        const synthTrans = g.passageTranslation || g.translation || buildSentencesTrans(g.sentences) || buildPassagesTrans(g.passages);
         (g.questions || []).forEach((q, idx) => {
           detailedQuestions.push({
             questionNumber: q.questionNumber,
@@ -366,19 +390,26 @@ const ResultViewer = {
             translation: q.questionTranslation || q.translation || '',
             optionsTranslation: q.optionsTranslation || {},
             analysis: q.analysis || '',
+            tips: q.tips || '',
             groupTranscript: '',
-            groupTranslation: g.passageTranslation || g.translation || '',
+            groupTranslation: synthTrans,
+            groupSentences: g.sentences ? JSON.parse(JSON.stringify(g.sentences)) : [],
             groupPassages: g.passages ? JSON.parse(JSON.stringify(g.passages, (k, v) => k === '_parentGroup' ? undefined : v)) : [],
             isFirstInGroup: idx === 0
           });
         });
       });
 
+      const currentBook = (config && typeof config.getSelectedBook === 'function')
+        ? config.getSelectedBook()
+        : 'EST 2022';
+
       this.resultData = {
         id: 'review_test_' + clampedId,
         date: new Date().toISOString(),
+        bookName: currentBook,
         testId: clampedId,
-        testTitle: `EST 2022 — Test ${clampedId < 10 ? '0' : ''}${clampedId} (Chế độ xem đáp án & giải thích)`,
+        testTitle: `${currentBook} — Test ${clampedId < 10 ? '0' : ''}${clampedId} (Chế độ xem đáp án & giải thích)`,
         mode: 'review',
         partFilter: null,
         totalCorrect: 200,
@@ -769,13 +800,22 @@ const ResultViewer = {
     this.groupsMap = {};
     const groupedItems = [];
     let currentGroup = null;
+    const synthFromSentences = (sentences) => Array.isArray(sentences)
+      ? sentences.filter(s => s && s.translation).map(s => (s.speaker ? `[${s.speaker}] ${s.translation}` : s.translation)).join('\n')
+      : '';
+    const synthFromPassages = (passages) => Array.isArray(passages)
+      ? passages.flatMap(p => Array.isArray(p?.sentences) ? p.sentences.map(s => s?.translation).filter(Boolean) : []).join('\n')
+      : '';
 
     filtered.forEach(q => {
       const isGroupedPart = ['part3', 'part4', 'part6', 'part7'].includes(q.part);
       if (isGroupedPart && q.groupId) {
         if (currentGroup && currentGroup.groupId === q.groupId) {
-          if (!currentGroup.groupTranslation && (q.groupTranslation || q.passageTranslation || q.translation)) {
-            currentGroup.groupTranslation = q.groupTranslation || q.passageTranslation || q.translation;
+          if (!currentGroup.groupTranslation && (q.groupTranslation || q.passageTranslation)) {
+            currentGroup.groupTranslation = q.groupTranslation || q.passageTranslation;
+          }
+          if ((!currentGroup.groupSentences || currentGroup.groupSentences.length === 0) && (q.groupSentences && q.groupSentences.length > 0)) {
+            currentGroup.groupSentences = q.groupSentences;
           }
           if ((!currentGroup.groupPassages || currentGroup.groupPassages.length === 0) && (q.groupPassages && q.groupPassages.length > 0)) {
             currentGroup.groupPassages = q.groupPassages;
@@ -783,16 +823,23 @@ const ResultViewer = {
           if (!currentGroup.groupAudioUrl && (q.audioUrl || q.groupAudioUrl)) {
             currentGroup.groupAudioUrl = q.audioUrl || q.groupAudioUrl;
           }
+          if (!currentGroup.groupTranslation) {
+            currentGroup.groupTranslation = synthFromSentences(currentGroup.groupSentences) || synthFromPassages(currentGroup.groupPassages);
+          }
           currentGroup.questions.push(q);
         } else {
+          const gSentences = q.groupSentences || [];
+          const gPassages = q.groupPassages || [];
+          const gTrans = q.groupTranslation || q.passageTranslation || synthFromSentences(gSentences) || synthFromPassages(gPassages) || '';
           currentGroup = {
             type: 'group',
             groupId: q.groupId,
             part: q.part,
             expectedRange: q.expectedRange || [q.questionNumber, q.questionNumber],
-            groupPassages: q.groupPassages || [],
+            groupPassages: gPassages,
+            groupSentences: gSentences,
             groupTranscript: q.groupTranscript || '',
-            groupTranslation: q.groupTranslation || q.passageTranslation || q.translation || '',
+            groupTranslation: gTrans,
             groupAudioUrl: q.audioUrl || q.groupAudioUrl || '',
             questions: [q]
           };
@@ -827,7 +874,7 @@ const ResultViewer = {
     const userChoice = q.userChoice;
     const correctChoice = q.correctChoice;
     const isCorrect = q.isCorrect;
-    const hasExplanation = Boolean(q.explanation || q.translation || q.analysis || q.optionsTranslation);
+    const hasExplanation = Boolean(q.explanation || q.translation || q.analysis || q.tips || q.optionsTranslation);
     const audioUrl = q.audioUrl;
     const imgUrl = (config && typeof config.resolveAssetUrl === 'function')
       ? config.resolveAssetUrl(q.imageUrl)
@@ -984,6 +1031,19 @@ const ResultViewer = {
                 <div>${this.formatDialogue(group.groupTranslation)}</div>
               </div>
             ` : ''}
+            ${(Array.isArray(group.groupSentences) && group.groupSentences.some(s => s && s.analysis)) ? `
+              <div style="margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--border-glass);">
+                <strong style="color: var(--accent-secondary); font-size: 0.82rem; display: block; margin-bottom: 6px;">📚 Phân tích từ vựng & cấu trúc từng lượt thoại:</strong>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  ${group.groupSentences.map((s, sIdx) => s && s.analysis ? `
+                    <div style="background: rgba(255, 255, 255, 0.03); padding: 8px 10px; border-radius: var(--radius-sm); border-left: 2px solid var(--accent-primary);">
+                      <div style="font-weight: 600; font-size: 0.84rem; color: var(--text-primary); margin-bottom: 4px;">${s.speaker ? `[${s.speaker}] ` : `Câu ${sIdx + 1}: `}${s.text || ''}</div>
+                      <div style="font-size: 0.81rem; color: var(--text-secondary); white-space: pre-line;">${s.analysis}</div>
+                    </div>
+                  ` : '').join('')}
+                </div>
+              </div>
+            ` : ''}
           </details>
         ` : ''}
 
@@ -1059,7 +1119,7 @@ const ResultViewer = {
     const userChoice = q.userChoice;
     const correctChoice = q.correctChoice;
     const isCorrect = q.isCorrect;
-    const hasExplanation = Boolean(q.explanation || q.translation || q.analysis || q.optionsTranslation);
+    const hasExplanation = Boolean(q.explanation || q.translation || q.analysis || q.tips || q.optionsTranslation);
 
     return `
       <div class="review-q-card animate-fade-in" id="review_q_${qNum}" style="margin-top: 14px; margin-bottom: 0;">
@@ -1138,6 +1198,7 @@ const ResultViewer = {
     const questionTrans = q.translation || q.questionTranslation;
     const hasExp = Boolean(q.explanation);
     const hasAnalysis = Boolean(q.analysis);
+    const hasTips = Boolean(q.tips);
 
     return `
       <!-- Card 1: Dịch nghĩa câu hỏi (nếu có) -->
@@ -1177,6 +1238,19 @@ const ResultViewer = {
           </div>
           <div class="exp-card-content">
             <div class="exp-text-prose exp-analysis-text">${q.analysis}</div>
+          </div>
+        </div>
+      ` : ''}
+
+      <!-- Card 4: Mẹo làm bài & Bẫy thường gặp (Part 1, 2) -->
+      ${hasTips ? `
+        <div class="exp-card exp-tips-card">
+          <div class="exp-card-header">
+            <span class="exp-icon">💡</span>
+            <span class="exp-title">Mẹo làm bài & Bẫy thường gặp</span>
+          </div>
+          <div class="exp-card-content">
+            <div class="exp-text-prose exp-analysis-text" style="white-space: pre-line;">${q.tips}</div>
           </div>
         </div>
       ` : ''}
@@ -1399,8 +1473,13 @@ const ResultViewer = {
     if (!this.resultData || !Array.isArray(this.resultData.detailedQuestions)) return false;
     try {
       const config = this._getConfig();
+      let targetBook = this.resultData?.bookName || '';
+      if (!targetBook && typeof this.resultData?.testTitle === 'string') {
+        const titleMatch = this.resultData.testTitle.match(/^(EST\s+\d{4})/i);
+        if (titleMatch) targetBook = titleMatch[1].toUpperCase();
+      }
       const url = (config && typeof config.getDatabaseUrl === 'function')
-        ? config.getDatabaseUrl()
+        ? (targetBook ? config.getDatabaseUrl(targetBook) : config.getDatabaseUrl())
         : 'data/database_compiled.json';
       const db = await this._fetchDatabase(url);
       if (!db) return false;
@@ -1443,6 +1522,22 @@ const ResultViewer = {
 
       const scanPart = (partObj) => {
         if (!partObj) return;
+        if (Array.isArray(partObj)) {
+          if (partObj.length > 0 && partObj[0] && Array.isArray(partObj[0].questions)) {
+            partObj.forEach(g => {
+              if (g.groupId) gMap[g.groupId] = g;
+              (g.questions || []).forEach(q => {
+                qGroupMap[q.questionNumber] = g;
+                qMap[q.questionNumber] = q;
+              });
+            });
+          } else {
+            partObj.forEach(q => {
+              if (q && q.questionNumber !== undefined) qMap[q.questionNumber] = q;
+            });
+          }
+          return;
+        }
         if (partObj.questions) {
           partObj.questions.forEach(q => { qMap[q.questionNumber] = q; });
         }
@@ -1481,6 +1576,13 @@ const ResultViewer = {
           return Array.isArray(obj) ? [...obj] : { ...obj };
         }
       };
+
+      const synthFromSentences = (sentences) => Array.isArray(sentences)
+        ? sentences.filter(s => s && s.translation).map(s => (s.speaker ? `[${s.speaker}] ${s.translation}` : s.translation)).join('\n')
+        : '';
+      const synthFromPassages = (passages) => Array.isArray(passages)
+        ? passages.flatMap(p => Array.isArray(p?.sentences) ? p.sentences.map(s => s?.translation).filter(Boolean) : []).join('\n')
+        : '';
 
       const questions = Array.isArray(this.resultData?.detailedQuestions) ? this.resultData.detailedQuestions : [];
       if (questions.length === 0) return false;
@@ -1524,6 +1626,11 @@ const ResultViewer = {
           // Sync latest analysis
           if (freshQ.analysis && q.analysis !== freshQ.analysis) {
             q.analysis = freshQ.analysis;
+            hasUpdates = true;
+          }
+          // Sync latest tips
+          if (freshQ.tips && q.tips !== freshQ.tips) {
+            q.tips = freshQ.tips;
             hasUpdates = true;
           }
           // Sync latest question translation
@@ -1588,6 +1695,14 @@ const ResultViewer = {
             q.groupPassages = [{ imageUrl: groupImg }];
             hasUpdates = true;
           }
+          // Sync groupSentences
+          if (freshG.sentences && freshG.sentences.length > 0) {
+            const freshSentStr = JSON.stringify(freshG.sentences);
+            if (!q.groupSentences || JSON.stringify(q.groupSentences) !== freshSentStr) {
+              q.groupSentences = safeClone(freshG.sentences);
+              hasUpdates = true;
+            }
+          }
           // Sync group expected range (cloned array)
           if (freshG.expectedRange && (!q.expectedRange || q.expectedRange[0] !== freshG.expectedRange[0])) {
             q.expectedRange = Array.isArray(freshG.expectedRange) ? [...freshG.expectedRange] : freshG.expectedRange;
@@ -1600,7 +1715,7 @@ const ResultViewer = {
             hasUpdates = true;
           }
           // Sync group translation & transcript
-          const freshGTrans = freshG.passageTranslation || freshG.translation || '';
+          const freshGTrans = freshG.passageTranslation || freshG.translation || synthFromSentences(freshG.sentences) || synthFromPassages(freshG.passages) || '';
           if (freshGTrans && q.groupTranslation !== freshGTrans) {
             q.groupTranslation = freshGTrans;
             hasUpdates = true;
@@ -1711,12 +1826,14 @@ const ResultViewer = {
     return lines.map(rawLine => {
       const line = rawLine.trim();
       if (!line) return '';
-      // Support: Man, Woman, Man 1, Man 2, Woman 1, Woman 2, Người đàn ông, Người phụ nữ...
-      const m = line.match(/^((?:Man|Woman|Người đàn ông|Người phụ nữ)(?:\s+\d)?):\s*(.*)$/i);
+      // Support both "[Woman] ...", "[Man 1] ..." and "Woman: ...", "Người đàn ông: ..."
+      const m = line.match(/^(?:\[((?:Man|Woman|Male|Female|Speaker|Narrator|Người đàn ông|Người phụ nữ)(?:\s+\d+)?)\]:?\s*|((?:Man|Woman|Male|Female|Speaker|Narrator|Người đàn ông|Người phụ nữ)(?:\s+\d+)?):\s*)(.*)$/i);
       if (m) {
-        const spk = m[1];
-        const content = m[2];
-        const isMan = spk.toLowerCase().includes('man') || spk.toLowerCase().includes('đàn ông');
+        const spk = m[1] || m[2];
+        const content = m[3];
+        const spkLower = spk.toLowerCase();
+        const isWoman = spkLower.includes('woman') || spkLower.includes('female') || spkLower.includes('phụ nữ');
+        const isMan = !isWoman && (spkLower.includes('man') || spkLower.includes('male') || spkLower.includes('đàn ông'));
         const badgeClass = isMan ? 'speaker-badge-man' : 'speaker-badge-woman';
         const icon = isMan ? '👨' : '👩';
         return `<div class="dialogue-line"><span class="speaker-badge ${badgeClass}">${icon} ${spk}</span><span class="dialogue-content">${content}</span></div>`;
