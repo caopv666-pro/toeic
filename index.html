@@ -90,6 +90,12 @@
         </div>
       </div>
 
+      <!-- Book Selector Pills (ETS 2022 / ETS 2026) -->
+      <div id="book-selector-wrap" role="group" aria-label="Chọn bộ đề thi" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 18px;">
+        <button class="part-filter-btn active" id="book-btn-2022" data-book="EST 2022" type="button" onclick="selectBook('EST 2022')" aria-pressed="true">📘 Bộ đề ETS 2022 (10 Tests)</button>
+        <button class="part-filter-btn" id="book-btn-2026" data-book="EST 2026" type="button" onclick="selectBook('EST 2026')" aria-pressed="false">🔥 Bộ đề ETS 2026 Mới (10 Tests)</button>
+      </div>
+
       <!-- Mode Selector Tabs -->
       <div class="mode-tabs" role="tablist" aria-label="Chọn chế độ thi">
         <button class="mode-tab-btn active" id="tab-full" type="button" role="tab" onclick="switchMode('full')" aria-pressed="true" aria-selected="true">
@@ -115,7 +121,7 @@
     <!-- Tests 1 - 10 Grid -->
     <section>
       <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; flex-wrap: wrap; gap: 8px;">
-        <h2 style="font-size: 1.5rem;">Danh Sách 10 Đề Thi ETS 2022</h2>
+        <h2 id="book-section-heading" style="font-size: 1.5rem;">Danh Sách 10 Đề Thi ETS 2022</h2>
         <span style="color: var(--text-muted); font-size: 0.9rem;">10 đề thi • 2.000 câu hỏi • 540 audio cuts</span>
       </div>
 
@@ -132,6 +138,7 @@
   <script>
     let currentMode = 'full';
     let selectedPart = 'part1';
+    let currentBook = 'EST 2022';
 
     function getSafeStorage() {
       return (typeof StorageService !== 'undefined')
@@ -178,10 +185,17 @@
         if (storage && typeof storage.initTheme === 'function') {
           storage.initTheme();
         }
+        if (typeof AppConfig !== 'undefined' && AppConfig && typeof AppConfig.getSelectedBook === 'function') {
+          selectBook(AppConfig.getSelectedBook());
+        }
 
       // URL Deep-linking support: ?mode=part&part=part5 hoặc ?mode=full
       try {
         const urlParams = new URLSearchParams(window.location.search);
+        const urlBook = urlParams.get('book');
+        if (urlBook === 'EST 2026' || urlBook === 'EST 2022') {
+          selectBook(urlBook);
+        }
         const urlMode = urlParams.get('mode');
         const urlPart = urlParams.get('part');
         if (urlMode && urlMode.toLowerCase() === 'part') {
@@ -198,6 +212,31 @@
       renderTestCards();
     });
   }
+
+    function selectBook(bookKey) {
+      currentBook = (bookKey === 'EST 2026') ? 'EST 2026' : 'EST 2022';
+      if (typeof AppConfig !== 'undefined' && AppConfig && typeof AppConfig.setSelectedBook === 'function') {
+        AppConfig.setSelectedBook(currentBook);
+      }
+      if (typeof document !== 'undefined' && typeof document.getElementById === 'function') {
+        const b2022 = document.getElementById('book-btn-2022');
+        const b2026 = document.getElementById('book-btn-2026');
+        const heading = document.getElementById('book-section-heading');
+        if (b2022 && b2022.classList && typeof b2022.classList.toggle === 'function') {
+          b2022.classList.toggle('active', currentBook === 'EST 2022');
+          if (typeof b2022.setAttribute === 'function') b2022.setAttribute('aria-pressed', currentBook === 'EST 2022' ? 'true' : 'false');
+        }
+        if (b2026 && b2026.classList && typeof b2026.classList.toggle === 'function') {
+          b2026.classList.toggle('active', currentBook === 'EST 2026');
+          if (typeof b2026.setAttribute === 'function') b2026.setAttribute('aria-pressed', currentBook === 'EST 2026' ? 'true' : 'false');
+        }
+        if (heading) {
+          heading.textContent = currentBook === 'EST 2026' ? 'Danh Sách 10 Đề Thi ETS 2026' : 'Danh Sách 10 Đề Thi ETS 2022';
+        }
+      }
+      renderTestCards();
+      return currentBook;
+    }
 
     function toggleTheme() {
       const storage = getSafeStorage();
@@ -313,6 +352,7 @@
         const btns = document.querySelectorAll('.part-filter-btn');
         if (btns && typeof btns.forEach === 'function') {
           btns.forEach(b => {
+            if (typeof b.getAttribute === 'function' && b.getAttribute('data-book')) return;
             const isActive = (b === targetBtn) || (typeof b.getAttribute === 'function' && b.getAttribute('data-part') === selectedPart);
             if (b.classList && typeof b.classList.toggle === 'function') {
               b.classList.toggle('active', isActive);
@@ -343,6 +383,8 @@
         part7: '55 phút'
       };
 
+      const bookTitle = (currentBook === 'EST 2026') ? 'EST 2026' : 'EST 2022';
+
       for (let t = 1; t <= 10; t++) {
         const testNumStr = t < 10 ? `0${t}` : `${t}`;
         const isFull = currentMode === 'full';
@@ -358,7 +400,7 @@
                 <span style="font-family: var(--font-mono); color: var(--accent-secondary); font-size: 0.8rem; font-weight: 700;">TEST #${testNumStr}</span>
                 <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: var(--success); font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: 600;">Chuẩn ETS</span>
               </div>
-              <h3 class="test-title">EST 2022 — Test ${testNumStr}</h3>
+              <h3 class="test-title">${bookTitle} — Test ${testNumStr}</h3>
               <div class="test-meta">
                 <span class="test-meta-badge">📝 ${qCount} câu hỏi</span>
                 <span class="test-meta-badge">⏱️ ${timeEstimate}</span>
@@ -391,6 +433,7 @@
     }
 
     if (typeof window !== 'undefined') {
+      window.selectBook = selectBook;
       window.switchMode = switchMode;
       window.selectPartFilter = selectPartFilter;
       window.startExam = startExam;
@@ -407,6 +450,7 @@
 
     if (typeof module !== 'undefined' && module.exports) {
       module.exports = {
+        selectBook,
         switchMode,
         selectPartFilter,
         startExam,

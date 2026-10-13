@@ -8,9 +8,45 @@ const AppConfig = {
   // Empty API_BASE_URL loads all data and assets locally from current origin (no port 3000 needed)
   API_BASE_URL: '',
   BOOK_NAME: 'EST 2022',
+  BOOKS: {
+    'EST 2022': { label: 'ETS 2022', dbFile: 'data/database_EST_2022.json' },
+    'EST 2026': { label: 'ETS 2026', dbFile: 'data/database_EST_2026.json' }
+  },
+
+  getSelectedBook() {
+    try {
+      if (typeof window !== 'undefined' && window.location && window.location.search) {
+        const params = new URLSearchParams(window.location.search);
+        const b = params.get('book');
+        if (b && this.BOOKS && this.BOOKS[b]) return b;
+      }
+      if (typeof window !== 'undefined' && window.localStorage) {
+        const saved = window.localStorage.getItem('toeic_selected_book');
+        if (saved && this.BOOKS && this.BOOKS[saved]) return saved;
+      }
+    } catch (_) {}
+    return this.BOOK_NAME || 'EST 2022';
+  },
+
+  setSelectedBook(bookName) {
+    const valid = (bookName && this.BOOKS && this.BOOKS[bookName]) ? bookName : 'EST 2022';
+    this.BOOK_NAME = valid;
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        window.localStorage.setItem('toeic_selected_book', valid);
+      }
+    } catch (_) {}
+    return valid;
+  },
   
   // Endpoint to fetch compiled test database directly from local web data folder or remote CDN
-  getDatabaseUrl() {
+  getDatabaseUrl(bookOverride) {
+    const activeBook = (bookOverride && this.BOOKS && this.BOOKS[bookOverride])
+      ? bookOverride
+      : this.getSelectedBook();
+    if (activeBook === 'EST 2026') {
+      return this.resolveAssetUrl(`data/database_EST_2026.json?v=${Date.now()}`);
+    }
     return this.resolveAssetUrl(`data/database_compiled.json?v=${Date.now()}`);
   },
   
@@ -54,7 +90,7 @@ const AppConfig = {
       }
     }
 
-    // Clamp / fallback within ETS 2022 valid test bounds (1 to 10)
+    // Clamp / fallback within ETS valid test bounds (1 to 10)
     if (isNaN(id) || id < 1 || id > 10) {
       id = 1;
     }
@@ -63,7 +99,7 @@ const AppConfig = {
     if (id === 9) filename = 'Test09.mp3';
     if (id === 10) filename = 'Test10.mp3';
 
-    const book = this.BOOK_NAME || 'EST 2022';
+    const book = this.getSelectedBook() || 'EST 2022';
     return this.resolveAssetUrl(`uploads/${encodeURIComponent(book)}/LC/audio/${filename}`);
   },
 
