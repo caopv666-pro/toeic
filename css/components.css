@@ -94,6 +94,15 @@
   user-select: none;
 }
 
+.btn:disabled,
+.btn[disabled] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
 .btn-primary {
   background: linear-gradient(135deg, var(--accent-primary), #4f46e5);
   color: #ffffff;
@@ -239,6 +248,8 @@
 }
 
 .flag-btn {
+  min-width: 36px;
+  min-height: 36px;
   color: var(--text-muted);
   font-size: 1.05rem;
   padding: 3px 6px;
@@ -295,12 +306,33 @@
   min-height: 38px;
 }
 
+.option-btn:disabled,
+.option-btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none;
+}
+
 @media (hover: hover) {
   .option-btn:hover {
     background: var(--bg-glass-hover);
     border-color: var(--border-focus);
     transform: translateX(3px);
   }
+}
+
+.option-btn:focus-visible,
+.blind-opt-btn:focus-visible {
+  outline: 2px solid var(--accent-secondary, #06b6d4);
+  outline-offset: 2px;
+  border-color: var(--accent-secondary, #06b6d4);
+}
+
+.option-btn.selected:focus-visible,
+.blind-opt-btn.selected:focus-visible {
+  outline: 2px solid var(--accent-secondary, #06b6d4) !important;
+  outline-offset: 2px !important;
 }
 
 .option-btn.selected {
@@ -1089,8 +1121,26 @@
   flex-direction: column;
 }
 
+@keyframes slideDownExp {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .explanation-panel.show {
   display: flex;
+  animation: slideDownExp 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .explanation-panel.show {
+    animation: none;
+  }
 }
 
 .exp-card {
@@ -1408,7 +1458,7 @@
   border-radius: var(--radius-full);
   font-size: 1.15rem;
   font-weight: 800;
-  color: var(--cyan);
+  color: var(--accent-secondary, #06b6d4);
   display: flex;
   align-items: center;
   gap: 6px;
@@ -1435,7 +1485,7 @@
   font-weight: 700;
   font-size: 0.75rem;
   padding: 2px 8px;
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-xs, 4px);
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
@@ -1480,6 +1530,12 @@
     border-color: var(--accent-primary);
     transform: translateY(-2px);
   }
+}
+
+.blind-opt-btn:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+  border-color: var(--accent-primary);
 }
 
 .blind-opt-btn.selected {
@@ -1603,6 +1659,8 @@
   align-items: center;
   justify-content: center;
   padding: 16px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .submit-confirm-modal .modal-backdrop {
@@ -1617,6 +1675,10 @@
   position: relative;
   width: 100%;
   max-width: 440px;
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
+  display: flex;
+  flex-direction: column;
   background: linear-gradient(135deg, rgba(30, 41, 59, 0.98), rgba(15, 23, 42, 0.98));
   border: 1px solid rgba(99, 102, 241, 0.4);
   border-radius: var(--radius-xl);
@@ -1646,6 +1708,11 @@
 }
 
 .submit-confirm-modal .modal-close-btn {
+  min-width: 36px;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: none;
   border: none;
   font-size: 1.5rem;
@@ -1662,6 +1729,8 @@
 
 .submit-confirm-modal .modal-body {
   padding: 20px;
+  overflow-y: auto;
+  flex: 1;
 }
 
 .submit-confirm-modal .submit-stats-row {
@@ -1755,6 +1824,22 @@
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-scale-up {
+    animation: none;
+  }
+  @keyframes modalScaleUp {
+    from {
+      opacity: 1;
+      transform: none;
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
   }
 }
 
@@ -1905,6 +1990,13 @@
 [data-theme="light"] .option-btn:hover {
   background: #f8fafc;
   border-color: #cbd5e1;
+}
+
+[data-theme="light"] .option-btn:focus-visible,
+[data-theme="light"] .blind-opt-btn:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+  border-color: #6366f1;
 }
 
 [data-theme="light"] .option-letter {
@@ -2080,3 +2172,61 @@
   color: #ffffff;
   border-color: #6366f1;
 }
+
+/* Audio Player Light Theme Visibility (STYLE-03) */
+[data-theme="light"] .audio-label-text {
+  color: #0369a1;
+}
+
+[data-theme="light"] .audio-track-bar {
+  background: #e2e8f0;
+}
+
+[data-theme="light"] .audio-time-pill {
+  color: #64748b;
+}
+
+/* Modal Close Button Light Mode Hover Contrast (STYLE-03) */
+[data-theme="light"] .submit-confirm-modal .modal-close-btn:hover,
+[data-theme="light"] .modal-close-btn:hover {
+  background: #e2e8f0;
+  color: var(--text-primary);
+}
+
+/* Speaker Badges Light Mode Contrast (WCAG 2.1 AA) (STYLE-03) */
+[data-theme="light"] .speaker-badge-man {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-color: #bfdbfe;
+}
+
+[data-theme="light"] .speaker-badge-woman {
+  background: #fdf2f8;
+  color: #be185d;
+  border-color: #fbcfe8;
+}
+
+/* Review Status Badges & Answer Keys in Light Mode (STYLE-03) */
+[data-theme="light"] .status-correct {
+  color: #047857;
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+}
+
+[data-theme="light"] .status-wrong {
+  color: #b91c1c;
+  background: #fef2f2;
+  border-color: #fecaca;
+}
+
+[data-theme="light"] .ans-key {
+  color: #4338ca;
+  background: #eef2ff;
+  border-color: #c7d2fe;
+}
+
+[data-theme="light"] .ans-key strong {
+  color: #312e81;
+}
+
+

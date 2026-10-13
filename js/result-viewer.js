@@ -45,8 +45,48 @@ const ResultViewer = {
     };
   },
 
-  async init() {
-    const searchStr = (typeof window !== 'undefined' && window.location && window.location.search) ? window.location.search : '';
+  async _fetchDatabase(url) {
+    if (!url) return null;
+    let db = null;
+    if (typeof fetch === 'function') {
+      try {
+        const res = await fetch(url);
+        if (res && res.ok) {
+          db = await res.json();
+          return db;
+        }
+      } catch (fetchErr) {
+        // Fallback for Node.js test environment where fetch cannot resolve relative URL
+        if (typeof process !== 'undefined' && process.versions && process.versions.node) {
+          try {
+            const fs = require('fs');
+            const path = require('path');
+            const cleanPath = String(url).split('?')[0].replace(/^[/\\]+/, '');
+            const fullPath = path.resolve(process.cwd(), cleanPath);
+            if (fs.existsSync(fullPath)) {
+              return JSON.parse(fs.readFileSync(fullPath, 'utf8'));
+            }
+          } catch (_) {}
+        }
+      }
+    } else if (typeof process !== 'undefined' && process.versions && process.versions.node) {
+      try {
+        const fs = require('fs');
+        const path = require('path');
+        const cleanPath = String(url).split('?')[0].replace(/^[/\\]+/, '');
+        const fullPath = path.resolve(process.cwd(), cleanPath);
+        if (fs.existsSync(fullPath)) {
+          return JSON.parse(fs.readFileSync(fullPath, 'utf8'));
+        }
+      } catch (_) {}
+    }
+    return db;
+  },
+
+  async init(customSearch = null) {
+    const searchStr = (typeof customSearch === 'string')
+      ? customSearch
+      : ((typeof window !== 'undefined' && window.location && window.location.search) ? window.location.search : '');
     const urlParams = new URLSearchParams(searchStr);
     let urlTestId = null;
     const rawTest = urlParams.get('test');
@@ -121,15 +161,16 @@ const ResultViewer = {
       const url = (config && typeof config.getDatabaseUrl === 'function')
         ? config.getDatabaseUrl()
         : 'data/database_compiled.json';
-      if (typeof fetch !== 'function') return false;
-      const res = await fetch(url);
-      if (!res.ok) {
-        console.warn(`Fetch database returned HTTP ${res.status}`);
+      const db = await this._fetchDatabase(url);
+      if (!db) {
+        console.warn(`Fetch database returned empty or failed for ${url}`);
         return false;
       }
-      const db = await res.json();
       const tests = db.tests || (Array.isArray(db) ? db : [db]);
-      const currentTest = tests.find(t => t.testId === clampedId || t.id === clampedId) || tests[0];
+      const currentTest = tests.find(t => {
+        const tid = Number(t.testId !== undefined ? t.testId : t.id);
+        return tid === clampedId;
+      }) || tests[0];
       if (!currentTest) return false;
 
       const detailedQuestions = [];
@@ -206,7 +247,7 @@ const ResultViewer = {
             correctChoice: q.correctAnswer || 'A',
             isCorrect: true,
             questionText: q.questionText || '',
-            imageUrl: '',
+            imageUrl: g.imageUrl || g.graphicUrl || (g.passages && g.passages[0] && g.passages[0].imageUrl) || '',
             audioUrl: g.audioUrl || q.audioUrl || '',
             options: q.options || {},
             explanation: q.explanation || '',
@@ -215,7 +256,7 @@ const ResultViewer = {
             analysis: q.analysis || '',
             groupTranscript: g.transcript || '',
             groupTranslation: g.passageTranslation || g.translation || '',
-            groupPassages: g.passages || [],
+            groupPassages: g.passages ? JSON.parse(JSON.stringify(g.passages, (k, v) => k === '_parentGroup' ? undefined : v)) : [],
             isFirstInGroup: idx === 0
           });
         });
@@ -235,7 +276,7 @@ const ResultViewer = {
             correctChoice: q.correctAnswer || 'A',
             isCorrect: true,
             questionText: q.questionText || '',
-            imageUrl: '',
+            imageUrl: g.imageUrl || g.graphicUrl || (g.passages && g.passages[0] && g.passages[0].imageUrl) || '',
             audioUrl: g.audioUrl || q.audioUrl || '',
             options: q.options || {},
             explanation: q.explanation || '',
@@ -244,7 +285,7 @@ const ResultViewer = {
             analysis: q.analysis || '',
             groupTranscript: g.transcript || '',
             groupTranslation: g.passageTranslation || g.translation || '',
-            groupPassages: g.passages || [],
+            groupPassages: g.passages ? JSON.parse(JSON.stringify(g.passages, (k, v) => k === '_parentGroup' ? undefined : v)) : [],
             isFirstInGroup: idx === 0
           });
         });
@@ -298,7 +339,7 @@ const ResultViewer = {
             analysis: q.analysis || '',
             groupTranscript: '',
             groupTranslation: g.passageTranslation || g.translation || '',
-            groupPassages: g.passages || [],
+            groupPassages: g.passages ? JSON.parse(JSON.stringify(g.passages, (k, v) => k === '_parentGroup' ? undefined : v)) : [],
             isFirstInGroup: idx === 0
           });
         });
@@ -327,7 +368,7 @@ const ResultViewer = {
             analysis: q.analysis || '',
             groupTranscript: '',
             groupTranslation: g.passageTranslation || g.translation || '',
-            groupPassages: g.passages || [],
+            groupPassages: g.passages ? JSON.parse(JSON.stringify(g.passages, (k, v) => k === '_parentGroup' ? undefined : v)) : [],
             isFirstInGroup: idx === 0
           });
         });
@@ -525,15 +566,27 @@ const ResultViewer = {
 
   // ── Show / Hide Detailed Review Section ──
   showDetailedReviewSection() {
+    if (typeof document === 'undefined') return false;
     const section = document.getElementById('detailed-review-section');
     if (section) {
       section.style.display = 'block';
-      const offsetTop = section.getBoundingClientRect().top + window.pageYOffset - 80;
-      window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+      const btn = document.getElementById('btn-show-detail');
+      if (btn && typeof btn.setAttribute === 'function') {
+        btn.setAttribute('aria-expanded', 'true');
+      }
+      const scrollY = (typeof window !== 'undefined' && window.scrollY !== undefined)
+        ? window.scrollY
+        : ((typeof window !== 'undefined' && window.pageYOffset) || 0);
+      const offsetTop = Math.max(0, section.getBoundingClientRect().top + scrollY - 80);
+      if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+        const prefersReduced = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({ top: offsetTop, behavior: prefersReduced ? 'auto' : 'smooth' });
+      }
+      return true;
     }
+    return false;
   },
 
-  // ── Update Filter Button Counts (Real-time numbers for all/correct/wrong/unanswered) ──
   // ── Update Filter Button Counts (Real-time numbers for all/correct/wrong/unanswered) ──
   updateFilterCounts() {
     if (!this.resultData || !this.resultData.detailedQuestions || !Array.isArray(this.resultData.detailedQuestions)) return false;
@@ -581,11 +634,17 @@ const ResultViewer = {
         section.style.display = 'block';
       }
 
-      document.querySelectorAll('#status-filter-group .filter-tab-btn').forEach(btn => {
-        const isActive = btn.dataset.status === targetStatus;
-        btn.classList.toggle('active', isActive);
-        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-      });
+      if (typeof document.querySelectorAll === 'function') {
+        document.querySelectorAll('#status-filter-group .filter-tab-btn').forEach(btn => {
+          const isActive = btn.dataset ? (btn.dataset.status === targetStatus) : (btn.getAttribute && btn.getAttribute('data-status') === targetStatus);
+          if (btn.classList && typeof btn.classList.toggle === 'function') {
+            btn.classList.toggle('active', isActive);
+          }
+          if (typeof btn.setAttribute === 'function') {
+            btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+          }
+        });
+      }
     }
 
     if (typeof this.renderDetailedReview === 'function') {
@@ -596,17 +655,54 @@ const ResultViewer = {
 
   // ── Part Filter: All / Part 1 .. Part 7 ──
   setPartFilter(part) {
-    const raw = (typeof part === 'string') ? part.trim().toLowerCase() : '';
+    let raw = '';
+    if (typeof part === 'number' && Number.isInteger(part) && part >= 1 && part <= 7) {
+      raw = 'part' + part;
+    } else if (typeof part === 'string') {
+      const trimmed = part.trim().toLowerCase();
+      if (/^[1-7]$/.test(trimmed)) {
+        raw = 'part' + trimmed;
+      } else {
+        raw = trimmed;
+      }
+    }
+
     const valid = ['all', 'part1', 'part2', 'part3', 'part4', 'part5', 'part6', 'part7'];
-    const targetPart = valid.includes(raw) ? raw : 'all';
+    let targetPart = valid.includes(raw) ? raw : 'all';
+
+    // Part Practice Mode Isolation
+    if (this.resultData && this.resultData.mode === 'part' && this.resultData.partFilter) {
+      const allowedPart = String(this.resultData.partFilter).toLowerCase();
+      if (targetPart !== allowedPart && targetPart !== 'all') {
+        targetPart = allowedPart;
+      }
+    }
+
     this.currentPartFilter = targetPart;
 
+    // Stop current audio when switching parts to prevent ghost audio
+    if (typeof AudioController !== 'undefined' && typeof AudioController.stopCurrent === 'function') {
+      try { AudioController.stopCurrent(); } catch (_) {}
+    }
+
     if (typeof document !== 'undefined') {
-      document.querySelectorAll('#part-filter-group .filter-pill-btn').forEach(btn => {
-        const isActive = btn.dataset.part === targetPart;
-        btn.classList.toggle('active', isActive);
-        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-      });
+      // Auto-reveal detailed review section if hidden
+      const section = document.getElementById('detailed-review-section');
+      if (section && (section.style.display === 'none' || !section.style.display)) {
+        section.style.display = 'block';
+      }
+
+      if (typeof document.querySelectorAll === 'function') {
+        document.querySelectorAll('#part-filter-group .filter-pill-btn').forEach(btn => {
+          const isActive = btn.dataset ? (btn.dataset.part === targetPart) : (btn.getAttribute && btn.getAttribute('data-part') === targetPart);
+          if (btn.classList && typeof btn.classList.toggle === 'function') {
+            btn.classList.toggle('active', isActive);
+          }
+          if (typeof btn.setAttribute === 'function') {
+            btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+          }
+        });
+      }
     }
 
     if (typeof this.renderDetailedReview === 'function') {
@@ -622,16 +718,19 @@ const ResultViewer = {
 
   // ── Render Detailed Review List (Grouped for Part 3, 4, 6, 7; Single for 1, 2, 5) ──
   renderDetailedReview() {
+    if (typeof document === 'undefined') return;
     const container = document.getElementById('review-questions-container');
     if (!container || !this.resultData) return;
 
-    const questions = this.resultData.detailedQuestions || [];
+    const rawQuestions = Array.isArray(this.resultData.detailedQuestions) ? this.resultData.detailedQuestions : [];
+    const questions = rawQuestions.filter(Boolean);
     let filtered = questions;
 
     // Filter by Part
     if (this.currentPartFilter !== 'all') {
       const config = this._getConfig();
       filtered = filtered.filter(q => {
+        if (!q) return false;
         const pInfo = (config && typeof config.getPartByQuestionNum === 'function')
           ? config.getPartByQuestionNum(q.questionNumber)
           : null;
@@ -819,12 +918,12 @@ const ResultViewer = {
 
         <!-- Explanation Accordion -->
         <div style="margin-top: 12px;">
-          <button class="explanation-toggle-btn" id="toggle_btn_${qNum}" onclick="ResultViewer.toggleExplanation(${qNum})">
+          <button class="explanation-toggle-btn" type="button" id="toggle_btn_${qNum}" aria-expanded="false" aria-controls="panel_exp_${qNum}" onclick="ResultViewer.toggleExplanation(${qNum})">
             <span>💡 Xem giải thích & Dịch nghĩa</span>
             <span class="arrow-icon">▼</span>
           </button>
 
-          <div class="explanation-panel" id="panel_exp_${qNum}">
+          <div class="explanation-panel" id="panel_exp_${qNum}" role="region" aria-labelledby="toggle_btn_${qNum}" aria-hidden="true">
             ${this.renderExplanationContent(q, hasExplanation)}
           </div>
         </div>
@@ -834,6 +933,7 @@ const ResultViewer = {
 
   // ── Render Grouped Questions Review (Parts 3, 4, 6, 7) — 1 Image/Audio Block + Sub-questions underneath ──
   renderGroupQuestionReview(group) {
+    const config = this._getConfig();
     const isReading = ['part6', 'part7'].includes(group.part);
     const gid = group.groupId;
     const range = group.expectedRange || [0, 0];
@@ -861,7 +961,7 @@ const ResultViewer = {
           <div class="group-passages-wrap" style="margin: 8px 0;">
             ${group.groupPassages.map(p => {
               const pUrl = typeof p === 'string' ? p : p.imageUrl;
-              const fullUrl = AppConfig.resolveAssetUrl(pUrl);
+              const fullUrl = (config && typeof config.resolveAssetUrl === 'function') ? config.resolveAssetUrl(pUrl) : (pUrl || '');
               return `
                 <div class="q-image-container" style="cursor: pointer;" onclick="UIRenderer.openLightbox('${fullUrl}')" title="Nhấn để phóng to ảnh">
                   <img src="${fullUrl}" alt="Graphic" loading="lazy">
@@ -892,7 +992,7 @@ const ResultViewer = {
           <div class="group-passages-wrap">
             ${group.groupPassages.map((p, pIdx) => {
               const pUrl = typeof p === 'string' ? p : p.imageUrl;
-              const fullUrl = AppConfig.resolveAssetUrl(pUrl);
+              const fullUrl = (config && typeof config.resolveAssetUrl === 'function') ? config.resolveAssetUrl(pUrl) : (pUrl || '');
               const hasSentences = p && p.sentences && p.sentences.length > 0;
               return `
                 <div class="interactive-passage-container" id="pass_wrap_${gid}_${pIdx}">
@@ -1012,12 +1112,12 @@ const ResultViewer = {
 
         <!-- Explanation Accordion -->
         <div style="margin-top: 12px;">
-          <button class="explanation-toggle-btn" id="toggle_btn_${qNum}" onclick="ResultViewer.toggleExplanation(${qNum})">
+          <button type="button" class="explanation-toggle-btn" id="toggle_btn_${qNum}" aria-expanded="false" aria-controls="panel_exp_${qNum}" onclick="ResultViewer.toggleExplanation(${qNum})">
             <span>💡 Xem giải thích & Dịch nghĩa</span>
             <span class="arrow-icon">▼</span>
           </button>
 
-          <div class="explanation-panel" id="panel_exp_${qNum}">
+          <div class="explanation-panel" id="panel_exp_${qNum}" role="region" aria-labelledby="toggle_btn_${qNum}" aria-hidden="true">
             ${this.renderExplanationContent(q, hasExplanation)}
           </div>
         </div>
@@ -1084,29 +1184,92 @@ const ResultViewer = {
   },
 
   // ── Toggle Individual Question Explanation Accordion ──
-  toggleExplanation(qNum) {
-    const panel = document.getElementById(`panel_exp_${qNum}`);
-    const btn = document.getElementById(`toggle_btn_${qNum}`);
-    if (!panel || !btn) return;
+  toggleExplanation(qNum, forceState = null) {
+    if (typeof document === 'undefined') return false;
+    const num = parseInt(qNum, 10);
+    if (!Number.isInteger(num) || num <= 0) return false;
 
-    const isVisible = panel.classList.contains('show');
-    if (isVisible) {
-      panel.classList.remove('show');
-      btn.classList.remove('expanded');
-    } else {
+    const panel = document.getElementById(`panel_exp_${num}`);
+    const btn = document.getElementById(`toggle_btn_${num}`);
+    if (!panel || !btn) return false;
+
+    const currentlyVisible = panel.classList.contains('show');
+    const shouldOpen = (typeof forceState === 'boolean') ? forceState : !currentlyVisible;
+
+    if (shouldOpen) {
       panel.classList.add('show');
+      if (typeof panel.setAttribute === 'function') panel.setAttribute('aria-hidden', 'false');
       btn.classList.add('expanded');
+      if (typeof btn.setAttribute === 'function') btn.setAttribute('aria-expanded', 'true');
+    } else {
+      panel.classList.remove('show');
+      if (typeof panel.setAttribute === 'function') panel.setAttribute('aria-hidden', 'true');
+      btn.classList.remove('expanded');
+      if (typeof btn.setAttribute === 'function') btn.setAttribute('aria-expanded', 'false');
     }
+    return shouldOpen;
   },
 
   // ── Master Toggle: Expand / Collapse All ──
-  toggleAllExplanations(shouldExpand) {
-    document.querySelectorAll('.explanation-panel').forEach(p => {
-      p.classList.toggle('show', shouldExpand);
+  toggleAllExplanations(shouldExpand = null) {
+    if (typeof document === 'undefined') return false;
+
+    const container = (typeof document.getElementById === 'function' && document.getElementById('review-questions-container')) || document;
+    let panels = (container && typeof container.querySelectorAll === 'function')
+      ? container.querySelectorAll('.explanation-panel')
+      : ((typeof document.querySelectorAll === 'function') ? document.querySelectorAll('.explanation-panel') : []);
+    let buttons = (container && typeof container.querySelectorAll === 'function')
+      ? container.querySelectorAll('.explanation-toggle-btn')
+      : ((typeof document.querySelectorAll === 'function') ? document.querySelectorAll('.explanation-toggle-btn') : []);
+
+    if ((!panels || panels.length === 0) && typeof document.querySelectorAll === 'function') {
+      panels = document.querySelectorAll('.explanation-panel');
+      buttons = document.querySelectorAll('.explanation-toggle-btn');
+    }
+
+    let expand;
+    if (typeof shouldExpand === 'boolean') {
+      expand = shouldExpand;
+    } else if (typeof shouldExpand === 'string') {
+      const s = shouldExpand.trim().toLowerCase();
+      expand = (s === 'true' || s === '1');
+    } else {
+      // Smart Auto-Toggle: if any panel is closed, expand all; otherwise collapse all
+      let anyClosed = false;
+      panels.forEach(p => {
+        if (!p.classList.contains('show')) anyClosed = true;
+      });
+      expand = anyClosed;
+    }
+
+    if (expand) {
+      const section = document.getElementById('detailed-review-section');
+      if (section && (section.style.display === 'none' || !section.style.display)) {
+        section.style.display = 'block';
+      }
+    }
+
+    let affectedCount = 0;
+    panels.forEach(p => {
+      p.classList.toggle('show', expand);
+      if (typeof p.setAttribute === 'function') {
+        p.setAttribute('aria-hidden', expand ? 'false' : 'true');
+      }
+      affectedCount++;
     });
-    document.querySelectorAll('.explanation-toggle-btn').forEach(b => {
-      b.classList.toggle('expanded', shouldExpand);
+
+    buttons.forEach(b => {
+      b.classList.toggle('expanded', expand);
+      if (typeof b.setAttribute === 'function') {
+        b.setAttribute('aria-expanded', expand ? 'true' : 'false');
+      }
     });
+
+    return {
+      success: true,
+      expanded: expand,
+      count: affectedCount
+    };
   },
 
   // ── Interactive Passage Sentence Lookup (Part 6 & Part 7) ──
@@ -1233,22 +1396,50 @@ const ResultViewer = {
 
   // ── Dynamically rehydrate latest explanations from DB if any questions were missing explanations ──
   async rehydrateExplanationsFromDB() {
+    if (!this.resultData || !Array.isArray(this.resultData.detailedQuestions)) return false;
     try {
       const config = this._getConfig();
       const url = (config && typeof config.getDatabaseUrl === 'function')
         ? config.getDatabaseUrl()
         : 'data/database_compiled.json';
-      if (typeof fetch !== 'function') return;
-      const res = await fetch(url);
-      if (!res.ok) return;
-      const db = await res.json();
+      const db = await this._fetchDatabase(url);
+      if (!db) return false;
       const tests = db.tests || (Array.isArray(db) ? db : [db]);
-      const currentTestId = this.resultData?.testId || 1;
-      const test = tests.find(t => t.testId === currentTestId || t.id === currentTestId) || tests[0];
-      if (!test) return;
+
+      const rawId = this.resultData?.testId;
+      let currentTestId = 1;
+      if (typeof rawId === 'number' && Number.isFinite(rawId)) {
+        currentTestId = Math.min(10, Math.max(1, Math.floor(rawId)));
+      } else if (rawId !== null && rawId !== undefined) {
+        const match = String(rawId).match(/\d+/);
+        if (match) {
+          const parsed = parseInt(match[0], 10);
+          if (!isNaN(parsed)) {
+            currentTestId = Math.min(10, Math.max(1, parsed));
+          }
+        }
+      }
+
+      const test = tests.find(t => {
+        if (!t) return false;
+        const rawTid = t.testId !== undefined ? t.testId : t.id;
+        let tid = null;
+        if (typeof rawTid === 'number') {
+          tid = rawTid;
+        } else if (rawTid !== null && rawTid !== undefined) {
+          const m = String(rawTid).match(/\d+/);
+          if (m) tid = parseInt(m[0], 10);
+        }
+        return tid === currentTestId;
+      }) || (rawId === null || rawId === undefined ? tests[0] : null);
+      if (!test) {
+        console.warn(`Rehydrate: Test ${currentTestId} not found in database`);
+        return false;
+      }
 
       const qMap = {};
       const gMap = {};
+      const qGroupMap = {};
 
       const scanPart = (partObj) => {
         if (!partObj) return;
@@ -1259,7 +1450,7 @@ const ResultViewer = {
           partObj.groups.forEach(g => {
             if (g.groupId) gMap[g.groupId] = g;
             (g.questions || []).forEach(q => {
-              q._parentGroup = g;
+              qGroupMap[q.questionNumber] = g;
               qMap[q.questionNumber] = q;
             });
           });
@@ -1279,14 +1470,34 @@ const ResultViewer = {
       }
 
       let hasUpdates = false;
-      (this.resultData.detailedQuestions || []).forEach(q => {
+      let hasScoreUpdates = false;
+
+      // Safe clone helper breaking circular reference leak
+      const safeClone = (obj) => {
+        if (!obj || typeof obj !== 'object') return obj;
+        try {
+          return JSON.parse(JSON.stringify(obj, (k, v) => (k === '_parentGroup' ? undefined : v)));
+        } catch (_) {
+          return Array.isArray(obj) ? [...obj] : { ...obj };
+        }
+      };
+
+      const questions = Array.isArray(this.resultData?.detailedQuestions) ? this.resultData.detailedQuestions : [];
+      if (questions.length === 0) return false;
+
+      questions.forEach(q => {
+        if (!q || typeof q !== 'object') return;
+        if ('_parentGroup' in q) {
+          try { delete q._parentGroup; } catch (_) {}
+        }
+
         const freshQ = qMap[q.questionNumber];
         if (freshQ) {
           // Sync clean options from DB
           if (freshQ.options) {
-            const freshOptsStr = JSON.stringify(freshQ.options);
-            if (JSON.stringify(q.options) !== freshOptsStr) {
-              q.options = JSON.parse(freshOptsStr);
+            const freshOptsStr = JSON.stringify(freshQ.options, (k, v) => k === '_parentGroup' ? undefined : v);
+            if (JSON.stringify(q.options, (k, v) => k === '_parentGroup' ? undefined : v) !== freshOptsStr) {
+              q.options = safeClone(freshQ.options);
               hasUpdates = true;
             }
           }
@@ -1310,6 +1521,11 @@ const ResultViewer = {
             q.explanation = freshQ.explanation;
             hasUpdates = true;
           }
+          // Sync latest analysis
+          if (freshQ.analysis && q.analysis !== freshQ.analysis) {
+            q.analysis = freshQ.analysis;
+            hasUpdates = true;
+          }
           // Sync latest question translation
           const freshTrans = freshQ.translation || freshQ.questionTranslation || '';
           if (freshTrans && q.translation !== freshTrans) {
@@ -1318,64 +1534,173 @@ const ResultViewer = {
           }
           // Sync options translation
           if (freshQ.optionsTranslation) {
-            const freshOptTransStr = JSON.stringify(freshQ.optionsTranslation);
-            if (JSON.stringify(q.optionsTranslation) !== freshOptTransStr) {
-              q.optionsTranslation = JSON.parse(freshOptTransStr);
+            const freshOptTransStr = JSON.stringify(freshQ.optionsTranslation, (k, v) => k === '_parentGroup' ? undefined : v);
+            if (JSON.stringify(q.optionsTranslation, (k, v) => k === '_parentGroup' ? undefined : v) !== freshOptTransStr) {
+              q.optionsTranslation = safeClone(freshQ.optionsTranslation);
               hasUpdates = true;
             }
           }
-          // Sync correct answer
-          if (freshQ.correctAnswer && q.correctChoice !== freshQ.correctAnswer) {
-            q.correctChoice = freshQ.correctAnswer;
-            q.isCorrect = (q.userChoice === q.correctChoice);
-            hasUpdates = true;
-          }
-
-          // If question belongs to a group (Part 3, 4, 6, 7)
-          const freshG = (q.groupId && gMap[q.groupId]) || freshQ._parentGroup;
-          if (freshG) {
-            if (!q.groupId && freshG.groupId) {
-              q.groupId = freshG.groupId;
+          // Sync correct answer & recalculate isCorrect
+          const freshCorrect = freshQ.correctAnswer || freshQ.correctChoice;
+          if (freshCorrect) {
+            if (q.correctChoice !== freshCorrect) {
+              q.correctChoice = freshCorrect;
               hasUpdates = true;
             }
-            // Sync groupPassages (passages, images, coordinates)
-            if (freshG.passages && freshG.passages.length > 0 && (!q.groupPassages || q.groupPassages.length === 0)) {
-              q.groupPassages = freshG.passages;
-              hasUpdates = true;
-            }
-            // Sync group expected range
-            if (freshG.expectedRange && (!q.expectedRange || q.expectedRange[0] !== freshG.expectedRange[0])) {
-              q.expectedRange = freshG.expectedRange;
-              hasUpdates = true;
-            }
-            // Sync group audio
-            if (freshG.audioUrl && (!q.audioUrl || !q.groupAudioUrl)) {
-              q.audioUrl = freshG.audioUrl;
-              q.groupAudioUrl = freshG.audioUrl;
-              hasUpdates = true;
-            }
-            // Sync group translation & transcript
-            const freshGTrans = freshG.passageTranslation || freshG.translation || '';
-            if (freshGTrans && q.groupTranslation !== freshGTrans) {
-              q.groupTranslation = freshGTrans;
-              hasUpdates = true;
-            }
-            if (freshG.transcript && q.groupTranscript !== freshG.transcript) {
-              q.groupTranscript = freshG.transcript;
+            const cleanUser = q.userChoice ? String(q.userChoice).trim().toUpperCase() : '';
+            const cleanCorrect = String(freshCorrect).trim().toUpperCase();
+            const newIsCorrect = Boolean(cleanUser && cleanCorrect && cleanUser === cleanCorrect);
+            if (q.isCorrect !== newIsCorrect) {
+              q.isCorrect = newIsCorrect;
+              hasScoreUpdates = true;
               hasUpdates = true;
             }
           }
         }
+
+        // If question belongs to a group (Part 3, 4, 6, 7)
+        const freshG = (q.groupId && gMap[q.groupId]) || qGroupMap[q.questionNumber];
+        if (freshG) {
+          if (!q.groupId && freshG.groupId) {
+            q.groupId = freshG.groupId;
+            hasUpdates = true;
+          }
+          // Sync group image / graphic for Part 3 & 4
+          const groupImg = freshG.imageUrl || freshG.image || freshG.graphicUrl || (freshG.graphic && freshG.graphic.url) || (freshG.passages && freshG.passages[0] && freshG.passages[0].imageUrl) || '';
+          if (groupImg) {
+            if (!q.imageUrl || q.imageUrl !== groupImg) {
+              q.imageUrl = groupImg;
+              hasUpdates = true;
+            }
+            if (!q.groupImage || q.groupImage !== groupImg) {
+              q.groupImage = groupImg;
+              hasUpdates = true;
+            }
+          }
+          // Sync groupPassages (passages, images, coordinates) with deep clone
+          if (freshG.passages && freshG.passages.length > 0) {
+            const freshPassagesStr = JSON.stringify(freshG.passages, (k, v) => k === '_parentGroup' ? undefined : v);
+            if (!q.groupPassages || q.groupPassages.length === 0 || JSON.stringify(q.groupPassages, (k, v) => k === '_parentGroup' ? undefined : v) !== freshPassagesStr) {
+              q.groupPassages = safeClone(freshG.passages);
+              hasUpdates = true;
+            }
+          } else if (groupImg && (!q.groupPassages || q.groupPassages.length === 0)) {
+            q.groupPassages = [{ imageUrl: groupImg }];
+            hasUpdates = true;
+          }
+          // Sync group expected range (cloned array)
+          if (freshG.expectedRange && (!q.expectedRange || q.expectedRange[0] !== freshG.expectedRange[0])) {
+            q.expectedRange = Array.isArray(freshG.expectedRange) ? [...freshG.expectedRange] : freshG.expectedRange;
+            hasUpdates = true;
+          }
+          // Sync group audio
+          if (freshG.audioUrl && (!q.audioUrl || !q.groupAudioUrl)) {
+            q.audioUrl = freshG.audioUrl;
+            q.groupAudioUrl = freshG.audioUrl;
+            hasUpdates = true;
+          }
+          // Sync group translation & transcript
+          const freshGTrans = freshG.passageTranslation || freshG.translation || '';
+          if (freshGTrans && q.groupTranslation !== freshGTrans) {
+            q.groupTranslation = freshGTrans;
+            hasUpdates = true;
+          }
+          if (freshG.transcript && q.groupTranscript !== freshG.transcript) {
+            q.groupTranscript = freshG.transcript;
+            hasUpdates = true;
+          }
+        }
       });
 
-      if (hasUpdates) {
+      // Recalculate score stats if any correctChoice changed
+      if (hasScoreUpdates) {
+        let totalCorrect = 0;
+        let lcCorrect = 0;
+        let rcCorrect = 0;
+        const partsConfig = (config && config.PARTS) ? config.PARTS : {};
+        const partStats = {};
+        Object.keys(partsConfig).forEach(k => {
+          partStats[k] = { correct: 0, total: partsConfig[k]?.count || 0, answered: 0 };
+        });
+
+        questions.forEach(qItem => {
+          const partInfo = (config && typeof config.getPartByQuestionNum === 'function')
+            ? config.getPartByQuestionNum(qItem.questionNumber)
+            : null;
+          const pKey = partInfo ? partInfo.key : (qItem.part || '');
+          const sec = partInfo?.section || (qItem.questionNumber <= 100 ? 'listening' : 'reading');
+
+          if (!partStats[pKey]) {
+            partStats[pKey] = { correct: 0, total: partsConfig[pKey]?.count || 0, answered: 0 };
+          }
+          if (qItem.userChoice) partStats[pKey].answered++;
+          if (qItem.isCorrect) {
+            totalCorrect++;
+            partStats[pKey].correct++;
+            if (sec === 'listening') lcCorrect++;
+            else rcCorrect++;
+          }
+        });
+
+        this.resultData.totalCorrect = totalCorrect;
+        this.resultData.correctCountLC = lcCorrect;
+        this.resultData.correctCountRC = rcCorrect;
+        const totalQ = this.resultData.totalQuestions || this.resultData.detailedQuestions.length;
+        this.resultData.accuracyRate = totalQ > 0 ? Math.round((totalCorrect / totalQ) * 100) : 0;
+        this.resultData.partStats = partStats;
+
+        const appCfg = (config && typeof config.calculateListeningScore === 'function')
+          ? config
+          : (typeof AppConfig !== 'undefined' ? AppConfig : null);
+        const isPartMode = this.resultData.mode === 'part';
+        const calcLC = (appCfg && typeof appCfg.calculateListeningScore === 'function')
+          ? appCfg.calculateListeningScore.bind(appCfg)
+          : (c) => Math.min(495, Math.max(5, Math.round((c * 4.95) / 5) * 5));
+        const calcRC = (appCfg && typeof appCfg.calculateReadingScore === 'function')
+          ? appCfg.calculateReadingScore.bind(appCfg)
+          : (c) => Math.min(495, Math.max(5, Math.round((c * 4.95) / 5) * 5));
+
+        if (!isPartMode) {
+          this.resultData.scaledLC = calcLC(lcCorrect);
+          this.resultData.scaledRC = calcRC(rcCorrect);
+          this.resultData.totalScore = (this.resultData.scaledLC || 0) + (this.resultData.scaledRC || 0);
+        } else {
+          const pFilter = this.resultData.partFilter;
+          const partSec = (partsConfig[pFilter] && partsConfig[pFilter].section)
+            ? partsConfig[pFilter].section
+            : (['part1', 'part2', 'part3', 'part4'].includes(pFilter) ? 'listening' : 'reading');
+          if (partSec === 'listening') {
+            this.resultData.scaledLC = calcLC(totalCorrect);
+            this.resultData.totalScore = this.resultData.scaledLC;
+          } else {
+            this.resultData.scaledRC = calcRC(totalCorrect);
+            this.resultData.totalScore = this.resultData.scaledRC;
+          }
+        }
+
+        if (typeof this.renderSummary === 'function') {
+          try { this.renderSummary(); } catch (_) {}
+        }
+        if (typeof this.updateFilterCounts === 'function') {
+          try { this.updateFilterCounts(); } catch (_) {}
+        }
+      }
+
+      if (hasUpdates || hasScoreUpdates) {
+        (this.resultData.detailedQuestions || []).forEach(q => {
+          if (q && '_parentGroup' in q) {
+            try { delete q._parentGroup; } catch (_) {}
+          }
+        });
         const storage = this._getStorage();
         if (storage && typeof storage.setCurrentResult === 'function') {
           try { storage.setCurrentResult(this.resultData); } catch (_) {}
         }
       }
+      return true;
     } catch (e) {
       console.warn('Rehydrate explanations skipped:', e);
+      return false;
     }
   },
 

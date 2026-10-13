@@ -154,7 +154,7 @@
     <div class="nav-links">
       <a href="index.html" class="nav-link-btn">Trang chủ</a>
       <a href="history.html" class="nav-link-btn active">Lịch sử thi</a>
-      <button class="theme-toggle-btn" onclick="toggleTheme()" title="Đổi giao diện">
+      <button class="theme-toggle-btn" id="theme-btn" type="button" onclick="toggleTheme()" aria-label="Đổi giao diện Sáng / Tối" title="Đổi giao diện Sáng / Tối">
         🌓
       </button>
     </div>
@@ -168,7 +168,7 @@
         <h1 style="font-size: 1.8rem; margin-bottom: 6px;">Lịch Sử Thi & Tiến Độ Luyện Tập</h1>
         <p style="color: var(--text-muted); font-size: 0.95rem;">Lưu trữ tối đa 50 lần làm bài gần nhất của bạn trên trình duyệt này.</p>
       </div>
-      <button class="btn btn-secondary btn-sm" onclick="openClearHistoryModal('all')" id="btn-clear-history" style="display: none;">
+      <button class="btn btn-secondary btn-sm" type="button" onclick="openClearHistoryModal('all')" id="btn-clear-history" aria-label="Xóa tất cả lịch sử làm bài" aria-haspopup="dialog" style="display: none;">
         🗑️ Xóa tất cả lịch sử
       </button>
     </div>
@@ -205,15 +205,15 @@
     </div>
 
     <!-- Confirmation Modal for Delete History -->
-    <div class="submit-confirm-modal" id="clear-history-modal" style="display: none;">
+    <div class="submit-confirm-modal" id="clear-history-modal" role="dialog" aria-modal="true" aria-labelledby="clear-modal-title" aria-describedby="clear-modal-desc" style="display: none;">
       <div class="modal-backdrop" onclick="closeClearHistoryModal()"></div>
       <div class="modal-card">
         <div class="modal-header">
           <div style="display: flex; align-items: center; gap: 10px;">
-            <span class="modal-header-icon" style="font-size: 1.5rem;">🗑️</span>
+            <span class="modal-header-icon" style="font-size: 1.5rem;" aria-hidden="true">🗑️</span>
             <h3 id="clear-modal-title">Xóa lịch sử bài thi</h3>
           </div>
-          <button class="modal-close-btn" onclick="closeClearHistoryModal()">&times;</button>
+          <button type="button" class="modal-close-btn" onclick="closeClearHistoryModal()" aria-label="Đóng hộp thoại">&times;</button>
         </div>
 
         <div class="modal-body" style="padding: 16px 20px;">
@@ -222,8 +222,8 @@
           </p>
 
           <div class="modal-actions" style="display: flex; justify-content: flex-end; gap: 12px;">
-            <button class="btn btn-secondary" onclick="closeClearHistoryModal()">Hủy bỏ</button>
-            <button class="btn btn-danger" id="btn-confirm-delete" onclick="executeClearHistory()">Xác nhận xóa</button>
+            <button type="button" class="btn btn-secondary" onclick="closeClearHistoryModal()" aria-label="Hủy bỏ xóa lịch sử">Hủy bỏ</button>
+            <button type="button" class="btn btn-danger" id="btn-confirm-delete" onclick="executeClearHistory()" aria-label="Xác nhận xóa kết quả">Xác nhận xóa</button>
           </div>
         </div>
       </div>
@@ -237,75 +237,127 @@
 
   <script>
     let pendingDeleteTarget = 'all';
+    let _lastFocusedElementHistory = null;
 
-    document.addEventListener('DOMContentLoaded', () => {
-      StorageService.initTheme();
-      renderHistory();
-    });
+    function getSafeStorage() {
+      return (typeof StorageService !== 'undefined' && StorageService)
+        ? StorageService
+        : (typeof window !== 'undefined' && window.StorageService ? window.StorageService : null);
+    }
+
+    function escapeHtml(str) {
+      if (str == null) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') {
+      document.addEventListener('DOMContentLoaded', () => {
+        const storage = getSafeStorage();
+        if (storage && typeof storage.initTheme === 'function') {
+          try { storage.initTheme(); } catch (_) {}
+        }
+        renderHistory();
+      });
+    }
 
     function toggleTheme() {
-      StorageService.toggleTheme();
+      const storage = getSafeStorage();
+      if (storage && typeof storage.toggleTheme === 'function') {
+        storage.toggleTheme();
+      } else if (typeof document !== 'undefined' && document.documentElement) {
+        const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
+      }
     }
 
     function formatDate(isoString) {
       if (!isoString) return '--';
-      const d = new Date(isoString);
-      return d.toLocaleDateString('vi-VN', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      });
+      try {
+        const d = new Date(isoString);
+        if (isNaN(d.getTime())) return '--';
+        return d.toLocaleDateString('vi-VN', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+      } catch (_) {
+        return '--';
+      }
     }
 
     function formatDuration(sec) {
-      if (!sec) return '0p';
-      const m = Math.floor(sec / 60);
-      return `${m} phút`;
+      const s = Number(sec);
+      if (isNaN(s) || s <= 0) return '0 phút';
+      const m = Math.floor(s / 60);
+      return m > 0 ? `${m} phút` : `${Math.floor(s)}s`;
     }
 
     function renderHistory() {
-      const history = StorageService.getExamHistory();
+      const storage = getSafeStorage();
+      const history = (storage && typeof storage.getExamHistory === 'function') ? storage.getExamHistory() : [];
+      if (typeof document === 'undefined') return;
+
       const emptyEl = document.getElementById('history-empty');
       const cardEl = document.getElementById('history-card');
       const clearBtn = document.getElementById('btn-clear-history');
       const tbody = document.getElementById('history-tbody');
 
-      if (!history || history.length === 0) {
-        emptyEl.style.display = 'block';
-        cardEl.style.display = 'none';
-        clearBtn.style.display = 'none';
+      if (!history || !Array.isArray(history) || history.length === 0) {
+        if (emptyEl) emptyEl.style.display = 'block';
+        if (cardEl) cardEl.style.display = 'none';
+        if (clearBtn) clearBtn.style.display = 'none';
         return;
       }
 
-      emptyEl.style.display = 'none';
-      cardEl.style.display = 'block';
-      clearBtn.style.display = 'block';
+      if (emptyEl) emptyEl.style.display = 'none';
+      if (cardEl) cardEl.style.display = 'block';
+      if (clearBtn) clearBtn.style.display = 'block';
+
+      if (!tbody) return;
 
       tbody.innerHTML = history.map((item, index) => {
-        const modeLabel = item.mode === 'full' ? 'Full Test 200 câu' : `Luyện ${item.partFilter || 'Part'}`;
-        const targetId = item.id || index;
+        if (!item || typeof item !== 'object') return '';
+        const isFull = (item.mode !== 'part');
+        const partText = item.partFilter ? String(item.partFilter).toUpperCase() : 'Part';
+        const modeLabel = isFull ? 'Full Test 200 câu' : `Luyện ${escapeHtml(partText)}`;
+        const targetId = item.id != null ? String(item.id) : String(index);
+        const safeTargetId = escapeHtml(targetId);
+        const testTitle = item.testTitle || `Test ${item.testId || (index + 1)}`;
+        const safeTestTitle = escapeHtml(testTitle);
+
+        const scoreDisplay = isFull
+          ? `<span class="score-badge-history">${Number(item.totalScore) || 0} / 990</span>`
+          : `<span>${Number(item.totalCorrect) || 0} / ${Number(item.totalQuestions) || 30} câu</span>`;
+
+        const lcRcDisplay = isFull
+          ? `<span style="color: var(--accent-primary); font-weight: 600;">${item.scaledLC || 0}</span> / 
+             <span style="color: var(--accent-secondary); font-weight: 600;">${item.scaledRC || 0}</span>`
+          : `<span style="color: var(--text-muted);">-- / --</span>`;
+
+        const correctCountDisplay = `<strong>${Number(item.totalCorrect) || 0}</strong> / ${Number(item.totalQuestions) || (isFull ? 200 : 30)}`;
+
         return `
           <tr>
-            <td data-label="Thời gian">${formatDate(item.date)}</td>
-            <td data-label="Đề thi"><strong>${item.testTitle || `Test ${item.testId}`}</strong></td>
+            <td data-label="Thời gian">${escapeHtml(formatDate(item.date))}</td>
+            <td data-label="Đề thi"><strong>${safeTestTitle}</strong></td>
             <td data-label="Chế độ"><span class="badge" style="background: var(--bg-tertiary);">${modeLabel}</span></td>
-            <td data-label="Điểm số">
-              <span class="score-badge-history">${item.totalScore} / 990</span>
-            </td>
-            <td data-label="Điểm LC / RC">
-              <span style="color: var(--accent-primary); font-weight: 600;">${item.scaledLC}</span> / 
-              <span style="color: var(--accent-secondary); font-weight: 600;">${item.scaledRC}</span>
-            </td>
-            <td data-label="Số câu đúng"><strong>${item.totalCorrect}</strong> / ${item.totalQuestions || 200}</td>
-            <td data-label="Thời gian làm">${formatDuration(item.timeSpentSeconds)}</td>
+            <td data-label="Điểm số">${scoreDisplay}</td>
+            <td data-label="Điểm LC / RC">${lcRcDisplay}</td>
+            <td data-label="Số câu đúng">${correctCountDisplay}</td>
+            <td data-label="Thời gian làm">${escapeHtml(formatDuration(item.timeSpentSeconds))}</td>
             <td data-label="Thao tác">
               <div style="display: flex; gap: 8px; align-items: center; justify-content: flex-end;">
-                <button class="btn btn-primary btn-sm" onclick="reviewExamRecord('${targetId}')" title="Xem lại bài thi">
+                <button type="button" class="btn btn-primary btn-sm" onclick="reviewExamRecord('${safeTargetId}')" aria-label="Xem lại kết quả bài thi ${safeTestTitle}" title="Xem lại bài thi">
                   Xem lại ➔
                 </button>
-                <button class="btn btn-secondary btn-sm" onclick="openClearHistoryModal('${targetId}')" title="Xóa bài thi này" style="color: var(--danger); border-color: rgba(239, 68, 68, 0.35); padding: 5px 9px;">
+                <button type="button" class="btn btn-secondary btn-sm" onclick="openClearHistoryModal('${safeTargetId}')" aria-label="Xóa kết quả bài thi ${safeTestTitle}" title="Xóa bài thi này" style="color: var(--danger); border-color: rgba(239, 68, 68, 0.35); padding: 5px 9px;">
                   🗑️
                 </button>
               </div>
@@ -316,47 +368,89 @@
     }
 
     function reviewExamRecord(target) {
-      const history = StorageService.getExamHistory();
-      const item = (typeof target === 'number' || /^\d+$/.test(target)) ? history[parseInt(target, 10)] : history.find(r => r && r.id === target);
+      const storage = getSafeStorage();
+      const history = (storage && typeof storage.getExamHistory === 'function') ? storage.getExamHistory() : [];
+      const item = (typeof target === 'number' || /^\d+$/.test(target))
+        ? (history.find(r => r && String(r.id) === String(target)) || history[parseInt(target, 10)])
+        : history.find(r => r && String(r.id) === String(target));
+
       if (item) {
-        StorageService.setCurrentResult(item);
-        const testIdParam = item.testId ? `?test=${item.testId}` : '';
+        if (storage && typeof storage.setCurrentResult === 'function') {
+          try { storage.setCurrentResult(item); } catch (_) {}
+        }
+        const testIdParam = item.testId ? `?test=${encodeURIComponent(item.testId)}` : '';
         const idParam = item.id ? `${testIdParam ? '&' : '?'}id=${encodeURIComponent(item.id)}` : '';
-        window.location.href = `result.html${testIdParam}${idParam}`;
+        const targetUrl = `result.html${testIdParam}${idParam}`;
+        if (typeof window !== 'undefined' && window.location) {
+          window.location.href = targetUrl;
+        }
+        return targetUrl;
+      }
+      return null;
+    }
+
+    function handleModalEscape(e) {
+      if (e.key === 'Escape' || e.keyCode === 27) {
+        closeClearHistoryModal();
       }
     }
 
     function openClearHistoryModal(target) {
       pendingDeleteTarget = target;
+      if (typeof document === 'undefined') return;
+
       const modal = document.getElementById('clear-history-modal');
       const title = document.getElementById('clear-modal-title');
       const desc = document.getElementById('clear-modal-desc');
 
       if (target === 'all') {
-        title.textContent = 'Xóa toàn bộ lịch sử thi';
-        desc.textContent = 'Bạn có chắc chắn muốn xóa toàn bộ tất cả bài thi đã lưu trên trình duyệt này? Tất cả kết quả và bài làm sẽ được dọn sạch hoàn toàn khỏi thiết bị.';
+        if (title) title.textContent = 'Xóa toàn bộ lịch sử thi';
+        if (desc) desc.textContent = 'Bạn có chắc chắn muốn xóa toàn bộ tất cả bài thi đã lưu trên trình duyệt này? Tất cả kết quả và bài làm sẽ được dọn sạch hoàn toàn khỏi thiết bị.';
       } else {
-        const history = StorageService.getExamHistory();
-        const item = (typeof target === 'number' || /^\d+$/.test(target)) ? history[parseInt(target, 10)] : history.find(r => r && r.id === target);
+        const storage = getSafeStorage();
+        const history = (storage && typeof storage.getExamHistory === 'function') ? storage.getExamHistory() : [];
+        const item = (typeof target === 'number' || /^\d+$/.test(target))
+          ? (history.find(r => r && String(r.id) === String(target)) || history[parseInt(target, 10)])
+          : history.find(r => r && String(r.id) === String(target));
         const titleText = item ? (item.testTitle || `Test ${item.testId}`) : 'bài thi này';
-        title.textContent = 'Xóa kết quả bài thi';
-        desc.textContent = `Bạn có chắc chắn muốn xóa kết quả "${titleText}" khỏi danh sách lịch sử thi?`;
+        if (title) title.textContent = 'Xóa kết quả bài thi';
+        if (desc) desc.textContent = `Bạn có chắc chắn muốn xóa kết quả "${titleText}" khỏi danh sách lịch sử thi?`;
       }
 
-      modal.style.display = 'flex';
+      if (modal) {
+        _lastFocusedElementHistory = document.activeElement;
+        document.body.style.overflow = 'hidden';
+        modal.style.display = 'flex';
+        window.addEventListener('keydown', handleModalEscape);
+      }
     }
 
     function closeClearHistoryModal() {
+      if (typeof document === 'undefined') return;
       const modal = document.getElementById('clear-history-modal');
-      if (modal) modal.style.display = 'none';
+      if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+      window.removeEventListener('keydown', handleModalEscape);
+      if (_lastFocusedElementHistory && typeof _lastFocusedElementHistory.focus === 'function') {
+        try { _lastFocusedElementHistory.focus(); } catch (_) {}
+      }
       pendingDeleteTarget = 'all';
     }
 
     function executeClearHistory() {
-      if (pendingDeleteTarget === 'all') {
-        StorageService.clearAllHistory();
-      } else {
-        StorageService.deleteExamRecord(pendingDeleteTarget);
+      const storage = getSafeStorage();
+      if (storage) {
+        if (pendingDeleteTarget === 'all') {
+          if (typeof storage.clearAllHistory === 'function') {
+            try { storage.clearAllHistory(); } catch (_) {}
+          }
+        } else {
+          if (typeof storage.deleteExamRecord === 'function') {
+            try { storage.deleteExamRecord(pendingDeleteTarget); } catch (_) {}
+          }
+        }
       }
       closeClearHistoryModal();
       renderHistory();
@@ -364,6 +458,34 @@
 
     function clearAllHistory() {
       openClearHistoryModal('all');
+    }
+
+    if (typeof window !== 'undefined') {
+      window.formatDate = formatDate;
+      window.formatDuration = formatDuration;
+      window.renderHistory = renderHistory;
+      window.reviewExamRecord = reviewExamRecord;
+      window.openClearHistoryModal = openClearHistoryModal;
+      window.closeClearHistoryModal = closeClearHistoryModal;
+      window.executeClearHistory = executeClearHistory;
+      window.clearAllHistory = clearAllHistory;
+      window.escapeHtml = escapeHtml;
+      window.toggleTheme = toggleTheme;
+    }
+
+    if (typeof module !== 'undefined' && module.exports) {
+      module.exports = {
+        formatDate,
+        formatDuration,
+        renderHistory,
+        reviewExamRecord,
+        openClearHistoryModal,
+        closeClearHistoryModal,
+        executeClearHistory,
+        clearAllHistory,
+        escapeHtml,
+        toggleTheme
+      };
     }
   </script>
 </body>

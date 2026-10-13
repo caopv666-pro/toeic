@@ -813,6 +813,7 @@ const ExamEngine = {
       if (playBtn) {
         playBtn.innerHTML = '⏸';
         playBtn.classList.add('playing');
+        if (typeof playBtn.setAttribute === 'function') playBtn.setAttribute('aria-pressed', 'true');
       }
     };
 
@@ -820,6 +821,7 @@ const ExamEngine = {
       if (playBtn) {
         playBtn.innerHTML = '▶';
         playBtn.classList.remove('playing');
+        if (typeof playBtn.setAttribute === 'function') playBtn.setAttribute('aria-pressed', 'false');
       }
     };
 
@@ -827,6 +829,7 @@ const ExamEngine = {
       if (playBtn) {
         playBtn.innerHTML = '▶';
         playBtn.classList.remove('playing');
+        if (typeof playBtn.setAttribute === 'function') playBtn.setAttribute('aria-pressed', 'false');
       }
     };
   },
@@ -863,15 +866,27 @@ const ExamEngine = {
 
   // ── Modal & Drawer Handlers ──
   openMobileDrawer() {
-    if (typeof document === 'undefined') return;
-    const drawer = document.getElementById('mobile-drawer');
-    if (drawer) drawer.classList.add('open');
+    if (typeof document === 'undefined') return false;
+    const drawer = (typeof document.getElementById === 'function') ? document.getElementById('mobile-drawer') : null;
+    if (drawer) {
+      drawer.classList.add('open');
+      if (typeof drawer.setAttribute === 'function') drawer.setAttribute('aria-hidden', 'false');
+    }
+    const trigger = (typeof document.querySelector === 'function') ? document.querySelector('.mobile-palette-trigger') : null;
+    if (trigger && typeof trigger.setAttribute === 'function') trigger.setAttribute('aria-expanded', 'true');
+    return true;
   },
 
   closeMobileDrawer() {
-    if (typeof document === 'undefined') return;
-    const drawer = document.getElementById('mobile-drawer');
-    if (drawer) drawer.classList.remove('open');
+    if (typeof document === 'undefined') return false;
+    const drawer = (typeof document.getElementById === 'function') ? document.getElementById('mobile-drawer') : null;
+    if (drawer) {
+      drawer.classList.remove('open');
+      if (typeof drawer.setAttribute === 'function') drawer.setAttribute('aria-hidden', 'true');
+    }
+    const trigger = (typeof document.querySelector === 'function') ? document.querySelector('.mobile-palette-trigger') : null;
+    if (trigger && typeof trigger.setAttribute === 'function') trigger.setAttribute('aria-expanded', 'false');
+    return true;
   },
 
   // ── Exam Submission & Scoring ──

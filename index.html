@@ -60,7 +60,7 @@
     <div class="nav-links">
       <a href="index.html" class="nav-link-btn active">Trang chủ</a>
       <a href="history.html" class="nav-link-btn">Lịch sử thi</a>
-      <button class="theme-toggle-btn" id="theme-btn" onclick="toggleTheme()" title="Đổi giao diện Sáng / Tối">
+      <button class="theme-toggle-btn" id="theme-btn" type="button" onclick="toggleTheme()" aria-label="Đổi giao diện Sáng / Tối" title="Đổi giao diện Sáng / Tối">
         🌓
       </button>
     </div>
@@ -77,38 +77,38 @@
       </p>
 
       <!-- Active Session Alert (If in progress) -->
-      <div id="resume-banner" style="display: none; max-width: 600px; margin: 0 auto 30px; padding: 16px 20px; background: rgba(99, 102, 241, 0.15); border: 1px solid var(--accent-primary); border-radius: var(--radius-lg); text-align: left;">
+      <div id="resume-banner" role="alert" aria-live="polite" style="display: none; max-width: 600px; margin: 0 auto 30px; padding: 16px 20px; background: rgba(99, 102, 241, 0.15); border: 1px solid var(--accent-primary); border-radius: var(--radius-lg); text-align: left;">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
           <div>
             <span style="color: var(--accent-secondary); font-weight: 700; font-size: 0.9rem;">⚠️ BÀI THI ĐANG LÀM DỞ</span>
             <p id="resume-desc" style="color: var(--text-primary); font-size: 0.95rem; margin-top: 4px;"></p>
           </div>
           <div style="display: flex; gap: 8px; align-items: center;">
-            <button class="btn btn-secondary btn-sm" onclick="discardActiveExam()" style="border: 1px solid var(--border-color); background: transparent; color: var(--text-secondary);" title="Hủy bỏ bài thi đang làm dở">Hủy ✕</button>
-            <button class="btn btn-primary btn-sm" onclick="resumeActiveExam()">Làm tiếp ➔</button>
+            <button class="btn btn-secondary btn-sm" type="button" onclick="discardActiveExam()" aria-label="Hủy bỏ bài thi đang làm dở" style="border: 1px solid var(--border-color); background: transparent; color: var(--text-secondary);" title="Hủy bỏ bài thi đang làm dở">Hủy ✕</button>
+            <button class="btn btn-primary btn-sm" type="button" onclick="resumeActiveExam()" aria-label="Tiếp tục làm bài thi đang làm dở">Làm tiếp ➔</button>
           </div>
         </div>
       </div>
 
       <!-- Mode Selector Tabs -->
-      <div class="mode-tabs">
-        <button class="mode-tab-btn active" id="tab-full" onclick="switchMode('full')">
+      <div class="mode-tabs" role="tablist" aria-label="Chọn chế độ thi">
+        <button class="mode-tab-btn active" id="tab-full" type="button" role="tab" onclick="switchMode('full')" aria-pressed="true" aria-selected="true">
           ⏱️ Thi Full Test (200 câu - 120 phút)
         </button>
-        <button class="mode-tab-btn" id="tab-part" onclick="switchMode('part')">
+        <button class="mode-tab-btn" id="tab-part" type="button" role="tab" onclick="switchMode('part')" aria-pressed="false" aria-selected="false">
           🎯 Luyện tập theo Part
         </button>
       </div>
 
       <!-- Part Filter Pills (Visible when 'part' mode is selected) -->
       <div id="part-selector-wrap" style="display: none; justify-content: center; flex-wrap: wrap; gap: 8px; margin-bottom: 36px;">
-        <button class="part-filter-btn active" data-part="part1" onclick="selectPartFilter('part1', this)">Part 1 (Ảnh - 6c)</button>
-        <button class="part-filter-btn" data-part="part2" onclick="selectPartFilter('part2', this)">Part 2 (Hỏi đáp - 25c)</button>
-        <button class="part-filter-btn" data-part="part3" onclick="selectPartFilter('part3', this)">Part 3 (Hội thoại - 39c)</button>
-        <button class="part-filter-btn" data-part="part4" onclick="selectPartFilter('part4', this)">Part 4 (Bài nói - 30c)</button>
-        <button class="part-filter-btn" data-part="part5" onclick="selectPartFilter('part5', this)">Part 5 (Điền câu - 30c)</button>
-        <button class="part-filter-btn" data-part="part6" onclick="selectPartFilter('part6', this)">Part 6 (Đoạn văn - 16c)</button>
-        <button class="part-filter-btn" data-part="part7" onclick="selectPartFilter('part7', this)">Part 7 (Đọc hiểu - 54c)</button>
+        <button class="part-filter-btn active" data-part="part1" type="button" onclick="selectPartFilter('part1', this)" aria-pressed="true">Part 1 (Ảnh - 6c)</button>
+        <button class="part-filter-btn" data-part="part2" type="button" onclick="selectPartFilter('part2', this)" aria-pressed="false">Part 2 (Hỏi đáp - 25c)</button>
+        <button class="part-filter-btn" data-part="part3" type="button" onclick="selectPartFilter('part3', this)" aria-pressed="false">Part 3 (Hội thoại - 39c)</button>
+        <button class="part-filter-btn" data-part="part4" type="button" onclick="selectPartFilter('part4', this)" aria-pressed="false">Part 4 (Bài nói - 30c)</button>
+        <button class="part-filter-btn" data-part="part5" type="button" onclick="selectPartFilter('part5', this)" aria-pressed="false">Part 5 (Điền câu - 30c)</button>
+        <button class="part-filter-btn" data-part="part6" type="button" onclick="selectPartFilter('part6', this)" aria-pressed="false">Part 6 (Đoạn văn - 16c)</button>
+        <button class="part-filter-btn" data-part="part7" type="button" onclick="selectPartFilter('part7', this)" aria-pressed="false">Part 7 (Đọc hiểu - 54c)</button>
       </div>
     </section>
 
@@ -133,67 +133,204 @@
     let currentMode = 'full';
     let selectedPart = 'part1';
 
-    document.addEventListener('DOMContentLoaded', () => {
-      StorageService.initTheme();
+    function getSafeStorage() {
+      return (typeof StorageService !== 'undefined')
+        ? StorageService
+        : (typeof window !== 'undefined' && window.StorageService ? window.StorageService : null);
+    }
+
+    function getConfigParts() {
+      if (typeof AppConfig !== 'undefined' && AppConfig && AppConfig.PARTS) {
+        return AppConfig.PARTS;
+      }
+      return {
+        part1: { name: 'Part 1: Photographs', count: 6 },
+        part2: { name: 'Part 2: Question-Response', count: 25 },
+        part3: { name: 'Part 3: Conversations', count: 39 },
+        part4: { name: 'Part 4: Short Talks', count: 30 },
+        part5: { name: 'Part 5: Incomplete Sentences', count: 30 },
+        part6: { name: 'Part 6: Text Completion', count: 16 },
+        part7: { name: 'Part 7: Reading Comprehension', count: 54 }
+      };
+    }
+
+    function getSafeConfig() {
+      return { PARTS: getConfigParts() };
+    }
+
+    function getSafeTestId(testId) {
+      if (testId === null || testId === undefined) return 1;
+      if (typeof testId === 'number') {
+        return Number.isFinite(testId) ? Math.min(10, Math.max(1, Math.floor(testId))) : 1;
+      }
+      const str = String(testId).trim();
+      if (/^-\d+/.test(str)) {
+        return 1;
+      }
+      const match = str.match(/\d+/);
+      const num = match ? parseInt(match[0], 10) : 1;
+      return Math.min(10, Math.max(1, isNaN(num) ? 1 : num));
+    }
+
+    if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') {
+      document.addEventListener('DOMContentLoaded', () => {
+        const storage = getSafeStorage();
+        if (storage && typeof storage.initTheme === 'function') {
+          storage.initTheme();
+        }
+
+      // URL Deep-linking support: ?mode=part&part=part5 hoặc ?mode=full
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlMode = urlParams.get('mode');
+        const urlPart = urlParams.get('part');
+        if (urlMode && urlMode.toLowerCase() === 'part') {
+          switchMode('part');
+          if (urlPart) {
+            selectPartFilter(urlPart);
+          }
+        } else if (urlMode && urlMode.toLowerCase() === 'full') {
+          switchMode('full');
+        }
+      } catch (_) {}
+
       checkActiveSession();
       renderTestCards();
     });
+  }
 
     function toggleTheme() {
-      StorageService.toggleTheme();
+      const storage = getSafeStorage();
+      if (storage && typeof storage.toggleTheme === 'function') {
+        storage.toggleTheme();
+      } else if (typeof document !== 'undefined' && document.documentElement) {
+        const cur = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', cur);
+      }
     }
 
     function checkActiveSession() {
-      const saved = StorageService.getActiveSession();
-      if (saved && saved.userAnswers && Object.keys(saved.userAnswers).length > 0) {
-        const banner = document.getElementById('resume-banner');
-        const desc = document.getElementById('resume-desc');
+      const storage = getSafeStorage();
+      if (!storage || typeof storage.getActiveSession !== 'function') return;
+      const saved = storage.getActiveSession();
+      if (saved && saved.userAnswers && typeof saved.userAnswers === 'object' && !Array.isArray(saved.userAnswers)) {
         const count = Object.keys(saved.userAnswers).length;
-        const partLabel = saved.mode === 'part' && saved.partFilter && AppConfig.PARTS[saved.partFilter] 
-          ? ` • ${AppConfig.PARTS[saved.partFilter].name.split(':')[0]}`
-          : ' (Full Test)';
-        const total = saved.mode === 'part' && saved.partFilter && AppConfig.PARTS[saved.partFilter]
-          ? AppConfig.PARTS[saved.partFilter].count
-          : 200;
-        desc.textContent = `Test ${saved.testId}${partLabel} • Đã làm ${count}/${total} câu • Còn ${Math.floor(saved.timeRemaining / 60)} phút`;
-        banner.style.display = 'block';
+        if (count > 0) {
+          const banner = document.getElementById('resume-banner');
+          const desc = document.getElementById('resume-desc');
+          if (!banner || !desc) return;
+
+          const config = getSafeConfig();
+          const partInfo = (saved.mode === 'part' && saved.partFilter && config.PARTS[saved.partFilter])
+            ? config.PARTS[saved.partFilter]
+            : null;
+          const partLabel = partInfo ? ` • ${partInfo.name.split(':')[0]}` : ' (Full Test)';
+          const total = partInfo ? partInfo.count : 200;
+
+          const rawTime = Number(saved.timeRemaining);
+          const remMinutes = Number.isFinite(rawTime) ? Math.max(0, Math.floor(rawTime / 60)) : 0;
+          const testIdNum = getSafeTestId(saved.testId);
+
+          desc.textContent = `Test ${testIdNum}${partLabel} • Đã làm ${count}/${total} câu • Còn ${remMinutes} phút`;
+          banner.style.display = 'block';
+        }
       }
     }
 
     function resumeActiveExam() {
-      const saved = StorageService.getActiveSession();
+      const storage = getSafeStorage();
+      const saved = storage && typeof storage.getActiveSession === 'function' ? storage.getActiveSession() : null;
       if (saved) {
-        let url = `exam.html?test=${saved.testId}&mode=${saved.mode}`;
-        if (saved.partFilter) url += `&part=${saved.partFilter}`;
-        window.location.href = url;
+        const testId = getSafeTestId(saved.testId);
+        const mode = (saved.mode === 'part') ? 'part' : 'full';
+        let url = `exam.html?test=${testId}&mode=${mode}`;
+        if (mode === 'part' && saved.partFilter) {
+          url += `&part=${encodeURIComponent(saved.partFilter)}`;
+        }
+        if (typeof window !== 'undefined' && window.location) {
+          window.location.href = url;
+        }
+        return url;
       }
+      return null;
     }
 
     function discardActiveExam() {
-      if (confirm('Bạn có chắc chắn muốn hủy bài thi đang làm dở? Toàn bộ tiến độ chưa nộp sẽ bị xóa.')) {
-        StorageService.clearActiveSession();
-        const banner = document.getElementById('resume-banner');
-        if (banner) banner.style.display = 'none';
+      if (typeof confirm === 'function' && !confirm('Bạn có chắc chắn muốn hủy bài thi đang làm dở? Toàn bộ tiến độ chưa nộp sẽ bị xóa.')) {
+        return false;
       }
+      const storage = getSafeStorage();
+      if (storage && typeof storage.clearActiveSession === 'function') {
+        storage.clearActiveSession();
+      }
+      const banner = document.getElementById('resume-banner');
+      if (banner) banner.style.display = 'none';
+      return true;
     }
 
     function switchMode(mode) {
-      currentMode = mode;
-      document.getElementById('tab-full').classList.toggle('active', mode === 'full');
-      document.getElementById('tab-part').classList.toggle('active', mode === 'part');
-      document.getElementById('part-selector-wrap').style.display = mode === 'part' ? 'flex' : 'none';
+      currentMode = (mode === 'part') ? 'part' : 'full';
+      const tabFull = document.getElementById('tab-full');
+      const tabPart = document.getElementById('tab-part');
+      const selectorWrap = document.getElementById('part-selector-wrap');
+
+      if (tabFull) {
+        if (tabFull.classList && typeof tabFull.classList.toggle === 'function') {
+          tabFull.classList.toggle('active', currentMode === 'full');
+        }
+        if (typeof tabFull.setAttribute === 'function') {
+          tabFull.setAttribute('aria-pressed', currentMode === 'full' ? 'true' : 'false');
+          tabFull.setAttribute('aria-selected', currentMode === 'full' ? 'true' : 'false');
+        }
+      }
+      if (tabPart) {
+        if (tabPart.classList && typeof tabPart.classList.toggle === 'function') {
+          tabPart.classList.toggle('active', currentMode === 'part');
+        }
+        if (typeof tabPart.setAttribute === 'function') {
+          tabPart.setAttribute('aria-pressed', currentMode === 'part' ? 'true' : 'false');
+          tabPart.setAttribute('aria-selected', currentMode === 'part' ? 'true' : 'false');
+        }
+      }
+      if (selectorWrap && selectorWrap.style) {
+        selectorWrap.style.display = (currentMode === 'part') ? 'flex' : 'none';
+      }
       renderTestCards();
+      return currentMode;
     }
 
     function selectPartFilter(partKey, btnEl) {
-      selectedPart = partKey;
-      document.querySelectorAll('.part-filter-btn').forEach(b => b.classList.remove('active'));
-      btnEl.classList.add('active');
-      renderTestCards();
+      const validParts = ['part1', 'part2', 'part3', 'part4', 'part5', 'part6', 'part7'];
+      let raw = (typeof partKey === 'string') ? partKey.trim().toLowerCase() : '';
+      if (/^\d+$/.test(raw)) raw = 'part' + raw;
+      selectedPart = validParts.includes(raw) ? raw : 'part1';
+
+      const targetBtn = btnEl || ((typeof document !== 'undefined' && typeof document.querySelector === 'function')
+        ? document.querySelector(`.part-filter-btn[data-part="${selectedPart}"]`)
+        : null);
+
+      if (typeof document !== 'undefined' && typeof document.querySelectorAll === 'function') {
+        const btns = document.querySelectorAll('.part-filter-btn');
+        if (btns && typeof btns.forEach === 'function') {
+          btns.forEach(b => {
+            const isActive = (b === targetBtn) || (typeof b.getAttribute === 'function' && b.getAttribute('data-part') === selectedPart);
+            if (b.classList && typeof b.classList.toggle === 'function') {
+              b.classList.toggle('active', isActive);
+            }
+            if (typeof b.setAttribute === 'function') {
+              b.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            }
+          });
+        }
+        renderTestCards();
+      }
+      return selectedPart;
     }
 
     function renderTestCards() {
       const grid = document.getElementById('tests-card-grid');
+      if (!grid) return;
+      const config = getSafeConfig();
       let html = '';
 
       const PART_TIME_ESTIMATES = {
@@ -209,9 +346,10 @@
       for (let t = 1; t <= 10; t++) {
         const testNumStr = t < 10 ? `0${t}` : `${t}`;
         const isFull = currentMode === 'full';
-        const qCount = isFull ? 200 : AppConfig.PARTS[selectedPart].count;
+        const partInfo = (config.PARTS && config.PARTS[selectedPart]) ? config.PARTS[selectedPart] : { name: 'Part 1', count: 6 };
+        const qCount = isFull ? 200 : partInfo.count;
         const timeEstimate = isFull ? '120 phút' : (PART_TIME_ESTIMATES[selectedPart] || '15 phút');
-        const partName = isFull ? 'Full 7 Parts (LC + RC)' : AppConfig.PARTS[selectedPart].name;
+        const partName = isFull ? 'Full 7 Parts (LC + RC)' : partInfo.name;
 
         html += `
           <div class="test-card">
@@ -230,7 +368,7 @@
                 ${partName}. Trọn bộ âm thanh cắt chất lượng cao, hình ảnh rõ nét và lời giải song ngữ.
               </p>
             </div>
-            <button class="btn btn-primary" onclick="startExam(${t})">
+            <button type="button" class="btn btn-primary" onclick="startExam(${t})" aria-label="Bắt đầu làm bài Test ${testNumStr}">
               Bắt đầu làm bài ➔
             </button>
           </div>
@@ -240,11 +378,48 @@
     }
 
     function startExam(testId) {
-      let url = `exam.html?test=${testId}&mode=${currentMode}`;
+      const parsed = getSafeTestId(testId);
+      const clampedTest = Math.min(10, Math.max(1, parsed));
+      let url = `exam.html?test=${clampedTest}&mode=${currentMode}`;
       if (currentMode === 'part') {
-        url += `&part=${selectedPart}`;
+        url += `&part=${encodeURIComponent(selectedPart)}`;
       }
-      window.location.href = url;
+      if (typeof window !== 'undefined' && window.location) {
+        window.location.href = url;
+      }
+      return url;
+    }
+
+    if (typeof window !== 'undefined') {
+      window.switchMode = switchMode;
+      window.selectPartFilter = selectPartFilter;
+      window.startExam = startExam;
+      window.checkActiveSession = checkActiveSession;
+      window.resumeActiveExam = resumeActiveExam;
+      window.discardActiveExam = discardActiveExam;
+      window.renderTestCards = renderTestCards;
+      window.toggleTheme = toggleTheme;
+      window.getSafeStorage = getSafeStorage;
+      window.getSafeConfig = getSafeConfig;
+      window.getConfigParts = getConfigParts;
+      window.getSafeTestId = getSafeTestId;
+    }
+
+    if (typeof module !== 'undefined' && module.exports) {
+      module.exports = {
+        switchMode,
+        selectPartFilter,
+        startExam,
+        checkActiveSession,
+        resumeActiveExam,
+        discardActiveExam,
+        renderTestCards,
+        toggleTheme,
+        getSafeStorage,
+        getSafeConfig,
+        getConfigParts,
+        getSafeTestId
+      };
     }
   </script>
 </body>

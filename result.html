@@ -254,7 +254,7 @@
     <div class="nav-links">
       <a href="index.html" class="nav-link-btn">Trang chủ</a>
       <a href="history.html" class="nav-link-btn">Lịch sử thi</a>
-      <button class="theme-toggle-btn" onclick="toggleTheme()" title="Đổi giao diện">
+      <button class="theme-toggle-btn" id="theme-btn" type="button" onclick="toggleTheme()" aria-label="Đổi giao diện Sáng / Tối" title="Đổi giao diện Sáng / Tối">
         🌓
       </button>
     </div>
@@ -271,7 +271,7 @@
       </p>
 
       <!-- Circular Scaled Score 10 - 990 -->
-      <div class="score-circle-wrap">
+      <div class="score-circle-wrap" role="region" aria-label="Điểm tổng kết quả thi">
         <div class="score-circle-inner">
           <div class="score-val" id="result-total-score">0</div>
           <div class="score-max">/ 990 ĐIỂM</div>
@@ -296,10 +296,10 @@
 
       <!-- Action Buttons -->
       <div class="result-action-btns">
-        <button class="btn btn-primary btn-lg result-btn-detail" onclick="ResultViewer.showDetailedReviewSection()" id="btn-show-detail">
+        <button type="button" class="btn btn-primary btn-lg result-btn-detail" onclick="showDetailedReviewAndSyncAria()" id="btn-show-detail" aria-expanded="false" aria-controls="detailed-review-section" aria-label="Xem chi tiết bài làm và lời giải phân tích">
           📝 Xem Chi Tiết Bài Làm & Lời Giải ➔
         </button>
-        <button class="btn btn-secondary btn-lg result-btn-retake" onclick="retakeExam()">
+        <button type="button" class="btn btn-secondary btn-lg result-btn-retake" onclick="retakeExam()" aria-label="Làm lại đề thi này">
           🔄 Làm lại đề này
         </button>
       </div>
@@ -322,10 +322,10 @@
           <span>📝</span> Chi Tiết Bài Làm & Đáp Án
         </h2>
         <div class="review-toggle-all-btns">
-          <button class="btn btn-secondary btn-sm" onclick="ResultViewer.toggleAllExplanations(true)">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="ResultViewer.toggleAllExplanations(true)" aria-label="Mở tất cả phần giải thích chi tiết">
             🔽 Mở tất cả giải thích
           </button>
-          <button class="btn btn-secondary btn-sm" onclick="ResultViewer.toggleAllExplanations(false)">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="ResultViewer.toggleAllExplanations(false)" aria-label="Đóng tất cả phần giải thích chi tiết">
             🔼 Đóng tất cả giải thích
           </button>
         </div>
@@ -337,16 +337,16 @@
         <div class="filter-row">
           <span class="filter-row-label">Kết quả:</span>
           <div class="filter-tabs-group" id="status-filter-group">
-            <button class="filter-tab-btn active" data-status="all" onclick="ResultViewer.setStatusFilter('all')">
+            <button type="button" class="filter-tab-btn active" data-status="all" onclick="ResultViewer.setStatusFilter('all')" aria-pressed="true">
               Tất cả <span class="tab-count" id="count-all">(200)</span>
             </button>
-            <button class="filter-tab-btn" data-status="correct" onclick="ResultViewer.setStatusFilter('correct')">
+            <button type="button" class="filter-tab-btn" data-status="correct" onclick="ResultViewer.setStatusFilter('correct')" aria-pressed="false">
               ✅ Đúng <span class="tab-count" id="count-correct">(0)</span>
             </button>
-            <button class="filter-tab-btn" data-status="wrong" onclick="ResultViewer.setStatusFilter('wrong')">
+            <button type="button" class="filter-tab-btn" data-status="wrong" onclick="ResultViewer.setStatusFilter('wrong')" aria-pressed="false">
               ❌ Sai <span class="tab-count" id="count-wrong">(0)</span>
             </button>
-            <button class="filter-tab-btn" data-status="unanswered" onclick="ResultViewer.setStatusFilter('unanswered')">
+            <button type="button" class="filter-tab-btn" data-status="unanswered" onclick="ResultViewer.setStatusFilter('unanswered')" aria-pressed="false">
               ⚪ Chưa làm <span class="tab-count" id="count-unanswered">(0)</span>
             </button>
           </div>
@@ -356,16 +356,16 @@
         <div class="filter-row" style="padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.08);">
           <span class="filter-row-label">Phần thi:</span>
           <div class="filter-tabs-group" id="part-filter-group">
-            <button class="filter-pill-btn active" data-part="all" onclick="ResultViewer.setPartFilter('all')">
+            <button type="button" class="filter-pill-btn active" data-part="all" onclick="ResultViewer.setPartFilter('all')" aria-pressed="true">
               Tất cả Part
             </button>
-            <button class="filter-pill-btn" data-part="part1" onclick="ResultViewer.setPartFilter('part1')">Part 1</button>
-            <button class="filter-pill-btn" data-part="part2" onclick="ResultViewer.setPartFilter('part2')">Part 2</button>
-            <button class="filter-pill-btn" data-part="part3" onclick="ResultViewer.setPartFilter('part3')">Part 3</button>
-            <button class="filter-pill-btn" data-part="part4" onclick="ResultViewer.setPartFilter('part4')">Part 4</button>
-            <button class="filter-pill-btn" data-part="part5" onclick="ResultViewer.setPartFilter('part5')">Part 5</button>
-            <button class="filter-pill-btn" data-part="part6" onclick="ResultViewer.setPartFilter('part6')">Part 6</button>
-            <button class="filter-pill-btn" data-part="part7" onclick="ResultViewer.setPartFilter('part7')">Part 7</button>
+            <button type="button" class="filter-pill-btn" data-part="part1" onclick="ResultViewer.setPartFilter('part1')" aria-pressed="false">Part 1</button>
+            <button type="button" class="filter-pill-btn" data-part="part2" onclick="ResultViewer.setPartFilter('part2')" aria-pressed="false">Part 2</button>
+            <button type="button" class="filter-pill-btn" data-part="part3" onclick="ResultViewer.setPartFilter('part3')" aria-pressed="false">Part 3</button>
+            <button type="button" class="filter-pill-btn" data-part="part4" onclick="ResultViewer.setPartFilter('part4')" aria-pressed="false">Part 4</button>
+            <button type="button" class="filter-pill-btn" data-part="part5" onclick="ResultViewer.setPartFilter('part5')" aria-pressed="false">Part 5</button>
+            <button type="button" class="filter-pill-btn" data-part="part6" onclick="ResultViewer.setPartFilter('part6')" aria-pressed="false">Part 6</button>
+            <button type="button" class="filter-pill-btn" data-part="part7" onclick="ResultViewer.setPartFilter('part7')" aria-pressed="false">Part 7</button>
           </div>
         </div>
       </div>
@@ -386,23 +386,104 @@
   <script src="js/result-viewer.js"></script>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      StorageService.initTheme();
-      AudioController.init();
-      ResultViewer.init();
-    });
+    if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') {
+      document.addEventListener('DOMContentLoaded', () => {
+        if (typeof StorageService !== 'undefined' && StorageService && typeof StorageService.initTheme === 'function') {
+          StorageService.initTheme();
+        }
+        if (typeof AudioController !== 'undefined' && AudioController && typeof AudioController.init === 'function') {
+          AudioController.init();
+        }
+        if (typeof ResultViewer !== 'undefined' && ResultViewer && typeof ResultViewer.init === 'function') {
+          ResultViewer.init();
+        }
+
+        // Deep-linking (?show=review hoặc ?section=review)
+        try {
+          if (typeof window !== 'undefined' && window.location) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const showParam = urlParams.get('show') || urlParams.get('section');
+            if (showParam && (showParam.toLowerCase() === 'review' || showParam.toLowerCase() === 'detail')) {
+              showDetailedReviewAndSyncAria();
+            }
+          }
+        } catch (_) {}
+      });
+    }
+
+    function showDetailedReviewAndSyncAria() {
+      if (typeof ResultViewer !== 'undefined' && ResultViewer && typeof ResultViewer.showDetailedReviewSection === 'function') {
+        ResultViewer.showDetailedReviewSection();
+      } else if (typeof document !== 'undefined') {
+        const sec = document.getElementById('detailed-review-section');
+        if (sec) sec.style.display = 'block';
+      }
+      if (typeof document !== 'undefined') {
+        const btn = document.getElementById('btn-show-detail');
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+      }
+    }
 
     function toggleTheme() {
-      StorageService.toggleTheme();
+      if (typeof StorageService !== 'undefined' && StorageService && typeof StorageService.toggleTheme === 'function') {
+        StorageService.toggleTheme();
+      } else if (typeof document !== 'undefined' && document.documentElement) {
+        const current = document.documentElement.getAttribute('data-theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+      }
     }
 
     function retakeExam() {
-      const r = ResultViewer.resultData;
-      if (r && r.testId) {
-        window.location.href = `exam.html?test=${r.testId}&mode=${r.mode || 'full'}${r.partFilter ? '&part=' + r.partFilter : ''}`;
+      const r = (typeof ResultViewer !== 'undefined' && ResultViewer && ResultViewer.resultData)
+        ? ResultViewer.resultData
+        : (typeof window !== 'undefined' && window.ResultViewer && window.ResultViewer.resultData ? window.ResultViewer.resultData : null);
+      if (r && r.testId != null) {
+        let parsed = 1;
+        if (typeof r.testId === 'number' && Number.isFinite(r.testId)) {
+          parsed = Math.floor(r.testId);
+        } else if (typeof r.testId === 'string') {
+          const str = r.testId.trim();
+          if (/^-\d+/.test(str)) {
+            parsed = 1;
+          } else {
+            const match = str.match(/\d+/);
+            parsed = match ? parseInt(match[0], 10) : 1;
+          }
+        }
+        const validTestId = (parsed >= 1 && parsed <= 10) ? parsed : Math.min(10, Math.max(1, Number.isFinite(parsed) ? parsed : 1));
+        const validMode = (r.mode === 'part') ? 'part' : 'full';
+        let url = `exam.html?test=${validTestId}&mode=${validMode}`;
+        if (validMode === 'part' && r.partFilter) {
+          const validParts = ['part1', 'part2', 'part3', 'part4', 'part5', 'part6', 'part7'];
+          const normPart = String(r.partFilter).toLowerCase();
+          if (validParts.includes(normPart)) {
+            url += `&part=${normPart}`;
+          }
+        }
+        if (typeof window !== 'undefined' && window.location) {
+          window.location.href = url;
+        }
+        return url;
       } else {
-        window.location.href = 'index.html';
+        if (typeof window !== 'undefined' && window.location) {
+          window.location.href = 'index.html';
+        }
+        return 'index.html';
       }
+    }
+
+    if (typeof window !== 'undefined') {
+      window.retakeExam = retakeExam;
+      window.toggleTheme = toggleTheme;
+      window.showDetailedReviewAndSyncAria = showDetailedReviewAndSyncAria;
+    }
+
+    if (typeof module !== 'undefined' && module.exports) {
+      module.exports = {
+        retakeExam,
+        toggleTheme,
+        showDetailedReviewAndSyncAria
+      };
     }
   </script>
 </body>

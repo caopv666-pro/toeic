@@ -3,12 +3,35 @@
    Containers, 2-Column Exam Room, Sticky Sidebars, Result Dashboard
    ========================================================================== */
 
+/* ── Navigation Bar Layout ── */
+:root {
+  --navbar-height: 70px;
+}
+
+.app-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  min-height: var(--navbar-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 28px;
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-glass);
+  transition: all var(--transition-fast);
+}
+
 /* Main Page Container */
 .container {
   width: 100%;
   max-width: 1380px;
   margin: 0 auto;
   padding: 0 24px;
+  padding-left: max(24px, var(--sal, env(safe-area-inset-left, 0px)));
+  padding-right: max(24px, var(--sar, env(safe-area-inset-right, 0px)));
 }
 
 /* ── Hero Section (Index Page) ── */
@@ -25,6 +48,7 @@
   letter-spacing: -0.5px;
   background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent-primary) 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -64,7 +88,7 @@
 /* Tests Grid */
 .tests-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
   gap: 24px;
   margin-bottom: 60px;
 }
@@ -72,7 +96,7 @@
 /* ── Exam Workspace Layout (exam.html) ── */
 .exam-layout {
   display: grid;
-  grid-template-columns: 1fr 340px;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
   gap: 32px;
   align-items: start;
   padding: 24px 0 80px;
@@ -89,6 +113,9 @@
   max-height: calc(100vh - 110px);
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Exam Top Bar Controls */
@@ -170,7 +197,7 @@
 
 .part-breakdown-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
   gap: 16px;
   margin-bottom: 40px;
 }

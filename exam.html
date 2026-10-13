@@ -17,7 +17,7 @@
   <!-- Top Sticky Navigation Bar -->
   <nav class="app-navbar exam-navbar">
     <div class="nav-brand">
-      <a href="index.html" class="exam-exit-link" title="Thoát phòng thi về trang chủ">
+      <a href="index.html" class="exam-exit-link" onclick="return confirmExitExam(event)" title="Thoát phòng thi về trang chủ" aria-label="Thoát phòng thi về trang chủ">
         <span class="exit-arrow">←</span>
         <span class="exit-label">Thoát</span>
       </a>
@@ -27,7 +27,7 @@
     <!-- Integrated Header Audio Player (Listening parts) -->
     <div class="header-audio-player" id="master-lc-card" style="display: none;">
       <audio id="master-audio-element" preload="metadata"></audio>
-      <button class="master-lc-play-btn" id="master-play-btn" onclick="ExamEngine.toggleMasterAudio()" title="Bắt đầu / Tạm dừng phần nghe">
+      <button type="button" class="master-lc-play-btn" id="master-play-btn" onclick="ExamEngine.toggleMasterAudio()" aria-label="Bắt đầu hoặc tạm dừng phần nghe" aria-pressed="false" title="Bắt đầu / Tạm dừng phần nghe">
         ▶
       </button>
       <div class="master-lc-bar" title="Quy chế thi ETS: Không được tua âm thanh khi thi">
@@ -47,7 +47,10 @@
     </div>
 
     <div class="nav-links">
-      <button class="btn btn-danger btn-sm" onclick="ExamEngine.confirmSubmit()" id="btn-submit-top">
+      <button class="theme-toggle-btn" id="theme-btn" type="button" onclick="toggleTheme()" aria-label="Đổi giao diện Sáng / Tối" title="Đổi giao diện Sáng / Tối">
+        🌓
+      </button>
+      <button type="button" class="btn btn-danger btn-sm" onclick="ExamEngine.confirmSubmit()" id="btn-submit-top" aria-label="Nộp bài thi">
         Nộp bài
       </button>
     </div>
@@ -57,13 +60,13 @@
   <main class="container">
     
     <!-- Loading State -->
-    <div id="exam-loading-state" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; gap: 20px;">
+    <div id="exam-loading-state" role="status" aria-live="polite" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; gap: 20px;">
       <div style="width: 50px; height: 50px; border: 4px solid var(--border-glass); border-top-color: var(--accent-primary); border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
       <p style="color: var(--text-secondary); font-size: 1.1rem; font-weight: 500;">Đang chuẩn bị đề thi và âm thanh...</p>
     </div>
 
     <!-- Error State -->
-    <div id="exam-error-state" style="display: none; padding: 40px; text-align: center; max-width: 600px; margin: 40px auto; background: var(--bg-glass-card); border-radius: 16px; border: 1px solid var(--danger);">
+    <div id="exam-error-state" role="alert" style="display: none; padding: 40px; text-align: center; max-width: 600px; margin: 40px auto; background: var(--bg-glass-card); border-radius: 16px; border: 1px solid var(--danger);">
       <h3 style="color: var(--danger); margin-bottom: 12px; font-size: 1.3rem;">⚠️ Lỗi tải dữ liệu</h3>
       <p class="error-msg-text" style="color: var(--text-secondary); margin-bottom: 24px;"></p>
       <a href="index.html" class="btn btn-primary">Quay lại Trang chủ</a>
@@ -90,7 +93,7 @@
             <!-- Rendered dynamically -->
           </div>
 
-          <button class="btn btn-danger" onclick="ExamEngine.confirmSubmit()" style="width: 100%; margin-top: 20px;">
+          <button type="button" class="btn btn-danger" onclick="ExamEngine.confirmSubmit()" aria-label="Nộp bài và xem điểm" style="width: 100%; margin-top: 20px;">
             Nộp bài & Xem điểm
           </button>
         </div>
@@ -106,29 +109,29 @@
       <span class="exam-timer-val">120:00</span>
     </div>
     
-    <button class="btn btn-secondary btn-sm mobile-palette-trigger" onclick="ExamEngine.openMobileDrawer()">
+    <button type="button" class="btn btn-secondary btn-sm mobile-palette-trigger" onclick="ExamEngine.openMobileDrawer()" aria-haspopup="dialog" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Mở bảng câu hỏi">
       📋 <span class="mobile-palette-btn-text">Bảng câu</span> (<span id="mobile-answered-badge">0/200</span>)
     </button>
 
-    <button class="btn btn-danger btn-sm mobile-submit-trigger" onclick="ExamEngine.confirmSubmit()">
+    <button type="button" class="btn btn-danger btn-sm mobile-submit-trigger" onclick="ExamEngine.confirmSubmit()" aria-label="Nộp bài thi">
       Nộp bài
     </button>
   </div>
 
   <!-- Mobile Question Palette Drawer (Bottom Sheet) -->
-  <div class="mobile-palette-drawer" id="mobile-drawer" onclick="if(event.target === this) ExamEngine.closeMobileDrawer()">
+  <div class="mobile-palette-drawer" id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Bảng câu hỏi di động" aria-hidden="true" onclick="if(event.target === this) ExamEngine.closeMobileDrawer()">
     <div class="drawer-content">
       <div class="drawer-drag-handle"></div>
       <div class="drawer-header">
         <h3 style="font-size: 1.1rem;">Bảng Câu Hỏi</h3>
-        <button onclick="ExamEngine.closeMobileDrawer()" style="font-size: 1.4rem; color: var(--text-muted);">&times;</button>
+        <button type="button" onclick="ExamEngine.closeMobileDrawer()" aria-label="Đóng bảng câu hỏi" style="font-size: 1.4rem; color: var(--text-muted);">&times;</button>
       </div>
 
       <div class="palette-container-wrapper drawer-palette-scroll">
         <!-- Rendered dynamically -->
       </div>
 
-      <button class="btn btn-danger" onclick="ExamEngine.confirmSubmit()" style="width: 100%; margin-top: 16px;">
+      <button type="button" class="btn btn-danger" onclick="ExamEngine.confirmSubmit()" aria-label="Nộp bài thi ngay" style="width: 100%; margin-top: 16px;">
         Nộp bài thi ngay
       </button>
     </div>
@@ -141,7 +144,7 @@
       <div class="modal-header">
         <div class="modal-header-icon" aria-hidden="true">⚠️</div>
         <h3 id="modal-confirm-title">Xác Nhận Nộp Bài Thi</h3>
-        <button class="modal-close-btn" onclick="ExamEngine.closeSubmitModal()" aria-label="Đóng hộp thoại">&times;</button>
+        <button type="button" class="modal-close-btn" onclick="ExamEngine.closeSubmitModal()" aria-label="Đóng hộp thoại">&times;</button>
       </div>
       <div class="modal-body">
         <div class="submit-stats-row">
@@ -159,10 +162,10 @@
         </p>
       </div>
       <div class="modal-actions">
-        <button class="btn btn-secondary" onclick="ExamEngine.closeSubmitModal()">
+        <button type="button" class="btn btn-secondary" onclick="ExamEngine.closeSubmitModal()" aria-label="Tiếp tục làm bài">
           Tiếp tục làm bài
         </button>
-        <button class="btn btn-danger" id="btn-modal-confirm-submit" onclick="ExamEngine.executeSubmit()">
+        <button type="button" class="btn btn-danger" id="btn-modal-confirm-submit" onclick="ExamEngine.executeSubmit()" aria-label="Xác nhận nộp bài">
           Xác nhận nộp bài
         </button>
       </div>
@@ -183,29 +186,82 @@
   <script src="js/exam-engine.js"></script>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      StorageService.initTheme();
-      AudioController.init();
-      
-      // Update header with test name
-      const urlParams = new URLSearchParams(window.location.search);
-      const testId = urlParams.get('test') || 1;
-      const titleBadge = document.getElementById('exam-header-title');
-      if (titleBadge) {
-        titleBadge.textContent = `Test ${testId < 10 ? '0' : ''}${testId}`;
+    function confirmExitExam(event) {
+      if (typeof confirm === 'function' && !confirm('Bạn có chắc chắn muốn rời phòng thi? Tiến độ làm bài hiện tại đã được tự động lưu.')) {
+        if (event && typeof event.preventDefault === 'function') event.preventDefault();
+        return false;
       }
+      return true;
+    }
 
-      // Initialize Exam
-      ExamEngine.init().then((success) => {
-        if (success) {
-          const mainLayout = document.getElementById('exam-main-layout');
-          if (mainLayout) mainLayout.style.display = 'grid';
+    if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') {
+      document.addEventListener('DOMContentLoaded', () => {
+        if (typeof StorageService !== 'undefined' && typeof StorageService.initTheme === 'function') {
+          StorageService.initTheme();
+        }
+        if (typeof AudioController !== 'undefined' && typeof AudioController.init === 'function') {
+          AudioController.init();
+        }
+        
+        // Update header with test name and part (if in part mode)
+        try {
+          const urlParams = new URLSearchParams(window.location.search);
+          const rawTest = urlParams.get('test') || '1';
+          const match = String(rawTest).match(/\d+/);
+          const parsedId = match ? parseInt(match[0], 10) : 1;
+          const testId = (Number.isInteger(parsedId) && parsedId >= 1 && parsedId <= 10) ? parsedId : 1;
+          const testNumStr = testId < 10 ? `0${testId}` : `${testId}`;
+          const mode = (urlParams.get('mode') || '').toLowerCase().trim();
+          const partFilter = (urlParams.get('part') || '').toLowerCase().trim();
+
+          const titleBadge = document.getElementById('exam-header-title');
+          if (titleBadge) {
+            if (mode === 'part' && partFilter) {
+              const defaultParts = {
+                part1: 'Part 1', part2: 'Part 2', part3: 'Part 3',
+                part4: 'Part 4', part5: 'Part 5', part6: 'Part 6', part7: 'Part 7'
+              };
+              const partName = (typeof AppConfig !== 'undefined' && AppConfig.PARTS && AppConfig.PARTS[partFilter])
+                ? AppConfig.PARTS[partFilter].name.split(':')[0]
+                : (defaultParts[partFilter] || partFilter.toUpperCase());
+              titleBadge.textContent = `Test ${testNumStr} • ${partName}`;
+            } else {
+              titleBadge.textContent = `Test ${testNumStr}`;
+            }
+          }
+        } catch (_) {}
+
+        // Initialize Exam
+        if (typeof ExamEngine !== 'undefined' && typeof ExamEngine.init === 'function') {
+          ExamEngine.init().then((success) => {
+            if (success) {
+              const mainLayout = document.getElementById('exam-main-layout');
+              if (mainLayout) mainLayout.style.display = 'grid';
+            }
+          });
         }
       });
-    });
+    }
 
     function toggleTheme() {
-      StorageService.toggleTheme();
+      if (typeof StorageService !== 'undefined' && typeof StorageService.toggleTheme === 'function') {
+        StorageService.toggleTheme();
+      } else if (typeof document !== 'undefined' && document.documentElement) {
+        const current = document.documentElement.getAttribute('data-theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+      }
+    }
+
+    if (typeof window !== 'undefined') {
+      window.confirmExitExam = confirmExitExam;
+      window.toggleTheme = toggleTheme;
+    }
+
+    if (typeof module !== 'undefined' && module.exports) {
+      module.exports = {
+        confirmExitExam,
+        toggleTheme
+      };
     }
   </script>
 </body>
