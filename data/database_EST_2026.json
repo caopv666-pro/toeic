@@ -1,6 +1,6 @@
 {
   "version": "2.0.0-distributed",
-  "generatedAt": "2026-10-16T01:07:43.332Z",
+  "generatedAt": "2026-10-16T01:26:08.860Z",
   "bookName": "EST 2026",
   "totalTests": 10,
   "tests": [
@@ -3150,10 +3150,11 @@
             {
               "questionNumber": 102,
               "questionText": "The ------- antique shop in Pepper Valley will close down next month.",
-              "questionTranslation": "The last antique shop in Pepper Valley will close down next month.",
+              "questionTextFull": "The last antique shop in Pepper Valley will close down next month.",
+              "questionTranslation": "Cửa hàng đồ cổ cuối cùng ở Thung lũng Pepper sẽ đóng cửa ngừng kinh doanh vào tháng tới.",
               "correctAnswer": "A",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 102):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (A): \"last\" (cuối cùng)\n* Dịch nghĩa toàn câu: The last antique shop in Pepper Valley will close down next month.",
+              "explanation": "Chỗ trống đứng sau mạo từ xác định 'The' và đứng trước cụm danh từ 'antique shop' (cửa hàng đồ cổ). Vị trí này cần một tính từ để bổ nghĩa cho danh từ theo sau. 'Last' là tính từ mang nghĩa 'cuối cùng / còn sót lại'. Do đó (A) là đáp án đúng.",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* The last antique shop in Pepper Valley: Cửa hàng đồ cổ cuối cùng ở Thung lũng Pepper (Cụm chủ ngữ)\n* will close down: sẽ đóng cửa vĩnh viễn (Động từ chính chia thì tương lai đơn)\n* next month: vào tháng tới (Trạng ngữ thời gian).\n\nCấu trúc ngữ pháp cần nhớ:\n* The + last + Noun: Cái/người cuối cùng (tính từ đứng trước danh từ).\n* close down: ngừng kinh doanh vĩnh viễn, đóng cửa tiệm hoàn toàn (phrasal verb).",
               "options": {
                 "A": "last",
                 "B": "lasts",
@@ -3161,21 +3162,20 @@
                 "D": "lasting"
               },
               "optionsTranslation": {
-                "A": "cuối cùng",
-                "B": "kéo dài",
-                "C": "kéo dài",
-                "D": "lâu dài"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The ------- antique shop in Pepper Valley will close down next month.\" (Tạm dịch khi điền đáp án: \"The last antique shop in Pepper Valley will close down next month.\"). Phương án (A) \"last\" (cuối cùng) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "The last antique shop in Pepper Valley will close down next month."
+                "A": "last (tính từ / phó từ)\n- Nghĩa: cuối cùng, sau chót.\n- Vị trí: Đứng sau 'The' và trước danh từ 'antique shop' (The last antique shop = cửa hàng đồ cổ cuối cùng).\n- Lý do chọn: Phù hợp hoàn hảo về ngữ pháp tính từ bổ nghĩa cho danh từ.",
+                "B": "lasts (động từ thì hiện tại đơn - ngôi thứ ba số ít)\n- Nghĩa: kéo dài (thời gian).\n- Vị trí: Đóng vai trò là vị ngữ (The course lasts 3 months).\n- Lý do loại: Câu đã có vị ngữ chính 'will close down', không thể đặt động từ chia thì vào đây.",
+                "C": "lasted (động từ quá khứ / phân từ hai)\n- Nghĩa: đã kéo dài.\n- Vị trí: Dùng trong các thì quá khứ.\n- Lý do loại: Không dùng để bổ nghĩa mang nghĩa 'cuối cùng' trước danh từ.",
+                "D": "lasting (tính từ)\n- Nghĩa: bền vững, lâu dài (lasting relationship, lasting effect).\n- Vị trí: Bổ nghĩa cho danh từ chỉ cảm xúc, tác động, quan hệ lâu bền.\n- Lý do loại: Không phù hợp nghĩa ngữ cảnh 'cửa hàng đồ cổ cuối cùng còn lại'."
+              }
             },
             {
               "questionNumber": 103,
               "questionText": "Merryville residents will receive an online status ------- about the ongoing bridge construction project.",
-              "questionTranslation": "Merryville residents will receive an online status update about the ongoing bridge construction project.",
+              "questionTextFull": "Merryville residents will receive an online status update about the ongoing bridge construction project.",
+              "questionTranslation": "Cư dân Merryville sẽ nhận được một bản cập nhật tình hình trực tuyến về dự án xây dựng cầu đang diễn ra.",
               "correctAnswer": "A",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 103):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (A): \"update\" (cập nhật)\n* Dịch nghĩa toàn câu: Merryville residents will receive an online status update about the ongoing bridge construction project.",
+              "explanation": "Chỗ trống đứng sau cụm bổ nghĩa 'an online status' để tạo thành một cụm danh từ ghép làm tân ngữ cho động từ 'receive'. Cụm 'status update' là cụm từ cố định (collocation) thông dụng mang nghĩa 'bản cập nhật tiến độ / tình hình'. Do đó chọn 'update' (A).",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* Merryville residents: Cư dân Merryville (Chủ ngữ)\n* will receive: sẽ nhận được (Động từ vị ngữ)\n* an online status update: bản cập nhật tình hình trực tuyến (Cụm tân ngữ)\n* about the ongoing bridge construction project: về dự án xây cầu đang triển khai (Cụm giới từ bổ nghĩa).\n\nCấu trúc ngữ pháp cần nhớ:\n* status update: bản cập nhật tiến độ, thông tin mới nhất về tình hình.\n* ongoing (adj): đang diễn ra, đang được tiến hành.",
               "options": {
                 "A": "update",
                 "B": "change",
@@ -3183,21 +3183,20 @@
                 "D": "request"
               },
               "optionsTranslation": {
-                "A": "cập nhật",
-                "B": "thay đổi",
-                "C": "thanh toán",
-                "D": "yêu cầu"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Merryville residents will receive an online status ------- about the ongoing bridge construction project.\" (Tạm dịch khi điền đáp án: \"Merryville residents will receive an online status update about the ongoing bridge construction project.\"). Phương án (A) \"update\" (cập nhật) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "Merryville residents will receive an online status update about the ongoing bridge construction project."
+                "A": "update (danh từ)\n- Nghĩa: bản cập nhật, thông tin mới nhất.\n- Vị trí: Kết hợp với 'status' tạo thành danh từ ghép 'status update' (bản cập nhật tình hình/tiến độ).\n- Lý do chọn: Phù hợp nghĩa hoàn hảo với việc người dân nhận thông báo tiến độ dự án.",
+                "B": "change (danh từ)\n- Nghĩa: sự thay đổi, sự đổi khác.\n- Vị trí: Thường đi với 'change in/of'.\n- Lý do loại: 'status change' mang nghĩa là chuyển đổi trạng thái hệ thống, không tự nhiên khi nói về việc gửi bản tin cho người dân.",
+                "C": "payment (danh từ)\n- Nghĩa: khoản thanh toán, việc chi trả.\n- Vị trí: Thường đi kèm các động từ make/receive/process payment.\n- Lý do loại: Không phù hợp với việc theo dõi dự án xây dựng công cộng.",
+                "D": "request (danh từ)\n- Nghĩa: lời yêu cầu, đề nghị.\n- Vị trí: Thường đi với make/submit a request.\n- Lý do loại: Người dân nhận thông tin báo cáo chứ không phải nhận yêu cầu tình trạng."
+              }
             },
             {
               "questionNumber": 104,
               "questionText": "As a result of ------- many years leading media organizations, Ms. Ayo was selected for the Dowel Journalism Prize.",
-              "questionTranslation": "As a result of her many years leading media organizations, Ms. Ayo was selected for the Dowel Journalism Prize.",
+              "questionTextFull": "As a result of her many years leading media organizations, Ms. Ayo was selected for the Dowel Journalism Prize.",
+              "questionTranslation": "Nhờ có nhiều năm cống hiến lãnh đạo các tổ chức truyền thông, cô Ayo đã được lựa chọn nhận Giải thưởng Báo chí Dowel.",
               "correctAnswer": "B",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 104):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (B): \"her\" (cô ấy)\n* Dịch nghĩa toàn câu: As a result of her many years leading media organizations, Ms. Ayo was selected for the Dowel Journalism Prize.",
+              "explanation": "Chỗ trống đứng sau giới từ 'of' và đứng trước cụm danh từ 'many years leading media organizations'. Ta cần một tính từ sở hữu đứng trước danh từ 'many years' để chỉ thời gian cống hiến của chính cô Ayo. Do đó chọn 'her' (B).",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* As a result of her many years leading media organizations: Do có nhiều năm lãnh đạo các tổ chức truyền thông (Cụm giới từ trạng ngữ chỉ nguyên nhân)\n* Ms. Ayo was selected: Cô Ayo đã được lựa chọn (Mệnh đề chính chia bị động quá khứ đơn)\n* for the Dowel Journalism Prize: cho giải thưởng báo chí Dowel (Cụm giới từ chỉ mục đích).\n\nCấu trúc ngữ pháp cần nhớ:\n* As a result of + Noun phrase: Kết quả của..., nhờ có...\n* Possessive adj + Noun: her + many years (tính từ sở hữu bổ nghĩa cho danh từ theo sau).",
               "options": {
                 "A": "she",
                 "B": "her",
@@ -3205,21 +3204,20 @@
                 "D": "herself"
               },
               "optionsTranslation": {
-                "A": "cô ấy",
-                "B": "cô ấy",
-                "C": "của cô ấy",
-                "D": "bản thân cô ấy"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"As a result of ------- many years leading media organizations, Ms. Ayo was selected for the Dowel Journalism Prize.\" (Tạm dịch khi điền đáp án: \"As a result of her many years leading media organizations, Ms. Ayo was selected for the Dowel Journalism Prize.\"). Phương án (B) \"her\" (cô ấy) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "As a result of her many years leading media organizations, Ms. Ayo was selected for the Dowel Journalism Prize."
+                "A": "she (đại từ nhân xưng chủ ngữ)\n- Nghĩa: cô ấy, bà ấy.\n- Vị trí: Chỉ làm chủ ngữ trước động từ vị ngữ có chia thì (She won the prize).\n- Lý do loại: Không đứng sau giới từ 'of' và không bổ nghĩa cho danh từ.",
+                "B": "her (tính từ sở hữu / đại từ tân ngữ)\n- Nghĩa: của cô ấy (tính từ sở hữu) / cô ấy (tân ngữ).\n- Vị trí: Đứng trước cụm danh từ 'many years' đóng vai trò tính từ sở hữu.\n- Lý do chọn: 'her many years' = nhiều năm cống hiến của cô ấy.",
+                "C": "hers (đại từ sở hữu)\n- Nghĩa: cái/những của cô ấy (= her + noun).\n- Vị trí: Đứng độc lập, không bao giờ đứng trước một danh từ khác.\n- Lý do loại: Đã có danh từ 'many years' nên không thể dùng đại từ sở hữu.",
+                "D": "herself (đại từ phản thân)\n- Nghĩa: chính bản thân cô ấy.\n- Vị trí: Nhấn mạnh chủ ngữ hoặc làm tân ngữ khi chủ ngữ và tân ngữ là cùng một người.\n- Lý do loại: Không đứng trước danh từ để bổ nghĩa sở hữu."
+              }
             },
             {
               "questionNumber": 105,
               "questionText": "To stop the ------- of computer viruses, do not open suspicious e-mails.",
-              "questionTranslation": "To stop the spread of computer viruses, do not open suspicious e-mails.",
+              "questionTextFull": "To stop the spread of computer viruses, do not open suspicious e-mails.",
+              "questionTranslation": "Để ngăn chặn sự lây lan của virus máy tính, đừng mở các email đáng ngờ.",
               "correctAnswer": "B",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 105):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (B): \"spread\" (lây lan)\n* Dịch nghĩa toàn câu: To stop the spread of computer viruses, do not open suspicious e-mails.",
+              "explanation": "Chỗ trống đứng sau mạo từ 'the' và trước giới từ 'of' (the + N + of), đóng vai trò tân ngữ cho động từ 'stop'. Xét về nghĩa khi nói về virus máy tính, ta dùng danh từ 'spread' (sự lây lan, sự phát tán). Do đó (B) là đáp án đúng.",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* To stop the spread of computer viruses: Để ngăn chặn sự lây lan của virus máy tính (Mục đích - To-infinitive phrase)\n* do not open suspicious e-mails: đừng mở các email đáng ngờ (Mệnh lệnh phủ định).\n\nCấu trúc ngữ pháp cần nhớ:\n* the spread of sth: sự lây lan, phát tán của cái gì (dịch bệnh, tin tức, virus máy tính).\n* suspicious (adj): đáng ngờ, khả nghi.",
               "options": {
                 "A": "break",
                 "B": "spread",
@@ -3227,21 +3225,20 @@
                 "D": "surface"
               },
               "optionsTranslation": {
-                "A": "phá vỡ",
-                "B": "lây lan",
-                "C": "cân bằng",
-                "D": "bề mặt"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"To stop the ------- of computer viruses, do not open suspicious e-mails.\" (Tạm dịch khi điền đáp án: \"To stop the spread of computer viruses, do not open suspicious e-mails.\"). Phương án (B) \"spread\" (lây lan) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "To stop the spread of computer viruses, do not open suspicious e-mails."
+                "A": "break (danh từ / động từ)\n- Nghĩa: giờ nghỉ giải lao, sự đứt vỡ.\n- Vị trí: Thường đi trong cụm 'take a break'.\n- Lý do loại: Không kết hợp với 'of computer viruses' để mang nghĩa lây lan.",
+                "B": "spread (danh từ / động từ)\n- Nghĩa: sự lây lan, lan rộng, phát tán.\n- Vị trí: Đi với 'the spread of viruses/diseases/information'.\n- Lý do chọn: Phù hợp chính xác với ngữ cảnh an ninh mạng và phòng chống virus.",
+                "C": "balance (danh từ / động từ)\n- Nghĩa: sự cân bằng, số dư tài khoản.\n- Vị trí: 'keep balance', 'account balance'.\n- Lý do loại: Hoàn toàn sai nghĩa ngữ cảnh.",
+                "D": "surface (danh từ)\n- Nghĩa: bề mặt (bàn, biển, da).\n- Vị trí: 'on the surface'.\n- Lý do loại: Không phù hợp với virus máy tính."
+              }
             },
             {
               "questionNumber": 106,
               "questionText": "The hiring manager ------- considered each applicant's résumé and qualifications.",
-              "questionTranslation": "The hiring manager carefully considered each applicant's résumé and qualifications.",
+              "questionTextFull": "The hiring manager carefully considered each applicant's résumé and qualifications.",
+              "questionTranslation": "Trưởng phòng tuyển dụng đã cẩn thận xem xét sơ yếu lý lịch và trình độ chuyên môn của từng ứng viên.",
               "correctAnswer": "C",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 106):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (C): \"carefully\" (cẩn thận)\n* Dịch nghĩa toàn câu: The hiring manager carefully considered each applicant's résumé and qualifications.",
+              "explanation": "Chỗ trống đứng giữa chủ ngữ 'The hiring manager' và động từ chính 'considered' (đã xem xét). Thành phần đứng trước động từ để bổ nghĩa cho hành động đó phải là một trạng từ chỉ cách thức (Adverb of manner). Trạng từ 'carefully' (một cách cẩn thận) hoàn thiện câu đúng ngữ pháp và ngữ nghĩa.",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* The hiring manager: Trưởng phòng tuyển dụng (Chủ ngữ)\n* carefully considered: đã cẩn thận xem xét (Trạng từ + Động từ quá khứ đơn)\n* each applicant's résumé and qualifications: sơ yếu lý lịch và năng lực của từng ứng viên (Cụm tân ngữ).\n\nCấu trúc ngữ pháp cần nhớ:\n* Subject + Adverb + Verb: Trạng từ đứng trước động từ thường để bổ nghĩa cho hành động.\n* qualification (n): bằng cấp, phẩm chất chuyên môn.",
               "options": {
                 "A": "caring",
                 "B": "careful",
@@ -3249,21 +3246,20 @@
                 "D": "carefulness"
               },
               "optionsTranslation": {
-                "A": "quan tâm",
-                "B": "cẩn thận",
-                "C": "cẩn thận",
-                "D": "sự cẩn thận"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The hiring manager ------- considered each applicant's résumé and qualifications.\" (Tạm dịch khi điền đáp án: \"The hiring manager carefully considered each applicant's résumé and qualifications.\"). Phương án (C) \"carefully\" (cẩn thận) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "The hiring manager carefully considered each applicant's résumé and qualifications."
+                "A": "caring (tính từ / V-ing)\n- Nghĩa: chu đáo, biết quan tâm săn sóc.\n- Vị trí: Bổ nghĩa cho danh từ chỉ người/hành động nhân ái (a caring person).\n- Lý do loại: Tính từ không thể đứng bổ nghĩa cho động từ 'considered'.",
+                "B": "careful (tính từ)\n- Nghĩa: cẩn thận, cẩn trọng.\n- Vị trí: Đứng trước danh từ (careful planning) hoặc sau to be (be careful).\n- Lý do loại: Không dùng tính từ bổ nghĩa cho động từ hành động.",
+                "C": "carefully (trạng từ)\n- Nghĩa: một cách cẩn thận, kỹ lưỡng.\n- Vị trí: Đứng trước động từ 'considered' để bổ nghĩa cách thức xem xét.\n- Lý do chọn: Đúng quy tắc Subject + Adv + Verb.",
+                "D": "carefulness (danh từ)\n- Nghĩa: sự cẩn thận.\n- Vị trí: Làm chủ ngữ hoặc tân ngữ.\n- Lý do loại: Danh từ không thể đứng kẹp giữa chủ ngữ và động từ."
+              }
             },
             {
               "questionNumber": 107,
               "questionText": "In October, Mr. Sakamoto will leave for New Zealand ------- will oversee the opening of the new Auckland branch.",
-              "questionTranslation": "In October, Mr. Sakamoto will leave for New Zealand and will oversee the opening of the new Auckland branch.",
+              "questionTextFull": "In October, Mr. Sakamoto will leave for New Zealand and will oversee the opening of the new Auckland branch.",
+              "questionTranslation": "Vào tháng 10, ông Sakamoto sẽ lên đường đến New Zealand và sẽ giám sát việc khai trương chi nhánh mới tại Auckland.",
               "correctAnswer": "C",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 107):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (C): \"and\" (Và)\n* Dịch nghĩa toàn câu: In October, Mr. Sakamoto will leave for New Zealand and will oversee the opening of the new Auckland branch.",
+              "explanation": "Câu có một chủ ngữ duy nhất là 'Mr. Sakamoto' và có hai vị ngữ song song: 'will leave for New Zealand' và 'will oversee the opening...'. Để nối hai vị ngữ song hành cùng thì, ta dùng liên từ đẳng lập 'and' (và). Do đó (C) là đáp án chính xác.",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* In October: Vào tháng 10 (Trạng từ thời gian)\n* Mr. Sakamoto: Ông Sakamoto (Chủ ngữ chung)\n* will leave for New Zealand: sẽ lên đường đi New Zealand (Vị ngữ 1)\n* and will oversee the opening of the new Auckland branch: và sẽ giám sát việc khai trương chi nhánh Auckland mới (Liên từ + Vị ngữ 2).\n\nCấu trúc ngữ pháp cần nhớ:\n* leave for [somewhere]: rời đi đến địa điểm nào.\n* oversee (v): giám sát, trông coi (đồng nghĩa supervise).",
               "options": {
                 "A": "because",
                 "B": "in addition",
@@ -3271,21 +3267,20 @@
                 "D": "prior to"
               },
               "optionsTranslation": {
-                "A": "bởi vì",
-                "B": "ngoài ra",
-                "C": "Và",
-                "D": "trước"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"In October, Mr. Sakamoto will leave for New Zealand ------- will oversee the opening of the new Auckland branch.\" (Tạm dịch khi điền đáp án: \"In October, Mr. Sakamoto will leave for New Zealand and will oversee the opening of the new Auckland branch.\"). Phương án (C) \"and\" (Và) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "In October, Mr. Sakamoto will leave for New Zealand and will oversee the opening of the new Auckland branch."
+                "A": "because (liên từ phụ thuộc)\n- Nghĩa: bởi vì.\n- Vị trí: Theo sau phải là một mệnh đề hoàn chỉnh có đủ Chủ ngữ + Vị ngữ (because he will oversee).\n- Lý do loại: Vế sau thiếu chủ ngữ nên không dùng 'because'.",
+                "B": "in addition (trạng từ liên kết)\n- Nghĩa: ngoài ra, hơn nữa.\n- Vị trí: Thường đứng đầu câu theo sau là dấu phẩy (In addition, S + V) hoặc dùng 'in addition to + Noun/V-ing'.\n- Lý do loại: Không dùng để nối trực tiếp hai cụm động từ trong câu.",
+                "C": "and (liên từ đẳng lập)\n- Nghĩa: và.\n- Vị trí: Nối hai từ, cụm từ hoặc mệnh đề tương đương về mặt ngữ pháp (Verb 1 and Verb 2).\n- Lý do chọn: Nối chuẩn xác hai cụm vị ngữ 'will leave...' và 'will oversee...'.",
+                "D": "prior to (giới từ)\n- Nghĩa: trước (thời gian, sự kiện).\n- Vị trí: Theo sau là danh từ hoặc V-ing (prior to departure).\n- Lý do loại: Không đi với động từ nguyên mẫu có 'will'."
+              }
             },
             {
               "questionNumber": 108,
               "questionText": "Tarateer Pharmaceuticals is varying its product ------- to include over-the-counter medications.",
-              "questionTranslation": "Tarateer Pharmaceuticals is varying its product line to include over-the-counter medications.",
+              "questionTextFull": "Tarateer Pharmaceuticals is varying its product line to include over-the-counter medications.",
+              "questionTranslation": "Công ty Dược phẩm Tarateer đang đa dạng hóa dòng sản phẩm của mình để bao gồm cả các loại thuốc không kê đơn.",
               "correctAnswer": "D",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 108):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (D): \"line\" (dòng)\n* Dịch nghĩa toàn câu: Tarateer Pharmaceuticals is varying its product line to include over-the-counter medications.",
+              "explanation": "Chỗ trống đứng sau tính từ sở hữu 'its' và danh từ 'product'. Ta cần một danh từ để kết hợp với 'product' tạo thành cụm danh từ ghép 'product line' (dòng sản phẩm). 'Line' (D) là danh từ đáp ứng đúng yêu cầu ngữ pháp.",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* Tarateer Pharmaceuticals: Công ty dược phẩm Tarateer (Chủ ngữ)\n* is varying: đang làm cho đa dạng, đa dạng hóa (Vị ngữ thì hiện tại tiếp diễn)\n* its product line: dòng sản phẩm của mình (Cụm tân ngữ)\n* to include over-the-counter medications: để bao gồm các loại thuốc không kê toa (Cụm chỉ mục đích).\n\nCấu trúc ngữ pháp cần nhớ:\n* product line (n): dòng sản phẩm (các sản phẩm cùng loại do một hãng sản xuất).\n* over-the-counter (OTC) medication: thuốc bán không cần đơn bác sĩ.",
               "options": {
                 "A": "to line",
                 "B": "lining",
@@ -3293,21 +3288,20 @@
                 "D": "line"
               },
               "optionsTranslation": {
-                "A": "xếp hàng",
-                "B": "lót",
-                "C": "lót",
-                "D": "dòng"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Tarateer Pharmaceuticals is varying its product ------- to include over-the-counter medications.\" (Tạm dịch khi điền đáp án: \"Tarateer Pharmaceuticals is varying its product line to include over-the-counter medications.\"). Phương án (D) \"line\" (dòng) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "Tarateer Pharmaceuticals is varying its product line to include over-the-counter medications."
+                "A": "to line (động từ nguyên mẫu có to)\n- Nghĩa: để lót đường, để kẻ dòng.\n- Vị trí: Dùng chỉ mục đích.\n- Lý do loại: Không đứng sau 'product' để làm tân ngữ cho 'varying'.",
+                "B": "lining (danh từ / V-ing)\n- Nghĩa: lớp vải lót bên trong áo/túi.\n- Vị trí: 'coat lining'.\n- Lý do loại: Không kết hợp với 'product' để nói về danh mục sản phẩm.",
+                "C": "lined (động từ quá khứ / tính từ)\n- Nghĩa: có kẻ dòng (lined paper), có nếp nhăn.\n- Vị trí: Đứng trước danh từ.\n- Lý do loại: Không đứng sau 'product' làm tân ngữ.",
+                "D": "line (danh từ)\n- Nghĩa: dòng, dãy, tuyến.\n- Vị trí: Tạo thành danh từ ghép 'product line' (dòng sản phẩm).\n- Lý do chọn: Collocation chuẩn xác trong tiếng Anh kinh doanh (business English)."
+              }
             },
             {
               "questionNumber": 109,
               "questionText": "Dynart, Inc., continuously ------- new ways to reduce its use of plastics.",
-              "questionTranslation": "Dynart, Inc., continuously seeks new ways to reduce its use of plastics.",
+              "questionTextFull": "Dynart, Inc., continuously seeks new ways to reduce its use of plastics.",
+              "questionTranslation": "Tập đoàn Dynart liên tục tìm kiếm những phương thức mới nhằm cắt giảm việc sử dụng đồ nhựa.",
               "correctAnswer": "A",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 109):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (A): \"seeks\" (tìm kiếm)\n* Dịch nghĩa toàn câu: Dynart, Inc., continuously seeks new ways to reduce its use of plastics.",
+              "explanation": "Câu đã có chủ ngữ là tên công ty 'Dynart, Inc.' (ngôi thứ ba số ít) và trạng từ 'continuously', nhưng chưa có động từ chính (vị ngữ). Ta cần một động từ có chia thì. 'Seeks' (thì hiện tại đơn, chia số ít thêm -s) hoàn thiện mệnh đề chính xác.",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* Dynart, Inc.: Tên công ty Dynart (Chủ ngữ số ít)\n* continuously seeks: liên tục tìm kiếm (Trạng từ + Động từ chính chia thì HTĐ)\n* new ways: những phương thức mới (Tân ngữ)\n* to reduce its use of plastics: để giảm thiểu việc sử dụng nhựa (Cụm chỉ mục đích).\n\nCấu trúc ngữ pháp cần nhớ:\n* seek (v): tìm kiếm, mưu cầu (ngôi thứ 3 số ít: seeks).\n* Subject (số ít) + Verb-s/es: Quy tắc hòa hợp chủ vị cơ bản.",
               "options": {
                 "A": "seeks",
                 "B": "seeker",
@@ -3315,21 +3309,20 @@
                 "D": "seeking"
               },
               "optionsTranslation": {
-                "A": "tìm kiếm",
-                "B": "người tìm kiếm",
-                "C": "tìm kiếm",
-                "D": "đang tìm kiếm"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Dynart, Inc., continuously ------- new ways to reduce its use of plastics.\" (Tạm dịch khi điền đáp án: \"Dynart, Inc., continuously seeks new ways to reduce its use of plastics.\"). Phương án (A) \"seeks\" (tìm kiếm) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "Dynart, Inc., continuously seeks new ways to reduce its use of plastics."
+                "A": "seeks (động từ chia thì hiện tại đơn - ngôi thứ 3 số ít)\n- Nghĩa: tìm kiếm, kiếm tìm.\n- Vị trí: Làm động từ vị ngữ chính theo sau chủ ngữ số ít 'Dynart, Inc.'.\n- Lý do chọn: Đáp ứng chuẩn xác yêu cầu về vị ngữ chia thì trong câu.",
+                "B": "seeker (danh từ)\n- Nghĩa: người tìm kiếm (job seeker = người tìm việc).\n- Vị trí: Đóng vai trò danh từ.\n- Lý do loại: Câu đang thiếu động từ vị ngữ, không thể điền thêm danh từ.",
+                "C": "to seek (dạng nguyên mẫu có to)\n- Nghĩa: để tìm kiếm.\n- Vị trí: Dùng chỉ mục đích hoặc sau một số động từ nhất định.\n- Lý do loại: Động từ có 'to' không thể làm vị ngữ chính của câu.",
+                "D": "seeking (dạng V-ing / hiện tại phân từ)\n- Nghĩa: đang tìm kiếm.\n- Vị trí: Cần có trợ động từ 'is/was' đứng trước mới tạo thành thì tiếp diễn.\n- Lý do loại: Đứng một mình không thể làm động từ vị ngữ."
+              }
             },
             {
               "questionNumber": 110,
               "questionText": "The cash registers at Pirkle Books automatically ------- the remaining inventory of books available.",
-              "questionTranslation": "The cash registers at Pirkle Books automatically calculate the remaining inventory of books available.",
+              "questionTextFull": "The cash registers at Pirkle Books automatically calculate the remaining inventory of books available.",
+              "questionTranslation": "Các máy tính tiền tại Hiệu sách Pirkle tự động tính toán lượng sách tồn kho còn lại sẵn có.",
               "correctAnswer": "A",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 110):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (A): \"calculate\" (tính toán)\n* Dịch nghĩa toàn câu: The cash registers at Pirkle Books automatically calculate the remaining inventory of books available.",
+              "explanation": "Chủ ngữ là 'The cash registers' (những chiếc máy tính tiền - danh từ số nhiều) theo sau bởi cụm giới từ 'at Pirkle Books' và trạng từ 'automatically'. Câu đang thiếu động từ chính. Ta cần một động từ nguyên mẫu không chia (hoặc số nhiều ở thì hiện tại đơn) để hòa hợp với chủ ngữ số nhiều. 'Calculate' (A) là đáp án đúng.",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* The cash registers at Pirkle Books: Các máy thu ngân tại hiệu sách Pirkle (Cụm chủ ngữ số nhiều)\n* automatically calculate: tự động tính toán (Trạng từ + Động từ chính số nhiều)\n* the remaining inventory of books available: lượng sách tồn kho sẵn có còn lại (Cụm tân ngữ).\n\nCấu trúc ngữ pháp cần nhớ:\n* cash register (n): máy tính tiền, máy thu ngân.\n* inventory (n): hàng tồn kho, lượng hàng hóa lưu kho.",
               "options": {
                 "A": "calculate",
                 "B": "calculator",
@@ -3337,21 +3330,20 @@
                 "D": "calculation"
               },
               "optionsTranslation": {
-                "A": "tính toán",
-                "B": "máy tính",
-                "C": "tính toán",
-                "D": "tính toán"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The cash registers at Pirkle Books automatically ------- the remaining inventory of books available.\" (Tạm dịch khi điền đáp án: \"The cash registers at Pirkle Books automatically calculate the remaining inventory of books available.\"). Phương án (A) \"calculate\" (tính toán) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "The cash registers at Pirkle Books automatically calculate the remaining inventory of books available."
+                "A": "calculate (động từ nguyên mẫu)\n- Nghĩa: tính toán, đo lường.\n- Vị trí: Động từ vị ngữ chính đi với chủ ngữ số nhiều 'cash registers'.\n- Lý do chọn: Hòa hợp chuẩn xác giữa chủ ngữ số nhiều và động từ số nhiều.",
+                "B": "calculator (danh từ chỉ vật)\n- Nghĩa: máy tính cầm tay (bỏ túi).\n- Vị trí: Đóng vai trò danh từ.\n- Lý do loại: Câu cần động từ, không cần danh từ đứng sau trạng từ.",
+                "C": "calculating (dạng V-ing / tính từ)\n- Nghĩa: đang tính toán / có toan tính.\n- Vị trí: Cần trợ động từ to be để tạo thì tiếp diễn.\n- Lý do loại: Đứng một mình không làm vị ngữ chính được.",
+                "D": "calculation (danh từ chỉ sự việc)\n- Nghĩa: sự tính toán, phép tính.\n- Vị trí: Đóng vai trò danh từ.\n- Lý do loại: Sai từ loại, câu đang thiếu động từ."
+              }
             },
             {
               "questionNumber": 111,
               "questionText": "The product team is designing mapping software that can ------- locate underground minerals.",
-              "questionTranslation": "The product team is designing mapping software that can precisely locate underground minerals.",
+              "questionTextFull": "The product team is designing mapping software that can precisely locate underground minerals.",
+              "questionTranslation": "Đội ngũ phát triển sản phẩm đang thiết kế phần mềm bản đồ có khả năng xác định chính xác vị trí của các khoáng sản dưới lòng đất.",
               "correctAnswer": "C",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 111):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (C): \"precisely\" (chính xác)\n* Dịch nghĩa toàn câu: The product team is designing mapping software that can precisely locate underground minerals.",
+              "explanation": "Chỗ trống đứng giữa trợ động từ khiếm khuyết 'can' và động từ nguyên mẫu 'locate' (xác định vị trí). Vị trí này cần một trạng từ chỉ cách thức để bổ nghĩa cho 'locate'. 'Precisely' (một cách chuẩn xác, chính xác) là từ vựng phù hợp nhất với việc định vị tài nguyên.",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* The product team is designing mapping software: Đội ngũ sản phẩm đang thiết kế phần mềm bản đồ (Mệnh đề chính)\n* that can precisely locate underground minerals: cái mà có thể xác định chính xác khoáng sản dưới lòng đất (Mệnh đề quan hệ bổ nghĩa cho 'software').\n\nCấu trúc ngữ pháp cần nhớ:\n* modal verb + adverb + verb: can + precisely + locate.\n* precisely (adv) = accurately: một cách chuẩn xác.",
               "options": {
                 "A": "infinitely",
                 "B": "sincerely",
@@ -3359,21 +3351,20 @@
                 "D": "greatly"
               },
               "optionsTranslation": {
-                "A": "vô cùng",
-                "B": "chân thành",
-                "C": "chính xác",
-                "D": "rất nhiều"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The product team is designing mapping software that can ------- locate underground minerals.\" (Tạm dịch khi điền đáp án: \"The product team is designing mapping software that can precisely locate underground minerals.\"). Phương án (C) \"precisely\" (chính xác) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "The product team is designing mapping software that can precisely locate underground minerals."
+                "A": "infinitely (trạng từ)\n- Nghĩa: vô tận, vô hạn.\n- Vị trí: Thường bổ nghĩa cho so sánh hơn (infinitely better).\n- Lý do loại: Không dùng 'infinitely locate'.",
+                "B": "sincerely (trạng từ)\n- Nghĩa: chân thành (sincerely apologize, yours sincerely).\n- Vị trí: Thường dùng trong giao tiếp, thư từ trang trọng.\n- Lý do loại: Không dùng với phần mềm định vị.",
+                "C": "precisely (trạng từ)\n- Nghĩa: một cách chính xác, chuẩn xác từng chi tiết.\n- Vị trí: Bổ nghĩa cho động từ đo đạc/định vị (precisely locate/measure).\n- Lý do chọn: Hoàn toàn phù hợp với tính năng của phần mềm định vị khoáng sản.",
+                "D": "greatly (trạng từ)\n- Nghĩa: rất nhiều, vô cùng (greatly appreciate, greatly improve).\n- Vị trí: Bổ nghĩa cho mức độ đánh giá cao hoặc thay đổi lớn.\n- Lý do loại: Không kết hợp tự nhiên với 'locate'."
+              }
             },
             {
               "questionNumber": 112,
               "questionText": "According to CEO Mayu Yamada, it would not be ------- responsible to expand the warehouse at this time.",
-              "questionTranslation": "According to CEO Mayu Yamada, it would not be financially responsible to expand the warehouse at this time.",
+              "questionTextFull": "According to CEO Mayu Yamada, it would not be financially responsible to expand the warehouse at this time.",
+              "questionTranslation": "Theo Tổng Giám đốc Mayu Yamada, việc mở rộng nhà kho vào thời điểm này sẽ không phải là một quyết định khôn ngoan về mặt tài chính.",
               "correctAnswer": "C",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 112):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (C): \"financially\" (tài chính)\n* Dịch nghĩa toàn câu: According to CEO Mayu Yamada, it would not be financially responsible to expand the warehouse at this time.",
+              "explanation": "Chỗ trống đứng sau 'would not be' và đứng trước tính từ 'responsible'. Để bổ nghĩa cho một tính từ (adjective), ta bắt buộc phải sử dụng một trạng từ (adverb). 'Financially' (về mặt tài chính) bổ nghĩa cho 'responsible' tạo thành cụm 'financially responsible' (hợp lý/có trách nhiệm về mặt tài chính). Do đó chọn (C).",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* According to CEO Mayu Yamada: Theo CEO Mayu Yamada (Cụm trạng ngữ dẫn nguồn)\n* it would not be financially responsible: việc đó sẽ không hợp lý về mặt tài chính (Chủ ngữ giả 'it' + to be + adv + adj)\n* to expand the warehouse at this time: mở rộng nhà kho vào lúc này (Chủ ngữ thật - To-infinitive phrase).\n\nCấu trúc ngữ pháp cần nhớ:\n* be + adverb + adjective: it is financially responsible (trạng từ bổ nghĩa cho tính từ).\n* financially responsible: có trách nhiệm / cân nhắc kỹ lưỡng về khả năng tài chính.",
               "options": {
                 "A": "finance",
                 "B": "financials",
@@ -3381,21 +3372,20 @@
                 "D": "financing"
               },
               "optionsTranslation": {
-                "A": "tài chính",
-                "B": "tài chính",
-                "C": "tài chính",
-                "D": "tài chính"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"According to CEO Mayu Yamada, it would not be ------- responsible to expand the warehouse at this time.\" (Tạm dịch khi điền đáp án: \"According to CEO Mayu Yamada, it would not be financially responsible to expand the warehouse at this time.\"). Phương án (C) \"financially\" (tài chính) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "According to CEO Mayu Yamada, it would not be financially responsible to expand the warehouse at this time."
+                "A": "finance (danh từ / động từ)\n- Nghĩa: tài chính / cấp vốn.\n- Vị trí: Đóng vai trò danh từ hoặc động từ.\n- Lý do loại: Không thể đứng trước tính từ 'responsible' để bổ nghĩa.",
+                "B": "financials (danh từ số nhiều)\n- Nghĩa: số liệu tài chính, báo cáo tài chính của công ty.\n- Vị trí: Đóng vai trò danh từ số nhiều.\n- Lý do loại: Sai từ loại.",
+                "C": "financially (trạng từ)\n- Nghĩa: về mặt tài chính, về phương diện tiền bạc.\n- Vị trí: Đứng trước tính từ 'responsible' để bổ nghĩa (financially responsible).\n- Lý do chọn: Đúng công thức cấu trúc be + adv + adj.",
+                "D": "financing (danh từ / V-ing)\n- Nghĩa: sự tài trợ vốn, khoản vay tài chính.\n- Vị trí: 'get financing for a car'.\n- Lý do loại: Sai từ loại."
+              }
             },
             {
               "questionNumber": 113,
               "questionText": "Analysts cannot say with any ------- what the regional demand for electric trucks will be.",
-              "questionTranslation": "Analysts cannot say with any certainty what the regional demand for electric trucks will be.",
+              "questionTextFull": "Analysts cannot say with any certainty what the regional demand for electric trucks will be.",
+              "questionTranslation": "Các nhà phân tích không thể khẳng định một cách chắc chắn nhu cầu đối với xe tải điện trong khu vực sẽ ra sao.",
               "correctAnswer": "A",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 113):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (A): \"certainty\" (sự chắc chắn)\n* Dịch nghĩa toàn câu: Analysts cannot say with any certainty what the regional demand for electric trucks will be.",
+              "explanation": "Chỗ trống đứng sau giới từ 'with' và từ định lượng 'any'. Cụm 'with + [Noun]' tạo thành một cụm trạng từ. Thành ngữ 'say with certainty' mang nghĩa là 'khẳng định một cách chắc chắn'. Do đó ta chọn danh từ 'certainty' (A).",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* Analysts cannot say with any certainty: Các nhà phân tích không thể khẳng định với bất kỳ sự chắc chắn nào (Mệnh đề chính)\n* what the regional demand for electric trucks will be: nhu cầu khu vực đối với xe tải điện sẽ như thế nào (Mệnh đề danh từ làm tân ngữ cho động từ 'say').\n\nCấu trúc ngữ pháp cần nhớ:\n* with certainty: một cách chắc chắn, có độ tin cậy cao (cụm giới từ tương đương trạng từ certainly).\n* demand for sth: nhu cầu đối với mặt hàng/dịch vụ gì.",
               "options": {
                 "A": "certainty",
                 "B": "justice",
@@ -3403,21 +3393,20 @@
                 "D": "denial"
               },
               "optionsTranslation": {
-                "A": "sự chắc chắn",
-                "B": "công lý",
-                "C": "sự xuất sắc",
-                "D": "phủ nhận"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Analysts cannot say with any ------- what the regional demand for electric trucks will be.\" (Tạm dịch khi điền đáp án: \"Analysts cannot say with any certainty what the regional demand for electric trucks will be.\"). Phương án (A) \"certainty\" (sự chắc chắn) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "Analysts cannot say with any certainty what the regional demand for electric trucks will be."
+                "A": "certainty (danh từ)\n- Nghĩa: sự chắc chắn, điều chắc chắn.\n- Vị trí: Đi sau giới từ 'with' tạo thành thành ngữ 'with certainty' (chắc chắn).\n- Lý do chọn: Hợp ngữ cảnh dự báo thị trường khi các nhà phân tích chưa thể khẳng định.",
+                "B": "justice (danh từ)\n- Nghĩa: công lý, sự công bằng (bring to justice).\n- Vị trí: Thường dùng trong pháp luật, đạo đức.\n- Lý do loại: Không dùng 'say with justice' trong dự báo thị trường.",
+                "C": "excellence (danh từ)\n- Nghĩa: sự xuất sắc, sự ưu tú vượt trội.\n- Vị trí: 'center of excellence'.\n- Lý do loại: Hoàn toàn không phù hợp ngữ cảnh.",
+                "D": "denial (danh từ)\n- Nghĩa: sự phủ nhận, lời chối bỏ.\n- Vị trí: 'in denial'.\n- Lý do loại: Sai nghĩa ngữ cảnh."
+              }
             },
             {
               "questionNumber": 114,
               "questionText": "As part of its marketing campaign, Elegancia Dishware is ------- soliciting feedback from customers.",
-              "questionTranslation": "As part of its marketing campaign, Elegancia Dishware is actively soliciting feedback from customers.",
+              "questionTextFull": "As part of its marketing campaign, Elegancia Dishware is actively soliciting feedback from customers.",
+              "questionTranslation": "Như một phần trong chiến dịch tiếp thị, Hãng đồ gia dụng Elegancia Dishware đang tích cực thu thập phản hồi từ khách hàng.",
               "correctAnswer": "C",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 114):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (C): \"actively\" (tích cực)\n* Dịch nghĩa toàn câu: As part of its marketing campaign, Elegancia Dishware is actively soliciting feedback from customers.",
+              "explanation": "Chỗ trống đứng giữa trợ động từ 'is' và hiện tại phân từ 'soliciting' (đang kêu gọi/thu thập) trong thì hiện tại tiếp diễn. Vị trí này cần một trạng từ chỉ cách thức để bổ nghĩa cho hành động 'soliciting'. 'Actively' (một cách tích cực, chủ động) kết hợp tự nhiên với 'soliciting feedback'. Do đó chọn (C).",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* As part of its marketing campaign: Như một phần của chiến dịch tiếp thị (Cụm giới từ trạng ngữ)\n* Elegancia Dishware: Tên công ty Elegancia Dishware (Chủ ngữ)\n* is actively soliciting feedback: đang tích cực thu thập ý kiến đóng góp (Thì HTTD có trạng từ xen giữa)\n* from customers: từ các khách hàng (Cụm giới từ bổ nghĩa).\n\nCấu trúc ngữ pháp cần nhớ:\n* actively solicit feedback/comments: chủ động, tích cực kêu gọi đóng góp ý kiến (collocation thường gặp).\n* solicit (v): khẩn khoản, kêu gọi, thu thập (ý kiến, tiền quyên góp).",
               "options": {
                 "A": "lightly",
                 "B": "loyally",
@@ -3425,21 +3414,20 @@
                 "D": "cleanly"
               },
               "optionsTranslation": {
-                "A": "nhẹ nhàng",
-                "B": "trung thành",
-                "C": "tích cực",
-                "D": "sạch sẽ"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"As part of its marketing campaign, Elegancia Dishware is ------- soliciting feedback from customers.\" (Tạm dịch khi điền đáp án: \"As part of its marketing campaign, Elegancia Dishware is actively soliciting feedback from customers.\"). Phương án (C) \"actively\" (tích cực) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "As part of its marketing campaign, Elegancia Dishware is actively soliciting feedback from customers."
+                "A": "lightly (trạng từ)\n- Nghĩa: nhẹ nhàng, sơ sài (tread lightly, take it lightly).\n- Vị trí: 'do sth lightly'.\n- Lý do loại: Không ai triển khai chiến dịch tiếp thị lại đi thu thập ý kiến 'một cách sơ sài/nhẹ nhàng'.",
+                "B": "loyally (trạng từ)\n- Nghĩa: một cách trung thành (serve loyally).\n- Vị trí: Thường đi với động từ phục vụ, cống hiến.\n- Lý do loại: Không dùng với việc thu thập ý kiến.",
+                "C": "actively (trạng từ)\n- Nghĩa: một cách tích cực, năng động, chủ động.\n- Vị trí: Đứng giữa to be và V-ing (is actively soliciting).\n- Lý do chọn: Phù hợp hoàn hảo với chiến dịch marketing chủ động tương tác với khách hàng.",
+                "D": "cleanly (trạng từ)\n- Nghĩa: một cách sạch sẽ, dứt khoát.\n- Vị trí: 'cut cleanly'.\n- Lý do loại: Không phù hợp nghĩa ngữ cảnh."
+              }
             },
             {
               "questionNumber": 115,
               "questionText": "Rain gardens are intended to ------- water to prevent flooding of local roads.",
-              "questionTranslation": "Rain gardens are intended to absorb water to prevent flooding of local roads.",
+              "questionTextFull": "Rain gardens are intended to absorb water to prevent flooding of local roads.",
+              "questionTranslation": "Các khu vườn mưa được xây dựng nhằm mục đích hút nước để ngăn ngừa tình trạng ngập lụt các tuyến đường địa phương.",
               "correctAnswer": "C",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 115):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (C): \"absorb\" (hấp thụ)\n* Dịch nghĩa toàn câu: Rain gardens are intended to absorb water to prevent flooding of local roads.",
+              "explanation": "Chỗ trống đứng sau cấu trúc 'are intended to' (được thiết kế/có mục đích để làm gì). Theo sau 'to' là động từ nguyên mẫu ngoại động từ tác động lên tân ngữ 'water' (nước). Dựa vào mục đích phía sau 'prevent flooding' (ngăn ngập úng), hành động của vườn mưa là 'hút/thấm nước' (absorb water). Do đó chọn 'absorb' (C).",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* Rain gardens are intended to absorb water: Các khu vườn thoát nước mưa được thiết kế để thấm hút nước (Mệnh đề chính bị động chỉ mục đích)\n* to prevent flooding of local roads: nhằm ngăn ngừa ngập lụt các tuyến đường địa phương (Cụm to-infinitive chỉ mục đích thứ cấp).\n\nCấu trúc ngữ pháp cần nhớ:\n* be intended to do sth: được định ra/nhắm đến để làm việc gì.\n* absorb (v): thấm, hút (chất lỏng, độ ẩm, kiến thức).",
               "options": {
                 "A": "engage",
                 "B": "undergo",
@@ -3447,21 +3435,20 @@
                 "D": "overwhelm"
               },
               "optionsTranslation": {
-                "A": "tham gia",
-                "B": "trải qua",
-                "C": "hấp thụ",
-                "D": "áp đảo"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Rain gardens are intended to ------- water to prevent flooding of local roads.\" (Tạm dịch khi điền đáp án: \"Rain gardens are intended to absorb water to prevent flooding of local roads.\"). Phương án (C) \"absorb\" (hấp thụ) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "Rain gardens are intended to absorb water to prevent flooding of local roads."
+                "A": "engage (động từ)\n- Nghĩa: thu hút (sự chú ý), tham gia (engage in).\n- Vị trí: 'engage customers', 'engage in conversation'.\n- Lý do loại: Vườn cây không 'engage nước'.",
+                "B": "undergo (động từ)\n- Nghĩa: trải qua (khó khăn, phẫu thuật, cải tạo).\n- Vị trí: 'undergo inspection/renovation'.\n- Lý do loại: Không kết hợp với 'water'.",
+                "C": "absorb (động từ)\n- Nghĩa: hút, thấm (nước, chất ẩm).\n- Vị trí: Ngoại động từ đi với tân ngữ 'water' (absorb water = thấm hút nước).\n- Lý do chọn: Phù hợp chính xác với công năng chống ngập lụt của khu vườn thoát nước mưa.",
+                "D": "overwhelm (động từ)\n- Nghĩa: áp đảo, làm cho quá tải, nhấn chìm.\n- Vị trí: 'be overwhelmed with work'.\n- Lý do loại: Vườn cây không nhằm mục đích 'nhấn chìm nước'."
+              }
             },
             {
               "questionNumber": 116,
               "questionText": "Theta Industries’ training program aims to increase the ------- of its manufacturing systems.",
-              "questionTranslation": "Theta Industries’ training program aims to increase the productivity of its manufacturing systems.",
+              "questionTextFull": "Theta Industries’ training program aims to increase the productivity of its manufacturing systems.",
+              "questionTranslation": "Chương trình đào tạo của Tập đoàn Theta Industries nhắm tới việc gia tăng năng suất của các hệ thống sản xuất.",
               "correctAnswer": "D",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 116):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (D): \"productivity\" (năng suất)\n* Dịch nghĩa toàn câu: Theta Industries’ training program aims to increase the productivity of its manufacturing systems.",
+              "explanation": "Chỗ trống đứng sau mạo từ 'the' và trước giới từ 'of' (the + Noun + of). Ta cần một danh từ để làm tân ngữ cho động từ 'increase' (tăng cái gì). 'Productivity' (năng suất / hiệu suất) là danh từ chỉ phẩm chất hiệu quả sản xuất. Do đó chọn (D).",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* Theta Industries’ training program: Chương trình đào tạo của Theta Industries (Chủ ngữ)\n* aims to increase: nhắm tới việc gia tăng (Động từ vị ngữ + To-infinitive)\n* the productivity of its manufacturing systems: năng suất của các hệ thống sản xuất của công ty (Cụm tân ngữ).\n\nCấu trúc ngữ pháp cần nhớ:\n* aim to do sth: đặt mục tiêu làm gì.\n* productivity (n): năng suất lao động, hiệu suất làm việc.",
               "options": {
                 "A": "producer",
                 "B": "produced",
@@ -3469,21 +3456,20 @@
                 "D": "productivity"
               },
               "optionsTranslation": {
-                "A": "nhà sản xuất",
-                "B": "sản xuất",
-                "C": "năng suất",
-                "D": "năng suất"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Theta Industries’ training program aims to increase the ------- of its manufacturing systems.\" (Tạm dịch khi điền đáp án: \"Theta Industries’ training program aims to increase the productivity of its manufacturing systems.\"). Phương án (D) \"productivity\" (năng suất) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "Theta Industries’ training program aims to increase the productivity of its manufacturing systems."
+                "A": "producer (danh từ chỉ người/nhà sản xuất)\n- Nghĩa: nhà sản xuất, nhà chế tạo.\n- Vị trí: Danh từ đếm được chỉ người/đơn vị.\n- Lý do loại: Không ai 'tăng nhà sản xuất của hệ thống' trong ngữ cảnh này.",
+                "B": "produced (động từ quá khứ / phân từ hai)\n- Nghĩa: đã sản xuất.\n- Vị trí: Đóng vai trò động từ hoặc phân từ.\n- Lý do loại: Sau 'the' không điền động từ dạng này.",
+                "C": "productive (tính từ)\n- Nghĩa: mang tính năng suất cao, màu mỡ.\n- Vị trí: Đứng trước danh từ (productive employees) hoặc sau to be.\n- Lý do loại: Vị trí 'the ------- of' bắt buộc cần danh từ.",
+                "D": "productivity (danh từ trừu tượng)\n- Nghĩa: năng suất, hiệu suất làm việc/sản xuất.\n- Vị trí: Đi trong cấu trúc 'the productivity of systems/workers'.\n- Lý do chọn: Chuẩn xác về cả từ loại danh từ lẫn ngữ nghĩa công nghiệp sản xuất."
+              }
             },
             {
               "questionNumber": 117,
               "questionText": "The board of directors has voted to award Mr. Mitrakos a bonus for his role ------- obtaining the international contract.",
-              "questionTranslation": "The board of directors has voted to award Mr. Mitrakos a bonus for his role in obtaining the international contract.",
+              "questionTextFull": "The board of directors has voted to award Mr. Mitrakos a bonus for his role in obtaining the international contract.",
+              "questionTranslation": "Hội đồng quản trị đã bỏ phiếu thông qua việc trao thưởng cho ông Mitrakos vì vai trò của ông trong việc giành được hợp đồng quốc tế.",
               "correctAnswer": "A",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 117):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (A): \"in\" (trong)\n* Dịch nghĩa toàn câu: The board of directors has voted to award Mr. Mitrakos a bonus for his role in obtaining the international contract.",
+              "explanation": "Chỗ trống đứng sau cụm từ 'his role' (vai trò của ông ấy) và đứng trước danh động từ 'obtaining the international contract'. Thành ngữ cố định trong tiếng Anh là 'play a role in (doing) sth' hoặc 'one's role in (doing) sth' (vai trò trong việc gì). Do đó giới từ 'in' (A) là đáp án chính xác.",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* The board of directors has voted to award Mr. Mitrakos a bonus: Hội đồng quản trị đã bỏ phiếu thưởng cho ông Mitrakos một khoản tiền (Mệnh đề chính thì HTHT)\n* for his role in obtaining the international contract: vì vai trò của ông trong việc giành được hợp đồng quốc tế (Cụm giới từ chỉ lý do khen thưởng).\n\nCấu trúc ngữ pháp cần nhớ:\n* role in + Noun / V-ing: vai trò trong việc gì (collocation bắt buộc nhớ).\n* award sb sth: trao tặng cho ai cái gì.",
               "options": {
                 "A": "in",
                 "B": "at",
@@ -3491,21 +3477,20 @@
                 "D": "apart"
               },
               "optionsTranslation": {
-                "A": "trong",
-                "B": "tại",
-                "C": "ngoại trừ",
-                "D": "xa nhau"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The board of directors has voted to award Mr. Mitrakos a bonus for his role ------- obtaining the international contract.\" (Tạm dịch khi điền đáp án: \"The board of directors has voted to award Mr. Mitrakos a bonus for his role in obtaining the international contract.\"). Phương án (A) \"in\" (trong) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "The board of directors has voted to award Mr. Mitrakos a bonus for his role in obtaining the international contract."
+                "A": "in (giới từ)\n- Nghĩa: trong, ở trong.\n- Vị trí: Đi kèm với 'role' tạo thành cụm cố định 'role in doing sth' (vai trò trong việc gì).\n- Lý do chọn: Collocation chuẩn xác trong ngữ pháp tiếng Anh.",
+                "B": "at (giới từ)\n- Nghĩa: tại (thời gian, địa điểm cụ thể).\n- Vị trí: 'at 5 P.M.', 'at the office', 'good at sth'.\n- Lý do loại: Không dùng 'role at doing sth'.",
+                "C": "except (giới từ / liên từ)\n- Nghĩa: ngoại trừ.\n- Vị trí: 'everyone except him'.\n- Lý do loại: Sai nghĩa hoàn toàn.",
+                "D": "apart (phó từ)\n- Nghĩa: riêng biệt, cách xa nhau.\n- Vị trí: Đi trong cụm 'apart from' (ngoại trừ / bên cạnh).\n- Lý do loại: Đứng một mình không kết hợp với danh động từ theo nghĩa vai trò."
+              }
             },
             {
               "questionNumber": 118,
               "questionText": "The finance director gave his approval ------- the project can move forward.",
-              "questionTranslation": "The finance director gave his approval so that the project can move forward.",
+              "questionTextFull": "The finance director gave his approval so that the project can move forward.",
+              "questionTranslation": "Giám đốc tài chính đã đưa ra sự chấp thuận để dự án có thể được xúc tiến triển khai.",
               "correctAnswer": "D",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 118):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (D): \"so that\" (để có thể)\n* Dịch nghĩa toàn câu: The finance director gave his approval so that the project can move forward.",
+              "explanation": "Câu bao gồm hai mệnh đề hoàn chỉnh: Mệnh đề 1 là 'The finance director gave his approval' và Mệnh đề 2 là 'the project can move forward'. Để nối hai mệnh đề chỉ mục đích (hành động ở mệnh đề 1 nhằm để mệnh đề 2 xảy ra), ta dùng liên từ 'so that' (+ S + can/may/will + V). Do đó (D) là đáp án chính xác.",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* The finance director gave his approval: Giám đốc tài chính đã phê duyệt (Mệnh đề 1 chỉ hành động)\n* so that: để mà (Liên từ chỉ mục đích)\n* the project can move forward: dự án có thể tiến hành thuận lợi (Mệnh đề 2 chỉ kết quả mong muốn).\n\nCấu trúc ngữ pháp cần nhớ:\n* so that + S + can/could + Verb: để mà, nhằm mục đích (chỉ mục đích).\n* move forward: tiến triển, xúc tiến (phrasal verb thông dụng trong công việc).",
               "options": {
                 "A": "along",
                 "B": "furthermore",
@@ -3513,21 +3498,20 @@
                 "D": "so that"
               },
               "optionsTranslation": {
-                "A": "dọc theo",
-                "B": "hơn nữa",
-                "C": "thận trọng",
-                "D": "để có thể"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The finance director gave his approval ------- the project can move forward.\" (Tạm dịch khi điền đáp án: \"The finance director gave his approval so that the project can move forward.\"). Phương án (D) \"so that\" (để có thể) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "The finance director gave his approval so that the project can move forward."
+                "A": "along (giới từ / trạng từ)\n- Nghĩa: dọc theo (along the river).\n- Vị trí: Đi với danh từ chỉ đường đi hoặc trong cụm 'along with'.\n- Lý do loại: Không thể làm liên từ nối hai mệnh đề.",
+                "B": "furthermore (trạng từ liên kết)\n- Nghĩa: hơn nữa, vả lại.\n- Vị trí: Thường đứng đầu câu thứ hai theo sau là dấu phẩy (Furthermore, S + V).\n- Lý do loại: Không dùng để nối liền hai mệnh đề có ý nghĩa chỉ mục đích.",
+                "C": "cautiously (trạng từ)\n- Nghĩa: một cách thận trọng, dè dặt.\n- Vị trí: Bổ nghĩa cho động từ (gave his approval cautiously).\n- Lý do loại: Vế sau là một mệnh đề hoàn chỉnh, không thể dùng trạng từ đứng làm liên từ.",
+                "D": "so that (liên từ phụ thuộc chỉ mục đích)\n- Nghĩa: để mà, cốt để.\n- Vị trí: Nối hai mệnh đề (Clause 1 + so that + Clause 2).\n- Lý do chọn: Đúng ngữ pháp và truyền tải chuẩn xác mối quan hệ mục đích giữa phê duyệt và triển khai dự án."
+              }
             },
             {
               "questionNumber": 119,
               "questionText": "The newspaper article describes ways job seekers can ------- for having little workplace experience.",
-              "questionTranslation": "The newspaper article describes ways job seekers can compensate for having little workplace experience.",
+              "questionTextFull": "The newspaper article describes ways job seekers can compensate for having little workplace experience.",
+              "questionTranslation": "Bài báo mô tả những cách thức mà người tìm việc có thể bù đắp cho việc thiếu kinh nghiệm thực tế tại nơi làm việc.",
               "correctAnswer": "C",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 119):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (C): \"compensate\" (bù đắp)\n* Dịch nghĩa toàn câu: The newspaper article describes ways job seekers can compensate for having little workplace experience.",
+              "explanation": "Chỗ trống đứng sau trợ động từ khiếm khuyết 'can' và đứng trước giới từ 'for' (can + V_bare + for). Thành ngữ 'compensate for sth' mang nghĩa là 'bù đắp, bù lại cho khuyết điểm hay thiếu sót gì'. Do đó 'compensate' (C) là đáp án đúng.",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* The newspaper article describes ways: Bài báo mô tả những cách thức (Mệnh đề chính)\n* [that] job seekers can compensate for: mà người tìm việc có thể bù đắp (Mệnh đề quan hệ lược bỏ that)\n* having little workplace experience: việc có ít kinh nghiệm làm việc (Danh động từ theo sau giới từ 'for').\n\nCấu trúc ngữ pháp cần nhớ:\n* compensate for sth: bù đắp, đền bù cho cái gì.\n* little + uncountable noun: rất ít, gần như không có (mang nghĩa tiêu cực).",
               "options": {
                 "A": "reply",
                 "B": "capture",
@@ -3535,21 +3519,20 @@
                 "D": "accumulate"
               },
               "optionsTranslation": {
-                "A": "trả lời",
-                "B": "bắt giữ",
-                "C": "bù đắp",
-                "D": "tích lũy"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The newspaper article describes ways job seekers can ------- for having little workplace experience.\" (Tạm dịch khi điền đáp án: \"The newspaper article describes ways job seekers can compensate for having little workplace experience.\"). Phương án (C) \"compensate\" (bù đắp) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "The newspaper article describes ways job seekers can compensate for having little workplace experience."
+                "A": "reply (động từ)\n- Nghĩa: trả lời, phản hồi.\n- Vị trí: Đi với giới từ 'to' (reply to an email).\n- Lý do loại: Không đi với 'for' trong ngữ cảnh này.",
+                "B": "capture (động từ)\n- Nghĩa: bắt giữ, chiếm lĩnh (capture attention/market share).\n- Vị trí: Ngoại động từ đi trực tiếp với tân ngữ.\n- Lý do loại: Không đi với 'for' và sai nghĩa.",
+                "C": "compensate (động từ)\n- Nghĩa: bù đắp, đền bù.\n- Vị trí: Kết hợp với giới từ 'for' (compensate for a lack of experience = bù đắp cho sự thiếu hụt kinh nghiệm).\n- Lý do chọn: Phù hợp hoàn hảo về cả giới từ đi kèm lẫn ý nghĩa của câu.",
+                "D": "accumulate (động từ)\n- Nghĩa: tích lũy, gom góp (accumulate wealth/experience).\n- Vị trí: Ngoại động từ đi với tân ngữ trực tiếp.\n- Lý do loại: Không dùng 'accumulate for'."
+              }
             },
             {
               "questionNumber": 120,
               "questionText": "Mr. Ellis and Ms. Barnes were both highly qualified, but ------- got the job.",
-              "questionTranslation": "Mr. Ellis and Ms. Barnes were both highly qualified, but neither got the job.",
+              "questionTextFull": "Mr. Ellis and Ms. Barnes were both highly qualified, but neither got the job.",
+              "questionTranslation": "Cả ông Ellis và cô Barnes đều có trình độ chuyên môn rất cao, nhưng không ai trong số họ nhận được công việc.",
               "correctAnswer": "B",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 120):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (B): \"neither\" (cũng không)\n* Dịch nghĩa toàn câu: Mr. Ellis and Ms. Barnes were both highly qualified, but neither got the job.",
+              "explanation": "Vế trước nhắc đến đúng 2 người: 'Mr. Ellis and Ms. Barnes' (cả hai người họ). Sau liên từ chỉ sự đối lập 'but', ta cần một đại từ số lượng chỉ hai đối tượng mang nghĩa phủ định 'không người nào trong hai người'. Đại từ 'neither' (không ai trong 2 người) làm chủ ngữ cho động từ 'got'. Do đó chọn (B).",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* Mr. Ellis and Ms. Barnes were both highly qualified: Cả ông Ellis và cô Barnes đều có năng lực rất tốt (Mệnh đề 1 chỉ 2 đối tượng)\n* but neither got the job: nhưng không ai trong hai người nhận được việc làm (Mệnh đề 2 mang nghĩa đối lập).\n\nCấu trúc ngữ pháp cần nhớ:\n* both: cả hai (khẳng định 2 đối tượng).\n* neither: không người nào trong hai (phủ định 2 đối tượng).\n* highly qualified (adj): có trình độ chuyên môn rất cao.",
               "options": {
                 "A": "myself",
                 "B": "neither",
@@ -3557,21 +3540,20 @@
                 "D": "whoever"
               },
               "optionsTranslation": {
-                "A": "bản thân tôi",
-                "B": "cũng không",
-                "C": "bất cứ ai",
-                "D": "bất cứ ai"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Mr. Ellis and Ms. Barnes were both highly qualified, but ------- got the job.\" (Tạm dịch khi điền đáp án: \"Mr. Ellis and Ms. Barnes were both highly qualified, but neither got the job.\"). Phương án (B) \"neither\" (cũng không) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "Mr. Ellis and Ms. Barnes were both highly qualified, but neither got the job."
+                "A": "myself (đại từ phản thân)\n- Nghĩa: chính bản thân tôi.\n- Vị trí: Dùng để nhấn mạnh cho chủ ngữ 'I'.\n- Lý do loại: Đang nói về 2 người ngôi thứ ba (Ellis và Barnes), không thể dùng 'myself'.",
+                "B": "neither (đại từ / hạn định từ)\n- Nghĩa: không ai trong hai người, không cái nào trong hai cái.\n- Vị trí: Làm chủ ngữ đại diện cho nhóm 2 đối tượng vừa nêu.\n- Lý do chọn: Đối lập hoàn toàn với 'both' ở vế trước, tạo nên sự tương phản logic hoàn chỉnh.",
+                "C": "anybody (đại từ bất định)\n- Nghĩa: bất kỳ ai.\n- Vị trí: Dùng trong câu phủ định hoặc nghi vấn (I didn't see anybody).\n- Lý do loại: 'anybody got the job' không mang nghĩa phủ định đối lập với vế trước.",
+                "D": "whoever (đại từ quan hệ)\n- Nghĩa: bất cứ ai mà (= anyone who).\n- Vị trí: Dẫn đầu mệnh đề danh từ.\n- Lý do loại: Sai chức năng ngữ pháp trong câu."
+              }
             },
             {
               "questionNumber": 121,
               "questionText": "Ennis Photography purchased all new lighting equipment ------- the high cost.",
-              "questionTranslation": "Ennis Photography purchased all new lighting equipment despite the high cost.",
+              "questionTextFull": "Ennis Photography purchased all new lighting equipment despite the high cost.",
+              "questionTranslation": "Công ty Nhiếp ảnh Ennis Photography đã mua toàn bộ thiết bị chiếu sáng mới bất chấp chi phí đắt đỏ.",
               "correctAnswer": "D",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 121):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (D): \"despite\" (mặc dù)\n* Dịch nghĩa toàn câu: Ennis Photography purchased all new lighting equipment despite the high cost.",
+              "explanation": "Chỗ trống đứng trước một cụm danh từ 'the high cost' (chi phí cao) để chỉ sự nhượng bộ, tương phản với hành động 'purchased all new equipment'. Để chỉ sự tương phản đứng trước một Danh từ/Cụm danh từ (Noun phrase), ta dùng giới từ 'despite' (hoặc in spite of). Do đó (D) là đáp án đúng.",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* Ennis Photography purchased all new lighting equipment: Công ty Ennis Photography đã mua toàn bộ thiết bị chiếu sáng mới (Mệnh đề chính)\n* despite the high cost: mặc dù chi phí cao (Cụm giới từ chỉ sự nhượng bộ).\n\nCấu trúc ngữ pháp cần nhớ:\n* despite / in spite of + Noun phrase / V-ing: mặc dù, bất chấp...\n* even though / although + Clause (S + V): mặc dù (đi kèm mệnh đề có chia động từ).",
               "options": {
                 "A": "even though",
                 "B": "however",
@@ -3579,21 +3561,20 @@
                 "D": "despite"
               },
               "optionsTranslation": {
-                "A": "mặc dù",
-                "B": "tuy nhiên",
-                "C": "cho đến khi",
-                "D": "mặc dù"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Ennis Photography purchased all new lighting equipment ------- the high cost.\" (Tạm dịch khi điền đáp án: \"Ennis Photography purchased all new lighting equipment despite the high cost.\"). Phương án (D) \"despite\" (mặc dù) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "Ennis Photography purchased all new lighting equipment despite the high cost."
+                "A": "even though (liên từ phụ thuộc)\n- Nghĩa: mặc dù, dẫu cho.\n- Vị trí: Theo sau bắt buộc phải là một mệnh đề hoàn chỉnh (even though it was expensive).\n- Lý do loại: Phía sau chỉ là cụm danh từ 'the high cost' (không có động từ chia thì).",
+                "B": "however (trạng từ liên kết)\n- Nghĩa: tuy nhiên.\n- Vị trí: Đứng giữa hai mệnh đề độc lập hoặc đầu câu có dấu phẩy ngăn cách (However, S + V).\n- Lý do loại: Không dùng 'however + Noun phrase'.",
+                "C": "until (giới từ / liên từ)\n- Nghĩa: cho đến khi (chỉ mốc thời gian).\n- Vị trí: 'until tomorrow', 'until you arrive'.\n- Lý do loại: 'The high cost' là chi phí, không phải mốc thời gian.",
+                "D": "despite (giới từ)\n- Nghĩa: mặc dù, bất chấp.\n- Vị trí: Đi trực tiếp với cụm danh từ hoặc V-ing (despite + Noun phrase).\n- Lý do chọn: Đúng tuyệt đối về quy tắc ngữ pháp đi với cụm danh từ chỉ sự tương phản."
+              }
             },
             {
               "questionNumber": 122,
               "questionText": "Marburton residents who wish to ------- a home should contact the award-winning team at Kwan Real Estate.",
-              "questionTranslation": "Marburton residents who wish to sell a home should contact the award-winning team at Kwan Real Estate.",
+              "questionTextFull": "Marburton residents who wish to sell a home should contact the award-winning team at Kwan Real Estate.",
+              "questionTranslation": "Những cư dân Marburton muốn bán nhà nên liên hệ với đội ngũ từng đạt giải thưởng tại Công ty Bất động sản Kwan.",
               "correctAnswer": "C",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 122):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (C): \"sell\" (bán)\n* Dịch nghĩa toàn câu: Marburton residents who wish to sell a home should contact the award-winning team at Kwan Real Estate.",
+              "explanation": "Chỗ trống đứng sau cấu trúc 'wish to' (mong muốn làm gì). Sau to-infinitive là một động từ nguyên mẫu không chia (V_bare). 'Sell' (bán) là động từ nguyên mẫu duy nhất trong 4 phương án. Do đó chọn (C).",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* Marburton residents: Cư dân Marburton (Chủ ngữ chính)\n* who wish to sell a home: những người mong muốn bán nhà (Mệnh đề quan hệ bổ nghĩa cho chủ ngữ)\n* should contact the award-winning team at Kwan Real Estate: nên liên hệ với đội ngũ xuất sắc tại Kwan Real Estate (Vị ngữ chính).\n\nCấu trúc ngữ pháp cần nhớ:\n* wish to do sth: ước muốn, mong muốn làm việc gì.\n* award-winning (adj): từng đoạt giải thưởng (tính từ ghép).",
               "options": {
                 "A": "seller",
                 "B": "sold",
@@ -3601,21 +3582,20 @@
                 "D": "selling"
               },
               "optionsTranslation": {
-                "A": "người bán",
-                "B": "đã bán",
-                "C": "bán",
-                "D": "bán"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Marburton residents who wish to ------- a home should contact the award-winning team at Kwan Real Estate.\" (Tạm dịch khi điền đáp án: \"Marburton residents who wish to sell a home should contact the award-winning team at Kwan Real Estate.\"). Phương án (C) \"sell\" (bán) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "Marburton residents who wish to sell a home should contact the award-winning team at Kwan Real Estate."
+                "A": "seller (danh từ)\n- Nghĩa: người bán hàng.\n- Vị trí: Đóng vai trò danh từ.\n- Lý do loại: Sau 'wish to' cần một động từ nguyên thể, không điền danh từ.",
+                "B": "sold (động từ quá khứ / phân từ hai)\n- Nghĩa: đã bán.\n- Vị trí: Dùng trong thì quá khứ hoặc thể bị động.\n- Lý do loại: Sau 'to' không dùng động từ chia dạng quá khứ.",
+                "C": "sell (động từ nguyên mẫu)\n- Nghĩa: bán (hàng hóa, nhà cửa).\n- Vị trí: Theo sau 'wish to' tạo thành động từ nguyên mẫu có to (wish to sell).\n- Lý do chọn: Đáp ứng chuẩn xác cấu trúc wish to + V_infinitive.",
+                "D": "selling (dạng V-ing / danh động từ)\n- Nghĩa: việc bán hàng.\n- Vị trí: Sau giới từ hoặc làm chủ ngữ.\n- Lý do loại: Cấu trúc là 'wish to V', không dùng 'wish to V-ing'."
+              }
             },
             {
               "questionNumber": 123,
               "questionText": "Maswa Bistro began a ------- agreement with local farmers to purchase a set amount of produce each week.",
-              "questionTranslation": "Maswa Bistro began a cooperative agreement with local farmers to purchase a set amount of produce each week.",
+              "questionTextFull": "Maswa Bistro began a cooperative agreement with local farmers to purchase a set amount of produce each week.",
+              "questionTranslation": "Nhà hàng Maswa Bistro đã bắt đầu một thỏa thuận hợp tác với các nông dân địa phương để mua một lượng nông sản cố định mỗi tuần.",
               "correctAnswer": "B",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 123):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (B): \"cooperative\" (hợp tác xã)\n* Dịch nghĩa toàn câu: Maswa Bistro began a cooperative agreement with local farmers to purchase a set amount of produce each week.",
+              "explanation": "Chỗ trống đứng sau mạo từ 'a' và đứng trước danh từ 'agreement' (thỏa thuận/hợp đồng). Vị trí này cần một tính từ để bổ nghĩa cho 'agreement'. Xét về quan hệ giữa nhà hàng và nông dân địa phương cùng nhau cung ứng và thu mua, đây là một 'thỏa thuận hợp tác' (cooperative agreement). Do đó chọn 'cooperative' (B).",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* Maswa Bistro began a cooperative agreement with local farmers: Quán Maswa Bistro đã khởi động một thỏa thuận hợp tác với các nông dân địa phương (Mệnh đề chính)\n* to purchase a set amount of produce each week: để mua một lượng nông sản nhất định mỗi tuần (Cụm chỉ mục đích).\n\nCấu trúc ngữ pháp cần nhớ:\n* cooperative agreement: thỏa thuận hợp tác cùng có lợi.\n* produce (n - không đếm được): nông sản (rau củ quả tươi).\n* a set amount of: một lượng cố định, lượng được ấn định trước.",
               "options": {
                 "A": "disruptive",
                 "B": "cooperative",
@@ -3623,21 +3603,20 @@
                 "D": "concerned"
               },
               "optionsTranslation": {
-                "A": "gây rối",
-                "B": "hợp tác xã",
-                "C": "biết ơn",
-                "D": "liên quan"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Maswa Bistro began a ------- agreement with local farmers to purchase a set amount of produce each week.\" (Tạm dịch khi điền đáp án: \"Maswa Bistro began a cooperative agreement with local farmers to purchase a set amount of produce each week.\"). Phương án (B) \"cooperative\" (hợp tác xã) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "Maswa Bistro began a cooperative agreement with local farmers to purchase a set amount of produce each week."
+                "A": "disruptive (tính từ)\n- Nghĩa: mang tính đột phá, gây rối loạn/đứt gãy (disruptive technology).\n- Vị trí: Bổ nghĩa cho công nghệ hoặc sự việc gây rối loạn.\n- Lý do loại: Không ai ký 'thỏa thuận gây đứt gãy' với đối tác cung ứng.",
+                "B": "cooperative (tính từ)\n- Nghĩa: mang tính hợp tác, tương trợ lẫn nhau.\n- Vị trí: Bổ nghĩa cho danh từ chỉ mối quan hệ, thỏa thuận (cooperative agreement/effort).\n- Lý do chọn: Phù hợp hoàn hảo với việc hai bên thỏa thuận thu mua nông sản hàng tuần.",
+                "C": "grateful (tính từ)\n- Nghĩa: biết ơn, tri ân.\n- Vị trí: Dùng cho người (be grateful to sb for sth).\n- Lý do loại: 'agreement' là sự vật, không mang phẩm chất 'biết ơn'.",
+                "D": "concerned (tính từ)\n- Nghĩa: lo lắng, quan ngại (be concerned about sth).\n- Vị trí: Dùng miêu tả tâm trạng người.\n- Lý do loại: Không dùng 'concerned agreement'."
+              }
             },
             {
               "questionNumber": 124,
               "questionText": "The City of Doyle's new downtown parking ------- have been met with opposition by residents and visitors.",
-              "questionTranslation": "The City of Doyle's new downtown parking restrictions have been met with opposition by residents and visitors.",
+              "questionTextFull": "The City of Doyle's new downtown parking restrictions have been met with opposition by residents and visitors.",
+              "questionTranslation": "Các quy định hạn chế đỗ xe mới ở trung tâm Thành phố Doyle đã vấp phải sự phản đối từ cư dân và khách tham quan.",
               "correctAnswer": "C",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 124):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (C): \"restrictions\" (hạn chế)\n* Dịch nghĩa toàn câu: The City of Doyle's new downtown parking restrictions have been met with opposition by residents and visitors.",
+              "explanation": "Động từ vị ngữ phía sau là 'have been met' (chia ở dạng số nhiều thì hiện tại hoàn thành). Cụm chủ ngữ phía trước kết thúc bằng danh từ bổ nghĩa 'parking' (đỗ xe). Ta cần một danh từ số nhiều đứng làm danh từ chính của cụm chủ ngữ để hòa hợp với động từ 'have'. 'Restrictions' (những quy định hạn chế - danh từ số nhiều) là đáp án duy nhất thỏa mãn cả ngữ pháp và ngữ nghĩa.",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* The City of Doyle's new downtown parking restrictions: Các quy định hạn chế đỗ xe mới tại khu trung tâm của Thành phố Doyle (Cụm chủ ngữ số nhiều)\n* have been met with opposition: đã vấp phải sự phản đối (Động từ vị ngữ bị động số nhiều)\n* by residents and visitors: từ phía cư dân và khách du lịch (Cụm tác nhân).\n\nCấu trúc ngữ pháp cần nhớ:\n* parking restrictions: các quy định hạn chế đỗ xe.\n* be met with opposition: vấp phải sự phản đối.",
               "options": {
                 "A": "restricts",
                 "B": "restricted",
@@ -3645,21 +3624,20 @@
                 "D": "restricting"
               },
               "optionsTranslation": {
-                "A": "hạn chế",
-                "B": "hạn chế",
-                "C": "hạn chế",
-                "D": "hạn chế"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The City of Doyle's new downtown parking ------- have been met with opposition by residents and visitors.\" (Tạm dịch khi điền đáp án: \"The City of Doyle's new downtown parking restrictions have been met with opposition by residents and visitors.\"). Phương án (C) \"restrictions\" (hạn chế) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "The City of Doyle's new downtown parking restrictions have been met with opposition by residents and visitors."
+                "A": "restricts (động từ chia số ít thì hiện tại đơn)\n- Nghĩa: hạn chế, thu hẹp.\n- Vị trí: Làm động từ vị ngữ số ít.\n- Lý do loại: Vị trí cần danh từ làm chủ ngữ, hơn nữa động từ sau chia số nhiều 'have'.",
+                "B": "restricted (động từ quá khứ / tính từ)\n- Nghĩa: bị hạn chế (restricted area).\n- Vị trí: Đứng trước danh từ.\n- Lý do loại: Không thể làm danh từ chủ ngữ cho 'have been met'.",
+                "C": "restrictions (danh từ số nhiều)\n- Nghĩa: những giới hạn, quy định hạn chế.\n- Vị trí: Làm danh từ trung tâm của cụm chủ ngữ (parking restrictions).\n- Lý do chọn: Hòa hợp chuẩn xác với động từ số nhiều 'have been met' và đúng nghĩa vấp phải sự phản đối.",
+                "D": "restricting (dạng V-ing / danh động từ)\n- Nghĩa: việc hạn chế.\n- Vị trí: Danh động từ luôn đi với động từ số ít (has been met).\n- Lý do loại: Không hòa hợp với 'have'."
+              }
             },
             {
               "questionNumber": 125,
               "questionText": "The plumbing position requires extensive training, even for those who studied ------- in technical school.",
-              "questionTranslation": "The plumbing position requires extensive training, even for those who studied diligently in technical school.",
+              "questionTextFull": "The plumbing position requires extensive training, even for those who studied diligently in technical school.",
+              "questionTranslation": "Vị trí thợ sửa ống nước đòi hỏi phải qua đào tạo chuyên sâu, ngay cả đối với những người đã học tập chăm chỉ ở trường kỹ thuật.",
               "correctAnswer": "A",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 125):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (A): \"diligently\" (siêng năng)\n* Dịch nghĩa toàn câu: The plumbing position requires extensive training, even for those who studied diligently in technical school.",
+              "explanation": "Chỗ trống đứng sau nội động từ 'studied' (đã học tập) và đứng trước cụm giới từ 'in technical school'. Ta cần một trạng từ chỉ cách thức (Adverb of manner) để bổ nghĩa cho hành động 'học tập'. 'Diligently' (một cách chăm chỉ, siêng năng) bổ nghĩa hoàn hảo cho 'studied'. Do đó chọn (A).",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* The plumbing position requires extensive training: Vị trí thợ ống nước đòi hỏi quá trình huấn luyện sâu rộng (Mệnh đề chính)\n* even for those: ngay cả đối với những người (Cụm bổ nghĩa nhấn mạnh)\n* who studied diligently in technical school: những người đã học hành chăm chỉ tại trường trường nghề (Mệnh đề quan hệ).\n\nCấu trúc ngữ pháp cần nhớ:\n* study diligently: học tập một cách siêng năng, cần mẫn.\n* extensive training: quá trình đào tạo chuyên sâu, toàn diện.",
               "options": {
                 "A": "diligently",
                 "B": "scientifically",
@@ -3667,21 +3645,20 @@
                 "D": "decidedly"
               },
               "optionsTranslation": {
-                "A": "siêng năng",
-                "B": "một cách khoa học",
-                "C": "một cách khách quan",
-                "D": "quả quyết"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The plumbing position requires extensive training, even for those who studied ------- in technical school.\" (Tạm dịch khi điền đáp án: \"The plumbing position requires extensive training, even for those who studied diligently in technical school.\"). Phương án (A) \"diligently\" (siêng năng) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "The plumbing position requires extensive training, even for those who studied diligently in technical school."
+                "A": "diligently (trạng từ)\n- Nghĩa: một cách chăm chỉ, cần cù, siêng năng.\n- Vị trí: Đứng sau động từ để bổ nghĩa cách thức (work/study diligently).\n- Lý do chọn: Phù hợp tự nhiên và chuẩn xác với việc học tập trong trường kỹ thuật.",
+                "B": "scientifically (trạng từ)\n- Nghĩa: một cách khoa học (scientifically proven).\n- Vị trí: Đi với các nghiên cứu, kiểm chứng.\n- Lý do loại: Không dùng để khen ngợi tinh thần học tập cá nhân của học viên nghề.",
+                "C": "objectively (trạng từ)\n- Nghĩa: một cách khách quan (view objectively).\n- Vị trí: Bổ nghĩa cho việc đánh giá, xem xét.\n- Lý do loại: Không phù hợp nghĩa ngữ cảnh 'học tập chăm chỉ'.",
+                "D": "decidedly (trạng từ)\n- Nghĩa: rõ ràng, dứt khoát (decidedly different).\n- Vị trí: Dùng nhấn mạnh mức độ khác biệt.\n- Lý do loại: Không dùng 'study decidedly'."
+              }
             },
             {
               "questionNumber": 126,
               "questionText": "With its fixed price -------, Omega Cellular guarantees no phone bill increases for three years.",
-              "questionTranslation": "With its fixed price assurance, Omega Cellular guarantees no phone bill increases for three years.",
+              "questionTextFull": "With its fixed price assurance, Omega Cellular guarantees no phone bill increases for three years.",
+              "questionTranslation": "Với cam kết giữ giá cố định của mình, Hãng viễn thông Omega Cellular bảo đảm không tăng cước điện thoại trong vòng ba năm.",
               "correctAnswer": "A",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 126):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (A): \"assurance\" (sự đảm bảo)\n* Dịch nghĩa toàn câu: With its fixed price assurance, Omega Cellular guarantees no phone bill increases for three years.",
+              "explanation": "Chỗ trống đứng sau tính từ sở hữu 'its' và cụm từ bổ nghĩa 'fixed price' (giá cố định). Vị trí này cần một danh từ để hoàn thiện cụm danh từ 'fixed price assurance' (sự đảm bảo/cam kết giá cố định) làm tân ngữ cho giới từ 'With'. 'Assurance' (sự cam đoan, lời bảo đảm) là danh từ đáp ứng đúng yêu cầu. Do đó chọn (A).",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* With its fixed price assurance: Với cam kết giá cố định của mình (Cụm giới từ trạng ngữ chỉ phương thức)\n* Omega Cellular guarantees no phone bill increases: Hãng Omega Cellular cam đoan không có sự tăng giá cước điện thoại (Mệnh đề chính)\n* for three years: trong vòng ba năm (Cụm trạng từ thời gian).\n\nCấu trúc ngữ pháp cần nhớ:\n* price assurance: sự cam kết/đảm bảo về giá cả.\n* guarantee (v): bảo đảm, cam kết chắc chắn.",
               "options": {
                 "A": "assurance",
                 "B": "assuredly",
@@ -3689,21 +3666,20 @@
                 "D": "assures"
               },
               "optionsTranslation": {
-                "A": "sự đảm bảo",
-                "B": "chắc chắn",
-                "C": "đảm bảo",
-                "D": "đảm bảo"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"With its fixed price -------, Omega Cellular guarantees no phone bill increases for three years.\" (Tạm dịch khi điền đáp án: \"With its fixed price assurance, Omega Cellular guarantees no phone bill increases for three years.\"). Phương án (A) \"assurance\" (sự đảm bảo) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "With its fixed price assurance, Omega Cellular guarantees no phone bill increases for three years."
+                "A": "assurance (danh từ)\n- Nghĩa: sự đảm bảo, cam đoan, chắc chắn.\n- Vị trí: Làm danh từ trung tâm trong cụm 'fixed price assurance'.\n- Lý do chọn: Đúng từ loại danh từ theo sau tính từ sở hữu và tính từ miêu tả.",
+                "B": "assuredly (trạng từ)\n- Nghĩa: chắc chắn là, không còn nghi ngờ gì nữa.\n- Vị trí: Đứng đầu câu hoặc bổ nghĩa cho động từ.\n- Lý do loại: Không đứng sau tính từ làm tân ngữ của giới từ.",
+                "C": "assuring (dạng V-ing / tính từ)\n- Nghĩa: có tính chất trấn an.\n- Vị trí: 'an assuring voice'.\n- Lý do loại: Không tạo thành cụm danh từ mang nghĩa 'cam kết giá'.",
+                "D": "assures (động từ chia ngôi thứ ba số ít)\n- Nghĩa: cam đoan với ai điều gì.\n- Vị trí: Làm động từ vị ngữ (He assures me).\n- Lý do loại: Sau giới từ 'with' không dùng động từ có chia thì."
+              }
             },
             {
               "questionNumber": 127,
               "questionText": "As chief analytics officer, Mr. Ko has worked at Lochston Ltd. with great ------- for more than twenty years.",
-              "questionTranslation": "As chief analytics officer, Mr. Ko has worked at Lochston Ltd. with great dedication for more than twenty years.",
+              "questionTextFull": "As chief analytics officer, Mr. Ko has worked at Lochston Ltd. with great dedication for more than twenty years.",
+              "questionTranslation": "Với tư cách là giám đốc phân tích, ông Ko đã làm việc tại Công ty Lochston Ltd. với sự cống hiến to lớn trong hơn hai mươi năm.",
               "correctAnswer": "D",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 127):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (D): \"dedication\" (sự cống hiến)\n* Dịch nghĩa toàn câu: As chief analytics officer, Mr. Ko has worked at Lochston Ltd. with great dedication for more than twenty years.",
+              "explanation": "Chỗ trống đứng sau giới từ 'with' và tính từ 'great'. Ta cần một danh từ chỉ phẩm chất làm việc để kết hợp với 'great' (with great + Noun). 'Dedication' (sự tận tụy, cống hiến hết mình) là danh từ phù hợp nhất để miêu tả quá trình làm việc hơn 20 năm của một lãnh đạo cấp cao. Do đó chọn (D).",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* As chief analytics officer: Với cương vị giám đốc phân tích (Cụm chức danh)\n* Mr. Ko has worked at Lochston Ltd.: Ông Ko đã làm việc tại Lochston Ltd. (Mệnh đề chính thì HTHT)\n* with great dedication: với sự tận tâm cống hiến lớn lao (Cụm trạng từ chỉ phẩm chất)\n* for more than twenty years: trong hơn hai mươi năm (Khoảng thời gian).\n\nCấu trúc ngữ pháp cần nhớ:\n* work with dedication: làm việc với sự tận tâm, cống hiến.\n* chief analytics officer (CAO): giám đốc phân tích dữ liệu.",
               "options": {
                 "A": "deduction",
                 "B": "duplication",
@@ -3711,21 +3687,20 @@
                 "D": "dedication"
               },
               "optionsTranslation": {
-                "A": "khấu trừ",
-                "B": "sự nhân bản",
-                "C": "khai báo",
-                "D": "sự cống hiến"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"As chief analytics officer, Mr. Ko has worked at Lochston Ltd. with great ------- for more than twenty years.\" (Tạm dịch khi điền đáp án: \"As chief analytics officer, Mr. Ko has worked at Lochston Ltd. with great dedication for more than twenty years.\"). Phương án (D) \"dedication\" (sự cống hiến) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "As chief analytics officer, Mr. Ko has worked at Lochston Ltd. with great dedication for more than twenty years."
+                "A": "deduction (danh từ)\n- Nghĩa: sự khấu trừ (thuế, lương), sự suy luận logic.\n- Vị trí: 'tax deduction'.\n- Lý do loại: Không ai làm việc 20 năm 'với sự khấu trừ'.",
+                "B": "duplication (danh từ)\n- Nghĩa: sự sao chép lại, sự trùng lặp.\n- Vị trí: 'avoid duplication of efforts'.\n- Lý do loại: Hoàn toàn sai nghĩa ngữ cảnh.",
+                "C": "declaration (danh từ)\n- Nghĩa: sự tuyên bố, tờ khai (hải quan).\n- Vị trí: 'customs declaration'.\n- Lý do loại: Không dùng để khen ngợi tinh thần làm việc.",
+                "D": "dedication (danh từ)\n- Nghĩa: sự cống hiến, sự tận tâm, hết lòng vì công việc.\n- Vị trí: Đi với giới từ 'with great dedication' (với sự tận tụy lớn lao).\n- Lý do chọn: Phù hợp hoàn hảo để tôn vinh 20 năm gắn bó làm việc của cán bộ quản lý."
+              }
             },
             {
               "questionNumber": 128,
               "questionText": "Milltown Hospital's cafeteria serves lunch seven days a week ------- only on weekdays.",
-              "questionTranslation": "Milltown Hospital's cafeteria serves lunch seven days a week rather than only on weekdays.",
+              "questionTextFull": "Milltown Hospital's cafeteria serves lunch seven days a week rather than only on weekdays.",
+              "questionTranslation": "Nhà ăn của Bệnh viện Milltown phục vụ bữa trưa bảy ngày trong tuần thay vì chỉ vào các ngày trong tuần.",
               "correctAnswer": "D",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 128):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (D): \"rather than\" (thay vì)\n* Dịch nghĩa toàn câu: Milltown Hospital's cafeteria serves lunch seven days a week rather than only on weekdays.",
+              "explanation": "Vế trước nêu 'seven days a week' (7 ngày mỗi tuần), vế sau nêu 'only on weekdays' (chỉ vào các ngày trong tuần từ thứ 2 đến thứ 6). Ta cần một cụm liên từ mang nghĩa 'thay vì' để chỉ sự lựa chọn đối lập giữa hai phương án. Cụm 'rather than' (thay vì) kết nối chuẩn xác hai mốc thời gian này. Do đó (D) là đáp án đúng.",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* Milltown Hospital's cafeteria: Nhà ăn của bệnh viện Milltown (Chủ ngữ)\n* serves lunch: phục vụ cơm trưa (Động từ vị ngữ + Tân ngữ)\n* seven days a week: 7 ngày một tuần (Thời gian thực tế)\n* rather than only on weekdays: thay vì chỉ phục vụ vào các ngày trong tuần (Cụm so sánh tương phản).\n\nCấu trúc ngữ pháp cần nhớ:\n* rather than: thay vì (dùng để diễn tả sự ưu tiên hoặc điều trái ngược với thực tế).\n* weekdays: các ngày trong tuần (thứ 2 đến thứ 6, không tính cuối tuần).",
               "options": {
                 "A": "up to",
                 "B": "as though",
@@ -3733,21 +3708,20 @@
                 "D": "rather than"
               },
               "optionsTranslation": {
-                "A": "lên tới",
-                "B": "như thể",
-                "C": "mỗi lần",
-                "D": "thay vì"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Milltown Hospital's cafeteria serves lunch seven days a week ------- only on weekdays.\" (Tạm dịch khi điền đáp án: \"Milltown Hospital's cafeteria serves lunch seven days a week rather than only on weekdays.\"). Phương án (D) \"rather than\" (thay vì) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "Milltown Hospital's cafeteria serves lunch seven days a week rather than only on weekdays."
+                "A": "up to (giới từ)\n- Nghĩa: lên đến (số lượng), tùy thuộc vào (up to you).\n- Vị trí: 'up to 50% discount'.\n- Lý do loại: Không dùng để so sánh hai hình thức phục vụ đối lập.",
+                "B": "as though (liên từ)\n- Nghĩa: như thể là (= as if).\n- Vị trí: Nối một mệnh đề giả định (He talks as though he knew everything).\n- Lý do loại: Sai nghĩa và sai cấu trúc.",
+                "C": "each time (liên từ / trạng từ)\n- Nghĩa: mỗi lần, mỗi khi.\n- Vị trí: 'each time I visit'.\n- Lý do loại: Không liên kết tương phản hai khung thời gian.",
+                "D": "rather than (liên từ / giới từ)\n- Nghĩa: thay vì, chứ không phải.\n- Vị trí: Dùng để nối hai thành phần tương đương mang tính loại trừ (A rather than B).\n- Lý do chọn: Tạo nên sự so sánh chuẩn xác: mở cả 7 ngày thay vì chỉ các ngày thường."
+              }
             },
             {
               "questionNumber": 129,
               "questionText": "The store’s entire inventory of lumber comes from a nearby ------- supplier.",
-              "questionTranslation": "The store’s entire inventory of lumber comes from a nearby commercial supplier.",
+              "questionTextFull": "The store’s entire inventory of lumber comes from a nearby commercial supplier.",
+              "questionTranslation": "Toàn bộ lượng gỗ tồn kho của cửa hàng đều được nhập từ một nhà cung cấp thương mại ở gần đó.",
               "correctAnswer": "D",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 129):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (D): \"commercial\" (thương mại)\n* Dịch nghĩa toàn câu: The store’s entire inventory of lumber comes from a nearby commercial supplier.",
+              "explanation": "Chỗ trống đứng sau mạo từ 'a' và tính từ 'nearby' (ở gần), đứng trước danh từ 'supplier' (nhà cung cấp). Vị trí này cần một tính từ bổ nghĩa cho 'supplier'. 'Commercial' (thuộc về thương mại / bán buôn quy mô lớn) kết hợp với 'supplier' tạo thành cụm 'commercial supplier' (nhà cung ứng thương mại). Do đó (D) là đáp án đúng.",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* The store’s entire inventory of lumber: Toàn bộ lượng gỗ lưu kho của cửa hàng (Cụm chủ ngữ)\n* comes from: có nguồn gốc từ, được nhập từ (Động từ chính)\n* a nearby commercial supplier: một nhà cung cấp thương mại ở gần đó (Cụm giới từ chỉ nguồn gốc).\n\nCấu trúc ngữ pháp cần nhớ:\n* commercial supplier: nhà cung cấp thương mại, đơn vị bán buôn cho doanh nghiệp.\n* inventory of lumber: kho chứa gỗ, lượng gỗ dự trữ.",
               "options": {
                 "A": "financial",
                 "B": "promotional",
@@ -3755,21 +3729,20 @@
                 "D": "commercial"
               },
               "optionsTranslation": {
-                "A": "tài chính",
-                "B": "khuyến mại",
-                "C": "hóa chất",
-                "D": "thương mại"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The store’s entire inventory of lumber comes from a nearby ------- supplier.\" (Tạm dịch khi điền đáp án: \"The store’s entire inventory of lumber comes from a nearby commercial supplier.\"). Phương án (D) \"commercial\" (thương mại) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "The store’s entire inventory of lumber comes from a nearby commercial supplier."
+                "A": "financial (tính từ)\n- Nghĩa: thuộc về tài chính, tiền tệ (financial advice/market).\n- Vị trí: Đứng trước danh từ tài chính.\n- Lý do loại: Đang nói về nguồn cung cấp gỗ, không phải dịch vụ tài chính.",
+                "B": "promotional (tính từ)\n- Nghĩa: mang tính quảng cáo, khuyến mại (promotional material/code).\n- Vị trí: Đứng trước danh từ marketing.\n- Lý do loại: Không dùng 'promotional supplier' để chỉ nguồn nhập gỗ.",
+                "C": "chemical (tính từ / danh từ)\n- Nghĩa: thuộc về hóa chất / chất hóa học.\n- Vị trí: 'chemical plant', 'chemical reaction'.\n- Lý do loại: Gỗ xây dựng không nhập từ nhà cung cấp hóa chất.",
+                "D": "commercial (tính từ)\n- Nghĩa: mang tính thương mại, kinh doanh quy mô lớn.\n- Vị trí: Bổ nghĩa cho danh từ doanh nghiệp/đối tác (commercial supplier/client).\n- Lý do chọn: Phù hợp hoàn hảo với nguồn cung cấp nguyên vật liệu cho cửa hàng buôn bán."
+              }
             },
             {
               "questionNumber": 130,
               "questionText": "For a $95 ------- fee, our mechanics will determine what repairs are needed.",
-              "questionTranslation": "For a $95 diagnostic fee, our mechanics will determine what repairs are needed.",
+              "questionTextFull": "For a $95 diagnostic fee, our mechanics will determine what repairs are needed.",
+              "questionTranslation": "Với mức phí chẩn đoán 95 đô la, các thợ cơ khí của chúng tôi sẽ xác định những hạng mục sửa chữa nào cần được thực hiện.",
               "correctAnswer": "B",
-              "tips": "💡 Mẹo giải nhanh Part 5 (Test 1 - Câu 130):\n* Quan sát 4 đáp án A, B, C, D để nhận diện dạng bài (từ loại, chia thì động từ, giới từ/liên từ hay từ vựng theo ngữ cảnh).\n* Xác định thành phần câu ngay trước và sau chỗ trống ------- để chọn đáp án đúng.",
-              "analysis": "Phân tích câu Part 5:\n* Đáp án đúng (B): \"diagnostic\" (chẩn đoán)\n* Dịch nghĩa toàn câu: For a $95 diagnostic fee, our mechanics will determine what repairs are needed.",
+              "explanation": "Chỗ trống đứng sau cụm số tiền '$95' và đứng trước danh từ 'fee' (mức phí). Vị trí này cần một tính từ hoặc danh từ bổ nghĩa để xác định loại phí này là phí gì. Cụm từ chuyên môn trong bảo dưỡng, sửa chữa máy móc/xe cộ là 'diagnostic fee' (phí chẩn đoán/kiểm tra lỗi ban đầu). Tính từ 'diagnostic' (mang tính chẩn đoán) hoàn thiện câu chính xác. Do đó chọn (B).",
+              "analysis": "Phân tích cấu trúc câu theo cụm:\n* For a $95 diagnostic fee: Với mức phí kiểm tra chẩn đoán 95 đô la (Cụm giới từ chỉ điều kiện chi phí)\n* our mechanics will determine: các thợ cơ khí của chúng tôi sẽ xác định (Mệnh đề chính)\n* what repairs are needed: những việc sửa chữa nào là cần thiết (Mệnh đề danh từ làm tân ngữ).\n\nCấu trúc ngữ pháp cần nhớ:\n* diagnostic fee: phí kiểm tra, chẩn đoán lỗi kỹ thuật.\n* mechanic (n): thợ sửa máy móc, thợ cơ khí.\n* determine (v): xác định, quyết định.",
               "options": {
                 "A": "diagnosed",
                 "B": "diagnostic",
@@ -3777,13 +3750,11 @@
                 "D": "diagnose"
               },
               "optionsTranslation": {
-                "A": "được chẩn đoán",
-                "B": "chẩn đoán",
-                "C": "có thể chẩn đoán được",
-                "D": "chẩn đoán"
-              },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"For a $95 ------- fee, our mechanics will determine what repairs are needed.\" (Tạm dịch khi điền đáp án: \"For a $95 diagnostic fee, our mechanics will determine what repairs are needed.\"). Phương án (B) \"diagnostic\" (chẩn đoán) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
-              "questionTextFull": "For a $95 diagnostic fee, our mechanics will determine what repairs are needed."
+                "A": "diagnosed (động từ quá khứ / phân từ hai)\n- Nghĩa: đã được chẩn đoán (thường dùng cho bệnh nhân/bệnh tật: he was diagnosed with...).\n- Vị trí: Dùng trong thể bị động hoặc thì quá khứ.\n- Lý do loại: Không dùng 'diagnosed fee'.",
+                "B": "diagnostic (tính từ)\n- Nghĩa: mang tính chất chẩn đoán, dùng để kiểm tra lỗi.\n- Vị trí: Đứng trước danh từ 'fee' hoặc 'test' (diagnostic fee, diagnostic test).\n- Lý do chọn: Thuật ngữ chuẩn xác trong lĩnh vực dịch vụ kỹ thuật và sửa chữa xe/thiết bị.",
+                "C": "diagnosable (tính từ)\n- Nghĩa: có thể chẩn đoán được.\n- Vị trí: Thường đứng sau to be (The condition is easily diagnosable).\n- Lý do loại: Không dùng trước 'fee' theo nghĩa dịch vụ kiểm tra tính phí.",
+                "D": "diagnose (động từ nguyên mẫu)\n- Nghĩa: chẩn đoán (bệnh, lỗi kỹ thuật).\n- Vị trí: Động từ vị ngữ (diagnose a problem).\n- Lý do loại: Không thể dùng động từ nguyên mẫu đứng kẹp giữa số tiền và danh từ 'fee'."
+              }
             }
           ]
         },
