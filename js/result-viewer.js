@@ -1057,7 +1057,7 @@ const ResultViewer = {
               return `
                 <div class="interactive-passage-container" id="pass_wrap_${gid}_${pIdx}">
                   <div class="passage-click-hint">
-                    <span>👆 <strong>Chạm vào câu trên ảnh</strong> để xem dịch & giải thích</span>
+                    <span>👆 <strong>Chạm vào số thứ tự (1, 2, 3...) ở đầu mỗi câu trên ảnh</strong> để xem dịch & giải thích</span>
                     <button class="image-zoom-btn-pill" onclick="UIRenderer.openLightbox('${fullUrl}')" title="Phóng to ảnh">🔍 Phóng to</button>
                   </div>
 
@@ -1363,25 +1363,57 @@ const ResultViewer = {
     if (!layer) return;
     layer.innerHTML = '';
 
-    const natW = img.naturalWidth || 800;
-    const natH = img.naturalHeight || 1000;
+    // Luôn căn chỉnh tọa độ & kích thước nút số theo đúng width, height thực tế của bức ảnh trên Laptop và Mobile
+    const refW = passage.imageWidth || img.naturalWidth || 800;
+    const refH = passage.imageHeight || img.naturalHeight || 1000;
+
+    const applyProportionalBadgeScale = () => {
+      const renderW = img.clientWidth || (typeof img.getBoundingClientRect === 'function' ? img.getBoundingClientRect().width : 0) || 360;
+      const bSize = Math.max(7.5, Math.min(16, renderW * 0.017));
+      const bFont = Math.max(5.2, Math.min(10.5, bSize * 0.64));
+      const bPad = Math.max(1.5, Math.min(3.5, bSize * 0.2));
+      const bBorder = Math.max(0.6, Math.min(1.5, bSize * 0.085));
+      layer.style.setProperty('--badge-size', `${bSize.toFixed(2)}px`);
+      layer.style.setProperty('--badge-font', `${bFont.toFixed(2)}px`);
+      layer.style.setProperty('--badge-pad', `${bPad.toFixed(2)}px`);
+      layer.style.setProperty('--badge-border', `${bBorder.toFixed(2)}px`);
+    };
+    applyProportionalBadgeScale();
+
+    if (typeof ResizeObserver !== 'undefined' && !img._badgeResizeObserver) {
+      const ro = new ResizeObserver(() => applyProportionalBadgeScale());
+      ro.observe(img);
+      img._badgeResizeObserver = ro;
+    }
 
     passage.sentences.forEach((s, sIdx) => {
       const regions = s.regions || [];
-      regions.forEach(r => {
-        const box = document.createElement('div');
-        box.className = `sentence-overlay-box sentence-box-${gid}-${pIdx}-${sIdx}`;
-        box.style.left = `${(r.x0 / natW) * 100}%`;
-        box.style.top = `${(r.y0 / natH) * 100}%`;
-        box.style.width = `${((r.x1 - r.x0) / natW) * 100}%`;
-        box.style.height = `${((r.y1 - r.y0) / natH) * 100}%`;
-        box.title = s.text || '';
-        box.onclick = (e) => {
-          e.stopPropagation();
-          this.selectSentence(gid, pIdx, sIdx);
-        };
-        layer.appendChild(box);
-      });
+      if (regions.length === 0) return;
+      const firstR = regions[0];
+
+      const rawLeftPct = (typeof firstR.xPct === 'number' && !isNaN(firstR.xPct))
+        ? firstR.xPct
+        : ((firstR.x0 / refW) * 100);
+      const rawTopPct = (typeof firstR.yPct === 'number' && !isNaN(firstR.yPct))
+        ? firstR.yPct
+        : ((firstR.y1 / refH) * 100);
+
+      const leftPct = Math.max(0.5, Math.min(97.5, rawLeftPct));
+      const topPct = Math.max(0.5, Math.min(97.5, rawTopPct));
+
+      const badge = document.createElement('button');
+      badge.type = 'button';
+      badge.className = `sentence-overlay-box sentence-num-marker sentence-box-${gid}-${pIdx}-${sIdx}`;
+      badge.style.left = `${leftPct.toFixed(2)}%`;
+      badge.style.top = `${topPct.toFixed(2)}%`;
+      badge.textContent = `${sIdx + 1}`;
+      badge.title = `Câu ${sIdx + 1}: ${s.text || ''}`;
+      badge.setAttribute('aria-label', `Câu ${sIdx + 1}`);
+      badge.onclick = (e) => {
+        e.stopPropagation();
+        this.selectSentence(gid, pIdx, sIdx);
+      };
+      layer.appendChild(badge);
     });
   },
 
@@ -1390,19 +1422,28 @@ const ResultViewer = {
     if (!passage || !passage.sentences || passage.sentences.length === 0) return;
 
     const rect = img.getBoundingClientRect();
-    const clientX = event.clientX - rect.left;
-    const clientY = event.clientY - rect.top;
-    const natW = img.naturalWidth || rect.width;
-    const natH = img.naturalHeight || rect.height;
-    const origX = (clientX / rect.width) * natW;
-    const origY = (clientY / rect.height) * natH;
+    if (!rect.width || !rect.height) return;
+    const clickXPct = ((event.clientX - rect.left) / rect.width) * 100;
+    const clickYPct = ((event.clientY - rect.top) / rect.height) * 100;
+    const refW = passage.imageWidth || img.naturalWidth || rect.width;
+    const refH = passage.imageHeight || img.naturalHeight || rect.height;
 
-    // Find sentence containing point
-    const sIdx = passage.sentences.findIndex(s =>
-      (s.regions || []).some(r => origX >= r.x0 && origX <= r.x1 && origY >= r.y0 && origY <= r.y1)
-    );
-    if (sIdx !== -1) {
-      this.selectSentence(gid, pIdx, sIdx);
+    // Tìm điểm đánh dấu đầu câu gần vị trí chạm nhất theo tỷ lệ % width/height của ảnh
+    let bestIdx = -1;
+    let bestDist = Infinity;
+    passage.sentences.forEach((s, idx) => {
+      const firstR = s.regions && s.regions[0];
+      if (!firstR) return;
+      const sxPct = (typeof firstR.xPct === 'number' && !isNaN(firstR.xPct)) ? firstR.xPct : ((firstR.x0 / refW) * 100);
+      const syPct = (typeof firstR.yPct === 'number' && !isNaN(firstR.yPct)) ? firstR.yPct : ((firstR.y1 / refH) * 100);
+      const dist = Math.hypot(clickXPct - sxPct, clickYPct - syPct);
+      if (dist < bestDist && dist <= 6.5) {
+        bestDist = dist;
+        bestIdx = idx;
+      }
+    });
+    if (bestIdx !== -1) {
+      this.selectSentence(gid, pIdx, bestIdx);
     }
   },
 
@@ -1477,6 +1518,14 @@ const ResultViewer = {
       if (!targetBook && typeof this.resultData?.testTitle === 'string') {
         const titleMatch = this.resultData.testTitle.match(/^(EST\s+\d{4})/i);
         if (titleMatch) targetBook = titleMatch[1].toUpperCase();
+      }
+      if (!targetBook && Array.isArray(this.resultData?.detailedQuestions)) {
+        const has2026 = this.resultData.detailedQuestions.some(q =>
+          (q?.imageUrl && String(q.imageUrl).includes('EST 2026')) ||
+          (q?.groupImage && String(q.groupImage).includes('EST 2026')) ||
+          (q?.audioUrl && String(q.audioUrl).includes('EST 2026'))
+        );
+        if (has2026) targetBook = 'EST 2026';
       }
       const url = (config && typeof config.getDatabaseUrl === 'function')
         ? (targetBook ? config.getDatabaseUrl(targetBook) : config.getDatabaseUrl())

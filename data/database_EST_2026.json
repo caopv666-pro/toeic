@@ -1,6 +1,6 @@
 {
   "version": "2.0.0-distributed",
-  "generatedAt": "2026-10-14T02:32:54.463Z",
+  "generatedAt": "2026-10-16T01:07:43.332Z",
   "bookName": "EST 2026",
   "totalTests": 10,
   "tests": [
@@ -14,9 +14,9 @@
               "questionNumber": 1,
               "imageUrl": "uploads/EST 2026/LC/image/test1/q1.webp",
               "audioUrl": "uploads/EST 2026/LC/audio/cut/test1/q1.mp3",
+              "questionText": "Look at the picture marked number 1 in your test book.",
+              "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 1 trong cuốn sách bài thi của bạn.",
               "correctAnswer": "B",
-              "tips": "💡 Mẹo làm bài Part 1 (Tranh tả 1 người ở trung tâm):\n* Quan sát kỹ trang phục (puffer jacket - áo khoác phao), hành động tay (đang bỏ rác vào thùng) và vật thể xung quanh (chiếc mũ rộng vành đặt trên thùng gỗ).\n* Chú ý phân biệt giữa trạng thái đang mặc sẵn ('is wearing a jacket' - đang mặc áo khoác) và hành động đang mặc/cởi ('is putting on / removing' - đang mặc vào / cởi ra).\n* Loại trừ ngay các phương án gán ghép hành động không có trong hình ('carrying a tray of food', 'tying up her hair', 'removing her hat').",
-              "analysis": "Từ vựng & Cụm từ trọng tâm:\n* carry a tray of food (cụm động từ): bê/mang một khay thức ăn\n* wear a jacket (cụm động từ): đang mặc một chiếc áo khoác (chỉ trạng thái trang phục)\n* tie up one's hair (cụm động từ): buộc/cột tóc lên\n* remove one's hat (cụm động từ): cởi/tháo mũ ra\nCấu trúc ngữ pháp:\n* S + is/are + V-ing + O: Thì hiện tại tiếp diễn dùng để mô tả hành động đang diễn ra hoặc trang phục người trong tranh đang mặc trên người.",
               "options": {
                 "A": "The woman is carrying a tray of food.",
                 "B": "The woman is wearing a jacket.",
@@ -27,17 +27,19 @@
                 "A": "Người phụ nữ đang bê một khay thức ăn.",
                 "B": "Người phụ nữ đang mặc một chiếc áo khoác.",
                 "C": "Người phụ nữ đang buộc tóc lên.",
-                "D": "Người phụ nữ đang đội/tháo chiếc mũ của cô ấy ra."
+                "D": "Người phụ nữ đang tháo chiếc mũ của cô ấy ra."
               },
-              "explanation": "Trong bức ảnh, người phụ nữ đang mặc một chiếc áo khoác phao dày có cổ lông và đứng cạnh quầy thùng rác. Do đó phương án (B) 'The woman is wearing a jacket' mô tả hoàn toàn chính xác. Phương án (A) sai vì cô ấy cầm túi/cốc chứ không bê khay thức ăn; (C) sai vì tay cô ấy không chạm lên tóc; (D) là bẫy thị giác vì chiếc mũ rộng vành đang nằm yên trên thùng gỗ bên cạnh chứ cô ấy không hề chạm vào hay tháo mũ."
+              "explanation": "Trong bức ảnh, người phụ nữ đang mặc một chiếc áo khoác phao dày và đứng cạnh quầy bỏ rác. Do đó phương án (B) 'The woman is wearing a jacket' mô tả hoàn toàn chính xác trạng thái thực tế. Phương án (A) sai vì cô ấy cầm túi đựng rác chứ không bê khay thức ăn; (C) sai vì tay cô ấy đang bỏ đồ vào thùng rác chứ không buộc tóc; (D) là bẫy thị giác vì chiếc mũ rộng vành đang đặt yên trên thùng gỗ bên cạnh chứ cô ấy không hề chạm vào hay tháo mũ.",
+              "analysis": "Phân tích câu:\n* carry a tray of food = bê/mang một khay thức ăn\n* wear a jacket = đang mặc một chiếc áo khoác (trạng thái trang phục trên người)\n* tie up one's hair = buộc/cột tóc lên\n* remove one's hat = cởi/tháo mũ ra\n\nCấu trúc:\n* S + is/are + V-ing + O: Thì hiện tại tiếp diễn mô tả trạng thái trang phục hoặc hành động đang diễn ra.\n* Phân biệt 'wear' (đang mặc sẵn trên người - chỉ trạng thái) với 'put on' (đang mặc/xỏ đồ vào - chỉ hành động).",
+              "tips": "💡 Mẹo làm bài Part 1 (Tranh tả 1 người ở trung tâm):\n* Quan sát kỹ trang phục người trong tranh đang mặc sẵn (thường dùng động từ 'wear').\n* Loại trừ các phương án gán ghép hành động sai lên vật thể tĩnh xung quanh (chiếc mũ đặt trên thùng gỗ)."
             },
             {
               "questionNumber": 2,
               "imageUrl": "uploads/EST 2026/LC/image/test1/q2.webp",
               "audioUrl": "uploads/EST 2026/LC/audio/cut/test1/q2.mp3",
+              "questionText": "Look at the picture marked number 2 in your test book.",
+              "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 2 trong cuốn sách bài thi của bạn.",
               "correctAnswer": "D",
-              "tips": "💡 Mẹo làm bài Part 1 (Test 1 - Câu 2):\n* Quan sát tổng thể chủ thể chính, hành động đang diễn ra và vị trí các vật thể xung quanh trong bức ảnh.\n* Lắng nghe kỹ động từ chính (V-ing / been V3) và danh từ tân ngữ trong cả 4 phương án A, B, C, D để loại trừ bẫy thị giác.",
-              "analysis": "Cấu trúc trọng tâm Part 1:\n* Đáp án đúng (D): \"Some people are looking at a book.\" — Một số người đang xem một cuốn sách..\n* Lưu ý phân biệt động từ hành động đang diễn ra (V-ing) của chủ thể với các chi tiết gây nhiễu xung quanh.",
               "options": {
                 "A": "Some people are standing next to a filing cabinet.",
                 "B": "Some people are searching through a desk.",
@@ -45,62 +47,68 @@
                 "D": "Some people are looking at a book."
               },
               "optionsTranslation": {
-                "A": "Một số người đang đứng cạnh tủ hồ sơ.",
-                "B": "Một số người đang tìm kiếm thông qua một bàn làm việc.",
+                "A": "Một số người đang đứng cạnh một chiếc tủ hồ sơ.",
+                "B": "Một số người đang tìm kiếm tài liệu trong bàn làm việc.",
                 "C": "Một số người đang xem một bài thuyết trình.",
-                "D": "Một số người đang xem một cuốn sách."
+                "D": "Một số người đang cùng nhìn vào một cuốn sách."
               },
-              "explanation": "Quan sát bức tranh Câu 2 (Test 1), phương án (D) \"Some people are looking at a book.\" (Một số người đang xem một cuốn sách.) mô tả chính xác nhất hành động/trạng thái thực tế trong hình. Các phương án còn lại sai về hành động hoặc chi tiết không xuất hiện trong ảnh."
+              "explanation": "Trong bức ảnh, hai người (một người đàn ông ngồi và một người phụ nữ đứng) đang cùng hướng mắt nhìn chăm chú vào một cuốn sổ/sách đang mở trên bàn tròn. Vì vậy phương án (D) 'Some people are looking at a book' là chính xác nhất. Phương án (A) sai vì họ đang ở cạnh bàn tròn, không có tủ đựng tài liệu nào cạnh họ; (B) sai vì không có ai đang lục lọi bàn làm việc; (C) sai vì đây là buổi thảo luận tài liệu trực tiếp, không có màn hình trình chiếu hay bài thuyết trình nào.",
+              "analysis": "Phân tích câu:\n* look at a book = nhìn/xem một cuốn sách hoặc tài liệu\n* stand next to a filing cabinet = đứng cạnh tủ đựng hồ sơ/tài liệu\n* search through a desk = tìm kiếm/lục lọi trong bàn làm việc\n* watch a presentation = xem một buổi thuyết trình\n\nCấu trúc:\n* S + are + V-ing + O: Thì hiện tại tiếp diễn với chủ ngữ số nhiều mô tả hành động chung của nhóm người.\n* Cụm động từ chỉ hành động hướng mắt: 'look at' (nhìn vào), 'examine / inspect' (kiểm tra, xem xét).",
+              "tips": "💡 Mẹo làm bài Part 1 (Tranh tả nhóm người):\n* Chú ý hành động chung hoặc hướng mắt nhìn của các nhân vật (cả hai đang cùng nhìn vào vật thể trên bàn).\n* Cẩn thận với các phương án nhắc đến đồ vật văn phòng quen thuộc (filing cabinet, desk) nhưng hành động đi kèm lại sai thực tế."
             },
             {
               "questionNumber": 3,
               "imageUrl": "uploads/EST 2026/LC/image/test1/q3.webp",
               "audioUrl": "uploads/EST 2026/LC/audio/cut/test1/q3.mp3",
+              "questionText": "Look at the picture marked number 3 in your test book.",
+              "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 3 trong cuốn sách bài thi của bạn.",
               "correctAnswer": "C",
-              "tips": "💡 Mẹo làm bài Part 1 (Test 1 - Câu 3):\n* Quan sát tổng thể chủ thể chính, hành động đang diễn ra và vị trí các vật thể xung quanh trong bức ảnh.\n* Lắng nghe kỹ động từ chính (V-ing / been V3) và danh từ tân ngữ trong cả 4 phương án A, B, C, D để loại trừ bẫy thị giác.",
-              "analysis": "Cấu trúc trọng tâm Part 1:\n* Đáp án đúng (C): \"Some light fixtures are hanging from the ceiling.\" — Một số thiết bị chiếu sáng được treo trên trần nhà..\n* Lưu ý phân biệt động từ hành động đang diễn ra (V-ing) của chủ thể với các chi tiết gây nhiễu xung quanh.",
               "options": {
-                "A": "woman is holding a phone up to her ear.",
-                "B": "woman is pouring a beverage into a glass.",
+                "A": "A woman is holding a phone up to her ear.",
+                "B": "A woman is pouring a beverage into a glass.",
                 "C": "Some light fixtures are hanging from the ceiling.",
                 "D": "Some tiles are being installed in a hallway."
               },
               "optionsTranslation": {
-                "A": "người phụ nữ đang cầm điện thoại lên tai.",
-                "B": "người phụ nữ đang rót đồ uống vào ly.",
-                "C": "Một số thiết bị chiếu sáng được treo trên trần nhà.",
-                "D": "Một số viên gạch đang được lắp đặt ở hành lang."
+                "A": "Một người phụ nữ đang áp điện thoại lên tai của mình.",
+                "B": "Một người phụ nữ đang rót đồ uống vào một chiếc ly.",
+                "C": "Một số thiết bị chiếu sáng đang được treo từ trần nhà.",
+                "D": "Một số viên gạch đang được lát ở hành lang."
               },
-              "explanation": "Quan sát bức tranh Câu 3 (Test 1), phương án (C) \"Some light fixtures are hanging from the ceiling.\" (Một số thiết bị chiếu sáng được treo trên trần nhà.) mô tả chính xác nhất hành động/trạng thái thực tế trong hình. Các phương án còn lại sai về hành động hoặc chi tiết không xuất hiện trong ảnh."
+              "explanation": "Trong bức ảnh chụp không gian nhà hàng, các chụp đèn hình cầu màu trắng treo lơ lửng từ trần nhà xuống, do đó phương án (C) 'Some light fixtures are hanging from the ceiling' mô tả hoàn toàn chuẩn xác. Phương án (A) sai vì người phụ nữ cầm điện thoại bằng hai tay trước mặt để nhìn/lướt màn hình chứ không áp vào tai nghe; (B) sai vì trên bàn có ly nước nhưng không có ai đang rót nước; (D) là bẫy thì bị động tiếp diễn 'are being installed' vì sàn gạch ca-rô đã được hoàn thiện từ trước, không hề có thợ hay hành động lát gạch nào đang diễn ra.",
+              "analysis": "Phân tích câu:\n* light fixtures = thiết bị chiếu sáng, bộ đèn chùm/đèn treo\n* hang from the ceiling = treo lơ lửng từ trần nhà\n* hold a phone up to one's ear = áp điện thoại vào tai nghe\n* pour a beverage into a glass = rót đồ uống vào cốc/ly\n* be installed = đang được lắp đặt/thi công\n\nCấu trúc:\n* S + is/are + hanging from...: Diễn tả trạng thái tĩnh của đồ vật treo từ trên cao.\n* Bẫy 'is/are being + V3/ed': Chỉ chọn khi trong tranh có NGƯỜI đang trực tiếp tác động/lắp đặt vật thể đó.",
+              "tips": "💡 Mẹo làm bài Part 1 (Tranh vừa có người vừa có vật):\n* Đừng chỉ tập trung vào người ở tiền cảnh, đáp án đúng rất hay mô tả vị trí/trạng thái của đồ vật xung quanh (đèn trần, tranh treo tường).\n* Tuyệt đối cảnh giác với bẫy thì tiếp diễn bị động ('are being installed/repaired') khi không có công nhân đang thi công."
             },
             {
               "questionNumber": 4,
               "imageUrl": "uploads/EST 2026/LC/image/test1/q4.webp",
               "audioUrl": "uploads/EST 2026/LC/audio/cut/test1/q4.mp3",
+              "questionText": "Look at the picture marked number 4 in your test book.",
+              "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 4 trong cuốn sách bài thi của bạn.",
               "correctAnswer": "A",
-              "tips": "💡 Mẹo làm bài Part 1 (Test 1 - Câu 4):\n* Quan sát tổng thể chủ thể chính, hành động đang diễn ra và vị trí các vật thể xung quanh trong bức ảnh.\n* Lắng nghe kỹ động từ chính (V-ing / been V3) và danh từ tân ngữ trong cả 4 phương án A, B, C, D để loại trừ bẫy thị giác.",
-              "analysis": "Cấu trúc trọng tâm Part 1:\n* Đáp án đúng (A): \"wooden crate is filled with vegetables.\" — thùng gỗ chứa đầy rau..\n* Lưu ý phân biệt động từ hành động đang diễn ra (V-ing) của chủ thể với các chi tiết gây nhiễu xung quanh.",
               "options": {
-                "A": "wooden crate is filled with vegetables.",
+                "A": "A wooden crate is filled with vegetables.",
                 "B": "One of the men is putting vegetables into a shopping bag.",
-                "C": "backpack has been set on the ground.",
+                "C": "A backpack has been set on the ground.",
                 "D": "One of the men is reaching into a bucket."
               },
               "optionsTranslation": {
-                "A": "thùng gỗ chứa đầy rau.",
-                "B": "Một trong những người đàn ông đang bỏ rau vào túi mua sắm.",
-                "C": "ba lô đã được đặt trên mặt đất.",
-                "D": "Một trong những người đàn ông đang thò tay vào một cái xô."
+                "A": "Một chiếc thùng gỗ chứa đầy rau củ quả.",
+                "B": "Một trong những người đàn ông đang cho rau vào túi mua hàng.",
+                "C": "Một chiếc ba lô đã được đặt trên mặt đất.",
+                "D": "Một trong những người đàn ông đang thò tay vào trong xô."
               },
-              "explanation": "Quan sát bức tranh Câu 4 (Test 1), phương án (A) \"wooden crate is filled with vegetables.\" (thùng gỗ chứa đầy rau.) mô tả chính xác nhất hành động/trạng thái thực tế trong hình. Các phương án còn lại sai về hành động hoặc chi tiết không xuất hiện trong ảnh."
+              "explanation": "Trong bức ảnh tại quầy nông sản, ở góc dưới bên trái có một chiếc thùng gỗ nan chứa đầy cà chua và rau củ, do đó phương án (A) 'A wooden crate is filled with vegetables' mô tả hoàn toàn chuẩn xác. Phương án (B) sai vì hai người đàn ông chỉ đang đứng trò chuyện/chỉ tay, không ai bỏ rau vào túi xách; (C) sai vì người đàn ông mặc áo sơ mi đang đeo chiếc ba lô trên lưng chứ ba lô không hề đặt dưới đất; (D) sai vì tay họ không thò vào bất kỳ cái xô nào.",
+              "analysis": "Phân tích câu:\n* wooden crate = thùng thưa bằng gỗ, kiện gỗ đựng hàng\n* be filled with something = chứa đầy, chất đầy thứ gì đó\n* shopping bag = túi mua hàng, túi đi chợ\n* reach into a bucket = thò tay/với tay vào trong một chiếc xô\n\nCấu trúc:\n* S + is/are + filled with + N: Mô tả trạng thái vật chứa đựng đầy đồ đạc/hàng hóa bên trong.\n* Phân biệt vị trí vật thể: 'on someone's back' (trên lưng ai) khác với 'on the ground' (trên mặt đất).",
+              "tips": "💡 Mẹo làm bài Part 1 (Tranh giao tiếp / Buôn bán):\n* Quan sát kỹ các thùng hàng, quầy kệ trưng bày ở tiền cảnh.\n* Bẫy vị trí đồ đạc rất phổ biến: chú ý xem ba lô/túi xách đang được đeo trên người hay đặt ở dưới đất."
             },
             {
               "questionNumber": 5,
               "imageUrl": "uploads/EST 2026/LC/image/test1/q5.webp",
               "audioUrl": "uploads/EST 2026/LC/audio/cut/test1/q5.mp3",
+              "questionText": "Look at the picture marked number 5 in your test book.",
+              "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 5 trong cuốn sách bài thi của bạn.",
               "correctAnswer": "A",
-              "tips": "💡 Mẹo làm bài Part 1 (Test 1 - Câu 5):\n* Quan sát tổng thể chủ thể chính, hành động đang diễn ra và vị trí các vật thể xung quanh trong bức ảnh.\n* Lắng nghe kỹ động từ chính (V-ing / been V3) và danh từ tân ngữ trong cả 4 phương án A, B, C, D để loại trừ bẫy thị giác.",
-              "analysis": "Cấu trúc trọng tâm Part 1:\n* Đáp án đúng (A): \"Painting supplies have been laid out on the floor.\" — Vật dụng vẽ tranh đã được bày sẵn trên sàn..\n* Lưu ý phân biệt động từ hành động đang diễn ra (V-ing) của chủ thể với các chi tiết gây nhiễu xung quanh.",
               "options": {
                 "A": "Painting supplies have been laid out on the floor.",
                 "B": "He's laying a brush down on a window sill.",
@@ -108,33 +116,37 @@
                 "D": "Cans of paint have been placed on a step stool."
               },
               "optionsTranslation": {
-                "A": "Vật dụng vẽ tranh đã được bày sẵn trên sàn.",
-                "B": "Anh ấy đang đặt một chiếc bàn chải xuống bậu cửa sổ.",
-                "C": "Anh ấy đang nâng một hộp sơn bằng tay cầm của nó.",
-                "D": "Những hộp sơn đã được đặt trên một chiếc ghế đẩu."
+                "A": "Các dụng cụ sơn đã được bày sẵn ra trên sàn nhà.",
+                "B": "Anh ấy đang đặt một chiếc chổi sơn xuống bậu cửa sổ.",
+                "C": "Anh ấy đang nhấc một thùng sơn lên bằng quai xách của nó.",
+                "D": "Các thùng sơn đã được đặt trên một chiếc ghế đẩu bậc thang."
               },
-              "explanation": "Quan sát bức tranh Câu 5 (Test 1), phương án (A) \"Painting supplies have been laid out on the floor.\" (Vật dụng vẽ tranh đã được bày sẵn trên sàn.) mô tả chính xác nhất hành động/trạng thái thực tế trong hình. Các phương án còn lại sai về hành động hoặc chi tiết không xuất hiện trong ảnh."
+              "explanation": "Trong bức ảnh, người đàn ông đang quỳ trên tấm bạt phủ sàn chuẩn bị sơn nhà, xung quanh anh ấy trên sàn có các dụng cụ sơn như thùng sơn, nắp sơn, khay sơn, que khuấy và cọ được xếp trải ra. Do đó phương án (A) 'Painting supplies have been laid out on the floor' mô tả chính xác trạng thái thực tế. Phương án (B) sai vì bậu cửa sổ phía sau hoàn toàn trống trơn; (C) sai vì anh ấy đang dùng dụng cụ cạy mở nắp thùng sơn chứ không cầm quai xách nhấc lên; (D) sai vì các thùng sơn đặt trực tiếp trên sàn nhà, chiếc ghế đẩu nhựa chỉ để một cây cọ vẽ chứ không có thùng sơn nào trên đó.",
+              "analysis": "Phân tích câu:\n* painting supplies = dụng cụ sơn (sơn, cọ, con lăn, khay)\n* lay out on the floor = trải ra/bày la liệt trên sàn nhà\n* window sill = bậu/bệ cửa sổ\n* lift by its handle = nhấc lên bằng tay cầm/quai xách\n* step stool = ghế đẩu có bậc bước chân\n\nCấu trúc:\n* S + have/has been + V3/ed: Thì hiện tại hoàn thành bị động mô tả kết quả của một hành động đã hoàn tất (đồ đạc đã được chuẩn bị/bày biện sẵn).\n* Cẩn thận phân biệt vị trí cụ thể: 'on the floor' (dưới sàn) vs 'on a step stool' (trên ghế đẩu).",
+              "tips": "💡 Mẹo làm bài Part 1 (Tranh làm việc/sửa chữa):\n* Để ý danh từ khái quát chỉ nhóm đồ vật (supplies, equipment, tools, merchandise).\n* Kiểm tra chính xác vị trí tương đối giữa các đồ vật (đồ nào trên sàn, đồ nào trên ghế, đồ nào trên bàn)."
             },
             {
               "questionNumber": 6,
               "imageUrl": "uploads/EST 2026/LC/image/test1/q6.webp",
               "audioUrl": "uploads/EST 2026/LC/audio/cut/test1/q6.mp3",
+              "questionText": "Look at the picture marked number 6 in your test book.",
+              "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 6 trong cuốn sách bài thi của bạn.",
               "correctAnswer": "C",
-              "tips": "💡 Mẹo làm bài Part 1 (Test 1 - Câu 6):\n* Quan sát tổng thể chủ thể chính, hành động đang diễn ra và vị trí các vật thể xung quanh trong bức ảnh.\n* Lắng nghe kỹ động từ chính (V-ing / been V3) và danh từ tân ngữ trong cả 4 phương án A, B, C, D để loại trừ bẫy thị giác.",
-              "analysis": "Cấu trúc trọng tâm Part 1:\n* Đáp án đúng (C): \"Some water has pooled on a path.\" — Một số nước đã đọng lại trên một con đường..\n* Lưu ý phân biệt động từ hành động đang diễn ra (V-ing) của chủ thể với các chi tiết gây nhiễu xung quanh.",
               "options": {
-                "A": "path is covered with fallen branches.",
-                "B": "tree is lying across a grassy area.",
+                "A": "A path is covered with fallen branches.",
+                "B": "A tree is lying across a grassy area.",
                 "C": "Some water has pooled on a path.",
                 "D": "Some cyclists are riding through a field."
               },
               "optionsTranslation": {
-                "A": "con đường phủ đầy cành cây rơi.",
-                "B": "cây nằm trên một bãi cỏ.",
-                "C": "Một số nước đã đọng lại trên một con đường.",
-                "D": "Một số người đi xe đạp đang đi qua một cánh đồng."
+                "A": "Một lối đi bị phủ đầy bởi những cành cây gãy rơi xuống.",
+                "B": "Một cái cây đang nằm ngổn ngang qua một bãi cỏ.",
+                "C": "Một vũng nước đã đọng lại trên con đường.",
+                "D": "Một số người đi xe đạp đang băng qua một cánh đồng."
               },
-              "explanation": "Quan sát bức tranh Câu 6 (Test 1), phương án (C) \"Some water has pooled on a path.\" (Một số nước đã đọng lại trên một con đường.) mô tả chính xác nhất hành động/trạng thái thực tế trong hình. Các phương án còn lại sai về hành động hoặc chi tiết không xuất hiện trong ảnh."
+              "explanation": "Bức tranh chụp quang cảnh công viên ngoài trời sau cơn mưa, trên mặt đường nhựa uốn cong có một vũng nước mưa đọng lại phản chiếu ánh sáng. Vì vậy phương án (C) 'Some water has pooled on a path' mô tả hoàn toàn chuẩn xác. Phương án (A) sai vì mặt đường thoáng đãng sạch sẽ, không có cành cây gãy nào phủ lên; (B) sai vì rặng cây ở phía xa đều đứng thẳng, không có cây nào đổ ngang bãi cỏ; (D) sai vì toàn bộ khung cảnh thiên nhiên tĩnh lặng, không hề xuất hiện người đi xe đạp nào.",
+              "analysis": "Phân tích câu:\n* water has pooled = nước đọng lại thành vũng (động từ 'pool': tụ lại/đọng lại thành vũng nước)\n* path = con đường nhỏ, lối đi bộ/đạp xe\n* be covered with fallen branches = bị bao phủ bởi cành cây gãy rụng\n* lie across a grassy area = nằm chắn ngang một khu vực bãi cỏ\n* cyclists = người đi xe đạp\n\nCấu trúc:\n* S (water) + has pooled on + N: Cấu trúc hiện tại hoàn thành diễn tả trạng thái tích tụ của chất lỏng.\n* Động từ trạng thái: 'be covered with' (bị che phủ bởi...), 'lie across' (nằm vắt ngang qua...).",
+              "tips": "💡 Mẹo làm bài Part 1 (Tranh phong cảnh không có người):\n* Bức tranh phong cảnh không có người sẽ luôn có đáp án miêu tả trạng thái tĩnh của tự nhiên hoặc kiến trúc mặt đất/mặt nước.\n* Loại ngay bất kỳ phương án nào nhắc đến người ('cyclists', 'pedestrians') khi nhìn vào tranh thấy vắng người."
             }
           ]
         },
@@ -3154,7 +3166,8 @@
                 "C": "kéo dài",
                 "D": "lâu dài"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The ------- antique shop in Pepper Valley will close down next month.\" (Tạm dịch khi điền đáp án: \"The last antique shop in Pepper Valley will close down next month.\"). Phương án (A) \"last\" (cuối cùng) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The ------- antique shop in Pepper Valley will close down next month.\" (Tạm dịch khi điền đáp án: \"The last antique shop in Pepper Valley will close down next month.\"). Phương án (A) \"last\" (cuối cùng) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "The last antique shop in Pepper Valley will close down next month."
             },
             {
               "questionNumber": 103,
@@ -3175,7 +3188,8 @@
                 "C": "thanh toán",
                 "D": "yêu cầu"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Merryville residents will receive an online status ------- about the ongoing bridge construction project.\" (Tạm dịch khi điền đáp án: \"Merryville residents will receive an online status update about the ongoing bridge construction project.\"). Phương án (A) \"update\" (cập nhật) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Merryville residents will receive an online status ------- about the ongoing bridge construction project.\" (Tạm dịch khi điền đáp án: \"Merryville residents will receive an online status update about the ongoing bridge construction project.\"). Phương án (A) \"update\" (cập nhật) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "Merryville residents will receive an online status update about the ongoing bridge construction project."
             },
             {
               "questionNumber": 104,
@@ -3196,7 +3210,8 @@
                 "C": "của cô ấy",
                 "D": "bản thân cô ấy"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"As a result of ------- many years leading media organizations, Ms. Ayo was selected for the Dowel Journalism Prize.\" (Tạm dịch khi điền đáp án: \"As a result of her many years leading media organizations, Ms. Ayo was selected for the Dowel Journalism Prize.\"). Phương án (B) \"her\" (cô ấy) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"As a result of ------- many years leading media organizations, Ms. Ayo was selected for the Dowel Journalism Prize.\" (Tạm dịch khi điền đáp án: \"As a result of her many years leading media organizations, Ms. Ayo was selected for the Dowel Journalism Prize.\"). Phương án (B) \"her\" (cô ấy) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "As a result of her many years leading media organizations, Ms. Ayo was selected for the Dowel Journalism Prize."
             },
             {
               "questionNumber": 105,
@@ -3217,7 +3232,8 @@
                 "C": "cân bằng",
                 "D": "bề mặt"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"To stop the ------- of computer viruses, do not open suspicious e-mails.\" (Tạm dịch khi điền đáp án: \"To stop the spread of computer viruses, do not open suspicious e-mails.\"). Phương án (B) \"spread\" (lây lan) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"To stop the ------- of computer viruses, do not open suspicious e-mails.\" (Tạm dịch khi điền đáp án: \"To stop the spread of computer viruses, do not open suspicious e-mails.\"). Phương án (B) \"spread\" (lây lan) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "To stop the spread of computer viruses, do not open suspicious e-mails."
             },
             {
               "questionNumber": 106,
@@ -3238,7 +3254,8 @@
                 "C": "cẩn thận",
                 "D": "sự cẩn thận"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The hiring manager ------- considered each applicant's résumé and qualifications.\" (Tạm dịch khi điền đáp án: \"The hiring manager carefully considered each applicant's résumé and qualifications.\"). Phương án (C) \"carefully\" (cẩn thận) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The hiring manager ------- considered each applicant's résumé and qualifications.\" (Tạm dịch khi điền đáp án: \"The hiring manager carefully considered each applicant's résumé and qualifications.\"). Phương án (C) \"carefully\" (cẩn thận) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "The hiring manager carefully considered each applicant's résumé and qualifications."
             },
             {
               "questionNumber": 107,
@@ -3259,7 +3276,8 @@
                 "C": "Và",
                 "D": "trước"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"In October, Mr. Sakamoto will leave for New Zealand ------- will oversee the opening of the new Auckland branch.\" (Tạm dịch khi điền đáp án: \"In October, Mr. Sakamoto will leave for New Zealand and will oversee the opening of the new Auckland branch.\"). Phương án (C) \"and\" (Và) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"In October, Mr. Sakamoto will leave for New Zealand ------- will oversee the opening of the new Auckland branch.\" (Tạm dịch khi điền đáp án: \"In October, Mr. Sakamoto will leave for New Zealand and will oversee the opening of the new Auckland branch.\"). Phương án (C) \"and\" (Và) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "In October, Mr. Sakamoto will leave for New Zealand and will oversee the opening of the new Auckland branch."
             },
             {
               "questionNumber": 108,
@@ -3280,7 +3298,8 @@
                 "C": "lót",
                 "D": "dòng"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Tarateer Pharmaceuticals is varying its product ------- to include over-the-counter medications.\" (Tạm dịch khi điền đáp án: \"Tarateer Pharmaceuticals is varying its product line to include over-the-counter medications.\"). Phương án (D) \"line\" (dòng) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Tarateer Pharmaceuticals is varying its product ------- to include over-the-counter medications.\" (Tạm dịch khi điền đáp án: \"Tarateer Pharmaceuticals is varying its product line to include over-the-counter medications.\"). Phương án (D) \"line\" (dòng) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "Tarateer Pharmaceuticals is varying its product line to include over-the-counter medications."
             },
             {
               "questionNumber": 109,
@@ -3301,7 +3320,8 @@
                 "C": "tìm kiếm",
                 "D": "đang tìm kiếm"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Dynart, Inc., continuously ------- new ways to reduce its use of plastics.\" (Tạm dịch khi điền đáp án: \"Dynart, Inc., continuously seeks new ways to reduce its use of plastics.\"). Phương án (A) \"seeks\" (tìm kiếm) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Dynart, Inc., continuously ------- new ways to reduce its use of plastics.\" (Tạm dịch khi điền đáp án: \"Dynart, Inc., continuously seeks new ways to reduce its use of plastics.\"). Phương án (A) \"seeks\" (tìm kiếm) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "Dynart, Inc., continuously seeks new ways to reduce its use of plastics."
             },
             {
               "questionNumber": 110,
@@ -3322,7 +3342,8 @@
                 "C": "tính toán",
                 "D": "tính toán"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The cash registers at Pirkle Books automatically ------- the remaining inventory of books available.\" (Tạm dịch khi điền đáp án: \"The cash registers at Pirkle Books automatically calculate the remaining inventory of books available.\"). Phương án (A) \"calculate\" (tính toán) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The cash registers at Pirkle Books automatically ------- the remaining inventory of books available.\" (Tạm dịch khi điền đáp án: \"The cash registers at Pirkle Books automatically calculate the remaining inventory of books available.\"). Phương án (A) \"calculate\" (tính toán) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "The cash registers at Pirkle Books automatically calculate the remaining inventory of books available."
             },
             {
               "questionNumber": 111,
@@ -3343,7 +3364,8 @@
                 "C": "chính xác",
                 "D": "rất nhiều"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The product team is designing mapping software that can ------- locate underground minerals.\" (Tạm dịch khi điền đáp án: \"The product team is designing mapping software that can precisely locate underground minerals.\"). Phương án (C) \"precisely\" (chính xác) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The product team is designing mapping software that can ------- locate underground minerals.\" (Tạm dịch khi điền đáp án: \"The product team is designing mapping software that can precisely locate underground minerals.\"). Phương án (C) \"precisely\" (chính xác) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "The product team is designing mapping software that can precisely locate underground minerals."
             },
             {
               "questionNumber": 112,
@@ -3364,7 +3386,8 @@
                 "C": "tài chính",
                 "D": "tài chính"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"According to CEO Mayu Yamada, it would not be ------- responsible to expand the warehouse at this time.\" (Tạm dịch khi điền đáp án: \"According to CEO Mayu Yamada, it would not be financially responsible to expand the warehouse at this time.\"). Phương án (C) \"financially\" (tài chính) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"According to CEO Mayu Yamada, it would not be ------- responsible to expand the warehouse at this time.\" (Tạm dịch khi điền đáp án: \"According to CEO Mayu Yamada, it would not be financially responsible to expand the warehouse at this time.\"). Phương án (C) \"financially\" (tài chính) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "According to CEO Mayu Yamada, it would not be financially responsible to expand the warehouse at this time."
             },
             {
               "questionNumber": 113,
@@ -3385,7 +3408,8 @@
                 "C": "sự xuất sắc",
                 "D": "phủ nhận"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Analysts cannot say with any ------- what the regional demand for electric trucks will be.\" (Tạm dịch khi điền đáp án: \"Analysts cannot say with any certainty what the regional demand for electric trucks will be.\"). Phương án (A) \"certainty\" (sự chắc chắn) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Analysts cannot say with any ------- what the regional demand for electric trucks will be.\" (Tạm dịch khi điền đáp án: \"Analysts cannot say with any certainty what the regional demand for electric trucks will be.\"). Phương án (A) \"certainty\" (sự chắc chắn) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "Analysts cannot say with any certainty what the regional demand for electric trucks will be."
             },
             {
               "questionNumber": 114,
@@ -3406,7 +3430,8 @@
                 "C": "tích cực",
                 "D": "sạch sẽ"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"As part of its marketing campaign, Elegancia Dishware is ------- soliciting feedback from customers.\" (Tạm dịch khi điền đáp án: \"As part of its marketing campaign, Elegancia Dishware is actively soliciting feedback from customers.\"). Phương án (C) \"actively\" (tích cực) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"As part of its marketing campaign, Elegancia Dishware is ------- soliciting feedback from customers.\" (Tạm dịch khi điền đáp án: \"As part of its marketing campaign, Elegancia Dishware is actively soliciting feedback from customers.\"). Phương án (C) \"actively\" (tích cực) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "As part of its marketing campaign, Elegancia Dishware is actively soliciting feedback from customers."
             },
             {
               "questionNumber": 115,
@@ -3427,7 +3452,8 @@
                 "C": "hấp thụ",
                 "D": "áp đảo"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Rain gardens are intended to ------- water to prevent flooding of local roads.\" (Tạm dịch khi điền đáp án: \"Rain gardens are intended to absorb water to prevent flooding of local roads.\"). Phương án (C) \"absorb\" (hấp thụ) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Rain gardens are intended to ------- water to prevent flooding of local roads.\" (Tạm dịch khi điền đáp án: \"Rain gardens are intended to absorb water to prevent flooding of local roads.\"). Phương án (C) \"absorb\" (hấp thụ) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "Rain gardens are intended to absorb water to prevent flooding of local roads."
             },
             {
               "questionNumber": 116,
@@ -3448,7 +3474,8 @@
                 "C": "năng suất",
                 "D": "năng suất"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Theta Industries’ training program aims to increase the ------- of its manufacturing systems.\" (Tạm dịch khi điền đáp án: \"Theta Industries’ training program aims to increase the productivity of its manufacturing systems.\"). Phương án (D) \"productivity\" (năng suất) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Theta Industries’ training program aims to increase the ------- of its manufacturing systems.\" (Tạm dịch khi điền đáp án: \"Theta Industries’ training program aims to increase the productivity of its manufacturing systems.\"). Phương án (D) \"productivity\" (năng suất) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "Theta Industries’ training program aims to increase the productivity of its manufacturing systems."
             },
             {
               "questionNumber": 117,
@@ -3469,7 +3496,8 @@
                 "C": "ngoại trừ",
                 "D": "xa nhau"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The board of directors has voted to award Mr. Mitrakos a bonus for his role ------- obtaining the international contract.\" (Tạm dịch khi điền đáp án: \"The board of directors has voted to award Mr. Mitrakos a bonus for his role in obtaining the international contract.\"). Phương án (A) \"in\" (trong) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The board of directors has voted to award Mr. Mitrakos a bonus for his role ------- obtaining the international contract.\" (Tạm dịch khi điền đáp án: \"The board of directors has voted to award Mr. Mitrakos a bonus for his role in obtaining the international contract.\"). Phương án (A) \"in\" (trong) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "The board of directors has voted to award Mr. Mitrakos a bonus for his role in obtaining the international contract."
             },
             {
               "questionNumber": 118,
@@ -3490,7 +3518,8 @@
                 "C": "thận trọng",
                 "D": "để có thể"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The finance director gave his approval ------- the project can move forward.\" (Tạm dịch khi điền đáp án: \"The finance director gave his approval so that the project can move forward.\"). Phương án (D) \"so that\" (để có thể) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The finance director gave his approval ------- the project can move forward.\" (Tạm dịch khi điền đáp án: \"The finance director gave his approval so that the project can move forward.\"). Phương án (D) \"so that\" (để có thể) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "The finance director gave his approval so that the project can move forward."
             },
             {
               "questionNumber": 119,
@@ -3511,7 +3540,8 @@
                 "C": "bù đắp",
                 "D": "tích lũy"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The newspaper article describes ways job seekers can ------- for having little workplace experience.\" (Tạm dịch khi điền đáp án: \"The newspaper article describes ways job seekers can compensate for having little workplace experience.\"). Phương án (C) \"compensate\" (bù đắp) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The newspaper article describes ways job seekers can ------- for having little workplace experience.\" (Tạm dịch khi điền đáp án: \"The newspaper article describes ways job seekers can compensate for having little workplace experience.\"). Phương án (C) \"compensate\" (bù đắp) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "The newspaper article describes ways job seekers can compensate for having little workplace experience."
             },
             {
               "questionNumber": 120,
@@ -3532,7 +3562,8 @@
                 "C": "bất cứ ai",
                 "D": "bất cứ ai"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Mr. Ellis and Ms. Barnes were both highly qualified, but ------- got the job.\" (Tạm dịch khi điền đáp án: \"Mr. Ellis and Ms. Barnes were both highly qualified, but neither got the job.\"). Phương án (B) \"neither\" (cũng không) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Mr. Ellis and Ms. Barnes were both highly qualified, but ------- got the job.\" (Tạm dịch khi điền đáp án: \"Mr. Ellis and Ms. Barnes were both highly qualified, but neither got the job.\"). Phương án (B) \"neither\" (cũng không) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "Mr. Ellis and Ms. Barnes were both highly qualified, but neither got the job."
             },
             {
               "questionNumber": 121,
@@ -3553,7 +3584,8 @@
                 "C": "cho đến khi",
                 "D": "mặc dù"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Ennis Photography purchased all new lighting equipment ------- the high cost.\" (Tạm dịch khi điền đáp án: \"Ennis Photography purchased all new lighting equipment despite the high cost.\"). Phương án (D) \"despite\" (mặc dù) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Ennis Photography purchased all new lighting equipment ------- the high cost.\" (Tạm dịch khi điền đáp án: \"Ennis Photography purchased all new lighting equipment despite the high cost.\"). Phương án (D) \"despite\" (mặc dù) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "Ennis Photography purchased all new lighting equipment despite the high cost."
             },
             {
               "questionNumber": 122,
@@ -3574,7 +3606,8 @@
                 "C": "bán",
                 "D": "bán"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Marburton residents who wish to ------- a home should contact the award-winning team at Kwan Real Estate.\" (Tạm dịch khi điền đáp án: \"Marburton residents who wish to sell a home should contact the award-winning team at Kwan Real Estate.\"). Phương án (C) \"sell\" (bán) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Marburton residents who wish to ------- a home should contact the award-winning team at Kwan Real Estate.\" (Tạm dịch khi điền đáp án: \"Marburton residents who wish to sell a home should contact the award-winning team at Kwan Real Estate.\"). Phương án (C) \"sell\" (bán) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "Marburton residents who wish to sell a home should contact the award-winning team at Kwan Real Estate."
             },
             {
               "questionNumber": 123,
@@ -3595,7 +3628,8 @@
                 "C": "biết ơn",
                 "D": "liên quan"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Maswa Bistro began a ------- agreement with local farmers to purchase a set amount of produce each week.\" (Tạm dịch khi điền đáp án: \"Maswa Bistro began a cooperative agreement with local farmers to purchase a set amount of produce each week.\"). Phương án (B) \"cooperative\" (hợp tác xã) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Maswa Bistro began a ------- agreement with local farmers to purchase a set amount of produce each week.\" (Tạm dịch khi điền đáp án: \"Maswa Bistro began a cooperative agreement with local farmers to purchase a set amount of produce each week.\"). Phương án (B) \"cooperative\" (hợp tác xã) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "Maswa Bistro began a cooperative agreement with local farmers to purchase a set amount of produce each week."
             },
             {
               "questionNumber": 124,
@@ -3616,7 +3650,8 @@
                 "C": "hạn chế",
                 "D": "hạn chế"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The City of Doyle's new downtown parking ------- have been met with opposition by residents and visitors.\" (Tạm dịch khi điền đáp án: \"The City of Doyle's new downtown parking restrictions have been met with opposition by residents and visitors.\"). Phương án (C) \"restrictions\" (hạn chế) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The City of Doyle's new downtown parking ------- have been met with opposition by residents and visitors.\" (Tạm dịch khi điền đáp án: \"The City of Doyle's new downtown parking restrictions have been met with opposition by residents and visitors.\"). Phương án (C) \"restrictions\" (hạn chế) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "The City of Doyle's new downtown parking restrictions have been met with opposition by residents and visitors."
             },
             {
               "questionNumber": 125,
@@ -3637,7 +3672,8 @@
                 "C": "một cách khách quan",
                 "D": "quả quyết"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The plumbing position requires extensive training, even for those who studied ------- in technical school.\" (Tạm dịch khi điền đáp án: \"The plumbing position requires extensive training, even for those who studied diligently in technical school.\"). Phương án (A) \"diligently\" (siêng năng) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The plumbing position requires extensive training, even for those who studied ------- in technical school.\" (Tạm dịch khi điền đáp án: \"The plumbing position requires extensive training, even for those who studied diligently in technical school.\"). Phương án (A) \"diligently\" (siêng năng) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "The plumbing position requires extensive training, even for those who studied diligently in technical school."
             },
             {
               "questionNumber": 126,
@@ -3658,7 +3694,8 @@
                 "C": "đảm bảo",
                 "D": "đảm bảo"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"With its fixed price -------, Omega Cellular guarantees no phone bill increases for three years.\" (Tạm dịch khi điền đáp án: \"With its fixed price assurance, Omega Cellular guarantees no phone bill increases for three years.\"). Phương án (A) \"assurance\" (sự đảm bảo) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"With its fixed price -------, Omega Cellular guarantees no phone bill increases for three years.\" (Tạm dịch khi điền đáp án: \"With its fixed price assurance, Omega Cellular guarantees no phone bill increases for three years.\"). Phương án (A) \"assurance\" (sự đảm bảo) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "With its fixed price assurance, Omega Cellular guarantees no phone bill increases for three years."
             },
             {
               "questionNumber": 127,
@@ -3679,7 +3716,8 @@
                 "C": "khai báo",
                 "D": "sự cống hiến"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"As chief analytics officer, Mr. Ko has worked at Lochston Ltd. with great ------- for more than twenty years.\" (Tạm dịch khi điền đáp án: \"As chief analytics officer, Mr. Ko has worked at Lochston Ltd. with great dedication for more than twenty years.\"). Phương án (D) \"dedication\" (sự cống hiến) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"As chief analytics officer, Mr. Ko has worked at Lochston Ltd. with great ------- for more than twenty years.\" (Tạm dịch khi điền đáp án: \"As chief analytics officer, Mr. Ko has worked at Lochston Ltd. with great dedication for more than twenty years.\"). Phương án (D) \"dedication\" (sự cống hiến) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "As chief analytics officer, Mr. Ko has worked at Lochston Ltd. with great dedication for more than twenty years."
             },
             {
               "questionNumber": 128,
@@ -3700,7 +3738,8 @@
                 "C": "mỗi lần",
                 "D": "thay vì"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Milltown Hospital's cafeteria serves lunch seven days a week ------- only on weekdays.\" (Tạm dịch khi điền đáp án: \"Milltown Hospital's cafeteria serves lunch seven days a week rather than only on weekdays.\"). Phương án (D) \"rather than\" (thay vì) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"Milltown Hospital's cafeteria serves lunch seven days a week ------- only on weekdays.\" (Tạm dịch khi điền đáp án: \"Milltown Hospital's cafeteria serves lunch seven days a week rather than only on weekdays.\"). Phương án (D) \"rather than\" (thay vì) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "Milltown Hospital's cafeteria serves lunch seven days a week rather than only on weekdays."
             },
             {
               "questionNumber": 129,
@@ -3721,7 +3760,8 @@
                 "C": "hóa chất",
                 "D": "thương mại"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The store’s entire inventory of lumber comes from a nearby ------- supplier.\" (Tạm dịch khi điền đáp án: \"The store’s entire inventory of lumber comes from a nearby commercial supplier.\"). Phương án (D) \"commercial\" (thương mại) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"The store’s entire inventory of lumber comes from a nearby ------- supplier.\" (Tạm dịch khi điền đáp án: \"The store’s entire inventory of lumber comes from a nearby commercial supplier.\"). Phương án (D) \"commercial\" (thương mại) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "The store’s entire inventory of lumber comes from a nearby commercial supplier."
             },
             {
               "questionNumber": 130,
@@ -3742,7 +3782,8 @@
                 "C": "có thể chẩn đoán được",
                 "D": "chẩn đoán"
               },
-              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"For a $95 ------- fee, our mechanics will determine what repairs are needed.\" (Tạm dịch khi điền đáp án: \"For a $95 diagnostic fee, our mechanics will determine what repairs are needed.\"). Phương án (B) \"diagnostic\" (chẩn đoán) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa."
+              "explanation": "Xét cấu trúc ngữ pháp và ngữ cảnh câu: \"For a $95 ------- fee, our mechanics will determine what repairs are needed.\" (Tạm dịch khi điền đáp án: \"For a $95 diagnostic fee, our mechanics will determine what repairs are needed.\"). Phương án (B) \"diagnostic\" (chẩn đoán) hoàn thiện câu chính xác cả về từ loại lẫn ngữ nghĩa.",
+              "questionTextFull": "For a $95 diagnostic fee, our mechanics will determine what repairs are needed."
             }
           ]
         },
@@ -3764,10 +3805,12 @@
                       "translation": "Các câu hỏi 131-134 tham chiếu đến tờ rơi quảng cáo sau đây.",
                       "regions": [
                         {
-                          "x0": 99,
-                          "y0": 80,
-                          "x1": 1882,
-                          "y1": 132
+                          "x0": 21,
+                          "y0": 22,
+                          "x1": 224,
+                          "y1": 55,
+                          "xPct": 1.06,
+                          "yPct": 5.53
                         }
                       ],
                       "analysis": "Ghi chú: Câu chỉ dẫn loại văn bản là 'flyer' (tờ rơi quảng cáo dịch vụ)."
@@ -3778,10 +3821,12 @@
                       "translation": "Hãy tìm đến Riessler Landscaping cho mọi nhu cầu làm vườn của bạn",
                       "regions": [
                         {
-                          "x0": 99,
-                          "y0": 135,
-                          "x1": 1882,
-                          "y1": 191
+                          "x0": 74,
+                          "y0": 191,
+                          "x1": 164,
+                          "y1": 222,
+                          "xPct": 3.74,
+                          "yPct": 22.31
                         }
                       ],
                       "analysis": "Cấu trúc:\n* look to sb for sth: tìm đến ai/tin cậy vào ai để đáp ứng nhu cầu gì."
@@ -3792,85 +3837,131 @@
                       "translation": "Riessler Landscaping có mọi thứ bạn cần để kiến tạo khu vườn mơ ước của mình.",
                       "regions": [
                         {
-                          "x0": 99,
-                          "y0": 194,
-                          "x1": 1882,
-                          "y1": 277
+                          "x0": 78,
+                          "y0": 317,
+                          "x1": 227,
+                          "y1": 348,
+                          "xPct": 3.94,
+                          "yPct": 34.97
                         }
                       ],
                       "analysis": "Phân tích câu:\n* Riessler Landscaping has everything ( you need ): có mọi thứ bạn cần\n* to create your dream garden: để tạo nên khu vườn trong mơ của bạn."
                     },
                     {
                       "id": "s4",
-                      "text": "We will listen to your ideas and offer suggestions that match your gardening desires. — [131] —.",
-                      "translation": "Chúng tôi sẽ lắng nghe ý tưởng của bạn và đưa ra những gợi ý phù hợp với mong muốn làm vườn của bạn. — [131] —.",
+                      "text": "We will listen to your ideas and offer suggestions that match your gardening desires.",
+                      "translation": "Chúng tôi sẽ lắng nghe ý tưởng của bạn và đưa ra những gợi ý phù hợp với mong muốn làm vườn của bạn.",
                       "regions": [
                         {
-                          "x0": 99,
-                          "y0": 280,
-                          "x1": 1882,
-                          "y1": 390
+                          "x0": 1521,
+                          "y0": 312,
+                          "x1": 1581,
+                          "y1": 342,
+                          "xPct": 76.78,
+                          "yPct": 34.37
                         }
                       ],
-                      "analysis": "Phân tích câu:\n* We will listen to your ideas: Chúng tôi sẽ lắng nghe các ý tưởng của bạn\n* and offer suggestions that match your gardening desires: và đưa ra các đề xuất khớp với mong muốn làm vườn của bạn."
+                      "analysis": "Phân tích câu:\n* We will listen to your ideas = Chúng tôi sẽ lắng nghe các ý tưởng của bạn\n* and offer suggestions = và đưa ra những gợi ý/đề xuất\n* that match your gardening desires = phù hợp với mong muốn làm vườn của bạn\n\nCấu trúc:\n* match (v): khớp với, phù hợp với (= suit, fit)."
                     },
                     {
                       "id": "s5",
+                      "text": "— [131] —.",
+                      "translation": "— [131: Mục tiêu của Riessler Landscaping là biến tầm nhìn của bạn thành hiện thực.] —",
+                      "regions": [
+                        {
+                          "x0": 1267,
+                          "y0": 421,
+                          "x1": 1384,
+                          "y1": 469,
+                          "xPct": 63.96,
+                          "yPct": 47.14
+                        }
+                      ],
+                      "analysis": "Phân tích câu:\n* Riessler Landscaping's goal = Mục tiêu của công ty Riessler Landscaping\n* is to make your vision a reality = là biến tầm nhìn/ý tưởng của bạn thành hiện thực\n\nCấu trúc:\n* make + sth + a reality: biến điều gì đó thành hiện thực."
+                    },
+                    {
+                      "id": "s6",
                       "text": "The nursery here at Riessler Landscaping includes plants of many varieties and sizes that burst with eye-catching colors year-round.",
                       "translation": "Vườn ươm tại Riessler Landscaping có đủ các loại cây thuộc nhiều giống và kích cỡ khác nhau, rực rỡ sắc màu bắt mắt quanh năm.",
                       "regions": [
                         {
-                          "x0": 99,
-                          "y0": 393,
-                          "x1": 1882,
-                          "y1": 545
+                          "x0": 1400,
+                          "y0": 403,
+                          "x1": 1470,
+                          "y1": 434,
+                          "xPct": 70.67,
+                          "yPct": 43.62
                         }
                       ],
-                      "analysis": "Cấu trúc:\n* nursery (n): vườn ươm cây giống.\n* burst with eye-catching colors year-round: bừng nở sắc màu bắt mắt suốt quanh năm."
+                      "analysis": "Phân tích câu:\n* The nursery here at Riessler Landscaping = Vườn ươm tại Riessler Landscaping\n* includes plants of many varieties and sizes = bao gồm các loại cây thuộc nhiều giống và kích cỡ\n* that burst with eye-catching colors year-round = bừng nở sắc màu bắt mắt suốt quanh năm\n\nCấu trúc:\n* nursery (n): vườn ươm cây giống.\n* eye-catching (adj): bắt mắt, thu hút ánh nhìn."
                     },
                     {
-                      "id": "s6",
+                      "id": "s7",
                       "text": "You are guaranteed to find something that will add — [132] — to your garden.",
                       "translation": "Bạn chắc chắn sẽ tìm thấy thứ gì đó giúp tô điểm thêm — [132: vẻ đẹp] — cho khu vườn của mình.",
                       "regions": [
                         {
-                          "x0": 99,
-                          "y0": 548,
-                          "x1": 1882,
-                          "y1": 634
+                          "x0": 428,
+                          "y0": 590,
+                          "x1": 496,
+                          "y1": 621,
+                          "xPct": 21.61,
+                          "yPct": 62.41
                         }
                       ],
-                      "analysis": "Cấu trúc:\n* be guaranteed to V: được đảm bảo chắc chắn sẽ làm được gì.\n* add [beauty/value] to sth: mang lại/tăng thêm vẻ đẹp/giá trị cho cái gì."
-                    },
-                    {
-                      "id": "s7",
-                      "text": "We are — [133] — equipped to construct small ponds or other water features. And as our name suggests, we can take on more ambitious landscaping projects—whatever you need!",
-                      "translation": "Chúng tôi — [133: cũng] — được trang bị đầy đủ để xây dựng các hồ nước nhỏ hoặc các tiểu cảnh nước khác. Và đúng như tên gọi của mình, chúng tôi có thể đảm nhận những dự án thiết kế cảnh quan quy mô lớn hơn—bất cứ điều gì bạn cần!",
-                      "regions": [
-                        {
-                          "x0": 99,
-                          "y0": 637,
-                          "x1": 1882,
-                          "y1": 835
-                        }
-                      ],
-                      "analysis": "Cấu trúc:\n* be equipped to V: được trang bị đầy đủ để làm gì.\n* take on (phr.v): đảm nhận, gánh vác (dự án/công việc)."
+                      "analysis": "Phân tích câu:\n* You are guaranteed to find something = Bạn được đảm bảo chắc chắn sẽ tìm thấy thứ gì đó\n* that will add beauty to your garden = giúp mang lại/tô điểm thêm vẻ đẹp cho khu vườn của bạn\n\nCấu trúc:\n* be guaranteed to V: được đảm bảo chắc chắn sẽ làm gì.\n* add [beauty/value] to sth: tăng thêm vẻ đẹp/giá trị cho cái gì."
                     },
                     {
                       "id": "s8",
+                      "text": "We are — [133] — equipped to construct small ponds or other water features.",
+                      "translation": "Chúng tôi — [133: cũng] — được trang bị đầy đủ để xây dựng các hồ nước nhỏ hoặc các tiểu cảnh nước khác.",
+                      "regions": [
+                        {
+                          "x0": 1785,
+                          "y0": 584,
+                          "x1": 1845,
+                          "y1": 615,
+                          "xPct": 90.11,
+                          "yPct": 61.81
+                        }
+                      ],
+                      "analysis": "Phân tích câu:\n* We are also equipped = Chúng tôi cũng được trang bị đầy đủ\n* to construct small ponds or other water features = để thi công các hồ nước nhỏ hoặc các tiểu cảnh nước khác\n\nCấu trúc:\n* be equipped to V: được trang bị đầy đủ (thiết bị/năng lực) để làm gì."
+                    },
+                    {
+                      "id": "s9",
+                      "text": "And as our name suggests, we can take on more ambitious landscaping projects—whatever you need!",
+                      "translation": "Và đúng như tên gọi của mình, chúng tôi có thể đảm nhận những dự án thiết kế cảnh quan quy mô lớn hơn—bất cứ điều gì bạn cần!",
+                      "regions": [
+                        {
+                          "x0": 1359,
+                          "y0": 677,
+                          "x1": 1431,
+                          "y1": 708,
+                          "xPct": 68.6,
+                          "yPct": 71.16
+                        }
+                      ],
+                      "analysis": "Phân tích câu:\n* And as our name suggests = Và đúng như tên gọi của chúng tôi gợi ý\n* we can take on more ambitious landscaping projects = chúng tôi có thể đảm nhận những dự án thiết kế cảnh quan quy mô/tham vọng hơn\n\nCấu trúc:\n* take on (phr.v): đảm nhận, nhận làm (công việc/dự án)."
+                    },
+                    {
+                      "id": "s10",
                       "text": "With more than 40 years in the landscape-design business, — [134] — expertise is unmatched.",
                       "translation": "Với hơn 40 năm hoạt động trong lĩnh vực thiết kế cảnh quan, chuyên môn — [134: của chúng tôi] — là không ai sánh kịp.",
                       "regions": [
                         {
-                          "x0": 99,
-                          "y0": 838,
-                          "x1": 1882,
-                          "y1": 942
+                          "x0": 1482,
+                          "y0": 768,
+                          "x1": 1563,
+                          "y1": 799,
+                          "xPct": 74.81,
+                          "yPct": 80.3
                         }
                       ],
-                      "analysis": "Cấu trúc:\n* expertise (n): trình độ chuyên môn sâu.\n* unmatched (adj): vô song, không đối thủ nào sánh kịp."
+                      "analysis": "Phân tích câu:\n* With more than 40 years in the landscape-design business = Với hơn 40 năm kinh nghiệm trong ngành thiết kế cảnh quan\n* our expertise is unmatched = trình độ chuyên môn của chúng tôi là vô song/không đối thủ nào sánh kịp\n\nCấu trúc:\n* expertise (n): trình độ chuyên môn sâu.\n* unmatched (adj): không ai sánh kịp (= unrivaled, unparalleled)."
                     }
-                  ]
+                  ],
+                  "imageWidth": 1981,
+                  "imageHeight": 995
                 }
               ],
               "questions": [
@@ -3973,10 +4064,12 @@
                       "analysis": "Ghi chú: Thư chúc mừng kỷ niệm 30 năm làm việc từ Phó Chủ tịch Nhân sự gửi nhân viên Cindy Mulligan.",
                       "regions": [
                         {
-                          "x0": 98,
-                          "y0": 147,
-                          "x1": 1860,
-                          "y1": 432
+                          "x0": 24,
+                          "y0": 18,
+                          "x1": 227,
+                          "y1": 51,
+                          "xPct": 1.23,
+                          "yPct": 2.78
                         }
                       ]
                     },
@@ -3987,10 +4080,12 @@
                       "analysis": "Cấu trúc:\n* contribute greatly to sth: đóng góp to lớn vào cái gì.",
                       "regions": [
                         {
-                          "x0": 98,
-                          "y0": 435,
-                          "x1": 1860,
-                          "y1": 833
+                          "x0": 76,
+                          "y0": 759,
+                          "x1": 136,
+                          "y1": 790,
+                          "xPct": 3.88,
+                          "yPct": 43.1
                         }
                       ]
                     },
@@ -4001,10 +4096,12 @@
                       "analysis": "Cấu trúc:\n* Over the years + S + have/has + V3/ed: dấu hiệu kinh điển của thì hiện tại hoàn thành.",
                       "regions": [
                         {
-                          "x0": 98,
-                          "y0": 836,
-                          "x1": 1860,
-                          "y1": 1107
+                          "x0": 1752,
+                          "y0": 856,
+                          "x1": 1813,
+                          "y1": 887,
+                          "xPct": 89.48,
+                          "yPct": 48.39
                         }
                       ]
                     },
@@ -4015,14 +4112,18 @@
                       "analysis": "Cấu trúc:\n* commemorative plaque (n): bảng vinh danh kỷ niệm.\n* token of our gratitude: món quà/biểu tượng thể hiện lòng biết ơn.\n* reach a milestone: đạt tới một cột mốc quan trọng.",
                       "regions": [
                         {
-                          "x0": 98,
-                          "y0": 1110,
-                          "x1": 1860,
-                          "y1": 1738
+                          "x0": 75,
+                          "y0": 1159,
+                          "x1": 143,
+                          "y1": 1190,
+                          "xPct": 3.83,
+                          "yPct": 64.92
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "imageWidth": 1958,
+                  "imageHeight": 1833
                 }
               ],
               "questions": [
@@ -4125,10 +4226,12 @@
                       "analysis": "Ghi chú: Email từ nhà thiết kế nội thất Ali Chaleby gửi khách hàng Kay Berman.",
                       "regions": [
                         {
-                          "x0": 99,
-                          "y0": 120,
-                          "x1": 1882,
-                          "y1": 481
+                          "x0": 21,
+                          "y0": 25,
+                          "x1": 223,
+                          "y1": 59,
+                          "xPct": 1.06,
+                          "yPct": 3.94
                         }
                       ]
                     },
@@ -4139,10 +4242,12 @@
                       "analysis": "Cấu trúc:\n* be in the process of + V-ing: đang trong quá trình làm việc gì.",
                       "regions": [
                         {
-                          "x0": 99,
-                          "y0": 484,
-                          "x1": 1882,
-                          "y1": 824
+                          "x0": 81,
+                          "y0": 584,
+                          "x1": 169,
+                          "y1": 615,
+                          "xPct": 4.09,
+                          "yPct": 41.11
                         }
                       ]
                     },
@@ -4153,10 +4258,12 @@
                       "analysis": "Cấu trúc:\n* refine the design: tinh chỉnh / hoàn thiện thêm bản thiết kế.",
                       "regions": [
                         {
-                          "x0": 99,
-                          "y0": 827,
-                          "x1": 1882,
-                          "y1": 1181
+                          "x0": 1391,
+                          "y0": 793,
+                          "x1": 1515,
+                          "y1": 824,
+                          "xPct": 70.22,
+                          "yPct": 55.08
                         }
                       ]
                     },
@@ -4167,14 +4274,18 @@
                       "analysis": "Cấu trúc:\n* Please let me know if...: Vui lòng cho tôi biết nếu...",
                       "regions": [
                         {
-                          "x0": 99,
-                          "y0": 1184,
-                          "x1": 1882,
-                          "y1": 1418
+                          "x0": 85,
+                          "y0": 1111,
+                          "x1": 208,
+                          "y1": 1141,
+                          "xPct": 4.29,
+                          "yPct": 76.27
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "imageWidth": 1981,
+                  "imageHeight": 1496
                 }
               ],
               "questions": [
@@ -4277,10 +4388,12 @@
                       "analysis": "Ghi chú: Email chăm sóc bệnh nhân sau buổi khám từ Phòng khám Đa khoa Kaymar (Kaymar Primary Care Practice).",
                       "regions": [
                         {
-                          "x0": 98,
-                          "y0": 132,
-                          "x1": 1852,
-                          "y1": 461
+                          "x0": 29,
+                          "y0": 18,
+                          "x1": 231,
+                          "y1": 51,
+                          "xPct": 1.49,
+                          "yPct": 3.09
                         }
                       ]
                     },
@@ -4291,10 +4404,12 @@
                       "analysis": "Cấu trúc:\n* find + O + Adj (bổ ngữ của tân ngữ): cảm thấy cái gì như thế nào ('found our services satisfactory').",
                       "regions": [
                         {
-                          "x0": 98,
-                          "y0": 464,
-                          "x1": 1852,
-                          "y1": 782
+                          "x0": 82,
+                          "y0": 509,
+                          "x1": 170,
+                          "y1": 540,
+                          "xPct": 4.21,
+                          "yPct": 32.75
                         }
                       ]
                     },
@@ -4305,10 +4420,12 @@
                       "analysis": "Cấu trúc:\n* a summary of your consultation: bản tóm tắt nội dung buổi tư vấn khám bệnh.",
                       "regions": [
                         {
-                          "x0": 98,
-                          "y0": 785,
-                          "x1": 1852,
-                          "y1": 1053
+                          "x0": 78,
+                          "y0": 853,
+                          "x1": 138,
+                          "y1": 884,
+                          "xPct": 4,
+                          "yPct": 53.61
                         }
                       ]
                     },
@@ -4319,14 +4436,18 @@
                       "analysis": "Cấu trúc:\n* For instance (= For example): Ví dụ như, chẳng hạn như.\n* medication refills: việc lấy/cấp thêm thuốc theo đơn cũ.",
                       "regions": [
                         {
-                          "x0": 98,
-                          "y0": 1056,
-                          "x1": 1852,
-                          "y1": 1564
+                          "x0": 76,
+                          "y0": 1070,
+                          "x1": 123,
+                          "y1": 1101,
+                          "xPct": 3.9,
+                          "yPct": 66.77
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "imageWidth": 1950,
+                  "imageHeight": 1649
                 }
               ],
               "questions": [
@@ -4432,10 +4553,12 @@
                       "translation": "Các câu hỏi 147-148 tham chiếu đến thông báo sau đây.",
                       "regions": [
                         {
-                          "x0": 97,
-                          "y0": 54,
-                          "x1": 1835,
-                          "y1": 89
+                          "x0": 125,
+                          "y0": 23,
+                          "x1": 327,
+                          "y1": 57,
+                          "xPct": 6.47,
+                          "yPct": 8.52
                         }
                       ],
                       "analysis": "Ghi chú: Câu dẫn giới thiệu thông báo dành cho cư dân."
@@ -4446,10 +4569,12 @@
                       "translation": "Kính gửi Cư dân Chung cư High View,",
                       "regions": [
                         {
-                          "x0": 97,
-                          "y0": 92,
-                          "x1": 1835,
-                          "y1": 117
+                          "x0": 224,
+                          "y0": 109,
+                          "x1": 320,
+                          "y1": 141,
+                          "xPct": 11.59,
+                          "yPct": 21.08
                         }
                       ],
                       "analysis": "Ghi chú: Lời chào mở đầu thông báo gửi đến cư dân tòa nhà High View Apartments."
@@ -4460,10 +4585,12 @@
                       "translation": "Công ty Lát đường Riverside sẽ đến Chung cư High View vào ngày 3 và 4 tháng 5 để trải lại mặt đường khu vực bãi đỗ xe.",
                       "regions": [
                         {
-                          "x0": 97,
-                          "y0": 120,
-                          "x1": 1835,
-                          "y1": 200
+                          "x0": 224,
+                          "y0": 186,
+                          "x1": 410,
+                          "y1": 220,
+                          "xPct": 11.59,
+                          "yPct": 32.88
                         }
                       ],
                       "analysis": "Phân tích câu:\n* Riverside Paving Company is coming to High View Apartments on May 3 and 4: Công ty Riverside Paving sẽ đến chung cư vào ngày 3 và 4/5\n* to resurface the parking area: để làm lại/trải lại bề mặt khu vực đỗ xe.\nCấu trúc:\n* resurface (v): lát lại, trải lại mặt đường/bề mặt."
@@ -4474,10 +4601,12 @@
                       "translation": "Tất cả các phương tiện phải được di dời trước 8 giờ sáng ngày 3 tháng 5 để công việc bắt đầu. Cư dân có thể sử dụng lại bãi đỗ xe bắt đầu từ 8 giờ sáng ngày 5 tháng 5.",
                       "regions": [
                         {
-                          "x0": 97,
-                          "y0": 203,
-                          "x1": 1835,
-                          "y1": 313
+                          "x0": 785,
+                          "y0": 227,
+                          "x1": 843,
+                          "y1": 259,
+                          "xPct": 40.63,
+                          "yPct": 38.71
                         }
                       ],
                       "analysis": "Cấu trúc:\n* commence (v): bắt đầu, khởi công (= begin, start).\n* by + [mốc thời gian]: trước hoặc muộn nhất là vào lúc nào."
@@ -4488,10 +4617,12 @@
                       "translation": "Chúng tôi hiểu rằng việc phải tìm một nơi đỗ xe khác là rất bất tiện, nhưng điều đó là cần thiết để công việc có thể hoàn thành đúng trong hai ngày đã lên lịch.",
                       "regions": [
                         {
-                          "x0": 97,
+                          "x0": 352,
                           "y0": 316,
-                          "x1": 1835,
-                          "y1": 427
+                          "x1": 413,
+                          "y1": 348,
+                          "xPct": 18.22,
+                          "yPct": 52.02
                         }
                       ],
                       "analysis": "Cấu trúc:\n* inconvenient (adj): bất tiện.\n* in the two days scheduled: trong vòng hai ngày theo lịch trình."
@@ -4502,10 +4633,12 @@
                       "translation": "Xin lưu ý rằng tất cả các ô đỗ xe sẽ được mở rộng, và một số ô đỗ xe có thể bị dịch chuyển vị trí trong quá trình thi công. Bạn sẽ nhận được một email nếu chỗ đỗ xe của bạn bị dời đi xa hơn 20 mét so với vị trí trước đây của bạn.",
                       "regions": [
                         {
-                          "x0": 97,
-                          "y0": 430,
-                          "x1": 1835,
-                          "y1": 582
+                          "x0": 1640,
+                          "y0": 352,
+                          "x1": 1732,
+                          "y1": 384,
+                          "xPct": 84.89,
+                          "yPct": 57.4
                         }
                       ],
                       "analysis": "Phân tích câu:\n* all parking spaces will be widened: tất cả các ô đỗ xe sẽ được nới rộng\n* if your parking space is moved more than 20 meters from your previous one: nếu ô đỗ xe của riêng bạn bị dịch chuyển quá 20 mét so với ô cũ (dẫn chứng cho thấy mỗi cư dân được phân bổ ô đỗ xe cố định)."
@@ -4516,15 +4649,19 @@
                       "translation": "Cảm ơn sự hợp tác của quý cư dân, Judith Alvarez, Quản lý Tòa nhà",
                       "regions": [
                         {
-                          "x0": 97,
-                          "y0": 585,
-                          "x1": 1835,
-                          "y1": 633
+                          "x0": 227,
+                          "y0": 568,
+                          "x1": 356,
+                          "y1": 601,
+                          "xPct": 11.75,
+                          "yPct": 89.84
                         }
                       ],
                       "analysis": "Ghi chú: Lời cảm ơn và chữ ký của Quản lý tòa nhà Judith Alvarez."
                     }
-                  ]
+                  ],
+                  "imageWidth": 1932,
+                  "imageHeight": 669
                 }
               ],
               "questions": [
@@ -4585,10 +4722,12 @@
                       "analysis": "Ghi chú: Lời chào mở đầu chuỗi tin nhắn giữa Carol Barger và Leakhena Seang.",
                       "regions": [
                         {
-                          "x0": 83,
-                          "y0": 148,
-                          "x1": 1572,
-                          "y1": 454
+                          "x0": 19,
+                          "y0": 19,
+                          "x1": 221,
+                          "y1": 52,
+                          "xPct": 1.15,
+                          "yPct": 2.8
                         }
                       ]
                     },
@@ -4599,10 +4738,12 @@
                       "analysis": "Phân tích câu:\n* enrolled in your mosaic workshop tomorrow: đăng ký lớp học làm tranh ghép mảnh do bà Seang đứng lớp hướng dẫn (dẫn chứng câu 149).",
                       "regions": [
                         {
-                          "x0": 83,
-                          "y0": 457,
-                          "x1": 1572,
-                          "y1": 948
+                          "x0": 507,
+                          "y0": 625,
+                          "x1": 609,
+                          "y1": 657,
+                          "xPct": 30.63,
+                          "yPct": 35.4
                         }
                       ]
                     },
@@ -4613,14 +4754,18 @@
                       "analysis": "Cấu trúc:\n* plenty to go around: có rất nhiều, đủ để chia đều cho tất cả mọi người tham gia (dẫn chứng câu 150).",
                       "regions": [
                         {
-                          "x0": 83,
-                          "y0": 951,
-                          "x1": 1572,
-                          "y1": 1760
+                          "x0": 552,
+                          "y0": 1013,
+                          "x1": 744,
+                          "y1": 1046,
+                          "xPct": 33.35,
+                          "yPct": 56.36
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "imageWidth": 1655,
+                  "imageHeight": 1856
                 }
               ],
               "questions": [
@@ -4681,10 +4826,12 @@
                       "analysis": "Ghi chú: Email nội bộ từ Quản lý Kinh doanh Laura Correa gửi đội ngũ bán hàng.",
                       "regions": [
                         {
-                          "x0": 102,
-                          "y0": 126,
-                          "x1": 1938,
-                          "y1": 297
+                          "x0": 123,
+                          "y0": 29,
+                          "x1": 325,
+                          "y1": 63,
+                          "xPct": 6.03,
+                          "yPct": 4.01
                         }
                       ]
                     },
@@ -4695,10 +4842,12 @@
                       "analysis": "Cấu trúc:\n* consistently strong: mạnh mẽ/tốt một cách ổn định.",
                       "regions": [
                         {
-                          "x0": 102,
-                          "y0": 300,
-                          "x1": 1938,
-                          "y1": 707
+                          "x0": 277,
+                          "y0": 547,
+                          "x1": 362,
+                          "y1": 576,
+                          "xPct": 13.58,
+                          "yPct": 36.69
                         }
                       ]
                     },
@@ -4709,10 +4858,12 @@
                       "analysis": "Phân tích câu:\n* Jasen Norton will transfer to our Kingston headquarters next month: chuyển đến làm việc tại một chi nhánh/địa điểm khác của công ty (dẫn chứng câu 151).",
                       "regions": [
                         {
-                          "x0": 102,
-                          "y0": 710,
-                          "x1": 1938,
-                          "y1": 1004
+                          "x0": 281,
+                          "y0": 878,
+                          "x1": 315,
+                          "y1": 907,
+                          "xPct": 13.77,
+                          "yPct": 57.77
                         }
                       ]
                     },
@@ -4723,14 +4874,18 @@
                       "analysis": "Phân tích câu:\n* Let me know by 12 October whether you will be able to attend: báo cho bà Correa biết về kế hoạch tham dự sự kiện tiệc chia tay (dẫn chứng câu 152).",
                       "regions": [
                         {
-                          "x0": 102,
-                          "y0": 1007,
-                          "x1": 1938,
-                          "y1": 1488
+                          "x0": 283,
+                          "y0": 1066,
+                          "x1": 384,
+                          "y1": 1095,
+                          "xPct": 13.87,
+                          "yPct": 69.75
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "imageWidth": 2040,
+                  "imageHeight": 1570
                 }
               ],
               "questions": [
@@ -4791,10 +4946,12 @@
                       "analysis": "Phân tích câu:\n* The 40-year-old Crown Coastal Theater is scheduled to reopen in June: thông báo về việc mở cửa hoạt động trở lại của một cơ sở kinh doanh (dẫn chứng câu 153).",
                       "regions": [
                         {
-                          "x0": 68,
-                          "y0": 106,
-                          "x1": 1285,
-                          "y1": 403
+                          "x0": 18,
+                          "y0": 18,
+                          "x1": 221,
+                          "y1": 51,
+                          "xPct": 1.33,
+                          "yPct": 3.83
                         }
                       ]
                     },
@@ -4805,10 +4962,12 @@
                       "analysis": "Cấu trúc:\n* cite the cost of needed renovations: viện dẫn lý do chi phí cải tạo cần thiết.",
                       "regions": [
                         {
-                          "x0": 68,
-                          "y0": 406,
-                          "x1": 1285,
-                          "y1": 698
+                          "x0": 1233,
+                          "y0": 426,
+                          "x1": 1331,
+                          "y1": 464,
+                          "xPct": 91.13,
+                          "yPct": 34.86
                         }
                       ]
                     },
@@ -4819,14 +4978,18 @@
                       "analysis": "Phân tích câu:\n* The friends, who also own the popular Blue Bay Bistro, decided to buy the theater: Morgan Flanagan và Christine Lafferty cùng sở hữu nhà hàng Blue Bay Bistro và cùng mua lại rạp chiếu phim -> họ là đối tác kinh doanh của nhau (dẫn chứng câu 154).",
                       "regions": [
                         {
-                          "x0": 68,
-                          "y0": 701,
-                          "x1": 1285,
-                          "y1": 1261
+                          "x0": 532,
+                          "y0": 769,
+                          "x1": 687,
+                          "y1": 801,
+                          "xPct": 39.32,
+                          "yPct": 60.18
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "imageWidth": 1353,
+                  "imageHeight": 1331
                 }
               ],
               "questions": [
@@ -4886,10 +5049,12 @@
                       "translation": "Các câu hỏi 155-157 tham chiếu đến bức thư điện tử (e-mail) sau đây.",
                       "regions": [
                         {
-                          "x0": 96,
-                          "y0": 130,
-                          "x1": 1833,
-                          "y1": 184
+                          "x0": 19,
+                          "y0": 27,
+                          "x1": 221,
+                          "y1": 61,
+                          "xPct": 0.98,
+                          "yPct": 3.77
                         }
                       ],
                       "analysis": "Ghi chú: Câu dẫn giới thiệu email từ đại diện bán hàng gửi cho khách hàng."
@@ -4900,10 +5065,12 @@
                       "translation": "Người nhận: Randi Longfellow | Người gửi: Deon Welman | Ngày: 27 tháng 3 | Chủ đề: Mẫu kính thiên văn Makatasi METX-33948",
                       "regions": [
                         {
-                          "x0": 96,
-                          "y0": 187,
-                          "x1": 1833,
-                          "y1": 378
+                          "x0": 167,
+                          "y0": 246,
+                          "x1": 222,
+                          "y1": 276,
+                          "xPct": 8.66,
+                          "yPct": 17.05
                         }
                       ],
                       "analysis": "Ghi chú: Tiêu đề email xác nhận thông tin đơn hàng mã METX-33948."
@@ -4914,10 +5081,12 @@
                       "translation": "Kính gửi bà Longfellow, Cảm ơn bà đã đặt mua Kính thiên văn Khúc xạ Ba lớp Makatasi ETX, mẫu METX-33948. Rất tiếc, mặt hàng bà yêu cầu hiện đang tạm hết hàng (chờ nhập thêm). — [1] —.",
                       "regions": [
                         {
-                          "x0": 96,
-                          "y0": 381,
-                          "x1": 1833,
-                          "y1": 584
+                          "x0": 167,
+                          "y0": 551,
+                          "x1": 252,
+                          "y1": 580,
+                          "xPct": 8.66,
+                          "yPct": 35.82
                         }
                       ],
                       "analysis": "Cấu trúc:\n* be on back order: đang tạm hết hàng trong kho nhưng đã đặt nhà sản xuất (chờ hàng về)."
@@ -4928,10 +5097,12 @@
                       "translation": "Nếu bà không muốn chờ đợi, chúng tôi hiện có một mẫu kính thiên văn tương tự do một hãng khác sản xuất là Belter Telescopes. Giống như mẫu Makatasi bà đã đặt, chiếc Belter BTR-1483 có khẩu độ 120 mm và loa che nắng ống kính có thể thu gọn. — [2] —.",
                       "regions": [
                         {
-                          "x0": 96,
-                          "y0": 587,
-                          "x1": 1833,
-                          "y1": 855
+                          "x0": 1660,
+                          "y0": 676,
+                          "x1": 1690,
+                          "y1": 706,
+                          "xPct": 86.05,
+                          "yPct": 43.61
                         }
                       ],
                       "analysis": "Phân tích câu:\n* If you would prefer not to wait: Nếu bà không muốn phải chờ đợi\n* we have a similar telescope made by another manufacturer: chúng tôi có một mẫu kính thiên văn tương tự của nhà sản xuất khác\n* the Belter BTR-1483 has a 120 mm aperture and a retractable lens hood: nêu các thông số kỹ thuật cụ thể của sản phẩm (liên kết trực tiếp với câu cần điền ở vị trí [2] nói về danh sách đầy đủ các thông số kỹ thuật 'specifications')."
@@ -4942,10 +5113,12 @@
                       "translation": "Thêm vào đó, tất cả các kính thiên văn Belter đều bao gồm một túi đựng có đệm lót bảo vệ. Mẫu Belter BTR-1483 có giá thấp hơn 200 đô la so với mẫu Makatasi METX-33948.",
                       "regions": [
                         {
-                          "x0": 96,
-                          "y0": 858,
-                          "x1": 1833,
-                          "y1": 1013
+                          "x0": 1202,
+                          "y0": 823,
+                          "x1": 1235,
+                          "y1": 852,
+                          "xPct": 62.31,
+                          "yPct": 52.63
                         }
                       ],
                       "analysis": "Cấu trúc:\n* padded carrying case (n): hộp/túi đựng có lớp đệm bảo vệ (= protective case)."
@@ -4956,15 +5129,19 @@
                       "translation": "Nếu bà muốn thay đổi đơn hàng của mình, chỉ cần phản hồi email này trong vòng 48 giờ hoặc truy cập trang web của chúng tôi để trò chuyện với nhân viên tư vấn. Sau đó chúng tôi sẽ đổi đơn hàng, hoàn lại 200 đô la vào thẻ tín dụng của bà, và gửi chuyển phát nhanh kính thiên văn mới qua đêm mà không tính thêm phí. — [3] —. Nếu không, chúng tôi sẽ thông báo cho bà khi mẫu Makatasi METX-33948 có hàng trở lại và cung cấp thông tin giao hàng vào thời điểm đó. — [4] —.",
                       "regions": [
                         {
-                          "x0": 96,
-                          "y0": 1016,
-                          "x1": 1833,
-                          "y1": 1535
+                          "x0": 173,
+                          "y0": 1022,
+                          "x1": 203,
+                          "y1": 1052,
+                          "xPct": 8.97,
+                          "yPct": 64.98
                         }
                       ],
                       "analysis": "Cấu trúc:\n* revise an order: điều chỉnh/thay đổi đơn đặt hàng.\n* at no extra charge: không mất thêm phụ phí.\n* back in stock: có hàng trở lại trong kho."
                     }
-                  ]
+                  ],
+                  "imageWidth": 1929,
+                  "imageHeight": 1619
                 }
               ],
               "questions": [
@@ -5044,10 +5221,12 @@
                       "analysis": "Ghi chú: Email phản hồi tự động (out-of-office reply) của Jan Delpit gửi cho Sun-Hi Myo.",
                       "regions": [
                         {
-                          "x0": 104,
-                          "y0": 104,
-                          "x1": 1980,
-                          "y1": 308
+                          "x0": 186,
+                          "y0": 18,
+                          "x1": 388,
+                          "y1": 51,
+                          "xPct": 8.93,
+                          "yPct": 3.91
                         }
                       ]
                     },
@@ -5058,10 +5237,12 @@
                       "analysis": "Phân tích câu:\n* I am currently on holiday and will return to the office on 15 March: báo cho người gửi biết ông Delpit hiện không có mặt ở văn phòng (dẫn chứng câu 158).",
                       "regions": [
                         {
-                          "x0": 104,
-                          "y0": 311,
-                          "x1": 1980,
-                          "y1": 490
+                          "x0": 296,
+                          "y0": 452,
+                          "x1": 403,
+                          "y1": 487,
+                          "xPct": 14.2,
+                          "yPct": 37.38
                         }
                       ]
                     },
@@ -5072,10 +5253,12 @@
                       "analysis": "Cấu trúc:\n* during my absence: trong thời gian tôi vắng mặt.\n* open position: vị trí công việc đang tuyển dụng.",
                       "regions": [
                         {
-                          "x0": 104,
-                          "y0": 493,
-                          "x1": 1980,
-                          "y1": 861
+                          "x0": 294,
+                          "y0": 666,
+                          "x1": 325,
+                          "y1": 696,
+                          "xPct": 14.11,
+                          "yPct": 53.42
                         }
                       ]
                     },
@@ -5086,14 +5269,18 @@
                       "analysis": "Phân tích câu:\n* our new graphic design software program will be released on 2 April: một sản phẩm mới sẽ được ra mắt vào ngày 2/4 (dẫn chứng câu 159)\n* There [at www.hamerkoptech.co.nz], you may also sign up to receive our weekly newsletter: đăng ký nhận bản tin bằng cách truy cập trang web (dẫn chứng câu 160).",
                       "regions": [
                         {
-                          "x0": 104,
-                          "y0": 864,
-                          "x1": 1980,
-                          "y1": 1235
+                          "x0": 292,
+                          "y0": 883,
+                          "x1": 522,
+                          "y1": 923,
+                          "xPct": 14.01,
+                          "yPct": 70.84
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "imageWidth": 2084,
+                  "imageHeight": 1303
                 }
               ],
               "questions": [
@@ -5173,10 +5360,12 @@
                       "analysis": "Phân tích câu:\n* Vimalo Brands... will soon offer something new for its customers: frozen foods: công bố ra mắt dòng sản phẩm mới là thực phẩm đông lạnh Nutridinna (dẫn chứng câu 161).",
                       "regions": [
                         {
-                          "x0": 95,
-                          "y0": 75,
-                          "x1": 1804,
-                          "y1": 310
+                          "x0": 124,
+                          "y0": 25,
+                          "x1": 326,
+                          "y1": 60,
+                          "xPct": 6.53,
+                          "yPct": 6.42
                         }
                       ]
                     },
@@ -5187,10 +5376,12 @@
                       "analysis": "Phân tích câu:\n* is not just about convenience: không chỉ đơn thuần là về sự tiện lợi ('just' = 'only' -> dẫn chứng câu 162)\n* ensures that our products retain their texture and flavour as well as their healthy vitamins and minerals: giữ nguyên vitamin và khoáng chất bổ dưỡng như thực phẩm tươi (dẫn chứng câu 163).",
                       "regions": [
                         {
-                          "x0": 95,
-                          "y0": 313,
-                          "x1": 1804,
-                          "y1": 572
+                          "x0": 978,
+                          "y0": 545,
+                          "x1": 1063,
+                          "y1": 576,
+                          "xPct": 51.5,
+                          "yPct": 61.67
                         }
                       ]
                     },
@@ -5201,14 +5392,18 @@
                       "analysis": "Cấu trúc:\n* flash-freeze freshly harvested vegetables at their peak of ripeness: cấp đông siêu tốc rau củ vừa mới thu hoạch ngay khi đạt độ chín ngon nhất.",
                       "regions": [
                         {
-                          "x0": 95,
-                          "y0": 575,
-                          "x1": 1804,
-                          "y1": 884
+                          "x0": 1179,
+                          "y0": 258,
+                          "x1": 1303,
+                          "y1": 286,
+                          "xPct": 62.09,
+                          "yPct": 30.62
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "imageWidth": 1899,
+                  "imageHeight": 934
                 }
               ],
               "questions": [
@@ -5287,10 +5482,12 @@
                       "translation": "Các câu hỏi 164-167 tham chiếu đến mẫu quảng cáo tuyển dụng sau đây.",
                       "regions": [
                         {
-                          "x0": 96,
-                          "y0": 126,
-                          "x1": 1825,
-                          "y1": 213
+                          "x0": 19,
+                          "y0": 19,
+                          "x1": 221,
+                          "y1": 52,
+                          "xPct": 0.99,
+                          "yPct": 3.3
                         }
                       ],
                       "analysis": "Ghi chú: Câu chỉ dẫn loại văn bản là quảng cáo ('advertisement')."
@@ -5301,10 +5498,12 @@
                       "translation": "Karning Creative Designs có một lượng khách hàng ổn định và đa dạng, những người luôn đánh giá cao phương pháp tiếp cận năng động của chúng tôi trong lĩnh vực thiết kế đồ họa, quảng cáo và xây dựng thương hiệu.",
                       "regions": [
                         {
-                          "x0": 96,
-                          "y0": 216,
-                          "x1": 1825,
-                          "y1": 442
+                          "x0": 1144,
+                          "y0": 512,
+                          "x1": 1311,
+                          "y1": 552,
+                          "xPct": 59.55,
+                          "yPct": 35.05
                         }
                       ],
                       "analysis": "Cấu trúc:\n* clientele (n): tập khách hàng.\n* dynamic approach to sth: cách tiếp cận năng động đối với lĩnh vực gì."
@@ -5315,10 +5514,12 @@
                       "translation": "Dưới sự dẫn dắt của Giám đốc điều hành kiêm nhà sáng lập Shirin Navani, công ty khởi đầu cách đây mười năm chỉ với hai thành viên nay đã tuyển dụng 25 nhân viên toàn thời gian tại các xưởng thiết kế ngập tràn ánh nắng ở trung tâm thành phố Hollinson.",
                       "regions": [
                         {
-                          "x0": 96,
-                          "y0": 445,
-                          "x1": 1825,
-                          "y1": 745
+                          "x0": 217,
+                          "y0": 677,
+                          "x1": 256,
+                          "y1": 707,
+                          "xPct": 11.3,
+                          "yPct": 44.89
                         }
                       ],
                       "analysis": "Phân tích câu:\n* Under the leadership of our CEO and founder Shirin Navani: Dưới sự lãnh đạo của CEO kiêm nhà sáng lập Shirin Navani (dẫn chứng câu 164)\n* what began ten years ago as a two-person operation: những gì bắt đầu cách đây 10 năm như một cơ sở chỉ có 2 người (dẫn chứng câu 165)\n* now employs 25 full-time staff: hiện có 25 nhân viên toàn thời gian."
@@ -5329,10 +5530,12 @@
                       "translation": "Do sự phát triển không ngừng của công ty, chúng tôi đang tìm kiếm thêm một nhà thiết kế đồ họa mới vào nghề (entry-level) cho đội ngũ của mình. Chúng tôi sẽ đào tạo ứng viên phù hợp, người bắt buộc phải có tính sáng tạo, nhiệt huyết và có khả năng phối hợp làm việc nhóm trong các dự án.",
                       "regions": [
                         {
-                          "x0": 96,
-                          "y0": 748,
-                          "x1": 1825,
-                          "y1": 1102
+                          "x0": 241,
+                          "y0": 830,
+                          "x1": 397,
+                          "y1": 864,
+                          "xPct": 12.55,
+                          "yPct": 54.86
                         }
                       ],
                       "analysis": "Phân tích câu:\n* add an entry-level graphic designer: tuyển thêm một thiết kế viên cấp độ mới vào nghề\n* who must be creative, enthusiastic, and able to collaborate on projects as part of a team: người phải sáng tạo, nhiệt tình và có khả năng hợp tác làm việc nhóm (dẫn chứng câu 166)."
@@ -5343,15 +5546,19 @@
                       "translation": "Ứng viên cũng phải có tối thiểu bằng cao đẳng chuyên ngành thiết kế hoặc nghệ thuật thị giác. Để ứng tuyển, vui lòng gửi sơ yếu lý lịch (CV) và đường dẫn hồ sơ năng lực trực tuyến tới Giám đốc Sáng tạo Salvador Tomassin. Hồ sơ ứng tuyển phải được gửi đến trước hoặc trong ngày 31 tháng 3.",
                       "regions": [
                         {
-                          "x0": 96,
-                          "y0": 1105,
-                          "x1": 1825,
-                          "y1": 1493
+                          "x0": 1041,
+                          "y0": 1176,
+                          "x1": 1233,
+                          "y1": 1213,
+                          "xPct": 54.19,
+                          "yPct": 77.02
                         }
                       ],
                       "analysis": "Cấu trúc:\n* associate's degree (n): bằng cao đẳng.\n* Applications must be received by March 31: hạn chót nhận hồ sơ là ngày 31 tháng 3 (dẫn chứng câu 167)."
                     }
-                  ]
+                  ],
+                  "imageWidth": 1921,
+                  "imageHeight": 1575
                 }
               ],
               "questions": [
@@ -5450,10 +5657,12 @@
                       "analysis": "Phân tích câu:\n* extensive damage to the kitchen: hư hại diện rộng đối với nhà bếp\n* A significant amount of work needed to be done in the kitchen and dining areas: cần sửa chữa/cải tạo lớn (dẫn chứng câu 168 & câu điền [1] câu 171).",
                       "regions": [
                         {
-                          "x0": 68,
-                          "y0": 119,
-                          "x1": 1296,
-                          "y1": 542
+                          "x0": 18,
+                          "y0": 22,
+                          "x1": 221,
+                          "y1": 56,
+                          "xPct": 1.32,
+                          "yPct": 3.77
                         }
                       ]
                     },
@@ -5464,10 +5673,12 @@
                       "analysis": "Phân tích câu:\n* We needed to add staff there temporarily: Chợ Ý Marco cần tuyển thêm nhân viên thời vụ trong mùa bận rộn (dẫn chứng câu 169).",
                       "regions": [
                         {
-                          "x0": 68,
-                          "y0": 545,
-                          "x1": 1296,
-                          "y1": 1045
+                          "x0": 543,
+                          "y0": 535,
+                          "x1": 662,
+                          "y1": 574,
+                          "xPct": 39.81,
+                          "yPct": 38.6
                         }
                       ]
                     },
@@ -5478,14 +5689,18 @@
                       "analysis": "Phân tích câu:\n* Guests will enjoy live music and a new tasting menu: phục vụ các món ăn đặc biệt trong thực đơn mới vào ngày 25/6 (dẫn chứng câu 170).",
                       "regions": [
                         {
-                          "x0": 68,
-                          "y0": 1048,
-                          "x1": 1296,
-                          "y1": 1410
+                          "x0": 546,
+                          "y0": 1078,
+                          "x1": 602,
+                          "y1": 1107,
+                          "xPct": 40.03,
+                          "yPct": 74.45
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "imageWidth": 1364,
+                  "imageHeight": 1487
                 }
               ],
               "questions": [
@@ -5584,10 +5799,12 @@
                       "analysis": "Ghi chú: Mở đầu cuộc chat trực tuyến giữa bộ phận phân tích dữ liệu (Marlys Barry, Bora Choi) và Alexander Kubelski.",
                       "regions": [
                         {
-                          "x0": 96,
-                          "y0": 162,
-                          "x1": 1825,
-                          "y1": 553
+                          "x0": 19,
+                          "y0": 19,
+                          "x1": 221,
+                          "y1": 52,
+                          "xPct": 0.99,
+                          "yPct": 2.58
                         }
                       ]
                     },
@@ -5598,10 +5815,12 @@
                       "analysis": "Phân tích câu:\n* Do you really need the e-mail addresses of all account holders?... Or do you need... only within a certain age-group?: Hỏi để làm rõ yêu cầu dữ liệu (dẫn chứng câu 172).",
                       "regions": [
                         {
-                          "x0": 96,
-                          "y0": 556,
-                          "x1": 1825,
-                          "y1": 977
+                          "x0": 129,
+                          "y0": 539,
+                          "x1": 341,
+                          "y1": 571,
+                          "xPct": 6.72,
+                          "yPct": 28.28
                         }
                       ]
                     },
@@ -5612,10 +5831,12 @@
                       "analysis": "Phân tích câu:\n* e-mail account holders aged 55 to 65: gửi email cho chủ tài khoản thuộc một nhóm tuổi (dẫn chứng câu 173)\n* We can update your current request form for you: Cô Choi đề nghị sửa đổi/cập nhật biểu mẫu giúp ông Kubelski (dẫn chứng câu 174).",
                       "regions": [
                         {
-                          "x0": 96,
-                          "y0": 980,
-                          "x1": 1825,
-                          "y1": 1466
+                          "x0": 127,
+                          "y0": 918,
+                          "x1": 339,
+                          "y1": 951,
+                          "xPct": 6.61,
+                          "yPct": 47.1
                         }
                       ]
                     },
@@ -5626,14 +5847,18 @@
                       "analysis": "Phân tích câu:\n* There are several projects ahead of yours: Có nhiều dự án khác đứng trước yêu cầu của ông -> yêu cầu của ông Kubelski không phải là việc đầu tiên cô Barry xử lý (dẫn chứng câu 175).",
                       "regions": [
                         {
-                          "x0": 96,
-                          "y0": 1469,
-                          "x1": 1825,
-                          "y1": 1915
+                          "x0": 125,
+                          "y0": 1351,
+                          "x1": 337,
+                          "y1": 1383,
+                          "xPct": 6.51,
+                          "yPct": 68.5
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "imageWidth": 1921,
+                  "imageHeight": 2019
                 }
               ],
               "questions": [
@@ -5731,10 +5956,12 @@
                       "translation": "Mẹo thiết kế trang web cho doanh nghiệp xe tải bán đồ ăn lưu động (food-truck): Trước đây, cách các xe bán đồ ăn thu hút khách hàng là thông qua truyền miệng hoặc mạng xã hội, và họ không cần trang web riêng. Tuy nhiên, một trang web chính thức có thể giúp doanh nghiệp xe bán đồ ăn củng cố thương hiệu của mình.",
                       "regions": [
                         {
-                          "x0": 92,
-                          "y0": 107,
-                          "x1": 1752,
-                          "y1": 468
+                          "x0": 136,
+                          "y0": 115,
+                          "x1": 216,
+                          "y1": 155,
+                          "xPct": 7.38,
+                          "yPct": 11.56
                         }
                       ],
                       "analysis": "Cấu trúc:\n* word of mouth (n): sự truyền miệng (dẫn chứng câu 176).\n* strengthen one's brand: củng cố thương hiệu."
@@ -5745,10 +5972,12 @@
                       "translation": "Trang chủ (Home page): Thay vì làm rối trang chủ bằng quá nhiều chữ, hãy sử dụng đồ họa nổi bật hiển thị rõ tên doanh nghiệp của bạn. Bạn cũng nên làm nổi bật vị trí đỗ xe và giờ mở cửa, vì đây là thông tin chính mà khách truy cập sẽ tìm kiếm.",
                       "regions": [
                         {
-                          "x0": 92,
-                          "y0": 471,
-                          "x1": 1752,
-                          "y1": 838
+                          "x0": 172,
+                          "y0": 386,
+                          "x1": 267,
+                          "y1": 418,
+                          "xPct": 9.33,
+                          "yPct": 31.17
                         }
                       ],
                       "analysis": "Phân tích câu:\n* clearly display the name of your business: hiển thị rõ tên công ty\n* prominently feature the truck's locations and operating hours: làm nổi bật địa điểm xe và giờ hoạt động (dẫn chứng câu 177)."
@@ -5759,15 +5988,19 @@
                       "translation": "Trang Thực đơn (Food Menu): Đưa vào các hình ảnh độ phân giải cao về món ăn cùng mô tả sinh động. | Trang Giới thiệu (About Us): Giải thích chủ đề hoặc ý tưởng của xe đồ ăn, thông tin tiểu sử của chủ sở hữu và lịch sử tóm tắt. | Trang Tin tức (News page): Làm nổi bật các món ăn theo mùa và các chương trình khuyến mãi hoặc sự kiện đặc biệt sắp tới.",
                       "regions": [
                         {
-                          "x0": 92,
-                          "y0": 841,
-                          "x1": 1752,
-                          "y1": 1271
+                          "x0": 1254,
+                          "y0": 613,
+                          "x1": 1335,
+                          "y1": 645,
+                          "xPct": 68,
+                          "yPct": 48.1
                         }
                       ],
                       "analysis": "Phân tích câu:\n* News page: Highlight seasonal food items and upcoming promotions or special events (dẫn chứng cho cả câu 177 và câu 179)."
                     }
-                  ]
+                  ],
+                  "imageWidth": 1844,
+                  "imageHeight": 1341
                 },
                 {
                   "imageUrl": "uploads/EST 2026/RC/image/page020/block_2.webp",
@@ -5778,10 +6011,12 @@
                       "translation": "Người nhận: Doug Abruzzo | Người gửi: Ed Vale | Ngày: 29 tháng 3 | Chủ đề: Phản hồi góp ý",
                       "regions": [
                         {
-                          "x0": 93,
-                          "y0": 89,
-                          "x1": 1774,
-                          "y1": 267
+                          "x0": 75,
+                          "y0": 55,
+                          "x1": 137,
+                          "y1": 88,
+                          "xPct": 4.02,
+                          "yPct": 7.92
                         }
                       ],
                       "analysis": "Ghi chú: Email từ khách hàng Ed Vale gửi cho nhà thiết kế web Doug Abruzzo."
@@ -5792,10 +6027,12 @@
                       "translation": "Thưa ông Abruzzo, Cảm ơn ông đã gửi đường dẫn tới trang web mẫu (prototype) mà ông đã tạo cho doanh nghiệp xe bán đồ ăn của tôi. Hôm qua tôi đã cho đối tác kinh doanh của mình xem thử, và chúng tôi vô cùng hài lòng! Chúng tôi nghĩ rằng nó sẽ sẵn sàng để ra mắt làm trang web chính thức vào ngày 5 tháng 4 theo đúng kế hoạch.",
                       "regions": [
                         {
-                          "x0": 93,
-                          "y0": 270,
-                          "x1": 1774,
-                          "y1": 679
+                          "x0": 83,
+                          "y0": 356,
+                          "x1": 168,
+                          "y1": 386,
+                          "xPct": 4.45,
+                          "yPct": 34.74
                         }
                       ],
                       "analysis": "Phân tích câu:\n* the prototype Web site that you created for my food-truck business: trang web mẫu mà ông đã thiết kế cho doanh nghiệp của tôi (dẫn chứng câu 178)\n* launch as our official site on April 5 as planned: ra mắt chính thức vào ngày 5 tháng 4 (dẫn chứng câu 180)."
@@ -5806,15 +6043,19 @@
                       "translation": "Chỉ có một thông tin còn thiếu mà chúng tôi muốn nhờ ông bổ sung thêm. Chúng tôi sẽ có một chương trình khuyến mãi mới bắt đầu vào giữa tháng Tư: tặng miễn phí một món tráng miệng khi mua bất kỳ phần bánh mì kẹp (sandwich) nào. Vui lòng đề cập thông tin này vào mục thích hợp trên trang web. Trân trọng, Ed Vale",
                       "regions": [
                         {
-                          "x0": 93,
-                          "y0": 682,
-                          "x1": 1774,
-                          "y1": 1052
+                          "x0": 214,
+                          "y0": 659,
+                          "x1": 381,
+                          "y1": 690,
+                          "xPct": 11.46,
+                          "yPct": 62.11
                         }
                       ],
                       "analysis": "Phân tích câu:\n* We are having a new promotion beginning in mid-April: chương trình khuyến mãi mới sắp diễn ra (đối chiếu với đoạn 1: 'upcoming promotions' thuộc về 'The News page' -> dẫn chứng câu 179)."
                     }
-                  ]
+                  ],
+                  "imageWidth": 1867,
+                  "imageHeight": 1111
                 }
               ],
               "questions": [
@@ -5932,10 +6173,12 @@
                       "analysis": "Ghi chú: Email từ Đại học Rilamore gửi cho Hiệp hội Doanh nghiệp Red Hills (RHBA).",
                       "regions": [
                         {
-                          "x0": 96,
-                          "y0": 129,
-                          "x1": 1821,
-                          "y1": 339
+                          "x0": 18,
+                          "y0": 18,
+                          "x1": 220,
+                          "y1": 51,
+                          "xPct": 0.94,
+                          "yPct": 3.16
                         }
                       ]
                     },
@@ -5946,10 +6189,12 @@
                       "analysis": "Phân tích câu:\n* Within three years, we expect to have geothermal wells installed and operational for the heating and cooling of our entire campus: thay đổi cách trường đại học sưởi ấm và làm mát các tòa nhà (dẫn chứng câu 181).",
                       "regions": [
                         {
-                          "x0": 96,
-                          "y0": 342,
-                          "x1": 1821,
-                          "y1": 957
+                          "x0": 163,
+                          "y0": 537,
+                          "x1": 248,
+                          "y1": 566,
+                          "xPct": 8.5,
+                          "yPct": 35.09
                         }
                       ]
                     },
@@ -5960,14 +6205,18 @@
                       "analysis": "Phân tích câu:\n* conduct test drilling: tiến hành/thực hiện khoan thử nghiệm ('conduct' = 'carry out' -> dẫn chứng câu 182)\n* drilling adjacent to the Red Hills Business District... business owners and residents near the campus: Khu thương mại Red Hills nằm ngay sát khuôn viên trường đại học (dẫn chứng câu 183).",
                       "regions": [
                         {
-                          "x0": 96,
-                          "y0": 960,
-                          "x1": 1821,
-                          "y1": 1529
+                          "x0": 163,
+                          "y0": 963,
+                          "x1": 249,
+                          "y1": 993,
+                          "xPct": 8.5,
+                          "yPct": 61.56
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "imageWidth": 1917,
+                  "imageHeight": 1613
                 },
                 {
                   "imageUrl": "uploads/EST 2026/RC/image/page022/block_2.webp",
@@ -5979,10 +6228,12 @@
                       "analysis": "Phân tích câu:\n* Chuỗi hòa nhạc giờ nghỉ trưa (Lunch Hour Concert Series) thường diễn ra vào thứ Năm hàng tuần trong tháng 6 tại đường Oak Street, nhưng từ ngày 5/6 (trong 2 tuần, từ 10h sáng đến 3h chiều - trùng đúng giờ nghỉ trưa) đội khoan làm việc ngay sát Oak Street gây tiếng ồn lớn -> RHBA phải dời lịch sang tháng 7 để tránh tiếng ồn công trình (dẫn chứng câu 184).",
                       "regions": [
                         {
-                          "x0": 86,
-                          "y0": 73,
-                          "x1": 1635,
-                          "y1": 556
+                          "x0": 117,
+                          "y0": 127,
+                          "x1": 204,
+                          "y1": 159,
+                          "xPct": 6.8,
+                          "yPct": 17.45
                         }
                       ]
                     },
@@ -5993,14 +6244,18 @@
                       "analysis": "Phân tích câu:\n* local arts-and-crafts vendors will display their work on the lawn of the Cultural Center: các nghệ nhân/người bán hàng thủ công sẽ bày bán tác phẩm trên bãi cỏ thuộc khuôn viên Trung tâm Văn hóa (dẫn chứng câu 185).",
                       "regions": [
                         {
-                          "x0": 86,
-                          "y0": 559,
-                          "x1": 1635,
-                          "y1": 862
+                          "x0": 118,
+                          "y0": 585,
+                          "x1": 163,
+                          "y1": 616,
+                          "xPct": 6.86,
+                          "yPct": 67.62
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "imageWidth": 1721,
+                  "imageHeight": 911
                 }
               ],
               "questions": [
@@ -6117,10 +6372,12 @@
                       "translation": "Dịch vụ Nhà ở Lawal: Phục vụ khu vực Nam California hơn 40 năm qua | Hãy tìm đến Lawal Home Service, có trụ sở tại Inglewood, cho các giải pháp mái nhà và điện mặt trời của bạn. Dù bạn đang muốn lắp thêm vật liệu cách nhiệt tầng áp mái, phục hồi/sửa chữa máng xối, khắc phục vết dột hay lắp đặt tấm pin năng lượng mặt trời, chúng tôi đều có chuyên môn để xử lý công việc!",
                       "regions": [
                         {
-                          "x0": 92,
-                          "y0": 58,
-                          "x1": 1757,
-                          "y1": 372
+                          "x0": 372,
+                          "y0": 161,
+                          "x1": 479,
+                          "y1": 193,
+                          "xPct": 20.12,
+                          "yPct": 26.4
                         }
                       ],
                       "analysis": "Phân tích câu:\n* restore your gutters: phục hồi/sửa chữa hệ thống máng xối (= Repairing gutters - dẫn chứng câu 186)\n* fix a leak: sửa chỗ dột\n* install solar panels: lắp đặt pin mặt trời."
@@ -6131,15 +6388,19 @@
                       "translation": "Mọi thợ thầu chúng tôi tuyển dụng đều có ít nhất 5 năm kinh nghiệm, và các giám sát viên dự án luôn có mặt trực tiếp tại công trình từ đầu đến cuối để giám sát công việc và giải đáp mọi câu hỏi của bạn. Hãy truy cập trang web để điền biểu mẫu liên hệ, và một trong những chuyên viên báo giá mái nhà của chúng tôi sẽ phản hồi bạn nhanh chóng.",
                       "regions": [
                         {
-                          "x0": 92,
-                          "y0": 375,
-                          "x1": 1757,
-                          "y1": 691
+                          "x0": 449,
+                          "y0": 516,
+                          "x1": 569,
+                          "y1": 552,
+                          "xPct": 24.28,
+                          "yPct": 75.51
                         }
                       ],
                       "analysis": "Phân tích câu:\n* project supervisors are always on-site from start to finish: giám sát viên dự án luôn có mặt trực tiếp tại hiện trường từ đầu đến cuối (dẫn chứng câu 189)."
                     }
-                  ]
+                  ],
+                  "imageWidth": 1849,
+                  "imageHeight": 731
                 },
                 {
                   "imageUrl": "uploads/EST 2026/RC/image/page024/block_2.webp",
@@ -6150,10 +6411,12 @@
                       "translation": "Biểu mẫu Liên hệ Lawal Home Service | Họ tên: Drew Gerson | Địa chỉ: 820 North Acacia Street, Inglewood, CA 90301 | Ngày gửi đơn: 12 tháng 12",
                       "regions": [
                         {
-                          "x0": 95,
-                          "y0": 98,
-                          "x1": 1803,
-                          "y1": 531
+                          "x0": 516,
+                          "y0": 85,
+                          "x1": 666,
+                          "y1": 126,
+                          "xPct": 27.19,
+                          "yPct": 10.3
                         }
                       ],
                       "analysis": "Ghi chú: Đơn liên hệ được ông Drew Gerson gửi vào ngày 12 tháng 12 (mốc thời gian quan trọng để suy luận câu 188)."
@@ -6164,15 +6427,19 @@
                       "translation": "Mô tả dự án: Mái nhà của tôi đã khoảng 20 năm tuổi. Đêm qua một cơn bão gió mạnh đã làm bung một số tấm lợp mái, và hiện giờ nước đang nhỏ giọt qua một phần mái nhà phía trên hiên sân trong của chúng tôi.",
                       "regions": [
                         {
-                          "x0": 95,
-                          "y0": 534,
-                          "x1": 1803,
-                          "y1": 1159
+                          "x0": 1110,
+                          "y0": 889,
+                          "x1": 1256,
+                          "y1": 924,
+                          "xPct": 58.48,
+                          "yPct": 75.55
                         }
                       ],
                       "analysis": "Phân tích câu:\n* water is dripping through a section of the roof over our patio: nước đang nhỏ giọt qua một phần mái nhà (tức mái nhà bị dột - 'developed a leak' -> dẫn chứng câu 187)."
                     }
-                  ]
+                  ],
+                  "imageWidth": 1898,
+                  "imageHeight": 1223
                 },
                 {
                   "imageUrl": "uploads/EST 2026/RC/image/page025/block_1.webp",
@@ -6183,10 +6450,12 @@
                       "translation": "Đánh giá Khu phố: Lawal Home Service | Tôi đã liên hệ với Lawal Home Service qua trang web của họ và nhận được phản hồi ngay lập tức. Chuyên viên báo giá của họ đã đến kiểm tra mái nhà của chúng tôi ngay ngày hôm sau. Cuối cùng chúng tôi đã cho thay mới toàn bộ mái nhà vào ngày 19 và 20 tháng 12, vì mức báo giá rất hợp lý.",
                       "regions": [
                         {
-                          "x0": 101,
-                          "y0": 75,
-                          "x1": 1927,
-                          "y1": 414
+                          "x0": 216,
+                          "y0": 121,
+                          "x1": 472,
+                          "y1": 161,
+                          "xPct": 10.65,
+                          "yPct": 17.07
                         }
                       ],
                       "analysis": "Phân tích câu:\n* Their estimator came out to inspect our roof the very next day: Chuyên viên báo giá đã đến kiểm tra mái nhà ngay ngày hôm sau (Đơn gửi ngày 12/12 + 'the very next day' = ngày 13/12 -> dẫn chứng câu 188)."
@@ -6197,15 +6466,19 @@
                       "translation": "Trước khi đội thợ bắt đầu công việc, họ treo các tấm bạt nhựa quanh tường ngoài để bảo vệ ngôi nhà và cây cảnh khỏi mảnh vỡ rơi xuống. Sau khi làm xong, đội thợ đã sử dụng hai thiết bị từ tính trông giống như máy cắt cỏ để hút sạch những chiếc đinh rơi trên bãi cỏ và lối lái xe vào nhà—tôi chưa từng thấy thiết bị đó bao giờ! Diana Perez đã túc trực tại công trình suốt toàn bộ quá trình thi công và rất niềm nở, dễ chịu khi trao đổi. — Drew Gerson",
                       "regions": [
                         {
-                          "x0": 101,
-                          "y0": 417,
-                          "x1": 1927,
-                          "y1": 893
+                          "x0": 633,
+                          "y0": 514,
+                          "x1": 681,
+                          "y1": 545,
+                          "xPct": 31.21,
+                          "yPct": 57.79
                         }
                       ],
                       "analysis": "Phân tích câu:\n* the crew used two magnetic devices that resembled lawnmowers... I had never seen that before!: ngạc nhiên về dụng cụ họ sử dụng (dẫn chứng câu 190)\n* Diana Perez was on-site for the whole job: khớp với mô tả 'project supervisors are always on-site from start to finish' ở văn bản 1 (dẫn chứng câu 189)."
                     }
-                  ]
+                  ],
+                  "imageWidth": 2028,
+                  "imageHeight": 943
                 }
               ],
               "questions": [
@@ -6322,10 +6595,12 @@
                       "translation": "Người nhận: Omar Balaji | Người gửi: Juanita Pereira | Ngày: 10 tháng 5 | Chủ đề: Yêu cầu đặt làm sổ tay",
                       "regions": [
                         {
-                          "x0": 95,
-                          "y0": 120,
-                          "x1": 1795,
-                          "y1": 367
+                          "x0": 1600,
+                          "y0": 581,
+                          "x1": 1636,
+                          "y1": 611,
+                          "xPct": 84.66,
+                          "yPct": 40.79
                         }
                       ],
                       "analysis": "Ghi chú: Email từ Juanita Pereira (cửa hàng sách Bun Bun Books) gửi cho Omar Balaji tại Darboury Company."
@@ -6336,10 +6611,12 @@
                       "translation": "Thưa ông Balaji, Tôi đang muốn đặt hàng một lô sổ tay thiết kế riêng mới để bán trong đợt giảm giá thường niên bắt đầu vào ngày 1 tháng 8 của chúng tôi. Đối với đơn hàng này, chúng tôi muốn 4 mẫu thiết kế bìa khác nhau. Như chúng ta từng làm trước đây, tôi đính kèm các tệp hình ảnh chứa họa tiết nghệ thuật mà chúng tôi muốn in lên bìa sổ.",
                       "regions": [
                         {
-                          "x0": 95,
-                          "y0": 370,
-                          "x1": 1795,
-                          "y1": 882
+                          "x0": 549,
+                          "y0": 765,
+                          "x1": 689,
+                          "y1": 798,
+                          "xPct": 29.05,
+                          "yPct": 53.27
                         }
                       ],
                       "analysis": "Cấu trúc:\n* custom notebooks: sổ tay đặt làm theo yêu cầu riêng."
@@ -6350,15 +6627,19 @@
                       "translation": "Bảng Thiết kế & Màu nền: Great Thoughts (Màu xanh dương - Họa tiết đám mây) | World Suitcase (Màu đen - Họa tiết nhãn dán du lịch) | Lavender Bouquet (Màu vàng - Họa tiết bó hoa) | Sail Away (Màu trắng - Họa tiết thuyền buồm). Vui lòng cho tôi biết khi nào ông có thể gửi mẫu thử của các bìa sổ để tôi phê duyệt. Trân trọng, Juanita Pereira",
                       "regions": [
                         {
-                          "x0": 95,
-                          "y0": 885,
-                          "x1": 1795,
-                          "y1": 1420
+                          "x0": 152,
+                          "y0": 1374,
+                          "x1": 290,
+                          "y1": 1406,
+                          "xPct": 8.04,
+                          "yPct": 93.86
                         }
                       ],
                       "analysis": "Phân tích bảng:\n* Great Thoughts: Background Color = Blue (dẫn chứng câu 195)\n* World Suitcase: Background Color = Black, Art = Travel sticker art (dẫn chứng câu 192)."
                     }
-                  ]
+                  ],
+                  "imageWidth": 1890,
+                  "imageHeight": 1498
                 },
                 {
                   "imageUrl": "uploads/EST 2026/RC/image/page026/block_2.webp",
@@ -6369,10 +6650,12 @@
                       "translation": "Người nhận: Juanita Pereira | Người gửi: Omar Balaji | Ngày: 25 tháng 5 | Chủ đề: Phản hồi: Yêu cầu đặt làm sổ tay",
                       "regions": [
                         {
-                          "x0": 92,
-                          "y0": 88,
-                          "x1": 1757,
-                          "y1": 277
+                          "x0": 76,
+                          "y0": 55,
+                          "x1": 137,
+                          "y1": 88,
+                          "xPct": 4.11,
+                          "yPct": 7.96
                         }
                       ],
                       "analysis": "Ghi chú: Email phản hồi từ Omar Balaji vào ngày 25 tháng 5."
@@ -6383,10 +6666,12 @@
                       "translation": "Kính gửi bà Pereira, Cảm ơn sự kiên nhẫn của bà trong lúc chúng tôi hoàn thiện các mẫu thử cho bốn thiết kế sổ tay mà bà yêu cầu. Chúng tôi đã gửi đi ba mẫu vật lý để bà xem xét. Một trong các mẫu bị trễ vì họa tiết nhãn dán (sticker art) bà gửi không hiển thị rõ trên nền màu đen ban đầu.",
                       "regions": [
                         {
-                          "x0": 92,
-                          "y0": 280,
-                          "x1": 1757,
-                          "y1": 693
+                          "x0": 84,
+                          "y0": 354,
+                          "x1": 189,
+                          "y1": 388,
+                          "xPct": 4.54,
+                          "yPct": 35.11
                         }
                       ],
                       "analysis": "Phân tích câu:\n* One of the samples was delayed because the sticker art you sent did not show up well against the original black background: đối chiếu với bảng ở email 1, mẫu có 'Travel sticker art' và nền 'Black' chính là 'World Suitcase' (dẫn chứng câu 192)."
@@ -6397,15 +6682,19 @@
                       "translation": "Các nhà thiết kế đồ họa của chúng tôi đã đưa ra một vài giải pháp để bà lựa chọn, và chúng tôi sẽ gửi các mẫu đó cho bà vào ngày mai. Vui lòng gửi phê duyệt của bà cho tất cả các mẫu bìa muộn nhất vào ngày 11 tháng 6 để chúng tôi có thể giao đơn hàng của bà trước ngày 20 tháng 7. Trân trọng, Omar Balaji",
                       "regions": [
                         {
-                          "x0": 92,
-                          "y0": 696,
-                          "x1": 1757,
-                          "y1": 1047
+                          "x0": 963,
+                          "y0": 702,
+                          "x1": 1000,
+                          "y1": 731,
+                          "xPct": 52.08,
+                          "yPct": 66.15
                         }
                       ],
                       "analysis": "Phân tích câu:\n* Our graphic designers have come up with a couple of solutions: công ty có đội ngũ thiết kế đồ họa (dẫn chứng câu 191)\n* send us your approval of all the covers by June 11: hạn chót phê duyệt mẫu là ngày 11 tháng 6 (dẫn chứng câu 193)."
                     }
-                  ]
+                  ],
+                  "imageWidth": 1849,
+                  "imageHeight": 1105
                 },
                 {
                   "imageUrl": "uploads/EST 2026/RC/image/page027/block_1.webp",
@@ -6416,15 +6705,19 @@
                       "translation": "Đơn Đặt hàng Công ty Darboury | Khách hàng: Bun Bun Books | Danh mục đặt hàng: N3-GT (Great Thoughts, bìa mềm, 300 cuốn) | N3-WS (World Suitcase, bìa mềm, 300 cuốn) | H3-LB (Lavender Bouquet, bìa cứng, 150 cuốn) | H3-SA (Sail Away, bìa cứng, 150 cuốn) | D1 (Kệ trưng bày bằng kim loại cỡ lớn, 1 chiếc) | Tổng tiền: 4.700,00 đô la",
                       "regions": [
                         {
-                          "x0": 96,
-                          "y0": 77,
-                          "x1": 1829,
-                          "y1": 915
+                          "x0": 803,
+                          "y0": 63,
+                          "x1": 1089,
+                          "y1": 123,
+                          "xPct": 41.71,
+                          "yPct": 12.73
                         }
                       ],
                       "analysis": "Phân tích bảng đơn hàng:\n* Mã D1: Large metal display rack (Kệ trưng bày bằng kim loại cỡ lớn -> dẫn chứng câu 194)\n* Mã N3-GT: Great Thoughts (đối chiếu với bảng email 1 có màu nền là Blue -> dẫn chứng câu 195)."
                     }
-                  ]
+                  ],
+                  "imageWidth": 1925,
+                  "imageHeight": 966
                 }
               ],
               "questions": [
@@ -6541,10 +6834,12 @@
                       "translation": "Người nhận: Các Quản lý | Người gửi: Charlotte Black | Ngày: 16 tháng 8 | Chủ đề: Nhân viên xuất sắc nhất tháng",
                       "regions": [
                         {
-                          "x0": 96,
-                          "y0": 124,
-                          "x1": 1830,
-                          "y1": 243
+                          "x0": 131,
+                          "y0": 142,
+                          "x1": 193,
+                          "y1": 192,
+                          "xPct": 6.8,
+                          "yPct": 12.41
                         }
                       ],
                       "analysis": "Ghi chú: Email nội bộ từ Tổng Giám đốc (General Manager) Charlotte Black gửi các quản lý."
@@ -6555,10 +6850,12 @@
                       "translation": "Kính gửi các Quản lý, Đã đến lúc bỏ phiếu bình chọn danh hiệu Nhân viên Xuất sắc nhất Tháng Chín của Wilson Autos. Dưới đây là danh sách các ứng viên được đề cử.",
                       "regions": [
                         {
-                          "x0": 96,
-                          "y0": 246,
-                          "x1": 1830,
-                          "y1": 404
+                          "x0": 139,
+                          "y0": 444,
+                          "x1": 224,
+                          "y1": 474,
+                          "xPct": 7.22,
+                          "yPct": 30.64
                         }
                       ],
                       "analysis": "Cấu trúc:\n* vote for sb/sth: bỏ phiếu bình chọn cho ai/cái gì (dẫn chứng câu 196)."
@@ -6569,10 +6866,12 @@
                       "translation": "Erica Boyd mới làm việc với chúng ta vài tháng nhưng đã sớm cho thấy triển vọng lớn và luôn ham học hỏi những điều mới. | Lauren Almahdi rất chủ động. Nếu có việc gì cần làm, cô ấy sẽ chỉ ra cho quản lý và tình nguyện tự mình đảm nhận việc đó.",
                       "regions": [
                         {
-                          "x0": 96,
-                          "y0": 407,
-                          "x1": 1830,
-                          "y1": 774
+                          "x0": 138,
+                          "y0": 659,
+                          "x1": 239,
+                          "y1": 690,
+                          "xPct": 7.17,
+                          "yPct": 44.6
                         }
                       ],
                       "analysis": "Cấu trúc:\n* show great promise: cho thấy triển vọng lớn.\n* proactive (adj): chủ động."
@@ -6583,10 +6882,12 @@
                       "translation": "Nick Salehi đã phát hiện ra một lỗi trục trặc trong hệ thống máy tính của chúng ta và ngăn chúng ta đặt nhầm hàng tồn kho không cần thiết (nhờ đó tiết kiệm tiền cho công ty). | Max Rhodes đặc biệt nhiệt tình hỗ trợ việc đào tạo nhân viên mới. Anh ấy điềm tĩnh, kiên nhẫn và giải thích các quy trình của chúng ta rất dễ hiểu.",
                       "regions": [
                         {
-                          "x0": 96,
-                          "y0": 777,
-                          "x1": 1830,
-                          "y1": 1139
+                          "x0": 136,
+                          "y0": 919,
+                          "x1": 221,
+                          "y1": 950,
+                          "xPct": 7.06,
+                          "yPct": 61.41
                         }
                       ],
                       "analysis": "Phân tích câu:\n* Nick Salehi found a glitch in our computer system: phát hiện sự cố kỹ thuật trong hệ thống máy tính (dẫn chứng câu 197)."
@@ -6597,15 +6898,19 @@
                       "translation": "Vui lòng phản hồi email này trước thứ Sáu kèm theo phiếu bầu của bạn. Người chiến thắng phải nhận được ít nhất ba phiếu bầu. Tên người chiến thắng sẽ được niêm yết tại quầy lễ tân và trên trang web của chúng ta vào thứ Hai tới. Cảm ơn, Charlotte Black, Tổng Giám đốc, Wilson Autos",
                       "regions": [
                         {
-                          "x0": 96,
-                          "y0": 1142,
-                          "x1": 1830,
-                          "y1": 1467
+                          "x0": 135,
+                          "y0": 1180,
+                          "x1": 245,
+                          "y1": 1210,
+                          "xPct": 7.01,
+                          "yPct": 78.22
                         }
                       ],
                       "analysis": "Phân tích câu:\n* The winner must receive at least three votes: Người chiến thắng phải nhận được ít nhất 3 phiếu bầu từ các quản lý (dẫn chứng câu 200)\n* Charlotte Black, General Manager, Wilson Autos: Bà Charlotte Black giữ chức Tổng Giám đốc (dẫn chứng câu 198)."
                     }
-                  ]
+                  ],
+                  "imageWidth": 1926,
+                  "imageHeight": 1547
                 },
                 {
                   "imageUrl": "uploads/EST 2026/RC/image/page028/block_2.webp",
@@ -6616,10 +6921,12 @@
                       "translation": "Đánh giá trực tuyến: Wilson Autos (Westchester) 5 sao | Vợ tôi và tôi vừa mua một chiếc xe bán tải Excelera mới tại chi nhánh Wilson Autos Westchester với sự hỗ trợ của Erica Boyd. Mặc dù là nhân viên mới, cô ấy rất am hiểu về tất cả các dòng xe bán tải trên bãi mà chúng tôi muốn lái thử. Một vài câu hỏi cô ấy chưa trả lời được đều đã được người hướng dẫn của cô ấy là anh Max giải đáp nhanh chóng.",
                       "regions": [
                         {
-                          "x0": 94,
-                          "y0": 89,
-                          "x1": 1782,
-                          "y1": 642
+                          "x0": 109,
+                          "y0": 35,
+                          "x1": 827,
+                          "y1": 105,
+                          "xPct": 5.81,
+                          "yPct": 9.4
                         }
                       ],
                       "analysis": "Cấu trúc:\n* knowledgeable about sth: am hiểu sâu về cái gì.\n* address a question: giải đáp một câu hỏi."
@@ -6630,15 +6937,19 @@
                       "translation": "Chúng tôi rất hài lòng với dịch vụ khách hàng và càng vui mừng hơn khi vị tổng giám đốc đồng ý bán cho chúng tôi chiếc Excelera với mức giá ngang bằng mức giá mà một đại lý đối thủ đang quảng cáo. Tôi nhiệt liệt giới thiệu Wilson Autos nếu bạn đang tìm mua xe mới! —Henry Riggs, Ngày 22 tháng 8",
                       "regions": [
                         {
-                          "x0": 94,
-                          "y0": 645,
-                          "x1": 1782,
-                          "y1": 1058
+                          "x0": 73,
+                          "y0": 673,
+                          "x1": 133,
+                          "y1": 706,
+                          "xPct": 3.89,
+                          "yPct": 63.21
                         }
                       ],
                       "analysis": "Phân tích câu:\n* the general manager agreed to sell us the Excelera for the same price that a competing dealership was advertising: vị Tổng Giám đốc (tức bà Charlotte Black ở văn bản 1) đã đồng ý giảm giá bằng với giá của đại lý đối thủ (dẫn chứng câu 198)."
                     }
-                  ]
+                  ],
+                  "imageWidth": 1876,
+                  "imageHeight": 1117
                 },
                 {
                   "imageUrl": "uploads/EST 2026/RC/image/page029/block_1.webp",
@@ -6649,10 +6960,12 @@
                       "translation": "Nhân viên xuất sắc nhất tháng Chín chính là ERICA BOYD! Trong ba tháng làm việc tại Wilson Autos, Erica đã tiếp thu các kỹ năng mới rất nhanh và luôn nỗ lực học hỏi thêm. Cô ấy đã trở nên rất am hiểu về các dòng xe trong kho của chúng ta và có thể chia sẻ kiến thức với khách hàng để chốt doanh số.",
                       "regions": [
                         {
-                          "x0": 98,
-                          "y0": 50,
-                          "x1": 1853,
-                          "y1": 300
+                          "x0": 532,
+                          "y0": 54,
+                          "x1": 605,
+                          "y1": 87,
+                          "xPct": 27.27,
+                          "yPct": 13.96
                         }
                       ],
                       "analysis": "Phân tích câu:\n* The employee of the month for September is ERICA BOYD!: Erica Boyd là người chiến thắng giải thưởng tháng 9 (kết hợp với email 1 -> cô ấy nhận được ít nhất 3 phiếu bầu từ các quản lý -> dẫn chứng câu 200)."
@@ -6663,15 +6976,19 @@
                       "translation": "Cô ấy cũng đóng vai trò quan trọng trong việc khuyến khích những khách hàng hài lòng đăng bình luận lên các trang mạng xã hội của chúng ta. Chúng ta đã nhận được nhiều đánh giá tuyệt vời trong tháng vừa qua hơn cả bốn tháng trước đó cộng lại! Erica đã nhận được một thẻ quà tặng trị giá 50 đô la tại Nhà hàng Alonzo như lời cảm ơn cho thành tích xuất sắc của cô ấy. Chúc mừng Erica!",
                       "regions": [
                         {
-                          "x0": 98,
-                          "y0": 303,
-                          "x1": 1853,
-                          "y1": 589
+                          "x0": 1610,
+                          "y0": 221,
+                          "x1": 1674,
+                          "y1": 254,
+                          "xPct": 82.52,
+                          "yPct": 40.77
                         }
                       ],
                       "analysis": "Phân tích câu:\n* She has also been instrumental in encouraging satisfied customers to post comments on our social media pages. We received more great reviews in the past month...: đóng vai trò then chốt giúp gia tăng lượng phản hồi của khách hàng (dẫn chứng câu 199)."
                     }
-                  ]
+                  ],
+                  "imageWidth": 1951,
+                  "imageHeight": 623
                 }
               ],
               "questions": [

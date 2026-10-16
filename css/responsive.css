@@ -511,16 +511,21 @@
     font-size: 1.4rem;
   }
 
-  /* Interactive Sentence Coordinates on Mobile */
+  /* Interactive Sentence Number Badges on Mobile: scale proportionally with image width */
   .sentence-overlay-box {
-    border: 1px dashed rgba(99, 102, 241, 0.18);
-    background: transparent;
+    min-width: var(--badge-size, clamp(7.5px, 2.2cqw, 11px));
+    height: var(--badge-size, clamp(7.5px, 2.2cqw, 11px));
+    padding: 0 var(--badge-pad, clamp(1.5px, 0.45cqw, 2.5px));
+    font-size: var(--badge-font, clamp(5px, 1.45cqw, 7.5px));
+    border-width: var(--badge-border, 0.7px);
+    background: rgba(79, 70, 229, 0.92);
   }
 
   .sentence-overlay-box.active {
-    background: rgba(99, 102, 241, 0.06);
-    border: 1.5px dashed var(--accent-primary);
-    box-shadow: 0 0 4px rgba(99, 102, 241, 0.25);
+    background: #ef4444;
+    border-color: #fef08a;
+    transform: translate(0, 0.5px) scale(1.2);
+    box-shadow: 0 0 0 1.5px rgba(239, 68, 68, 0.35);
   }
 
   /* Action buttons on Result page */
