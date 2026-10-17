@@ -10,6 +10,7 @@ const AppConfig = {
   BOOK_NAME: 'EST 2022',
   BOOKS: {
     'EST 2022': { label: 'ETS 2022', dbFile: 'data/database_EST_2022.json' },
+    'EST 2024': { label: 'ETS 2024', dbFile: 'data/database_EST_2024.json' },
     'EST 2026': { label: 'ETS 2026', dbFile: 'data/database_EST_2026.json' }
   },
 
@@ -46,6 +47,9 @@ const AppConfig = {
       : this.getSelectedBook();
     if (activeBook === 'EST 2026') {
       return this.resolveAssetUrl(`data/database_EST_2026.json?v=${Date.now()}`);
+    }
+    if (activeBook === 'EST 2024') {
+      return this.resolveAssetUrl(`data/database_EST_2024.json?v=${Date.now()}`);
     }
     return this.resolveAssetUrl(`data/database_compiled.json?v=${Date.now()}`);
   },

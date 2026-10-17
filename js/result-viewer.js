@@ -1525,7 +1525,13 @@ const ResultViewer = {
           (q?.groupImage && String(q.groupImage).includes('EST 2026')) ||
           (q?.audioUrl && String(q.audioUrl).includes('EST 2026'))
         );
+        const has2024 = this.resultData.detailedQuestions.some(q =>
+          (q?.imageUrl && String(q.imageUrl).includes('EST 2024')) ||
+          (q?.groupImage && String(q.groupImage).includes('EST 2024')) ||
+          (q?.audioUrl && String(q.audioUrl).includes('EST 2024'))
+        );
         if (has2026) targetBook = 'EST 2026';
+        else if (has2024) targetBook = 'EST 2024';
       }
       const url = (config && typeof config.getDatabaseUrl === 'function')
         ? (targetBook ? config.getDatabaseUrl(targetBook) : config.getDatabaseUrl())
