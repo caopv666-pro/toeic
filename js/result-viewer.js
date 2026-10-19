@@ -1530,8 +1530,14 @@ const ResultViewer = {
           (q?.groupImage && String(q.groupImage).includes('EST 2024')) ||
           (q?.audioUrl && String(q.audioUrl).includes('EST 2024'))
         );
+        const has2023 = this.resultData.detailedQuestions.some(q =>
+          (q?.imageUrl && String(q.imageUrl).includes('EST 2023')) ||
+          (q?.groupImage && String(q.groupImage).includes('EST 2023')) ||
+          (q?.audioUrl && String(q.audioUrl).includes('EST 2023'))
+        );
         if (has2026) targetBook = 'EST 2026';
         else if (has2024) targetBook = 'EST 2024';
+        else if (has2023) targetBook = 'EST 2023';
       }
       const url = (config && typeof config.getDatabaseUrl === 'function')
         ? (targetBook ? config.getDatabaseUrl(targetBook) : config.getDatabaseUrl())

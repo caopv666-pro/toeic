@@ -91,9 +91,10 @@
         </div>
       </div>
 
-      <!-- Book Selector Pills (ETS 2022 / ETS 2024 / ETS 2026) -->
+      <!-- Book Selector Pills (ETS 2022 / ETS 2023 / ETS 2024 / ETS 2026) -->
       <div id="book-selector-wrap" role="group" aria-label="Chọn bộ đề thi" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 18px;">
         <button class="part-filter-btn active" id="book-btn-2022" data-book="EST 2022" type="button" onclick="selectBook('EST 2022')" aria-pressed="true">📘 Bộ đề ETS 2022 (10 Tests)</button>
+        <button class="part-filter-btn" id="book-btn-2023" data-book="EST 2023" type="button" onclick="selectBook('EST 2023')" aria-pressed="false">📙 Bộ đề ETS 2023 (10 Tests)</button>
         <button class="part-filter-btn" id="book-btn-2024" data-book="EST 2024" type="button" onclick="selectBook('EST 2024')" aria-pressed="false">📗 Bộ đề ETS 2024 (10 Tests)</button>
         <button class="part-filter-btn" id="book-btn-2026" data-book="EST 2026" type="button" onclick="selectBook('EST 2026')" aria-pressed="false">🔥 Bộ đề ETS 2026 Mới (10 Tests)</button>
       </div>
@@ -195,7 +196,7 @@
       try {
         const urlParams = new URLSearchParams(window.location.search);
         const urlBook = urlParams.get('book');
-        if (urlBook === 'EST 2026' || urlBook === 'EST 2024' || urlBook === 'EST 2022') {
+        if (urlBook === 'EST 2026' || urlBook === 'EST 2024' || urlBook === 'EST 2023' || urlBook === 'EST 2022') {
           selectBook(urlBook);
         }
         const urlMode = urlParams.get('mode');
@@ -216,18 +217,23 @@
   }
 
     function selectBook(bookKey) {
-      currentBook = (bookKey === 'EST 2026' || bookKey === 'EST 2024') ? bookKey : 'EST 2022';
+      currentBook = (bookKey === 'EST 2026' || bookKey === 'EST 2024' || bookKey === 'EST 2023') ? bookKey : 'EST 2022';
       if (typeof AppConfig !== 'undefined' && AppConfig && typeof AppConfig.setSelectedBook === 'function') {
         AppConfig.setSelectedBook(currentBook);
       }
       if (typeof document !== 'undefined' && typeof document.getElementById === 'function') {
         const b2022 = document.getElementById('book-btn-2022');
+        const b2023 = document.getElementById('book-btn-2023');
         const b2024 = document.getElementById('book-btn-2024');
         const b2026 = document.getElementById('book-btn-2026');
         const heading = document.getElementById('book-section-heading');
         if (b2022 && b2022.classList && typeof b2022.classList.toggle === 'function') {
           b2022.classList.toggle('active', currentBook === 'EST 2022');
           if (typeof b2022.setAttribute === 'function') b2022.setAttribute('aria-pressed', currentBook === 'EST 2022' ? 'true' : 'false');
+        }
+        if (b2023 && b2023.classList && typeof b2023.classList.toggle === 'function') {
+          b2023.classList.toggle('active', currentBook === 'EST 2023');
+          if (typeof b2023.setAttribute === 'function') b2023.setAttribute('aria-pressed', currentBook === 'EST 2023' ? 'true' : 'false');
         }
         if (b2024 && b2024.classList && typeof b2024.classList.toggle === 'function') {
           b2024.classList.toggle('active', currentBook === 'EST 2024');
@@ -240,7 +246,9 @@
         if (heading) {
           heading.textContent = currentBook === 'EST 2026'
             ? 'Danh Sách 10 Đề Thi ETS 2026'
-            : (currentBook === 'EST 2024' ? 'Danh Sách 10 Đề Thi ETS 2024' : 'Danh Sách 10 Đề Thi ETS 2022');
+            : (currentBook === 'EST 2024'
+              ? 'Danh Sách 10 Đề Thi ETS 2024'
+              : (currentBook === 'EST 2023' ? 'Danh Sách 10 Đề Thi ETS 2023' : 'Danh Sách 10 Đề Thi ETS 2022'));
         }
       }
       renderTestCards();
@@ -392,7 +400,7 @@
         part7: '55 phút'
       };
 
-      const bookTitle = (currentBook === 'EST 2026' || currentBook === 'EST 2024') ? currentBook : 'EST 2022';
+      const bookTitle = (currentBook === 'EST 2026' || currentBook === 'EST 2024' || currentBook === 'EST 2023') ? currentBook : 'EST 2022';
 
       for (let t = 1; t <= 10; t++) {
         const testNumStr = t < 10 ? `0${t}` : `${t}`;
