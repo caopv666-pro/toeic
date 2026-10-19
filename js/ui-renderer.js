@@ -533,6 +533,12 @@ const UIRenderer = {
     if (imgEl) {
       const errBox = modal.querySelector('.lightbox-error-msg');
       if (errBox) errBox.remove();
+      const prevOverlays = modal.querySelector('.lightbox-passage-overlays');
+      if (prevOverlays && typeof prevOverlays.remove === 'function') prevOverlays.remove();
+      const prevPopover = modal.querySelector('.lightbox-sentence-popover');
+      if (prevPopover && typeof prevPopover.remove === 'function') prevPopover.remove();
+      imgEl.onload = null;
+      imgEl.onclick = null;
       imgEl.style.display = '';
       imgEl.onerror = () => {
         imgEl.style.display = 'none';

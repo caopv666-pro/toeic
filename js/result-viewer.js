@@ -1033,20 +1033,17 @@ const ResultViewer = {
     const isReading = ['part6', 'part7'].includes(group.part);
     const gid = group.groupId;
     const range = group.expectedRange || [0, 0];
-    const badgeLabel = group.part === 'part6' ? 'Part 6: Điền từ vào đoạn văn'
-      : group.part === 'part7' ? 'Part 7: Đọc hiểu đoạn văn'
-      : group.part === 'part3' ? 'Part 3: Hội thoại (Conversations)'
-      : 'Part 4: Bài nói ngắn (Short Talks)';
+    const badgeLabel = group.part === 'part6' ? 'Part 6'
+      : group.part === 'part7' ? 'Part 7'
+      : group.part === 'part3' ? 'Part 3'
+      : 'Part 4';
 
     return `
       <div class="group-review-card animate-fade-in" id="group_review_${gid}">
         <!-- Group Header -->
         <div class="group-review-header">
           <span class="group-review-badge">
-            ${isReading ? '📖' : '🎧'} ${badgeLabel} (Câu ${range[0]} - ${range[1]})
-          </span>
-          <span class="group-review-meta">
-            ${group.questions.length} câu hỏi hiển thị
+            ${isReading ? '📖' : '🎧'} ${badgeLabel} • Câu ${range[0]}–${range[1]}
           </span>
         </div>
 
@@ -1070,7 +1067,7 @@ const ResultViewer = {
         <!-- Listening (Part 3 & 4): Transcript & Translation Accordion -->
         ${(!isReading && group.groupTranscript) ? `
           <details class="passage-transcript-box">
-            <summary>📜 Xem Lời thoại bài nghe (Audio Transcript) & Bản dịch</summary>
+            <summary>📜 Lời thoại & Dịch</summary>
             <div style="margin-top: 10px; font-size: 0.86rem; line-height: 1.55; color: var(--text-primary);">
               ${this.formatDialogue(group.groupTranscript)}
             </div>
@@ -1102,44 +1099,28 @@ const ResultViewer = {
             ${group.groupPassages.map((p, pIdx) => {
               const pUrl = typeof p === 'string' ? p : p.imageUrl;
               const fullUrl = (config && typeof config.resolveAssetUrl === 'function') ? config.resolveAssetUrl(pUrl) : (pUrl || '');
-              const hasSentences = p && p.sentences && p.sentences.length > 0;
               return `
                 <div class="interactive-passage-container" id="pass_wrap_${gid}_${pIdx}">
-                  <div class="passage-click-hint">
-                    <span>👆 <strong>Chạm vào số thứ tự (1, 2, 3...) ở đầu mỗi câu trên ảnh</strong> để xem dịch & giải thích</span>
-                    <button class="image-zoom-btn-pill" onclick="UIRenderer.openLightbox('${fullUrl}')" title="Phóng to ảnh">🔍 Phóng to</button>
-                  </div>
-
-                  <div class="passage-image-wrap">
+                  <div class="passage-image-wrap" id="img_wrap_${gid}_${pIdx}">
+                    <button type="button" class="image-zoom-btn-icon" onclick="event.stopPropagation(); ResultViewer.openPassageLightbox('${gid}', ${pIdx}, '${fullUrl}')" title="Phóng to ảnh" aria-label="Phóng to ảnh">🔍</button>
                     <img src="${fullUrl}" alt="Passage ${pIdx + 1}"
                          class="interactive-passage-img"
                          id="img_${gid}_${pIdx}"
                          onload="ResultViewer.setupPassageOverlays(this, '${gid}', ${pIdx})"
                          onclick="ResultViewer.handlePassageImageClick(event, this, '${gid}', ${pIdx})">
                     <div class="passage-overlays-layer" id="overlays_${gid}_${pIdx}"></div>
-                  </div>
 
-                  <!-- Sentence Lookup Card -->
-                  <div class="sentence-lookup-card" id="sentence_card_${gid}_${pIdx}" style="display: none;">
-                    <div class="sentence-lookup-header">
-                      <span class="sentence-badge" id="sentence_badge_${gid}_${pIdx}">Câu 1</span>
-                      <button class="sentence-close-btn" onclick="ResultViewer.closeSentenceCard('${gid}', ${pIdx})">&times;</button>
+                    <!-- Floating Sentence Lookup Popover (positions above or below clicked coordinate) -->
+                    <div class="sentence-lookup-card sentence-floating-popover" id="sentence_card_${gid}_${pIdx}" style="display: none;" onclick="event.stopPropagation()">
+                      <div class="sentence-lookup-header">
+                        <span class="sentence-badge" id="sentence_badge_${gid}_${pIdx}">Câu 1</span>
+                        <button type="button" class="sentence-close-btn" onclick="ResultViewer.closeSentenceCard('${gid}', ${pIdx})">&times;</button>
+                      </div>
+                      <div class="sentence-text-en" id="sentence_en_${gid}_${pIdx}"></div>
+                      <div class="sentence-text-vi" id="sentence_vi_${gid}_${pIdx}"></div>
+                      <div class="sentence-text-note" id="sentence_note_${gid}_${pIdx}"></div>
                     </div>
-                    <div class="sentence-text-en" id="sentence_en_${gid}_${pIdx}"></div>
-                    <div class="sentence-text-vi" id="sentence_vi_${gid}_${pIdx}"></div>
-                    <div class="sentence-text-note" id="sentence_note_${gid}_${pIdx}"></div>
                   </div>
-
-                  ${hasSentences ? `
-                    <div class="sentence-pills-row" id="pills_${gid}_${pIdx}">
-                      <span class="sentence-pills-label">Dịch từng câu:</span>
-                      ${p.sentences.map((s, sIdx) => `
-                        <button class="sentence-pill-btn" id="pill_${gid}_${pIdx}_${sIdx}" onclick="ResultViewer.selectSentence('${gid}', ${pIdx}, ${sIdx})">
-                          Câu ${sIdx + 1}
-                        </button>
-                      `).join('')}
-                    </div>
-                  ` : ''}
                 </div>
               `;
             }).join('')}
@@ -1149,7 +1130,7 @@ const ResultViewer = {
         <!-- Reading (Part 6 & 7): Master Passage Translation Accordion -->
         ${isReading && group.groupTranslation ? `
           <details class="passage-master-translation">
-            <summary>📖 Xem toàn văn bản dịch Tiếng Việt của bài đọc này</summary>
+            <summary>📖 Dịch toàn bài</summary>
             <div class="translation-box" style="margin-top: 6px; white-space: pre-line;">${group.groupTranslation}</div>
           </details>
         ` : ''}
@@ -1394,28 +1375,21 @@ const ResultViewer = {
     return q && q.groupPassages && q.groupPassages[pIdx] ? q.groupPassages[pIdx] : null;
   },
 
-  setupPassageOverlays(img, gid, pIdx) {
+  setupPassageOverlays(img, gid, pIdx, prefix = '') {
     const passage = this.getPassage(gid, pIdx);
     if (!passage || !passage.sentences || passage.sentences.length === 0) return;
 
-    const layer = document.getElementById(`overlays_${gid}_${pIdx}`);
+    const layer = document.getElementById(`overlays_${prefix}${gid}_${pIdx}`);
     if (!layer) return;
     layer.innerHTML = '';
 
-    // Luôn căn chỉnh tọa độ & kích thước nút số theo đúng width, height thực tế của bức ảnh trên Laptop và Mobile
     const refW = passage.imageWidth || img.naturalWidth || 800;
     const refH = passage.imageHeight || img.naturalHeight || 1000;
 
     const applyProportionalBadgeScale = () => {
       const renderW = img.clientWidth || (typeof img.getBoundingClientRect === 'function' ? img.getBoundingClientRect().width : 0) || 360;
-      const bSize = Math.max(7.5, Math.min(16, renderW * 0.017));
-      const bFont = Math.max(5.2, Math.min(10.5, bSize * 0.64));
-      const bPad = Math.max(1.5, Math.min(3.5, bSize * 0.2));
-      const bBorder = Math.max(0.6, Math.min(1.5, bSize * 0.085));
-      layer.style.setProperty('--badge-size', `${bSize.toFixed(2)}px`);
+      const bFont = Math.max(5.5, Math.min(11, renderW * 0.0125));
       layer.style.setProperty('--badge-font', `${bFont.toFixed(2)}px`);
-      layer.style.setProperty('--badge-pad', `${bPad.toFixed(2)}px`);
-      layer.style.setProperty('--badge-border', `${bBorder.toFixed(2)}px`);
     };
     applyProportionalBadgeScale();
 
@@ -1424,6 +1398,9 @@ const ResultViewer = {
       ro.observe(img);
       img._badgeResizeObserver = ro;
     }
+
+    const renderWNow = img.clientWidth || (typeof img.getBoundingClientRect === 'function' ? img.getBoundingClientRect().width : 0) || 360;
+    const isMobile = (typeof window !== 'undefined' && window.innerWidth <= 768) || renderWNow <= 480;
 
     passage.sentences.forEach((s, sIdx) => {
       const regions = s.regions || [];
@@ -1437,26 +1414,51 @@ const ResultViewer = {
         ? firstR.yPct
         : ((firstR.y1 / refH) * 100);
 
-      const leftPct = Math.max(0.5, Math.min(97.5, rawLeftPct));
-      const topPct = Math.max(0.5, Math.min(97.5, rawTopPct));
+      const leftPct = Math.max(0.4, Math.min(97.5, rawLeftPct));
+      const topPct = Math.max(0.8, Math.min(97.5, rawTopPct));
+
+      // Tính % phạm vi từ đầu tiên (ví dụ chữ "The" ngay phía trên số 1) để mở rộng vùng chạm bao phủ cả từ
+      const rawWordWPct = (firstR.x1 != null && firstR.x0 != null && firstR.x1 > firstR.x0)
+        ? ((firstR.x1 - firstR.x0) / refW) * 100
+        : (isMobile ? 5.2 : 3.8);
+      const rawWordHPct = (firstR.y1 != null && firstR.y0 != null && firstR.y1 > firstR.y0)
+        ? ((firstR.y1 - firstR.y0) / refH) * 100
+        : (isMobile ? 2.8 : 2.1);
+
+      const hitLeftPad = isMobile ? 0.9 : 0.45;
+      const hitWidthPct = Math.max(isMobile ? 6.8 : 4.5, Math.min(16, rawWordWPct + (isMobile ? 2.2 : 1.1)));
+      const hitUpPct = Math.max(isMobile ? 3.2 : 2.2, Math.min(7.5, rawWordHPct + (isMobile ? 0.8 : 0.4)));
+      const hitDownPct = isMobile ? 2.0 : 1.3;
+
+      const boxLeftPct = Math.max(0.2, leftPct - hitLeftPad);
+      const boxTopPct = Math.max(0.2, topPct - hitUpPct);
+      const boxWidthPct = Math.min(99.5 - boxLeftPct, hitWidthPct);
+      const boxHeightPct = Math.min(99.5 - boxTopPct, hitUpPct + hitDownPct);
 
       const badge = document.createElement('button');
       badge.type = 'button';
-      badge.className = `sentence-overlay-box sentence-num-marker sentence-box-${gid}-${pIdx}-${sIdx}`;
-      badge.style.left = `${leftPct.toFixed(2)}%`;
-      badge.style.top = `${topPct.toFixed(2)}%`;
-      badge.textContent = `${sIdx + 1}`;
+      badge.className = `sentence-overlay-box sentence-num-marker sentence-box-${prefix}${gid}-${pIdx}-${sIdx}`;
+      badge.style.left = `${boxLeftPct.toFixed(2)}%`;
+      badge.style.top = `${boxTopPct.toFixed(2)}%`;
+      badge.style.width = `${boxWidthPct.toFixed(2)}%`;
+      badge.style.height = `${boxHeightPct.toFixed(2)}%`;
+
+      const numSpan = document.createElement('span');
+      numSpan.className = 'sentence-num-label';
+      numSpan.textContent = `${sIdx + 1}`;
+      badge.appendChild(numSpan);
+
       badge.title = `Câu ${sIdx + 1}: ${s.text || ''}`;
       badge.setAttribute('aria-label', `Câu ${sIdx + 1}`);
       badge.onclick = (e) => {
         e.stopPropagation();
-        this.selectSentence(gid, pIdx, sIdx);
+        this.selectSentence(gid, pIdx, sIdx, prefix);
       };
       layer.appendChild(badge);
     });
   },
 
-  handlePassageImageClick(event, img, gid, pIdx) {
+  handlePassageImageClick(event, img, gid, pIdx, prefix = '') {
     const passage = this.getPassage(gid, pIdx);
     if (!passage || !passage.sentences || passage.sentences.length === 0) return;
 
@@ -1466,78 +1468,150 @@ const ResultViewer = {
     const clickYPct = ((event.clientY - rect.top) / rect.height) * 100;
     const refW = passage.imageWidth || img.naturalWidth || rect.width;
     const refH = passage.imageHeight || img.naturalHeight || rect.height;
+    const isMobile = (typeof window !== 'undefined' && window.innerWidth <= 768) || rect.width <= 480;
 
-    // Tìm điểm đánh dấu đầu câu gần vị trí chạm nhất theo tỷ lệ % width/height của ảnh
     let bestIdx = -1;
-    let bestDist = Infinity;
+    let bestScore = Infinity;
+
     passage.sentences.forEach((s, idx) => {
       const firstR = s.regions && s.regions[0];
       if (!firstR) return;
-      const sxPct = (typeof firstR.xPct === 'number' && !isNaN(firstR.xPct)) ? firstR.xPct : ((firstR.x0 / refW) * 100);
-      const syPct = (typeof firstR.yPct === 'number' && !isNaN(firstR.yPct)) ? firstR.yPct : ((firstR.y1 / refH) * 100);
-      const dist = Math.hypot(clickXPct - sxPct, clickYPct - syPct);
-      if (dist < bestDist && dist <= 6.5) {
-        bestDist = dist;
-        bestIdx = idx;
+      const sx0Pct = (typeof firstR.xPct === 'number' && !isNaN(firstR.xPct)) ? firstR.xPct : ((firstR.x0 / refW) * 100);
+      const sy1Pct = (typeof firstR.yPct === 'number' && !isNaN(firstR.yPct)) ? firstR.yPct : ((firstR.y1 / refH) * 100);
+      const wordWPct = (firstR.x1 != null && firstR.x0 != null && firstR.x1 > firstR.x0)
+        ? ((firstR.x1 - firstR.x0) / refW) * 100
+        : (isMobile ? 5.5 : 4.0);
+      const wordHPct = (firstR.y1 != null && firstR.y0 != null && firstR.y1 > firstR.y0)
+        ? ((firstR.y1 - firstR.y0) / refH) * 100
+        : (isMobile ? 3.0 : 2.2);
+
+      const minX = sx0Pct - (isMobile ? 2.4 : 1.5);
+      const maxX = sx0Pct + Math.max(isMobile ? 7.5 : 5.0, wordWPct + (isMobile ? 2.5 : 1.5));
+      const minY = sy1Pct - Math.max(isMobile ? 4.2 : 3.0, wordHPct + (isMobile ? 1.5 : 0.8));
+      const maxY = sy1Pct + (isMobile ? 2.8 : 2.0);
+
+      if (clickXPct >= minX && clickXPct <= maxX && clickYPct >= minY && clickYPct <= maxY) {
+        const centerX = sx0Pct + wordWPct * 0.35;
+        const centerY = sy1Pct - wordHPct * 0.25;
+        const dist = Math.hypot(clickXPct - centerX, clickYPct - centerY);
+        if (dist < bestScore) {
+          bestScore = dist;
+          bestIdx = idx;
+        }
       }
     });
+
     if (bestIdx !== -1) {
-      this.selectSentence(gid, pIdx, bestIdx);
+      this.selectSentence(gid, pIdx, bestIdx, prefix);
+    } else {
+      this.closeSentenceCard(gid, pIdx, prefix);
     }
   },
 
-  selectSentence(gid, pIdx, sIdx) {
+  selectSentence(gid, pIdx, sIdx, prefix = '') {
     const passage = this.getPassage(gid, pIdx);
     if (!passage || !passage.sentences || !passage.sentences[sIdx]) return;
     const s = passage.sentences[sIdx];
 
-    // Highlight overlay boxes
-    const layer = document.getElementById(`overlays_${gid}_${pIdx}`);
+    const layer = document.getElementById(`overlays_${prefix}${gid}_${pIdx}`);
     if (layer) {
       layer.querySelectorAll('.sentence-overlay-box').forEach(b => b.classList.remove('active'));
-      layer.querySelectorAll(`.sentence-box-${gid}-${pIdx}-${sIdx}`).forEach(b => b.classList.add('active'));
+      layer.querySelectorAll(`.sentence-box-${prefix}${gid}-${pIdx}-${sIdx}`).forEach(b => b.classList.add('active'));
     }
 
-    // Highlight pill
-    const pillsRow = document.getElementById(`pills_${gid}_${pIdx}`);
-    if (pillsRow) {
-      pillsRow.querySelectorAll('.sentence-pill-btn').forEach(btn => btn.classList.remove('active'));
-      const activePill = document.getElementById(`pill_${gid}_${pIdx}_${sIdx}`);
-      if (activePill) activePill.classList.add('active');
-    }
-
-    // Populate and show Card
-    const card = document.getElementById(`sentence_card_${gid}_${pIdx}`);
-    const badge = document.getElementById(`sentence_badge_${gid}_${pIdx}`);
-    const en = document.getElementById(`sentence_en_${gid}_${pIdx}`);
-    const vi = document.getElementById(`sentence_vi_${gid}_${pIdx}`);
-    const note = document.getElementById(`sentence_note_${gid}_${pIdx}`);
+    const card = document.getElementById(`sentence_card_${prefix}${gid}_${pIdx}`);
+    const badge = document.getElementById(`sentence_badge_${prefix}${gid}_${pIdx}`);
+    const en = document.getElementById(`sentence_en_${prefix}${gid}_${pIdx}`);
+    const vi = document.getElementById(`sentence_vi_${prefix}${gid}_${pIdx}`);
+    const note = document.getElementById(`sentence_note_${prefix}${gid}_${pIdx}`);
 
     if (card) {
       if (badge) badge.textContent = `Câu ${sIdx + 1} / ${passage.sentences.length}`;
       if (en) en.textContent = s.text || '';
       if (vi) vi.textContent = s.translation || 'Chưa có bản dịch cho câu này';
       if (note) {
-        note.textContent = s.analysis ? `💡 Phân tích: ${s.analysis}` : '';
+        note.textContent = s.analysis ? `💡 ${s.analysis}` : '';
         note.style.display = s.analysis ? 'block' : 'none';
       }
+
+      // Định vị popup ngay dưới hoặc ngay trên tọa độ câu vừa chạm
+      const firstR = s.regions && s.regions[0];
+      const refH = passage.imageHeight || 1000;
+      const sy1Pct = firstR
+        ? ((typeof firstR.yPct === 'number' && !isNaN(firstR.yPct)) ? firstR.yPct : ((firstR.y1 / refH) * 100))
+        : 30;
+      const sy0Pct = (firstR && firstR.y0 != null)
+        ? ((firstR.y0 / refH) * 100)
+        : Math.max(0, sy1Pct - 2.6);
+
+      if (sy1Pct <= 55) {
+        // Câu nằm ở nửa trên ảnh -> Hiển thị thẻ dịch ngay bên dưới câu
+        card.style.top = `${Math.min(88, sy1Pct + 1.8).toFixed(2)}%`;
+        card.style.bottom = 'auto';
+      } else {
+        // Câu nằm ở nửa dưới ảnh -> Hiển thị thẻ dịch ngay phía trên câu
+        card.style.bottom = `${Math.min(88, Math.max(3, 100 - sy0Pct + 1.0)).toFixed(2)}%`;
+        card.style.top = 'auto';
+      }
+
       card.style.display = 'block';
     }
   },
 
-  closeSentenceCard(gid, pIdx) {
-    const card = document.getElementById(`sentence_card_${gid}_${pIdx}`);
+  closeSentenceCard(gid, pIdx, prefix = '') {
+    const card = document.getElementById(`sentence_card_${prefix}${gid}_${pIdx}`);
     if (card) card.style.display = 'none';
 
-    const layer = document.getElementById(`overlays_${gid}_${pIdx}`);
+    const layer = document.getElementById(`overlays_${prefix}${gid}_${pIdx}`);
     if (layer) {
       layer.querySelectorAll('.sentence-overlay-box').forEach(b => b.classList.remove('active'));
     }
+  },
 
-    const pillsRow = document.getElementById(`pills_${gid}_${pIdx}`);
-    if (pillsRow) {
-      pillsRow.querySelectorAll('.sentence-pill-btn').forEach(btn => btn.classList.remove('active'));
+  openPassageLightbox(gid, pIdx, url) {
+    const opened = UIRenderer.openLightbox(url);
+    if (!opened || typeof document === 'undefined') return opened;
+
+    const modal = document.getElementById('image-lightbox-modal');
+    if (!modal || typeof modal.querySelector !== 'function') return opened;
+    const imgEl = modal.querySelector('#lightbox-modal-img');
+    const container = modal.querySelector('.lightbox-img-container') || (imgEl && imgEl.parentElement);
+    if (!imgEl || !container || typeof document.createElement !== 'function') return opened;
+
+    // Tạo lớp tọa độ câu và thẻ popup dịch câu ngay trong chế độ kính lúp (Lightbox)
+    const overlaysLayer = document.createElement('div');
+    overlaysLayer.className = 'passage-overlays-layer lightbox-passage-overlays';
+    overlaysLayer.id = `overlays_lb_${gid}_${pIdx}`;
+    container.appendChild(overlaysLayer);
+
+    const popover = document.createElement('div');
+    popover.className = 'sentence-lookup-card sentence-floating-popover lightbox-sentence-popover';
+    popover.id = `sentence_card_lb_${gid}_${pIdx}`;
+    popover.style.display = 'none';
+    popover.onclick = (e) => e.stopPropagation();
+    popover.innerHTML = `
+      <div class="sentence-lookup-header">
+        <span class="sentence-badge" id="sentence_badge_lb_${gid}_${pIdx}">Câu 1</span>
+        <button type="button" class="sentence-close-btn" onclick="ResultViewer.closeSentenceCard('${gid}', ${pIdx}, 'lb_')">&times;</button>
+      </div>
+      <div class="sentence-text-en" id="sentence_en_lb_${gid}_${pIdx}"></div>
+      <div class="sentence-text-vi" id="sentence_vi_lb_${gid}_${pIdx}"></div>
+      <div class="sentence-text-note" id="sentence_note_lb_${gid}_${pIdx}"></div>
+    `;
+    container.appendChild(popover);
+
+    const bindOverlays = () => {
+      this.setupPassageOverlays(imgEl, gid, pIdx, 'lb_');
+    };
+    imgEl.onload = bindOverlays;
+    if (imgEl.complete) {
+      setTimeout(bindOverlays, 0);
     }
+    imgEl.onclick = (e) => {
+      e.stopPropagation();
+      this.handlePassageImageClick(e, imgEl, gid, pIdx, 'lb_');
+    };
+    return true;
   },
 
   openLightbox(url) {

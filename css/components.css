@@ -673,6 +673,36 @@
   transform: scale(1.05);
 }
 
+/* Compact icon-only zoom button pinned inside .passage-image-wrap */
+.image-zoom-btn-icon {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, 0.72);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  font-size: 0.88rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 20;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.image-zoom-btn-icon:hover {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  transform: scale(1.08);
+}
+
 /* ── Fullscreen Lightbox Zoom Modal ── */
 .image-lightbox-modal {
   display: none;
@@ -696,20 +726,24 @@
 }
 
 .lightbox-img-container {
+  position: relative;
+  display: inline-block;
   max-width: 96vw;
-  max-height: 94vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  max-height: 92vh;
+  overflow: visible;
 }
 
 .lightbox-img-container img {
-  max-width: 100%;
+  display: block;
+  max-width: 96vw;
   max-height: 90vh;
+  width: auto;
+  height: auto;
   object-fit: contain;
   border-radius: var(--radius-md);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
   background: #ffffff;
+  cursor: pointer;
 }
 
 .lightbox-close-btn {
@@ -1271,16 +1305,17 @@
   width: 100%;
   container-type: inline-size;
   border-radius: var(--radius-md);
-  overflow: hidden;
+  overflow: visible;
   background: #ffffff;
   box-shadow: var(--shadow-sm);
-  cursor: crosshair;
+  cursor: pointer;
 }
 
 .interactive-passage-img {
   width: 100%;
   height: auto;
   display: block;
+  border-radius: var(--radius-md);
   user-select: none;
   -webkit-user-select: none;
 }
@@ -1296,67 +1331,99 @@
 
 .sentence-overlay-box {
   position: absolute;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: var(--badge-size, clamp(7.5px, 1.5cqw, 16px));
-  height: var(--badge-size, clamp(7.5px, 1.5cqw, 16px));
-  padding: 0 var(--badge-pad, clamp(1.5px, 0.32cqw, 3.5px));
-  font-family: var(--font-heading, system-ui, sans-serif);
-  font-size: var(--badge-font, clamp(5px, 0.98cqw, 10.5px));
-  font-weight: 800;
-  line-height: 1;
-  color: #ffffff;
-  background: rgba(79, 70, 229, 0.9);
-  border: var(--badge-border, clamp(0.6px, 0.14cqw, 1.5px)) solid #ffffff;
-  border-radius: 999px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
-  transform: translate(0, 0.5px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 0;
+  margin: 0;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 3px;
+  box-shadow: none !important;
   cursor: pointer;
   pointer-events: auto;
   user-select: none;
-  z-index: 5;
-  transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
-}
-
-/* Mở rộng vùng chạm vô hình giúp bấm cực nhạy trên điện thoại dù nút hiển thị nhỏ */
-.sentence-overlay-box::after {
-  content: '';
-  position: absolute;
-  inset: -6px;
+  z-index: 6;
+  transition: background-color 0.15s ease;
 }
 
 .sentence-overlay-box:hover {
-  background: #4338ca;
-  transform: translate(0, 0.5px) scale(1.18);
-  box-shadow: 0 2px 6px rgba(79, 70, 229, 0.55);
+  background: rgba(79, 70, 229, 0.12) !important;
   z-index: 12;
 }
 
 .sentence-overlay-box.active {
-  background: #ef4444;
-  border-color: #fef08a;
-  transform: translate(0, 0.5px) scale(1.22);
-  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.35), 0 1px 5px rgba(0, 0, 0, 0.45);
+  background: rgba(239, 68, 68, 0.16) !important;
+  box-shadow: inset 0 -1.5px 0 #ef4444 !important;
   z-index: 15;
 }
 
-/* Active Sentence Card */
+.sentence-num-label {
+  display: inline-block;
+  font-family: var(--font-heading, system-ui, sans-serif);
+  font-size: var(--badge-font, clamp(6px, 1.15cqw, 10px));
+  font-weight: 800;
+  line-height: 1;
+  color: #3730a3;
+  background: transparent;
+  text-shadow:
+    -1px -1px 0 rgba(255, 255, 255, 0.96),
+     1px -1px 0 rgba(255, 255, 255, 0.96),
+    -1px  1px 0 rgba(255, 255, 255, 0.96),
+     1px  1px 0 rgba(255, 255, 255, 0.96),
+     0    0   3px #ffffff;
+  transform: translate(1px, 2px);
+  pointer-events: none;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.sentence-overlay-box:hover .sentence-num-label,
+.sentence-overlay-box.active .sentence-num-label {
+  color: #dc2626;
+  transform: translate(1px, 2px) scale(1.18);
+}
+
+/* Active Sentence Card & Floating Popover */
 .sentence-lookup-card {
   margin-top: 14px;
   background: var(--bg-secondary);
   border: 1.5px solid var(--accent-primary);
   border-radius: var(--radius-md);
-  padding: 16px;
+  padding: 12px 14px;
   animation: fadeIn 0.2s ease forwards;
   box-shadow: var(--shadow-md);
+}
+
+.sentence-floating-popover {
+  position: absolute;
+  left: 2.5%;
+  right: 2.5%;
+  width: 95%;
+  max-height: 62%;
+  overflow-y: auto;
+  margin-top: 0 !important;
+  z-index: 30;
+  background: rgba(15, 23, 42, 0.96) !important;
+  color: #f8fafc;
+  border: 1.5px solid var(--accent-primary);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+[data-theme="light"] .sentence-floating-popover {
+  background: rgba(255, 255, 255, 0.97) !important;
+  color: #0f172a;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.25);
 }
 
 .sentence-lookup-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 .sentence-badge {
