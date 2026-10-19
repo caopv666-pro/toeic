@@ -570,6 +570,8 @@
 }
 
 .group-passages-wrap {
+  position: relative;
+  overflow: visible;
   margin-bottom: 8px;
 }
 
@@ -673,22 +675,22 @@
   transform: scale(1.05);
 }
 
-/* Compact icon-only zoom button pinned inside .passage-image-wrap */
+/* Compact icon-only zoom button pinned at the top-right corner of .passage-image-wrap */
 .image-zoom-btn-icon {
   position: absolute;
-  top: 6px;
-  right: 6px;
-  width: 30px;
-  height: 30px;
+  top: 2px;
+  right: 2px;
+  width: 26px;
+  height: 26px;
   padding: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(15, 23, 42, 0.72);
+  background: rgba(15, 23, 42, 0.68);
   color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 999px;
-  font-size: 0.88rem;
+  font-size: 0.75rem;
   line-height: 1;
   cursor: pointer;
   z-index: 20;
@@ -1277,10 +1279,12 @@
 
 /* ── Interactive Passage Overlays (Part 6 & Part 7 Sentence-by-Sentence Translation) ── */
 .interactive-passage-container {
+  position: relative;
+  overflow: visible;
   background: var(--bg-tertiary);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-md);
-  padding: 12px 14px;
+  padding: 8px 10px;
   margin-bottom: 12px;
 }
 
@@ -1389,60 +1393,62 @@
   background: var(--bg-secondary);
   border: 1.5px solid var(--accent-primary);
   border-radius: var(--radius-md);
-  padding: 12px 14px;
+  padding: 10px 12px;
   animation: fadeIn 0.2s ease forwards;
   box-shadow: var(--shadow-md);
 }
 
 .sentence-floating-popover {
   position: absolute;
-  left: 2.5%;
-  right: 2.5%;
-  width: 95%;
-  max-height: 62%;
+  left: 2%;
+  right: 2%;
+  width: 96%;
+  max-height: min(320px, 60vh);
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
   margin-top: 0 !important;
-  z-index: 30;
+  z-index: 45;
   background: rgba(15, 23, 42, 0.96) !important;
   color: #f8fafc;
   border: 1.5px solid var(--accent-primary);
   border-radius: var(--radius-md);
-  padding: 10px 12px;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
+  padding: 8px 11px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.58);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
 
 [data-theme="light"] .sentence-floating-popover {
-  background: rgba(255, 255, 255, 0.97) !important;
+  background: rgba(255, 255, 255, 0.98) !important;
   color: #0f172a;
-  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.25);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.22);
 }
 
 .sentence-lookup-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .sentence-badge {
   font-family: var(--font-heading);
-  font-size: 0.85rem;
+  font-size: 0.74rem;
   font-weight: 700;
   color: var(--accent-primary);
   background: rgba(99, 102, 241, 0.15);
-  padding: 3px 10px;
+  padding: 2px 8px;
   border-radius: var(--radius-full);
 }
 
 .sentence-close-btn {
   background: transparent;
   border: none;
-  font-size: 1.3rem;
+  font-size: 1.15rem;
   color: var(--text-muted);
   cursor: pointer;
-  padding: 0 6px;
+  padding: 0 5px;
   line-height: 1;
 }
 
@@ -1451,30 +1457,103 @@
 }
 
 .sentence-text-en {
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: 8px;
-  line-height: 1.5;
+  margin-bottom: 5px;
+  line-height: 1.4;
 }
 
 .sentence-text-vi {
-  font-size: 0.95rem;
+  font-size: 0.81rem;
   color: var(--success);
-  margin-bottom: 8px;
-  line-height: 1.5;
+  margin-bottom: 6px;
+  line-height: 1.4;
   background: rgba(16, 185, 129, 0.08);
-  padding: 8px 12px;
+  padding: 5px 9px;
   border-radius: var(--radius-sm);
   border-left: 3px solid var(--success);
 }
 
 .sentence-text-note {
-  font-size: 0.88rem;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-style: normal;
+  line-height: 1.42;
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px dashed rgba(148, 163, 184, 0.25);
+}
+
+/* Phrase-by-Phrase Bulleted List inside Sentence & Question Analysis */
+.analysis-section-title {
+  font-weight: 700;
+  font-size: 0.74rem;
   color: var(--accent-secondary);
+  margin: 4px 0 3px;
+  letter-spacing: 0.2px;
+}
+
+.analysis-section-title:first-child {
+  margin-top: 0;
+}
+
+.analysis-list {
+  list-style: none;
+  margin: 2px 0 4px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.analysis-list-item {
+  position: relative;
+  padding-left: 12px;
+  line-height: 1.4;
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+}
+
+.analysis-list-item::before {
+  content: '•';
+  position: absolute;
+  left: 2px;
+  top: 0;
+  color: var(--accent-primary);
+  font-weight: 800;
+}
+
+.analysis-phrase {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.analysis-meaning {
+  color: var(--text-secondary);
+}
+
+.analysis-note-line {
+  font-size: 0.78rem;
+  color: var(--accent-secondary);
+  line-height: 1.4;
+  margin: 2px 0;
+}
+
+.review-question-text {
+  font-size: 0.94rem;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.45;
+  color: var(--text-primary);
+}
+
+.question-trans-inline {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: 3px 0 0;
+  line-height: 1.4;
   font-style: italic;
-  line-height: 1.5;
-  margin-top: 6px;
 }
 
 /* Sentence Quick Navigation Pills */
@@ -2145,12 +2224,14 @@
   color: var(--text-muted);
 }
 
-[data-theme="light"] .passage-transcript-box {
+[data-theme="light"] .passage-transcript-box,
+[data-theme="light"] .passage-master-translation {
   background: #f8fafc;
   border-color: #e2e8f0;
 }
 
-[data-theme="light"] .passage-transcript-box summary {
+[data-theme="light"] .passage-transcript-box summary,
+[data-theme="light"] .passage-master-translation summary {
   color: #4338ca;
 }
 
@@ -2248,6 +2329,23 @@
   border-left-color: #10b981;
 }
 
+[data-theme="light"] .analysis-section-title {
+  color: #0284c7;
+}
+
+[data-theme="light"] .analysis-phrase {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+[data-theme="light"] .analysis-meaning {
+  color: #334155;
+}
+
+[data-theme="light"] .analysis-note-line {
+  color: #0369a1;
+}
+
 [data-theme="light"] .sentence-pill-btn {
   background: #ffffff;
   border-color: #cbd5e1;
@@ -2322,4 +2420,18 @@
   color: #312e81;
 }
 
+/* Direct Review / Question Audit Mode (?show=review&q=62) — Disable all animations & smooth scroll */
+html.no-animations,
+html.no-animations *,
+html.no-animations *::before,
+html.no-animations *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
 
+.review-q-card.audit-target-highlight {
+  outline: 2px solid var(--accent-primary, #6366f1);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.18);
+  border-radius: var(--radius-md, 12px);
+}

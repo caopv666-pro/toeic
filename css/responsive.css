@@ -427,17 +427,28 @@
   }
 
   .translation-box {
-    font-size: 0.84rem;
+    font-size: 0.80rem;
     padding: 6px 8px;
   }
 
   .interactive-passage-container {
-    padding: 8px 10px;
+    padding: 3px 4px;
+    margin-left: -4px;
+    margin-right: -4px;
+    width: calc(100% + 8px);
+  }
+
+  .image-zoom-btn-icon {
+    top: 2px;
+    right: 2px;
+    width: 22px;
+    height: 22px;
+    font-size: 0.66rem;
   }
 
   .passage-click-hint {
-    font-size: 0.78rem;
-    padding: 5px 8px;
+    font-size: 0.75rem;
+    padding: 4px 8px;
   }
 
   .group-subquestion-item {
@@ -496,25 +507,6 @@
     font-size: 1rem;
   }
 
-  .sentence-text-en {
-    font-size: 0.86rem;
-  }
-
-  .sentence-text-vi {
-    font-size: 0.84rem;
-    padding: 5px 8px;
-  }
-
-  .sentence-lookup-card {
-    padding: 8px 10px;
-    margin-top: 8px;
-  }
-
-  .sentence-close-btn {
-    padding: 2px 6px;
-    font-size: 1.25rem;
-  }
-
   /* Interactive Sentence Number Badges on Mobile: transparent background, small number, wide touch target */
   .sentence-overlay-box {
     background: transparent !important;
@@ -541,16 +533,115 @@
   }
 }
 
-/* Mobile Optimization for Review Mode (Result Page) */
+/* Mobile Optimization for Review Mode & Floating Sentence Popover (Result Page) */
 @media (max-width: 768px) {
+  .sentence-floating-popover {
+    left: 1.5%;
+    right: 1.5%;
+    width: 97%;
+    max-height: min(260px, 54vh);
+    padding: 7px 9px;
+  }
+
+  .sentence-lookup-header {
+    margin-bottom: 3px;
+  }
+
+  .sentence-badge {
+    font-size: 0.68rem;
+    padding: 1px 7px;
+  }
+
+  .sentence-close-btn {
+    padding: 0 4px;
+    font-size: 1.05rem;
+  }
+
+  .sentence-text-en {
+    font-size: 0.76rem;
+    line-height: 1.35;
+    margin-bottom: 4px;
+  }
+
+  .sentence-text-vi {
+    font-size: 0.74rem;
+    line-height: 1.35;
+    padding: 4px 7px;
+    margin-bottom: 5px;
+  }
+
+  .sentence-text-note {
+    font-size: 0.72rem;
+    line-height: 1.38;
+    margin-top: 4px;
+    padding-top: 4px;
+  }
+
+  .analysis-section-title {
+    font-size: 0.68rem;
+    margin: 3px 0 2px;
+  }
+
+  .analysis-list {
+    gap: 2px;
+  }
+
+  .analysis-list-item {
+    font-size: 0.72rem;
+    line-height: 1.35;
+    padding-left: 10px;
+  }
+
+  .analysis-note-line {
+    font-size: 0.72rem;
+    line-height: 1.35;
+  }
+
   .review-q-card {
-    padding: 10px 10px;
-    margin-bottom: 10px;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+  }
+
+  .review-q-header {
+    margin-bottom: 6px;
+    padding-bottom: 5px;
+  }
+
+  .review-q-num {
+    font-size: 0.96rem;
+  }
+
+  .review-question-text {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  .question-trans-inline {
+    font-size: 0.78rem;
+    line-height: 1.38;
   }
 
   .group-review-card {
-    padding: 10px 8px;
+    padding: 8px 8px;
     margin-bottom: 10px;
+  }
+
+  .group-review-header {
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+  }
+
+  .group-review-badge {
+    font-size: 0.78rem;
+    padding: 2px 8px;
+    border-radius: 6px;
+  }
+
+  .passage-master-translation,
+  .passage-transcript-box {
+    padding: 6px 10px;
+    font-size: 0.78rem;
+    margin: 6px 0 8px;
   }
 
   .group-subquestion-item {
@@ -571,12 +662,12 @@
   }
 
   .review-opt-en {
-    font-size: 0.88rem;
+    font-size: 0.84rem;
     line-height: 1.35;
   }
 
   .review-opt-vi {
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     line-height: 1.35;
   }
 

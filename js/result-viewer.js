@@ -83,11 +83,54 @@ const ResultViewer = {
     return db;
   },
 
+  _normalizeBookParam(raw) {
+    if (!raw) return null;
+    const config = this._getConfig();
+    if (config && typeof config.normalizeBookName === 'function') {
+      return config.normalizeBookName(raw);
+    }
+    const s = String(raw).trim().toUpperCase();
+    if (s === '2026' || s === 'EST 2026' || s === 'ETS 2026') return 'EST 2026';
+    if (s === '2024' || s === 'EST 2024' || s === 'ETS 2024') return 'EST 2024';
+    if (s === '2023' || s === 'EST 2023' || s === 'ETS 2023') return 'EST 2023';
+    if (s === '2022' || s === 'EST 2022' || s === 'ETS 2022') return 'EST 2022';
+    return null;
+  },
+
   async init(customSearch = null) {
     const searchStr = (typeof customSearch === 'string')
       ? customSearch
       : ((typeof window !== 'undefined' && window.location && window.location.search) ? window.location.search : '');
     const urlParams = new URLSearchParams(searchStr);
+
+    // 1. Parse ?name=2022 or ?book=2022
+    const rawBook = urlParams.get('name') || urlParams.get('book');
+    const urlBook = this._normalizeBookParam(rawBook);
+    const config = this._getConfig();
+    if (urlBook && config && typeof config.setSelectedBook === 'function') {
+      config.setSelectedBook(urlBook);
+    }
+
+    // 2. Parse ?q=62 or ?question=62 and ?show=review
+    let targetQNum = null;
+    const rawQ = urlParams.get('q') || urlParams.get('question');
+    if (rawQ) {
+      const qMatch = String(rawQ).match(/\d+/);
+      if (qMatch) {
+        const parsedQ = parseInt(qMatch[0], 10);
+        if (!isNaN(parsedQ) && parsedQ >= 1 && parsedQ <= 200) {
+          targetQNum = parsedQ;
+        }
+      }
+    }
+    const showParam = (urlParams.get('show') || urlParams.get('section') || '').trim().toLowerCase();
+    const isDirectReview = Boolean(targetQNum || showParam === 'review' || showParam === 'detail');
+
+    // Disable animations & smooth scrolling when opening via direct review/question URL
+    if (isDirectReview && typeof document !== 'undefined' && document.documentElement && document.documentElement.classList) {
+      document.documentElement.classList.add('no-animations');
+    }
+
     let urlTestId = null;
     const rawTest = urlParams.get('test');
     if (rawTest) {
@@ -102,6 +145,14 @@ const ResultViewer = {
     const urlResultId = urlParams.get('id');
     const storage = this._getStorage();
 
+    const matchesBook = (item) => {
+      if (!urlBook || !item) return true;
+      const itemBook = this._normalizeBookParam(item.bookName || item.book);
+      if (itemBook) return itemBook === urlBook;
+      if (item.testTitle && String(item.testTitle).toUpperCase().includes(urlBook)) return true;
+      return false;
+    };
+
     if (urlResultId && storage && typeof storage.getExamHistory === 'function') {
       const history = storage.getExamHistory();
       const match = Array.isArray(history) ? history.find(h => h && h.id === urlResultId) : null;
@@ -112,24 +163,28 @@ const ResultViewer = {
 
     if (!this.resultData && urlTestId && storage) {
       const current = (typeof storage.getCurrentResult === 'function') ? storage.getCurrentResult() : null;
-      if (current && parseInt(current.testId, 10) === urlTestId) {
+      if (current && parseInt(current.testId, 10) === urlTestId && matchesBook(current)) {
         this.resultData = current;
       } else if (typeof storage.getExamHistory === 'function') {
         const history = storage.getExamHistory();
-        const match = Array.isArray(history) ? history.find(h => h && parseInt(h.testId, 10) === urlTestId) : null;
+        const match = Array.isArray(history) ? history.find(h => h && parseInt(h.testId, 10) === urlTestId && matchesBook(h)) : null;
         if (match) {
           this.resultData = match;
         }
       }
     }
 
-    if (!this.resultData && storage && typeof storage.getCurrentResult === 'function') {
+    if (!this.resultData && !urlBook && storage && typeof storage.getCurrentResult === 'function') {
       this.resultData = storage.getCurrentResult();
     }
 
-    // If user requested a specific ?test=N and current resultData does not match, or if no resultData:
-    if (urlTestId && (!this.resultData || parseInt(this.resultData.testId, 10) !== urlTestId)) {
-      await this.loadReviewModeFromDB(urlTestId);
+    const needsDBLoad =
+      (urlTestId && (!this.resultData || parseInt(this.resultData.testId, 10) !== urlTestId)) ||
+      (urlBook && (!this.resultData || !matchesBook(this.resultData))) ||
+      (targetQNum && (!this.resultData || !Array.isArray(this.resultData.detailedQuestions) || !this.resultData.detailedQuestions.some(q => q && Number(q.questionNumber) === targetQNum)));
+
+    if (needsDBLoad) {
+      await this.loadReviewModeFromDB(urlTestId || (this.resultData && parseInt(this.resultData.testId, 10)) || 1, urlBook);
     }
 
     if (!this.resultData) {
@@ -141,7 +196,13 @@ const ResultViewer = {
     }
 
     const urlPart = urlParams.get('part');
-    if (urlPart && /^part[1-7]$/i.test(urlPart.trim())) {
+    if (targetQNum && config && typeof config.getPartByQuestionNum === 'function') {
+      const qPartInfo = config.getPartByQuestionNum(targetQNum);
+      if (qPartInfo && qPartInfo.key) {
+        this.currentPartFilter = qPartInfo.key;
+      }
+      this.currentStatusFilter = 'all';
+    } else if (urlPart && /^part[1-7]$/i.test(urlPart.trim())) {
       this.currentPartFilter = urlPart.trim().toLowerCase();
     } else if (this.resultData && this.resultData.mode === 'part' && this.resultData.partFilter) {
       this.currentPartFilter = String(this.resultData.partFilter).toLowerCase();
@@ -149,17 +210,27 @@ const ResultViewer = {
       this.currentPartFilter = 'part1';
     }
 
-    if (typeof document !== 'undefined' && typeof document.querySelectorAll === 'function') {
-      document.querySelectorAll('#part-filter-group .filter-pill-btn').forEach(btn => {
-        const btnPart = btn.dataset ? btn.dataset.part : (btn.getAttribute && btn.getAttribute('data-part'));
-        const isActive = (btnPart === this.currentPartFilter);
-        if (btn.classList && typeof btn.classList.toggle === 'function') {
-          btn.classList.toggle('active', isActive);
+    if (typeof document !== 'undefined') {
+      if (isDirectReview) {
+        const section = document.getElementById('detailed-review-section');
+        if (section) section.style.display = 'block';
+        const btn = document.getElementById('btn-show-detail');
+        if (btn && typeof btn.setAttribute === 'function') {
+          btn.setAttribute('aria-expanded', 'true');
         }
-        if (typeof btn.setAttribute === 'function') {
-          btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-        }
-      });
+      }
+      if (typeof document.querySelectorAll === 'function') {
+        document.querySelectorAll('#part-filter-group .filter-pill-btn').forEach(btn => {
+          const btnPart = btn.dataset ? btn.dataset.part : (btn.getAttribute && btn.getAttribute('data-part'));
+          const isActive = (btnPart === this.currentPartFilter);
+          if (btn.classList && typeof btn.classList.toggle === 'function') {
+            btn.classList.toggle('active', isActive);
+          }
+          if (typeof btn.setAttribute === 'function') {
+            btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+          }
+        });
+      }
     }
 
     if (typeof this.renderSummary === 'function') this.renderSummary();
@@ -168,16 +239,26 @@ const ResultViewer = {
     // CRITICAL: Always rehydrate full media (images, audio, passages) and clean explanations before render
     if (typeof this.rehydrateExplanationsFromDB === 'function') await this.rehydrateExplanationsFromDB();
     if (typeof this.renderDetailedReview === 'function') this.renderDetailedReview();
+
+    if (targetQNum && typeof this.scrollToQuestionInReview === 'function') {
+      this.scrollToQuestionInReview(targetQNum, true);
+    } else if (isDirectReview && typeof this.showDetailedReviewSection === 'function') {
+      this.showDetailedReviewSection();
+    }
     return true;
   },
 
-  async loadReviewModeFromDB(testId) {
+  async loadReviewModeFromDB(testId, bookOverride = null) {
     try {
       const clampedId = (Number.isFinite(testId) && testId >= 1 && testId <= 10) ? Math.floor(testId) : 1;
       const config = this._getConfig();
       const storage = this._getStorage();
+      const normalizedBook = this._normalizeBookParam(bookOverride);
+      if (normalizedBook && config && typeof config.setSelectedBook === 'function') {
+        config.setSelectedBook(normalizedBook);
+      }
       const url = (config && typeof config.getDatabaseUrl === 'function')
-        ? config.getDatabaseUrl()
+        ? config.getDatabaseUrl(normalizedBook || undefined)
         : 'data/database_compiled.json';
       const db = await this._fetchDatabase(url);
       if (!db) {
@@ -418,9 +499,9 @@ const ResultViewer = {
         });
       });
 
-      const currentBook = (config && typeof config.getSelectedBook === 'function')
+      const currentBook = normalizedBook || ((config && typeof config.getSelectedBook === 'function')
         ? config.getSelectedBook()
-        : 'EST 2022';
+        : 'EST 2022');
 
       this.resultData = {
         id: 'review_test_' + clampedId,
@@ -614,7 +695,7 @@ const ResultViewer = {
   },
 
   // ── Show / Hide Detailed Review Section ──
-  showDetailedReviewSection() {
+  showDetailedReviewSection(instant = false) {
     if (typeof document === 'undefined') return false;
     const section = document.getElementById('detailed-review-section');
     if (section) {
@@ -628,12 +709,115 @@ const ResultViewer = {
         : ((typeof window !== 'undefined' && window.pageYOffset) || 0);
       const offsetTop = Math.max(0, section.getBoundingClientRect().top + scrollY - 80);
       if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
-        const prefersReduced = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const noAnim = Boolean(instant || (document.documentElement && document.documentElement.classList && document.documentElement.classList.contains('no-animations')));
+        const prefersReduced = noAnim || (typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
         window.scrollTo({ top: offsetTop, behavior: prefersReduced ? 'auto' : 'smooth' });
       }
       return true;
     }
     return false;
+  },
+
+  // ── Instant Scroll to Specific Question in Review Mode (?q=62) ──
+  scrollToQuestionInReview(qNum, instant = true) {
+    const parsedQ = parseInt(qNum, 10);
+    if (isNaN(parsedQ) || parsedQ < 1 || parsedQ > 200) return false;
+    if (typeof document === 'undefined') return false;
+
+    const section = document.getElementById('detailed-review-section');
+    if (section) {
+      section.style.display = 'block';
+    }
+    const btn = document.getElementById('btn-show-detail');
+    if (btn && typeof btn.setAttribute === 'function') {
+      btn.setAttribute('aria-expanded', 'true');
+    }
+
+    let qEl = document.getElementById(`review_q_${parsedQ}`);
+    if (!qEl) {
+      const config = this._getConfig();
+      const pInfo = (config && typeof config.getPartByQuestionNum === 'function')
+        ? config.getPartByQuestionNum(parsedQ)
+        : null;
+      if (pInfo && pInfo.key) {
+        this.currentStatusFilter = 'all';
+        this.setPartFilter(pInfo.key);
+        qEl = document.getElementById(`review_q_${parsedQ}`);
+      }
+    }
+    if (!qEl) return false;
+
+    if (typeof document.querySelectorAll === 'function') {
+      document.querySelectorAll('.audit-target-highlight').forEach(el => {
+        if (el.classList) el.classList.remove('audit-target-highlight');
+      });
+    }
+    if (qEl.classList) {
+      qEl.classList.add('audit-target-highlight');
+    }
+
+    // If qEl is the FIRST question of a group card with a cropped image above it (Part 3, 4, 6, 7),
+    // scroll to the group card so the cropped image + question are both visible for auditing.
+    let scrollTargetEl = qEl;
+    if (typeof qEl.closest === 'function') {
+      const groupCard = qEl.closest('.group-review-card');
+      if (groupCard && typeof groupCard.querySelector === 'function') {
+        const firstQInGroup = groupCard.querySelector('.review-q-card');
+        if (firstQInGroup === qEl) {
+          scrollTargetEl = groupCard;
+        }
+      }
+    }
+
+    const performScroll = () => {
+      if (typeof window === 'undefined' || typeof window.scrollTo !== 'function') return;
+      if (!scrollTargetEl || typeof scrollTargetEl.getBoundingClientRect !== 'function') return;
+
+      const navbar = document.querySelector('.navbar');
+      const filterBar = document.querySelector('.filter-tabs-bar');
+      let stickyOffset = 12;
+      if (navbar && typeof navbar.getBoundingClientRect === 'function') {
+        stickyOffset += navbar.getBoundingClientRect().height || 0;
+      }
+      if (filterBar && typeof filterBar.getBoundingClientRect === 'function') {
+        stickyOffset += filterBar.getBoundingClientRect().height || 0;
+      }
+
+      const currentScrollY = (window.scrollY !== undefined) ? window.scrollY : (window.pageYOffset || 0);
+      const targetY = Math.max(0, Math.round(scrollTargetEl.getBoundingClientRect().top + currentScrollY - stickyOffset));
+
+      if (instant) {
+        window.scrollTo({ top: targetY, behavior: 'auto' });
+      } else {
+        window.scrollTo({ top: targetY, behavior: 'smooth' });
+      }
+    };
+
+    performScroll();
+    if (typeof window !== 'undefined') {
+      if (typeof window.requestAnimationFrame === 'function') {
+        window.requestAnimationFrame(() => performScroll());
+      }
+      setTimeout(() => performScroll(), 60);
+      setTimeout(() => performScroll(), 200);
+
+      // Re-anchor scroll if any preceding image finishes loading asynchronously within 1.5s
+      const container = document.getElementById('review-questions-container');
+      if (container && typeof container.querySelectorAll === 'function') {
+        const startTs = Date.now();
+        container.querySelectorAll('img').forEach(img => {
+          if (img && !img.complete && typeof img.addEventListener === 'function') {
+            const onImgLoad = () => {
+              if (Date.now() - startTs < 1500) {
+                performScroll();
+              }
+            };
+            img.addEventListener('load', onImgLoad, { once: true });
+          }
+        });
+      }
+    }
+    return true;
   },
 
   // ── Update Filter Button Counts (Real-time numbers for all/correct/wrong/unanswered) ──
@@ -972,9 +1156,9 @@ const ResultViewer = {
 
         <!-- Question Text & Inline Translation for Part 5 (or Part 1 if non-boilerplate question exists) -->
         ${(partKey !== 'part2' && (cleanQuestionText || cleanQuestionTrans)) ? `
-          <div class="question-text-block" style="margin: 10px 0 12px;">
-            ${cleanQuestionText ? `<p class="question-text" style="font-size: 0.98rem; font-weight: 600; margin: 0; line-height: 1.5;">${cleanQuestionText}</p>` : ''}
-            ${cleanQuestionTrans ? `<p class="question-trans-inline" style="font-size: 0.88rem; color: var(--text-secondary); margin: 4px 0 0; line-height: 1.45; font-style: italic;">${cleanQuestionTrans}</p>` : ''}
+          <div class="question-text-block" style="margin: 8px 0 10px;">
+            ${cleanQuestionText ? `<p class="question-text review-question-text">${cleanQuestionText}</p>` : ''}
+            ${(cleanQuestionTrans && cleanQuestionTrans.toLowerCase() !== cleanQuestionText.toLowerCase()) ? `<p class="question-trans-inline">${cleanQuestionTrans}</p>` : ''}
           </div>
         ` : ''}
 
@@ -1084,7 +1268,7 @@ const ResultViewer = {
                   ${group.groupSentences.map((s, sIdx) => s && s.analysis ? `
                     <div style="background: rgba(255, 255, 255, 0.03); padding: 8px 10px; border-radius: var(--radius-sm); border-left: 2px solid var(--accent-primary);">
                       <div style="font-weight: 600; font-size: 0.84rem; color: var(--text-primary); margin-bottom: 4px;">${s.speaker ? `[${s.speaker}] ` : `Câu ${sIdx + 1}: `}${s.text || ''}</div>
-                      <div style="font-size: 0.81rem; color: var(--text-secondary); white-space: pre-line;">${s.analysis}</div>
+                      <div class="analysis-formatted-wrap">${this.formatSentenceAnalysis(s.analysis)}</div>
                     </div>
                   ` : '').join('')}
                 </div>
@@ -1110,7 +1294,7 @@ const ResultViewer = {
                          onclick="ResultViewer.handlePassageImageClick(event, this, '${gid}', ${pIdx})">
                     <div class="passage-overlays-layer" id="overlays_${gid}_${pIdx}"></div>
 
-                    <!-- Floating Sentence Lookup Popover (positions above or below clicked coordinate) -->
+                    <!-- Floating Sentence Lookup Popover (positions below clicked coordinate, can overflow downward outside image) -->
                     <div class="sentence-lookup-card sentence-floating-popover" id="sentence_card_${gid}_${pIdx}" style="display: none;" onclick="event.stopPropagation()">
                       <div class="sentence-lookup-header">
                         <span class="sentence-badge" id="sentence_badge_${gid}_${pIdx}">Câu 1</span>
@@ -1150,10 +1334,12 @@ const ResultViewer = {
     const correctChoice = q.correctChoice;
     const isCorrect = q.isCorrect;
     const hasExplanation = Boolean(q.explanation || q.analysis || q.tips || q.optionsTranslation || q.translation);
+    const cleanQText = (q.questionText || '').trim();
     const questionTrans = (q.translation || q.questionTranslation || '').trim();
+    const showTrans = Boolean(questionTrans && questionTrans.toLowerCase() !== cleanQText.toLowerCase());
 
     return `
-      <div class="review-q-card animate-fade-in" id="review_q_${qNum}" style="margin-top: 14px; margin-bottom: 0;">
+      <div class="review-q-card animate-fade-in" id="review_q_${qNum}" style="margin-top: 10px; margin-bottom: 0;">
         <div class="review-q-header">
           <div class="review-q-title-wrap">
             <span class="review-q-num">Câu ${qNum}</span>
@@ -1165,10 +1351,10 @@ const ResultViewer = {
           </div>
         </div>
 
-        ${(q.questionText || questionTrans) ? `
-          <div class="question-text-block" style="margin: 10px 0 12px;">
-            ${q.questionText ? `<p class="question-text" style="font-size: 0.98rem; font-weight: 600; margin: 0; line-height: 1.5;">${q.questionText}</p>` : ''}
-            ${questionTrans ? `<p class="question-trans-inline" style="font-size: 0.88rem; color: var(--text-secondary); margin: 4px 0 0; line-height: 1.45; font-style: italic;">${questionTrans}</p>` : ''}
+        ${(cleanQText || showTrans) ? `
+          <div class="question-text-block" style="margin: 6px 0 8px;">
+            ${cleanQText ? `<p class="question-text review-question-text">${cleanQText}</p>` : ''}
+            ${showTrans ? `<p class="question-trans-inline">${questionTrans}</p>` : ''}
           </div>
         ` : ''}
 
@@ -1221,6 +1407,87 @@ const ResultViewer = {
     `;
   },
 
+  // ── Format Sentence / Question Phrase Analysis into Clean Bulleted List ──
+  formatSentenceAnalysis(rawText) {
+    if (!rawText || typeof rawText !== 'string') return '';
+    const esc = (str) => this.escapeHtml(str);
+
+    // Ensure any inline " * " bullets are placed on their own line
+    const normalized = rawText
+      .replace(/([^\n])[ \t]+\*[ \t]+/g, '$1\n* ')
+      .replace(/\r\n/g, '\n');
+
+    const rawLines = normalized.split('\n').map(l => l.trim()).filter(Boolean);
+    if (rawLines.length === 0) return '';
+
+    let html = '';
+    let inList = false;
+
+    const closeList = () => {
+      if (inList) {
+        html += '</ul>';
+        inList = false;
+      }
+    };
+
+    const formatPhraseItem = (itemText) => {
+      // Match "english phrase = vietnamese" or "english phrase: vietnamese"
+      const eqIdx = itemText.indexOf(' = ');
+      const colIdx = itemText.indexOf(': ');
+      let splitIdx = -1;
+      let sepLen = 2;
+
+      if (eqIdx !== -1 && (colIdx === -1 || eqIdx < colIdx)) {
+        splitIdx = eqIdx;
+        sepLen = 3;
+      } else if (colIdx !== -1) {
+        splitIdx = colIdx;
+        sepLen = 2;
+      }
+
+      if (splitIdx > 0 && splitIdx < 120) {
+        const phrase = itemText.slice(0, splitIdx).trim();
+        const meaning = itemText.slice(splitIdx + sepLen).trim();
+        return `<li class="analysis-list-item"><strong class="analysis-phrase">${esc(phrase)}</strong>: <span class="analysis-meaning">${esc(meaning)}</span></li>`;
+      }
+      return `<li class="analysis-list-item"><span class="analysis-meaning">${esc(itemText)}</span></li>`;
+    };
+
+    rawLines.forEach(line => {
+      const bulletMatch = line.match(/^(?:[*•\-+]|\d+[.)])\s+(.*)$/);
+      const isHeader = !bulletMatch && /^(Phân tích|Cấu trúc|Từ vựng|Ngữ pháp|Ghi chú\s*:?$)/i.test(line) && line.endsWith(':');
+
+      if (isHeader) {
+        closeList();
+        html += `<div class="analysis-section-title">📌 ${esc(line)}</div>`;
+      } else if (bulletMatch) {
+        if (!inList) {
+          html += '<ul class="analysis-list">';
+          inList = true;
+        }
+        html += formatPhraseItem(bulletMatch[1].trim());
+      } else if (rawLines.length > 1) {
+        // Multi-line analysis where a line has no explicit bullet
+        if (/^(Ghi chú|Lưu ý):/i.test(line)) {
+          closeList();
+          html += `<div class="analysis-note-line">💡 ${esc(line)}</div>`;
+        } else {
+          if (!inList) {
+            html += '<ul class="analysis-list">';
+            inList = true;
+          }
+          html += formatPhraseItem(line);
+        }
+      } else {
+        closeList();
+        html += `<div class="analysis-note-line">💡 ${esc(line)}</div>`;
+      }
+    });
+
+    closeList();
+    return html;
+  },
+
   // ── Render Shared Explanation Content Panel (Pedagogical Cards) ──
   renderExplanationContent(q, hasExplanation) {
     const hasExp = Boolean(q && q.explanation);
@@ -1257,7 +1524,7 @@ const ResultViewer = {
             <span class="exp-title">Phân tích từ vựng & Cấu trúc ngữ pháp</span>
           </div>
           <div class="exp-card-content">
-            <div class="exp-text-prose exp-analysis-text">${q.analysis}</div>
+            <div class="exp-text-prose exp-analysis-text">${this.formatSentenceAnalysis(q.analysis)}</div>
           </div>
         </div>
       ` : ''}
@@ -1460,7 +1727,7 @@ const ResultViewer = {
 
   handlePassageImageClick(event, img, gid, pIdx, prefix = '') {
     const passage = this.getPassage(gid, pIdx);
-    if (!passage || !passage.sentences || passage.sentences.length === 0) return;
+    if (!passage || !passage.sentences || !passage.sentences.length === 0) return;
 
     const rect = img.getBoundingClientRect();
     if (!rect.width || !rect.height) return;
@@ -1530,11 +1797,20 @@ const ResultViewer = {
       if (en) en.textContent = s.text || '';
       if (vi) vi.textContent = s.translation || 'Chưa có bản dịch cho câu này';
       if (note) {
-        note.textContent = s.analysis ? `💡 ${s.analysis}` : '';
+        note.innerHTML = s.analysis ? this.formatSentenceAnalysis(s.analysis) : '';
         note.style.display = s.analysis ? 'block' : 'none';
       }
 
-      // Định vị popup ngay dưới hoặc ngay trên tọa độ câu vừa chạm
+      // Nâng z-index của khung chứa ảnh đang mở popup để khi popup tràn xuống dưới ra ngoài ảnh không bị các phần tử bên dưới đè lên
+      if (!prefix && typeof document !== 'undefined') {
+        document.querySelectorAll('.interactive-passage-container').forEach(el => {
+          el.style.zIndex = '';
+        });
+        const passWrap = document.getElementById(`pass_wrap_${gid}_${pIdx}`);
+        if (passWrap) passWrap.style.zIndex = '45';
+      }
+
+      // Định vị popup cách tọa độ câu một khoảng vừa phải bên dưới, cho phép tràn xuống dưới ra ngoài ảnh
       const firstR = s.regions && s.regions[0];
       const refH = passage.imageHeight || 1000;
       const sy1Pct = firstR
@@ -1544,23 +1820,29 @@ const ResultViewer = {
         ? ((firstR.y0 / refH) * 100)
         : Math.max(0, sy1Pct - 2.6);
 
-      if (sy1Pct <= 55) {
-        // Câu nằm ở nửa trên ảnh -> Hiển thị thẻ dịch ngay bên dưới câu
-        card.style.top = `${Math.min(88, sy1Pct + 1.8).toFixed(2)}%`;
-        card.style.bottom = 'auto';
-      } else {
-        // Câu nằm ở nửa dưới ảnh -> Hiển thị thẻ dịch ngay phía trên câu
-        card.style.bottom = `${Math.min(88, Math.max(3, 100 - sy0Pct + 1.0)).toFixed(2)}%`;
+      if (prefix === 'lb_' && sy1Pct > 65) {
+        // Trong chế độ Lightbox toàn màn hình, nếu câu ở sát đáy thì hiển thị phía trên
+        card.style.bottom = `calc(${Math.min(88, Math.max(3, 100 - sy0Pct)).toFixed(2)}% + 10px)`;
         card.style.top = 'auto';
+      } else {
+        // Dịch xuống dưới tọa độ câu một khoảng rõ ràng (10px), cho phép tràn xuống dưới ra ngoài ảnh
+        card.style.top = `calc(${Math.min(96, sy1Pct).toFixed(2)}% + 10px)`;
+        card.style.bottom = 'auto';
       }
 
       card.style.display = 'block';
+      card.scrollTop = 0;
     }
   },
 
   closeSentenceCard(gid, pIdx, prefix = '') {
     const card = document.getElementById(`sentence_card_${prefix}${gid}_${pIdx}`);
     if (card) card.style.display = 'none';
+
+    if (!prefix && typeof document !== 'undefined') {
+      const passWrap = document.getElementById(`pass_wrap_${gid}_${pIdx}`);
+      if (passWrap) passWrap.style.zIndex = '';
+    }
 
     const layer = document.getElementById(`overlays_${prefix}${gid}_${pIdx}`);
     if (layer) {

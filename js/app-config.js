@@ -15,12 +15,25 @@ const AppConfig = {
     'EST 2026': { label: 'ETS 2026', dbFile: 'data/database_EST_2026.json' }
   },
 
+  normalizeBookName(raw) {
+    if (!raw || typeof raw !== 'string') return null;
+    const s = raw.trim().toUpperCase();
+    if (this.BOOKS && this.BOOKS[s]) return s;
+    const m = s.match(/(2022|2023|2024|2026)/);
+    if (m) {
+      const candidate = `EST ${m[1]}`;
+      if (this.BOOKS && this.BOOKS[candidate]) return candidate;
+    }
+    return null;
+  },
+
   getSelectedBook() {
     try {
       if (typeof window !== 'undefined' && window.location && window.location.search) {
         const params = new URLSearchParams(window.location.search);
-        const b = params.get('book');
-        if (b && this.BOOKS && this.BOOKS[b]) return b;
+        const rawBook = params.get('book') || params.get('name');
+        const normalized = this.normalizeBookName(rawBook);
+        if (normalized) return normalized;
       }
       if (typeof window !== 'undefined' && window.localStorage) {
         const saved = window.localStorage.getItem('toeic_selected_book');
@@ -31,7 +44,8 @@ const AppConfig = {
   },
 
   setSelectedBook(bookName) {
-    const valid = (bookName && this.BOOKS && this.BOOKS[bookName]) ? bookName : 'EST 2022';
+    const normalized = this.normalizeBookName(bookName);
+    const valid = normalized || ((bookName && this.BOOKS && this.BOOKS[bookName]) ? bookName : 'EST 2022');
     this.BOOK_NAME = valid;
     try {
       if (typeof window !== 'undefined' && window.localStorage) {
@@ -43,9 +57,10 @@ const AppConfig = {
   
   // Endpoint to fetch compiled test database directly from local web data folder or remote CDN
   getDatabaseUrl(bookOverride) {
-    const activeBook = (bookOverride && this.BOOKS && this.BOOKS[bookOverride])
-      ? bookOverride
-      : this.getSelectedBook();
+    const normOverride = this.normalizeBookName(bookOverride);
+    const activeBook = normOverride
+      ? normOverride
+      : ((bookOverride && this.BOOKS && this.BOOKS[bookOverride]) ? bookOverride : this.getSelectedBook());
     if (activeBook === 'EST 2026') {
       return this.resolveAssetUrl(`data/database_EST_2026.json?v=${Date.now()}`);
     }
