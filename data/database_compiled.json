@@ -1,6 +1,6 @@
 {
   "version": "2.0.0-distributed",
-  "generatedAt": "2026-10-19T04:53:20.963Z",
+  "generatedAt": "2026-10-19T05:43:49.171Z",
   "generator": "toeic-17-part-automations-pipeline",
   "bookName": "EST 2022",
   "totalTests": 10,
@@ -13,7 +13,7 @@
           "questions": [
             {
               "questionNumber": 1,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test1/q1.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test1/q1.mp3",
               "questionText": "Look at the picture marked number 1 in your test book.",
               "options": {
@@ -58,7 +58,7 @@
             },
             {
               "questionNumber": 2,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test1/q2.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test1/q2.mp3",
               "questionText": "Look at the picture marked number 2 in your test book.",
               "options": {
@@ -103,7 +103,7 @@
             },
             {
               "questionNumber": 3,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test1/q3.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test1/q3.mp3",
               "questionText": "Look at the picture marked number 3 in your test book.",
               "options": {
@@ -148,7 +148,7 @@
             },
             {
               "questionNumber": 4,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test1/q4.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test1/q4.mp3",
               "questionText": "Look at the picture marked number 4 in your test book.",
               "options": {
@@ -193,7 +193,7 @@
             },
             {
               "questionNumber": 5,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test1/q5.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test1/q5.mp3",
               "questionText": "Look at the picture marked number 5 in your test book.",
               "options": {
@@ -238,7 +238,7 @@
             },
             {
               "questionNumber": 6,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test1/q6.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test1/q6.mp3",
               "questionText": "Look at the picture marked number 6 in your test book.",
               "options": {
@@ -2648,7 +2648,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test1/group_62_64.webp",
                   "imageWidth": 416,
                   "imageHeight": 283
                 }
@@ -2772,7 +2772,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test1/group_65_67.webp",
                   "imageWidth": 471,
                   "imageHeight": 315
                 }
@@ -2905,7 +2905,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test1/group_68_70.webp",
                   "imageWidth": 382,
                   "imageHeight": 185
                 }
@@ -4869,7 +4869,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page006/block_3.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -5109,7 +5109,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page007/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -5465,7 +5465,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page008/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -5867,7 +5867,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page009/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -6290,7 +6290,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page010/block_3.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -6535,7 +6535,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page011/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -6804,7 +6804,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page012/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -7164,7 +7164,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page013/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -7568,7 +7568,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page014/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -7758,7 +7758,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page015/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -8259,7 +8259,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page016/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -8842,7 +8842,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page017/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -9113,7 +9113,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page018/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -9692,7 +9692,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page019/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -10236,7 +10236,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page021/block_1.webp",
                   "passageTranslation": "Vấn đề Kinh doanh Alberta\nSố phát hành tháng 4\nHãy cải thiện môi trường văn phòng của bạn ngay bây giờ!\nMôi trường văn phòng ngày nay, với đặc điểm là vô số hành lang, những bức tường màu be hoặc trắng tẻ nhạt, và thường là những dãy ô làm việc giống hệt nhau không có cửa sổ, có thể không mang lại sự thoải mái, vẻ đẹp và năng lượng. Tuy nhiên, có một số cách dễ dàng và không tốn kém để làm cho không gian văn phòng của bạn trở nên lôi cuốn hơn.\nChất lượng không khí\n• Thêm một số cây xanh vào không gian trang trí. Cây xanh cung cấp một hệ thống lọc tự nhiên, giúp tăng nồng độ oxy. Nên ưu tiên các loại cây không ra hoa vì chúng sẽ không phát tán phấn hoa.\n• Một chiếc máy lọc không khí nhỏ để bàn sẽ giúp cải thiện không khí tù đọng và loại bỏ bụi bẩn.\nChất lượng ánh sáng\n• Hãy nghỉ giải lao và đi ra ngoài trời. Ngay cả chỉ năm phút trước hoặc sau giờ nghỉ trưa cũng sẽ giúp mắt bạn được nghỉ ngơi, tạm tránh xa các nguồn ánh sáng nhân tạo.\n• Sử dụng đèn bàn có bóng đèn quang phổ đầy đủ.\n• Lắp đặt cửa sổ hai lớp kính thay vì dùng rèm che để giảm độ chói trong khi vẫn duy trì được ánh sáng tự nhiên.\nGiảm bớt căng thẳng\n• Nút bịt tai hoặc tai nghe chống ồn có thể ngăn chặn tiếng ồn gây xao nhãng trong một mặt bằng văn phòng mở.\n• Hình ảnh về những người thân yêu và những địa điểm chúng ta từng đến nghỉ mát là những lời nhắc nhở về cuộc sống của chúng ta ngoài công sở. Hãy chọn một vài bức ảnh yêu thích làm yếu tố trang trí quan trọng.\nBạn đọc thân mến, nếu bạn có các mẹo để bổ sung vào danh sách này, hãy gửi về cho chúng tôi và chúng sẽ được đăng tải trong số phát hành tháng tới.",
                   "sentences": [
                     {
@@ -10566,7 +10566,7 @@
                   "imageHeight": 1088
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page021/block_2.webp",
                   "passageTranslation": "Vấn đề Kinh doanh Alberta\nThư gửi Ban biên tập\nĐộc giả của các bạn có thể sẽ quan tâm khi biết về công ty mà tôi đang làm việc, có tên là Moveable, Inc. Chúng tôi khao khát làm cho những văn phòng tẻ nhạt trở nên thoải mái và tiện lợi hơn cho người lao động, đặc biệt là đối với những nhân viên thường xuyên phải di chuyển ngày nay.\nVí dụ, giả sử bạn làm việc hai ngày một tuần tại trụ sở chính ở Edmonton, và những ngày còn lại trong tuần bạn làm việc ở một văn phòng chi nhánh. Chiếc hộp “Can-Do Case” của chúng tôi đảm bảo rằng các đồ dùng văn phòng yêu thích luôn đồng hành cùng bạn. “Bộ trang trí mô-đun” (Modular Décor Kit) của chúng tôi, chỉ nặng 1,75 kg, bao gồm một đèn đọc sách di động, một chậu cây lụa mini và một khung ảnh gấp có chỗ cho bốn bức hình. Hãy tìm kiếm chúng tôi trên mạng và theo dõi chúng tôi trên mạng xã hội, vì chúng tôi thường xuyên ra mắt các sản phẩm mới!\nTrân trọng,\nMaria Testa",
                   "sentences": [
                     {
@@ -10829,7 +10829,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page023/block_1.webp",
                   "passageTranslation": "Hãy chọn một trong những chuyến dã ngoại phổ biến nhất của Công ty Du lịch Lloyd (LTC) để chiêm ngưỡng những điều tuyệt vời nhất mà London mang lại!\nTour 1: Tour trọn ngày tham quan các địa điểm du lịch nổi tiếng nhất trên một trong những chiếc xe buýt hai tầng màu đỏ trứ danh của chúng tôi. Xem lễ Đổi gác và kết thúc một ngày bằng chuyến du ngoạn trên sông.\nTour 2: Tour đi bộ trọn ngày khám phá các khu mua sắm tuyệt nhất London. Khám phá các cửa hàng bách hóa nổi tiếng của London và dạo bước dọc theo các con phố thời trang Bond và Oxford.\nTour 3: Tour nửa ngày trên xe buýt hai tầng màu đỏ, bao gồm tour tham quan riêng Tháp London và ăn trưa tại một quán cà phê gần đó.\nTour 4: Tour nửa ngày tham quan Cung điện Buckingham, bao gồm lễ Đổi gác. Tour kết thúc với bữa trưa truyền thống gồm cá và khoai tây chiên (fish-and-chips).\nTour 5: Tour đi bộ trọn ngày với những điểm nhấn nổi bật nhất của London. Khép lại ngày trải nghiệm bằng một bữa tiệc thời trung cổ.\nCác nhân viên địa phương am hiểu của LTC sẽ đích thân hướng dẫn từng chuyến đi của chúng tôi. Các bữa ăn không được bao gồm trong giá tour, ngoại trừ khi được ghi chú trong phần mô tả chuyến đi. Những người tham gia có trách nhiệm tập trung tại điểm xuất phát đã chọn. LTC không cung cấp dịch vụ đón tại khách sạn. Tất cả các tour đều có thể được nâng cấp với một khoản phụ phí để bao gồm vé có ngày mở tham quan London Eye, vòng đu quay quan sát nổi tiếng của London.",
                   "sentences": [
                     {
@@ -11077,7 +11077,7 @@
                   "imageHeight": 948
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page023/block_2.webp",
                   "passageTranslation": "—Ella Bouton\nĐánh giá về Công ty Du lịch Lloyd\nĐây là chuyến đi đầu tiên của tôi đến London. Tôi đã quyết định tự mình đi tham quan tất cả các địa điểm du lịch lớn, nhưng tôi muốn có người giúp tôi khám phá những nơi mua sắm thú vị nhất ở London. Hướng dẫn viên LTC của tôi, Larissa, thật tuyệt vời. Bản thân cô ấy là một người đam mê mua sắm, và khi bắt đầu chuyến đi, cô ấy đã cố gắng tìm hiểu nhu cầu của từng người tham gia. Cô ấy có thể hướng dẫn mọi người đến những cửa hàng mà họ quan tâm nhất. Đó thực sự là một tour du lịch mang tính cá nhân hóa cao! Và một điểm cộng nữa là Larissa cũng nói được tiếng Pháp. Con gái tôi và tôi đến du lịch từ Paris, và chúng tôi rất cảm kích vì có thể giao tiếp bằng cả hai ngôn ngữ. Chuyến đi cũng có giá rất hợp lý nữa. Tôi thực sự rất muốn giới thiệu tour này. Điểm không thoải mái duy nhất của chuyến tham quan là phố Oxford cực kỳ đông đúc khi chúng tôi ghé thăm, và thật khó để đi lại xung quanh một cách dễ dàng.",
                   "sentences": [
                     {
@@ -11404,7 +11404,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page025/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -11769,7 +11769,7 @@
                   "imageHeight": 1126
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page025/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -11857,7 +11857,7 @@
                   "imageHeight": 376
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page026/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -12376,7 +12376,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page027/block_1.webp",
                   "imageWidth": 1054,
                   "imageHeight": 1017,
                   "passageTranslation": "TÒA NHÀ ANTON\nClanton (ngày 12 tháng 10) — Dự án cải tạo theo kế hoạch đối với Tòa nhà Anton lịch sử của Công ty Phát triển Bất động sản Jantuni (JPD) đang phải đối mặt với những sự chậm trễ mới. Người phát ngôn của JPD cho biết các cuộc đàm phán của họ với thành phố liên quan đến gói trợ cấp và ưu đãi thuế vẫn đang tiếp diễn và tỏ ra khá căng thẳng. Theo kế hoạch cải tạo, JPD phải bảo tồn tính nguyên vẹn mang tính lịch sử của Tòa nhà Anton trong khi xây dựng nội thất đa chức năng, cung cấp cả không gian văn phòng và mặt bằng bán lẻ ở các tầng dưới. Tuy nhiên, giấy phép của thành phố cấp cho JPD để thực hiện dự án đang bị tạm dừng để chờ kết quả của các cuộc đàm phán hiện tại.\n\nĐiều này đang khiến những người ủng hộ tái thiết thành phố ngày càng lo lắng. Bà Aditi Yadav nhận xét: “Kế hoạch tạo ra không gian hữu dụng từ một tòa nhà bỏ hoang đang xuống cấp này sẽ đóng góp rất lớn vào việc khôi phục sức sống cho khu vực đó của thành phố. Tôi thành tâm hy vọng rằng JPD sẽ không rút lui. Khi đưa ra đề xuất của mình, Hội đồng Thành phố nên xem xét thành tích xuất sắc của JPD trong việc phục dựng và duy trì tuyệt đẹp một số tòa nhà lịch sử khác ở Clanton.”",
@@ -12537,7 +12537,7 @@
                   ]
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page027/block_2.webp",
                   "imageWidth": 1361,
                   "imageHeight": 753,
                   "passageTranslation": "Người gửi: anabautista@lenoiva-health.com\nNgười nhận: t.rowell@jantunipropertydevelopers.com\nNgày: 20 tháng 2\nChủ đề: Thắc mắc về việc thuê mặt bằng\n\nKính gửi ông Rowell,\n\nTôi là chủ sở hữu của Lenoiva, một công ty công nghệ chăm sóc sức khỏe. Chúng tôi dự định mở rộng hoạt động và cần không gian văn phòng mới. Tòa nhà Anton là một trong những địa điểm ở Clanton mà chúng tôi đang cân nhắc. Chúng tôi được biết dự án phục dựng tòa nhà này của quý công ty sẽ hoàn thành vào mùa xuân năm nay, đây là thời điểm rất thuận lợi cho chúng tôi. Chúng tôi đặc biệt bị thu hút bởi việc dễ dàng tiếp cận các dịch vụ giao thông công cộng mà tòa nhà của quý công ty mang lại. Quý công ty có còn diện tích nào trống để cho thuê không? Chúng tôi dự kiến cần một không gian có diện tích ít nhất là 300 mét vuông. Liệu có chỗ đỗ xe dành riêng cho nhân viên của chúng tôi nếu chúng tôi thuê ở đó không? Chúng tôi rất cảm kích trước bất kỳ thông tin nào ông có thể cung cấp.\n\nXin chân thành cảm ơn trước,\nAna Bautista",
@@ -12817,7 +12817,7 @@
                   ]
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page028/block_1.webp",
                   "imageWidth": 1103,
                   "imageHeight": 667,
                   "passageTranslation": "Mặt bằng tầng 2 - One Anton Place (Không gian văn phòng)\n- Căn 2A: 350 m² - Công ty Kế toán T&M (Đã có khách thuê)\n- Căn 2B: 150 m² - Còn trống\n- Căn 2C: 100 m² - Còn trống\n- Căn 2D: 250 m² - Còn trống\n- Căn 2E: 375 m² - Còn trống",
@@ -13221,7 +13221,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page029/block_1.webp",
                   "passageTranslation": "Người gửi: Tanya Jefferson <tjeff@keysuppliers.com>\nNgười nhận: info@danestongear.com\nTiêu đề: Yêu cầu thông tin thuê thuyền theo nhóm\nNgày: 29 tháng 5\n\nXin chào Công ty Thiết bị Daneston (DGC),\nTôi là chủ nhiệm của một câu lạc bộ hoạt động ngoài trời. Trong tháng này, 30 thành viên của chúng tôi dự định thực hiện một chuyến đi trong ngày tới Daneston để chèo thuyền trên hồ. Bạn có thể vui lòng gửi cho tôi thông tin về bảng giá và các dịch vụ cung cấp của bạn được không? Chúng tôi quan tâm nhiều nhất đến việc thuê các loại thuyền dành cho một người ngồi. Cách đây một thời gian, tôi đã từng tự thuê một chiếc thuyền kayak từ DGC cho bản thân mình, nhưng đây sẽ là lần đầu tiên tôi thuê thuyền từ DGC cho cả một nhóm.\nXin cảm ơn,\nTanya Jefferson",
                   "sentences": [
                     {
@@ -13433,7 +13433,7 @@
                   "imageHeight": 967
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page029/block_2.webp",
                   "passageTranslation": "Người gửi: info@danestongear.com\nNgười nhận: Tanya Jefferson <tjeff@keysuppliers.com>\nTiêu đề: RE: Yêu cầu thông tin thuê thuyền theo nhóm\nNgày: 30 tháng 5\nTệp đính kèm: Bảng giá\n\nKính gửi cô Jefferson,\nCảm ơn cô đã liên hệ với chúng tôi về chuyến tham quan dự kiến của nhóm cô tới DGC. Chúng tôi rất mong được trang bị cho câu lạc bộ của cô cho chuyến phiêu lưu sắp tới. Một bảng giá đã được đính kèm theo email này. Nếu cô muốn trao đổi chi tiết hơn về các dịch vụ thuê thuyền của chúng tôi, vui lòng gọi cho tôi theo số (888) 555-1578.\nNhân tiện, gần đây chúng tôi vừa bổ sung thêm lựa chọn thuyền chèo tay (rowboat), đây là một lựa chọn tuyệt vời cho những người lớn muốn đi thuyền cùng con nhỏ của mình.\nTôi rất hân hạnh được hỗ trợ cô khi cô đã sẵn sàng đặt chỗ.\nTrân trọng,\nAdam Goldstein",
                   "sentences": [
                     {
@@ -13679,7 +13679,7 @@
                   "imageHeight": 1018
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page030/block_1.webp",
                   "passageTranslation": "Bảng giá DGC\nLoại thuyền | Giá theo giờ | Mỗi 1/2 giờ tiếp theo\nLựa chọn 1: Xuồng canoe 2 người ($13/giờ, $8 cho mỗi 1/2 giờ tiếp theo)\nLựa chọn 2: Xuồng canoe 3 người ($15/giờ, $8 cho mỗi 1/2 giờ tiếp theo)\nLựa chọn 3: Thuyền kayak 1 người ($11/giờ, $8 cho mỗi 1/2 giờ tiếp theo)\nLựa chọn 4: Thuyền kayak 2 người ($14/giờ, $8 cho mỗi 1/2 giờ tiếp theo)\nLựa chọn 5: Thuyền chèo tay rowboat 3 hoặc 4 người (3 người lớn hoặc 2 người lớn và 2 trẻ nhỏ) ($13/giờ, $9 cho mỗi 1/2 giờ tiếp theo)\n• Chúng tôi mở cửa hàng ngày từ tháng 4 đến tháng 10, từ 10:00 sáng đến 6:30 chiều.\n• Tất cả thuyền phải được trả lại trước 6:15 chiều trong ngày thuê.\n• Áo phao và mái chèo đã được bao gồm trong phí thuê thuyền.\n• Các nhóm từ mười người trở lên sẽ đủ điều kiện được giảm giá nếu đặt trước ít nhất một tuần.",
                   "sentences": [
                     {
@@ -14615,7 +14615,7 @@
           "questions": [
             {
               "questionNumber": 1,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test2/q1.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_2.mp3",
               "questionText": "Look at the picture marked number 1 in your test book.",
               "options": {
@@ -14660,7 +14660,7 @@
             },
             {
               "questionNumber": 2,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test2/q2.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_2.mp3",
               "questionText": "Look at the picture marked number 2 in your test book.",
               "options": {
@@ -14705,7 +14705,7 @@
             },
             {
               "questionNumber": 3,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test2/q3.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_2.mp3",
               "questionText": "Look at the picture marked number 3 in your test book.",
               "options": {
@@ -14750,7 +14750,7 @@
             },
             {
               "questionNumber": 4,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test2/q4.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_2.mp3",
               "questionText": "Look at the picture marked number 4 in your test book.",
               "options": {
@@ -14795,7 +14795,7 @@
             },
             {
               "questionNumber": 5,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test2/q5.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_2.mp3",
               "questionText": "Look at the picture marked number 5 in your test book.",
               "options": {
@@ -14840,7 +14840,7 @@
             },
             {
               "questionNumber": 6,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test2/q6.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_2.mp3",
               "questionText": "Look at the picture marked number 6 in your test book.",
               "options": {
@@ -17327,7 +17327,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test2/group_62_64.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test2/group_62_64.webp",
                   "imageWidth": 476,
                   "imageHeight": 319
                 }
@@ -17478,7 +17478,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test2/group_65_67.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test2/group_65_67.webp",
                   "imageWidth": 455,
                   "imageHeight": 175
                 }
@@ -17602,7 +17602,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test2/group_68_70.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test2/group_68_70.webp",
                   "imageWidth": 499,
                   "imageHeight": 352
                 }
@@ -18701,7 +18701,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_2.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test2/group_95_97.webp",
                   "imageWidth": 469,
                   "imageHeight": 238
                 }
@@ -18834,7 +18834,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_2.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test2/group_98_100.webp",
                   "imageWidth": 505,
                   "imageHeight": 339
                 }
@@ -19624,7 +19624,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page035/block_3.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -19933,7 +19933,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page036/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -20334,7 +20334,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page037/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -20620,7 +20620,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page038/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -21117,7 +21117,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page039/block_3.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -21352,7 +21352,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page040/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -21521,7 +21521,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page041/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -22044,7 +22044,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page042/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -22347,7 +22347,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page043/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -22651,7 +22651,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page044/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -23019,7 +23019,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page045/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -23272,7 +23272,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page046/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -23606,7 +23606,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page047/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -24043,7 +24043,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page048/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -24627,7 +24627,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page050/block_1.webp",
                   "imageWidth": 1414,
                   "imageHeight": 845,
                   "passageTranslation": "[Trang web]\nDrymotic\nCông ty chúng tôi | Sản phẩm của chúng tôi | Đối tác của chúng tôi | Liên hệ với chúng tôi\n\nDrymotic rất vui mừng thông báo rằng quy trình khử nước bằng vi sóng chân không mang tính cách mạng của chúng tôi hiện đang được sử dụng bởi hơn 30 công ty trong ngành thực phẩm và dược phẩm.\n\nCách thức hoạt động: Các mẻ nguyên liệu hữu cơ thô, sau khi được sơ chế thành những miếng nhỏ, sẽ được nạp vào lồng quay của máy. Khi lồng quay, độ ẩm sẽ được loại bỏ khỏi các miếng nguyên liệu bằng năng lượng vi sóng. Mức độ ẩm cuối cùng có thể được cài đặt trước bởi người vận hành. Các miếng sấy khô vẫn giữ trọn màu sắc, hương vị và chất dinh dưỡng ban đầu, và sau đó sẵn sàng để đóng gói. Máy móc của Drymotic mang lại kết quả vượt trội trong thời gian ngắn hơn (và với chi phí thấp hơn) so với phương pháp sấy thăng hoa và sấy bằng không khí.\n\nMáy móc Drymotic hiện có các kích cỡ sau:\nMã sản phẩm | Công suất | Mục đích sử dụng đề xuất\nG4200 | 10 kw | Thử nghiệm sản phẩm mới\nG4260 | 50 kw | Các nhà sản xuất quy mô nhỏ\nH4500 | 100 kw | Các nhà sản xuất quy mô lớn, sản lượng cao",
@@ -24924,7 +24924,7 @@
                   ]
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page050/block_2.webp",
                   "imageWidth": 1414,
                   "imageHeight": 915,
                   "passageTranslation": "[Email]\nTới: customerservice@drymotic.com\nTừ: ovolterra@yambrett.com.au\nNgày: 6 tháng 5\nChủ đề: Thiết bị gặp sự cố vận hành\n\nKính gửi Bộ phận Chăm sóc Khách hàng,\n\nNăm ngoái chúng tôi đã mua một thiết bị của Drymotic (mã sản phẩm: G4260, số sê-ri: 01938207) để phục vụ cho dòng sản phẩm súp hầm ăn liền của mình. Chúng tôi không gặp bất kỳ sự cố nào với thiết bị cho đến đầu tháng này, khi bắt đầu nhận thấy thời gian xử lý bị kéo dài. Chúng tôi luôn tuân thủ đúng lịch trình vệ sinh được khuyến nghị, do đó vấn đề này không thể bắt nguồn từ cặn bẩn dư thừa.\n\nVui lòng cho tôi biết nếu quý vị có bất kỳ gợi ý nào để giải quyết vấn đề này kịp thời. Tôi luôn muốn tự mình xử lý các sửa chữa nhỏ, nhưng nếu tình trạng này vẫn tiếp diễn, chúng tôi có thể sẽ cần lên lịch bảo trì trong thời gian tới.\n\nTrân trọng,\nOlivia Volterra\nTập đoàn Yambrett",
@@ -25447,7 +25447,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page052/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -25642,7 +25642,7 @@
                   "imageHeight": 795
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page052/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -26199,7 +26199,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page054/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -26465,7 +26465,7 @@
                   "imageHeight": 927
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page054/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -26569,7 +26569,7 @@
                   "imageHeight": 478
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page055/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -26980,7 +26980,7 @@
               "passageTranslation": "--- BÀI BÁO ---\nTRIVESS (1 tháng 2) — Công ty Alacritum, Inc. đã công bố kế hoạch xây dựng các trạm sạc dành cho xe điện dọc theo Xa lộ số 1. Với hơn 400 trạm sạc hiện có trên khắp châu Á, Alacritum mang đến nguồn kinh nghiệm phong phú cho dự án quy mô lớn này. Các trạm sạc trên Xa lộ 1, được gọi là các trạm PRO, sẽ cung cấp công suất lên tới 200 kilowatt cho các phương tiện, giúp sạc đạt mức 80% chỉ trong vòng 30 phút. Hệ thống sẽ định kỳ thông báo cho các tài xế đang chờ về tình trạng pin sạc bằng cách gửi tin nhắn văn bản đến điện thoại di động hoặc các thiết bị di động khác của họ. Công ty cam kết mang đến cho người điều khiển phương tiện khu vực phòng chờ sạch sẽ, thoải mái và có ánh sáng chan hòa. Một địa điểm thử nghiệm sẽ mở cửa vào đầu tháng tới tại Logred.\n\n--- BẢNG PHÂN BỔ DỰ KIẾN CÁC TRẠM PRO ---\n• Khu vực Elondell: 26 trạm sạc | 9.220 lượt khách/ngày\n• Khu vực Nam Borelvia (Southern Borelvia): 14 trạm sạc | 4.970 lượt khách/ngày\n• Khu vực Tây Borelvia (Western Borelvia): 20 trạm sạc | 6.390 lượt khách/ngày\n• Khu vực North Shore: 10 trạm sạc | 3.560 lượt khách/ngày\n\n--- THƯ ĐIỆN TỬ ---\nNgười nhận: lhsiao@alacritum.com\nNgười gửi: ctrigg@alacritum.com\nNgày: 15 tháng 3\nChủ đề: Cuộc họp\n\nKính gửi ông Hsiao,\n\nTiếp sau cuộc họp với các đối tác cộng đồng của chúng ta tại khu vực Tây Borelvia trong tuần này, tôi đề xuất lắp thêm hệ thống điều hòa nhiệt độ cho các khu vực phòng chờ ở vùng đó do điều kiện khí hậu sa mạc tại nơi đây. Mặc dù việc bổ sung này sẽ làm phát sinh chi phí cao hơn, nhưng nó sẽ bảo đảm sự tiện nghi và an toàn cho khách hàng. Tôi cũng đã trực tiếp ghi nhận rằng dịch vụ sóng di động kém dọc theo Xa lộ 1 sẽ khiến mạng không dây tại hầu hết các trạm PRO hoạt động chập chờn, vì thế chúng ta cũng sẽ cần một giải pháp công nghệ cho vấn đề đó. Tôi sẽ gửi bản báo cáo chi tiết đầy đủ vào cuối tuần này.\n\nChuck Trigg",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page056/block_1.webp",
                   "passageTranslation": "TRIVESS (1 tháng 2) — Công ty Alacritum, Inc. đã công bố kế hoạch xây dựng các trạm sạc dành cho xe điện dọc theo Xa lộ số 1. Với hơn 400 trạm sạc hiện có trên khắp châu Á, Alacritum mang đến nguồn kinh nghiệm phong phú cho dự án quy mô lớn này. Các trạm sạc trên Xa lộ 1, được gọi là các trạm PRO, sẽ cung cấp công suất lên tới 200 kilowatt cho các phương tiện, giúp sạc đạt mức 80% chỉ trong vòng 30 phút. Hệ thống sẽ định kỳ thông báo cho các tài xế đang chờ về tình trạng pin sạc bằng cách gửi tin nhắn văn bản đến điện thoại di động hoặc các thiết bị di động khác của họ. Công ty cam kết mang đến cho người điều khiển phương tiện khu vực phòng chờ sạch sẽ, thoải mái và có ánh sáng chan hòa. Một địa điểm thử nghiệm sẽ mở cửa vào đầu tháng tới tại Logred.",
                   "sentences": [
                     {
@@ -27084,7 +27084,7 @@
                   "imageHeight": 699
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page056/block_2.webp",
                   "passageTranslation": "BẢNG PHÂN BỔ DỰ KIẾN CÁC TRẠM PRO:\n• Khu vực Elondell: 26 trạm sạc | 9.220 lượt khách/ngày\n• Khu vực Nam Borelvia (Southern Borelvia): 14 trạm sạc | 4.970 lượt khách/ngày\n• Khu vực Tây Borelvia (Western Borelvia): 20 trạm sạc | 6.390 lượt khách/ngày\n• Khu vực North Shore: 10 trạm sạc | 3.560 lượt khách/ngày",
                   "sentences": [
                     {
@@ -27177,7 +27177,7 @@
                   "imageHeight": 429
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page057/block_1.webp",
                   "passageTranslation": "--- THƯ ĐIỆN TỬ ---\nNgười nhận: lhsiao@alacritum.com\nNgười gửi: ctrigg@alacritum.com\nNgày: 15 tháng 3\nChủ đề: Cuộc họp\n\nKính gửi ông Hsiao,\n\nTiếp sau cuộc họp với các đối tác cộng đồng của chúng ta tại khu vực Tây Borelvia trong tuần này, tôi đề xuất lắp thêm hệ thống điều hòa nhiệt độ cho các khu vực phòng chờ ở vùng đó do điều kiện khí hậu sa mạc tại nơi đây. Mặc dù việc bổ sung này sẽ làm phát sinh chi phí cao hơn, nhưng nó sẽ bảo đảm sự tiện nghi và an toàn cho khách hàng. Tôi cũng đã trực tiếp ghi nhận rằng dịch vụ sóng di động kém dọc theo Xa lộ 1 sẽ khiến mạng không dây tại hầu hết các trạm PRO hoạt động chập chờn, vì thế chúng ta cũng sẽ cần một giải pháp công nghệ cho vấn đề đó. Tôi sẽ gửi bản báo cáo chi tiết đầy đủ vào cuối tuần này.\n\nChuck Trigg",
                   "sentences": [
                     {
@@ -27456,7 +27456,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page058/block_1.webp",
                   "passageTranslation": "Từ: cbeker@yourworkstyle.net\nTới: lroytenberg@charlottes.com; ajordan@charlottes.com\nNgày: 27 tháng 1, 10:02 Sáng\nTiêu đề: Bản thảo đầu tiên của thông cáo báo chí\nTệp đính kèm: Bản thảo thông cáo báo chí\n\nKính gửi ông Roytenberg và cô Jordan,\n\nBản thảo đầu tiên của thông cáo báo chí được đính kèm theo thư này. Như chúng ta đã thảo luận qua điện thoại trước đó, hợp đồng của tôi bao gồm thêm một cuộc họp kéo dài nửa giờ để thảo luận về dự án và bất kỳ thay đổi nào quý vị mong muốn tôi thực hiện trước khi tôi nộp thông cáo báo chí cho các đầu mối liên hệ tại tờ báo Pinetown Weekly.\n\nXin vui lòng cho tôi biết liệu tôi có thể ghé qua trong tuần này hay không. Tôi muốn chụp một số bức ảnh về không gian quán. Tôi còn nhớ quý vị từng đề cập rằng kiến trúc mang tính lịch sử của tòa nhà sẽ là một điểm thu hút khách hàng.\n\nNgoài ra, tôi sẽ cần lấy một câu trích dẫn phát biểu trực tiếp từ một trong hai quý vị hoặc từ Bếp trưởng Vaux. Qua kinh nghiệm làm việc với tờ Pinetown Weekly trước đây, tôi biết rằng họ sẽ không đăng một bài viết như thế này nếu thiếu ít nhất một trích dẫn.\n\nTrân trọng,\nCathy Beker",
                   "sentences": [
                     {
@@ -27706,7 +27706,7 @@
                   "imageHeight": 990
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page058/block_2.webp",
                   "passageTranslation": "– BẢN THẢO –\n\nCharlotte’s Mở Cửa Khai Trương Phục Vụ\n\nCharlotte’s, tọa lạc tại góc Đại lộ D và Phố Oak, sẽ chính thức mở cửa vào thứ Sáu, ngày 5 tháng 2. Hai người chủ sở hữu Levon Roytenberg và Aubree Jordan rất hào hứng chào đón thực khách tới thưởng thức những tách cà phê thơm ngát hay espresso bốc khói, các loại bánh ngọt đặc sắc và những món ăn chuẩn phong vị quán cà phê đậm đà. Mục tiêu của họ là xây dựng Charlotte’s thành một điểm hẹn giao lưu thỏa mãn mọi giác quan, nơi thực khách sẽ được đón tiếp bằng sự thoải mái và lòng hiếu khách nồng hậu.\n\nBếp trưởng điều hành từng đoạt giải thưởng Michel Vaux, gần đây nhất làm việc tại nhà hàng Kahn's ở Bloomington, đã sáng tạo nên một thực đơn đầy lôi cuốn với các món bánh mì mới nướng và thịt bò ăn cỏ tự nhiên, cùng các món rau củ có nguồn gốc địa phương ăn kèm. Thực đơn phục vụ bao gồm các lựa chọn cho bữa sáng và bữa trưa. Bếp trưởng Vaux cũng sẽ mang đến cho Charlotte’s những thức uống nóng và lạnh thanh lịch sử dụng các loại trà và thảo mộc tự nhiên.",
                   "sentences": [
                     {
@@ -27842,7 +27842,7 @@
                   "imageHeight": 557
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page059/block_1.webp",
                   "passageTranslation": "Từ: ajordan@charlottes.com\nTới: cbeker@yourworkstyle.net\nCc: lroytenberg@charlottes.com\nNgày: 28 tháng 1, 8:34 Sáng\nTiêu đề: RE: Bản thảo đầu tiên của thông cáo báo chí\n\nChào cô Beker,\n\nÔng Roytenberg sẽ ở Boston trong vài ngày tới, và ông ấy đã nhờ tôi đảm nhận phụ trách chính về thông cáo báo chí. Tôi biết cô có hỏi để ghé qua địa điểm quán — liệu cô có rảnh vào chiều mai, ngày 29 tháng 1 lúc 3:00 chiều không? Tôi sẽ có mặt ở đó cả ngày để trang trí chuẩn bị cho lễ khai trương.\n\nCô đã soạn thảo một bản thảo đầu tiên rất xuất sắc. Vấn đề lớn duy nhất tôi nhận thấy là cô đã nhầm lẫn vị trí của văn phòng công ty chúng tôi với quán cà phê. Quán cà phê thực tế nằm ở góc Đại lộ C và Phố Maple. Ngoài ra, ông Roytenberg muốn bổ sung thêm giờ mở cửa hoạt động, từ 8:00 sáng đến 4:00 chiều hàng ngày. Vui lòng gọi cho Bếp trưởng Vaux theo số 952-555-0133 để lấy trích dẫn phát biểu về các món ăn đặc sắc trong thực đơn.\n\nThân ái,\nAubree Jordan",
                   "sentences": [
                     {
@@ -28222,7 +28222,7 @@
           "questions": [
             {
               "questionNumber": 1,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test3/q1.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_3.mp3",
               "questionText": "Look at the picture marked number 1 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 1 trong cuốn sách bài thi của bạn.",
@@ -28267,7 +28267,7 @@
             },
             {
               "questionNumber": 2,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test3/q2.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_3.mp3",
               "questionText": "Look at the picture marked number 2 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 2 trong cuốn sách bài thi của bạn.",
@@ -28312,7 +28312,7 @@
             },
             {
               "questionNumber": 3,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test3/q3.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_3.mp3",
               "questionText": "Look at the picture marked number 3 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 3 trong cuốn sách bài thi của bạn.",
@@ -28357,7 +28357,7 @@
             },
             {
               "questionNumber": 4,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test3/q4.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_3.mp3",
               "questionText": "Look at the picture marked number 4 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 4 trong cuốn sách bài thi của bạn.",
@@ -28402,7 +28402,7 @@
             },
             {
               "questionNumber": 5,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test3/q5.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_3.mp3",
               "questionText": "Look at the picture marked number 5 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 5 trong cuốn sách bài thi của bạn.",
@@ -28447,7 +28447,7 @@
             },
             {
               "questionNumber": 6,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test3/q6.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_3.mp3",
               "questionText": "Look at the picture marked number 6 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 6 trong cuốn sách bài thi của bạn.",
@@ -31213,7 +31213,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_3.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test3/group_62_64.webp",
                   "imageWidth": 447,
                   "imageHeight": 391
                 }
@@ -31373,7 +31373,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_3.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test3/group_65_67.webp",
                   "imageWidth": 423,
                   "imageHeight": 186
                 }
@@ -31515,7 +31515,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_3.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test3/group_68_70.webp",
                   "imageWidth": 472,
                   "imageHeight": 294
                 }
@@ -32722,7 +32722,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_3.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test3/group_95_97.webp",
                   "imageWidth": 496,
                   "imageHeight": 358
                 }
@@ -32855,7 +32855,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_3.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test3/group_98_100.webp",
                   "imageWidth": 464,
                   "imageHeight": 252
                 }
@@ -33627,7 +33627,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page064/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -33906,7 +33906,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page065/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -34186,7 +34186,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page066/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -34575,7 +34575,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page067/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -34859,7 +34859,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page068/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -35111,7 +35111,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page069/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -35379,7 +35379,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page070/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -35567,7 +35567,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page071/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -35787,7 +35787,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page072/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -36034,7 +36034,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page073/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -36281,7 +36281,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page074/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -36567,7 +36567,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page075/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -36968,7 +36968,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page076/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -37293,7 +37293,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page077/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -37565,7 +37565,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page079/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -37811,7 +37811,7 @@
                   "imageHeight": 937
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page079/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -38237,7 +38237,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page081/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -38500,7 +38500,7 @@
                   "imageHeight": 1050
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page081/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -38841,7 +38841,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page083/block_1.webp",
                   "imageWidth": 1406,
                   "imageHeight": 1743,
                   "passageTranslation": "Ủy Ban Chỉ Đạo Quản Lý Coffer Digital (Coffer Digital Management Steering Committee)\nBiên Bản Cuộc Họp\nNgày 12 tháng 11\n\n1. Phần mềm Re-pitch đã sẵn sàng để đưa vào thử nghiệm thí điểm.\n2. Đợt thử nghiệm thí điểm sẽ được tiến hành trong quý đầu tiên của năm tài chính, từ ngày 3 tháng 1 đến ngày 31 tháng 3.\n3. Năm khách hàng hiện tại sẽ sử dụng phiên bản thử nghiệm của Re-pitch trong đợt thử nghiệm thí điểm này. Sau đó, họ sẽ tham gia làm bài khảo sát để đánh giá tính hiệu quả, mức độ dễ sử dụng và tính hợp lý về chi phí của phần mềm.\n4. Nếu đợt thử nghiệm thí điểm Re-pitch thành công, công ty sẽ cần một khoản đầu tư tài chính lớn để thiết kế và triển khai một chiến dịch tiếp thị trên diện rộng.\n5. Chủ tịch công ty chúng ta sẽ tìm kiếm các nguồn vốn tiềm năng cho chiến dịch tiếp thị này.\n\n---\n\nĐến: sales@coffer.com\nTừ: tcao@ewest-taipei.com.tw\nNgày: 13 tháng 4\nChủ đề: Thử nghiệm thí điểm\n\nKính gửi Coffer Digital,\n\nTôi muốn liên hệ tiếp sau khi vừa gửi ý kiến phản hồi của chúng tôi liên quan đến phần mềm tiếp thị Re-pitch của quý công ty. Quý vị sẽ thấy rằng phản hồi thử nghiệm thí điểm của chúng tôi là vô cùng tích cực, đó là lý do vì sao chúng tôi muốn được thông báo ngay lập tức khi sản phẩm này chính thức được tung ra thị trường. Chúng tôi rất nóng lòng muốn đưa Re-pitch vào các nỗ lực tiếp thị kỹ thuật số lâu dài của mình.\n\nTrân trọng,\nTing Cao, Giám đốc Tiếp thị Internet Toàn cầu\nCông ty May mặc Ewest Ltd., Đài Bắc",
@@ -39209,7 +39209,7 @@
                   ]
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page084/block_1.webp",
                   "imageWidth": 663,
                   "imageHeight": 808,
                   "passageTranslation": "Tóm Tắt Tin Tức Kinh Doanh\n\nCoffer Digital ngày hôm qua đã hoàn tất một thỏa thuận hợp tác với Quỹ đầu tư GPZ Capital.\nGPZ sẽ thực hiện một khoản đầu tư đáng kể vào Coffer Digital, tạo điều kiện tài trợ nguồn vốn cho một ứng dụng tiếp thị trực tuyến mới có tên là Re-pitch.\nPhần mềm thúc đẩy doanh số bán hàng này hoạt động bằng cách tạo ra một cửa sổ bật lên (pop-up) nhắc nhở người mua sắm trực tuyến về các sản phẩm mà họ đã xem, sau khi họ đã rời khỏi trang sản phẩm đó.\nKiến thức sâu rộng của GPZ về dữ liệu và tiếp thị đã giúp họ đầu tư thành công vào ba công ty phát triển phần mềm khác trong năm năm qua.\nUy tín vững chắc của Coffer Digital cùng đội ngũ nhân viên xuất sắc là cơ sở vững chắc củng cố cho quyết định đầu tư của GPZ.\n\"Coffer Digital có một kế hoạch vững chắc để phân phối Re-pitch, vì vậy đây là một quyết định đầu tư dễ dàng đối với chúng tôi,\" Jessica Gould, người phát ngôn của GPZ cho biết.",
@@ -39455,7 +39455,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page085/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -39655,7 +39655,7 @@
                   "imageHeight": 933
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page085/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -39855,7 +39855,7 @@
                   "imageHeight": 685
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page086/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -40087,7 +40087,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page087/block_1.webp",
                   "passageTranslation": "Các sản phẩm mái tôn kim loại của Zell Exteriors mang lại nhiều ưu điểm vượt trội so với các vật liệu lợp mái truyền thống.\n\n• Lợi ích 1 — Khả năng chống chịu thời tiết: Công nghệ mang lại sự bảo vệ tối ưu hơn trước mưa đá, gió bão và mưa lớn.\n• Lợi ích 2 — Sự lựa chọn phong phú: Đa dạng các loại tấm lợp, phụ kiện ốp viền và màu sơn để bạn lựa chọn.\n• Lợi ích 3 — Bảo đảm sự hài lòng: Chế độ bảo hành 30 năm giúp bạn hoàn toàn an tâm.\n• Lợi ích 4 — Uy tín đã được khẳng định: Sản phẩm lợp mái chất lượng từ một công ty đáng tin cậy.\n\nNếu có thắc mắc về các sản phẩm cụ thể hoặc muốn yêu cầu báo giá từ nhân viên bán hàng của chúng tôi, hãy hoàn thành biểu mẫu liên hệ trực tuyến của chúng tôi.\nTất cả các tấm lợp mái của chúng tôi đều được gia công tại một trong những cơ sở sản xuất khu vực của chúng tôi, được cắt sẵn theo đúng kích thước cần thiết cho mái nhà của bạn, và được vận chuyển đến chi nhánh gần bạn nhất.\nĐội ngũ thợ lắp đặt chuyên nghiệp của chúng tôi sau đó sẽ đảm nhận thi công trọn gói.",
                   "sentences": [
                     {
@@ -40224,7 +40224,7 @@
                   "imageHeight": 879
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page087/block_2.webp",
                   "passageTranslation": "Họ và tên: Gus Keenan\nEmail: g.keenan@autoewrite.net\nSố điện thoại: 555-0188\nÝ kiến phản hồi / câu hỏi:\n\nTôi đã xem xét nhiều loại vật liệu lợp mái khác nhau, và sự đa dạng phong phú về các tùy chọn màu sơn khiến công ty quý vị trở thành lựa chọn hàng đầu của tôi.\nNhà kho của tôi có một tông màu tím khá đặc biệt, và tôi muốn tìm một màu sắc hài hòa với nó.\nTuy nhiên, tôi có một câu hỏi.\nTôi muốn mái kim loại mới được lắp đặt ngay trên đỉnh của mái ngói lợp cũ hiện tại của tôi.\nĐiều này sẽ giúp tiết kiệm chi phí về thời gian, nhân công và việc thu dọn xà bần.\nĐó có phải là điều mà quý công ty khuyến nghị không?\nTôi đã dành rất nhiều thời gian đọc các diễn đàn trực tuyến dành cho các nhà thầu chuyên nghiệp, và có nhiều ý kiến trái chiều về vấn đề này.",
                   "sentences": [
                     {
@@ -40413,7 +40413,7 @@
                   "imageHeight": 730
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page088/block_1.webp",
                   "passageTranslation": "Đến: g.keenan@autoewrite.net\nTừ: nshertz@zellexteriors.com\nNgày: 20 tháng 5\nChủ đề: Yêu cầu thông tin về lợp mái\nTệp đính kèm: Danh mục sản phẩm Zell Exteriors\n\nKính gửi ông Keenan,\n\nMột đại diện bán hàng sẽ liên hệ với ông qua điện thoại trong vòng 48 giờ tới, nhưng trước tiên xin vui lòng xem qua danh mục sản phẩm đính kèm.\n\nDưới đây là bốn dòng sản phẩm lợp mái cơ bản mà chúng tôi cung cấp:\n• SLP Snap Lock — Các tấm lợp bằng thép có tính năng khóa gài giúp lắp đặt nhanh chóng.\n• XM Panel — Các tấm lợp bằng nhôm với khả năng chống ăn mòn vượt trội. Lý tưởng cho các vùng khí hậu ẩm ướt.\n• QR Rigid — Các tấm lợp chi phí thấp có thể được lắp đặt trực tiếp lên trên một mái nhà hiện có.\n• WT Panel — Dòng thép tiêu chuẩn thương mại có độ bền cao nhất của chúng tôi. Chỉ có hai màu trắng và xám.\n\nXin cảm ơn ông,\nNicola Shertz, Trợ lý Hành chính, Zell Exteriors",
                   "sentences": [
                     {
@@ -40794,7 +40794,7 @@
           "questions": [
             {
               "questionNumber": 1,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test4/q1.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_4.mp3",
               "questionText": "Look at the picture marked number 1 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 1 trong cuốn sách bài thi của bạn.",
@@ -40839,7 +40839,7 @@
             },
             {
               "questionNumber": 2,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test4/q2.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_4.mp3",
               "questionText": "Look at the picture marked number 2 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 2 trong cuốn sách bài thi của bạn.",
@@ -40884,7 +40884,7 @@
             },
             {
               "questionNumber": 3,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test4/q3.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_4.mp3",
               "questionText": "Look at the picture marked number 3 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 3 trong cuốn sách bài thi của bạn.",
@@ -40929,7 +40929,7 @@
             },
             {
               "questionNumber": 4,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test4/q4.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_4.mp3",
               "questionText": "Look at the picture marked number 4 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 4 trong cuốn sách bài thi của bạn.",
@@ -40974,7 +40974,7 @@
             },
             {
               "questionNumber": 5,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test4/q5.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_4.mp3",
               "questionText": "Look at the picture marked number 5 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 5 trong cuốn sách bài thi của bạn.",
@@ -41019,7 +41019,7 @@
             },
             {
               "questionNumber": 6,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test4/q6.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_4.mp3",
               "questionText": "Look at the picture marked number 6 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 6 trong cuốn sách bài thi của bạn.",
@@ -43560,7 +43560,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test4/group_62_64.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test4/group_62_64.webp",
                   "imageWidth": 433,
                   "imageHeight": 183
                 }
@@ -43711,7 +43711,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test4/group_65_67.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test4/group_65_67.webp",
                   "imageWidth": 471,
                   "imageHeight": 355
                 }
@@ -43862,7 +43862,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test4/group_68_70.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test4/group_68_70.webp",
                   "imageWidth": 445,
                   "imageHeight": 245
                 }
@@ -45141,7 +45141,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_4.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test4/group_95_97.webp",
                   "imageWidth": 489,
                   "imageHeight": 366
                 }
@@ -45274,7 +45274,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_4.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test4/group_98_100.webp",
                   "imageWidth": 515,
                   "imageHeight": 355
                 }
@@ -46064,7 +46064,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page093/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -46495,7 +46495,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page094/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -46707,7 +46707,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page095/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -46984,7 +46984,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page096/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -47266,7 +47266,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page097/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -47445,7 +47445,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page098/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -47675,7 +47675,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page099/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -47837,7 +47837,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page100/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -48050,7 +48050,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page101/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -48255,7 +48255,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page102/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -48588,7 +48588,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page103/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -48793,7 +48793,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page104/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -49133,7 +49133,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page105/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -49457,7 +49457,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page106/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -49893,7 +49893,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page108/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -50071,7 +50071,7 @@
                   "imageHeight": 956
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page108/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -50395,7 +50395,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page110/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -51056,7 +51056,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page112/block_1.webp",
                   "imageWidth": 1423,
                   "imageHeight": 1571,
                   "passageTranslation": "**[Thư điện tử / Email]**\n**Gửi đến:** Jane McNally <jmcnally@aap.org.ie>\n**Người gửi:** Yoko Nara <ynara@insleyhotel.com.ie>\n**Ngày:** 3 tháng 2\n**Tiêu đề:** Phiếu ăn (Vouchers)\n\nChào cô McNally.\nBình đun nước nóng phục vụ cho khu bếp tại khách sạn đang bị hỏng. Chúng tôi không thể phục vụ các bữa ăn do không có nước nóng để rửa nồi niêu và bát đĩa. Các kỹ thuật viên đang tích cực xử lý sự cố này. Tôi xin gửi tặng phiếu ăn đến toàn thể quý khách, phiếu này có thể được sử dụng cho bữa sáng hoặc bữa trưa tại Quán Cà phê Sarah (Sarah's Café) ngay bên cạnh. Nếu sự cố chưa được khắc phục trước ngày mai, bữa tối sẽ được chuyển sang Nhà hàng Maury (Maury's Restaurant). Tôi đã trao đổi trước vấn đề này với chủ nhà hàng là ông Maury Roebling, và ông ấy đang chuẩn bị sẵn sàng để chào đón đoàn hội nghề nghiệp của cô. Rất mong cô thông cảm cho bất kỳ sự bất tiện nào.\nXin cảm ơn,\nYoko Nara\n\n**[Đánh giá của khách hàng / Review]**\n⭐ ⭐ ⭐ ⭐ ☆\n*“Quán rất duyên dáng và ấm cúng.”*\nChiều nay tôi đã thưởng thức phần ăn đặc biệt gồm súp và bánh mì kẹp tại Sarah’s Café nhờ nhận được phiếu ăn từ khách sạn của mình. Tôi đến quán đúng vào buổi trưa và đã phải đợi gần 25 phút mới có bàn. Tôi khuyên mọi người nên ghé thăm vào khung giờ đỡ đông đúc hơn vì quán tương đối nhỏ. Ngoài điều đó ra, ngay cả khi bữa ăn không được miễn phí, tôi vẫn sẽ gợi ý mọi người đến đây. Không gian quán rất ấm cúng, thân thiện và món súp nhà làm của họ thực sự rất ngon.\n—Stefan Nichols, ngày 3 tháng 2",
@@ -51404,7 +51404,7 @@
                   ]
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page113/block_1.webp",
                   "imageWidth": 1380,
                   "imageHeight": 982,
                   "passageTranslation": "**[Trang lịch trình sự kiện trên Web]**\nhttps://www.app.org.ie/annualmeeting/schedule\n**Hiệp Hội Các Chuyên Gia Kế Toán (AAP)**\n**Cuộc họp thường niên — Lịch trình các sự kiện**\n\n**Thứ Sáu, ngày 4 tháng 2**\n* Diễn giả khách mời (5:30 Chiều, Phòng 213, Khách sạn Insley):\nÔng Ian Bagley, Giám đốc Tài chính (CFO) tại Tập đoàn Colford International, sẽ thảo luận về chủ đề “Những trăn trở xưa cũ và xu hướng hiện nay trong ngành Kế toán”.\n* Bữa tối giao lưu kết nối (7:00 Tối, Nhà hàng Maury):\nThưởng thức bữa tối ẩm thực thượng hạng và thư giãn cùng các đồng nghiệp tại quán ăn nổi tiếng này.\n\n**Thứ Bảy, ngày 5 tháng 2**\n* Hội chợ việc làm (11:00 Sáng đến 5:00 Chiều):\nBạn đang tìm kiếm một cơ hội nghề nghiệp mới? Hội chợ việc làm này chính là dành cho bạn. Hãy gặp gỡ các đại diện đến từ các công ty trong khu vực. Đừng quên mang theo các bản sao sơ yếu lý lịch (CV/résumé) của bạn.\n* Tour tham quan thành phố Dublin (1:00 Chiều đến 4:00 Chiều):\nTham quan một số địa điểm thú vị tại thành phố đăng cai tổ chức của chúng ta. Vui lòng mang giày dép thoải mái, vì những người tham gia tour sẽ đi bộ khoảng hai dặm.",
@@ -51813,7 +51813,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page114/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -51981,7 +51981,7 @@
                   "imageHeight": 947
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page114/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -52133,7 +52133,7 @@
                   "imageHeight": 773
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page115/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -52456,7 +52456,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page116/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -52721,7 +52721,7 @@
                   "imageHeight": 1022
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page116/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -52858,7 +52858,7 @@
                   "imageHeight": 908
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page117/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -53202,7 +53202,7 @@
           "questions": [
             {
               "questionNumber": 1,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test5/q1.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test5/q1.mp3",
               "questionText": "Look at the picture marked number 1 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 1 trong cuốn sách bài thi của bạn.",
@@ -53247,7 +53247,7 @@
             },
             {
               "questionNumber": 2,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test5/q2.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test5/q2.mp3",
               "questionText": "Look at the picture marked number 2 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 2 trong cuốn sách bài thi của bạn.",
@@ -53292,7 +53292,7 @@
             },
             {
               "questionNumber": 3,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test5/q3.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test5/q3.mp3",
               "questionText": "Look at the picture marked number 3 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 3 trong cuốn sách bài thi của bạn.",
@@ -53337,7 +53337,7 @@
             },
             {
               "questionNumber": 4,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test5/q4.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test5/q4.mp3",
               "questionText": "Look at the picture marked number 4 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 4 trong cuốn sách bài thi của bạn.",
@@ -53382,7 +53382,7 @@
             },
             {
               "questionNumber": 5,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test5/q5.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test5/q5.mp3",
               "questionText": "Look at the picture marked number 5 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 5 trong cuốn sách bài thi của bạn.",
@@ -53427,7 +53427,7 @@
             },
             {
               "questionNumber": 6,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test5/q6.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test5/q6.mp3",
               "questionText": "Look at the picture marked number 6 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 6 trong cuốn sách bài thi của bạn.",
@@ -55887,7 +55887,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test5/group_62_64.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test5/group_62_64.webp",
                   "imageWidth": 506,
                   "imageHeight": 312
                 }
@@ -56047,7 +56047,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test5/group_65_67.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test5/group_65_67.webp",
                   "imageWidth": 470,
                   "imageHeight": 217
                 }
@@ -56207,7 +56207,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test5/group_68_70.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test5/group_68_70.webp",
                   "imageWidth": 429,
                   "imageHeight": 219
                 }
@@ -57459,7 +57459,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_5.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test5/group_95_97.webp",
                   "imageWidth": 459,
                   "imageHeight": 374
                 }
@@ -57601,7 +57601,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_5.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test5/group_98_100.webp",
                   "imageWidth": 471,
                   "imageHeight": 343
                 }
@@ -58382,7 +58382,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page122/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -58645,7 +58645,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page123/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -59023,7 +59023,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page124/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -59401,7 +59401,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page125/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -59714,7 +59714,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page126/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -59927,7 +59927,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page127/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -60225,7 +60225,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page128/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -60394,7 +60394,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page129/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -60712,7 +60712,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page130/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -61029,7 +61029,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page131/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -61282,7 +61282,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page132/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -61484,7 +61484,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page133/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -61669,7 +61669,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page134/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -62075,7 +62075,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page135/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -62412,7 +62412,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page137/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -62910,7 +62910,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page139/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -63534,7 +63534,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page141/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -63622,7 +63622,7 @@
                   "imageHeight": 544
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page141/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -63775,7 +63775,7 @@
                   "imageHeight": 683
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page142/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -64023,7 +64023,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page143/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -64255,7 +64255,7 @@
                   "imageHeight": 1609
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page144/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -64503,7 +64503,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page145/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -64979,7 +64979,7 @@
                   "imageHeight": 1834
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page146/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -65295,7 +65295,7 @@
           "questions": [
             {
               "questionNumber": 1,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test6/q1.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_6.mp3",
               "questionText": "Look at the picture marked number 1 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 1 trong cuốn sách bài thi của bạn.",
@@ -65340,7 +65340,7 @@
             },
             {
               "questionNumber": 2,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test6/q2.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_6.mp3",
               "questionText": "Look at the picture marked number 2 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 2 trong cuốn sách bài thi của bạn.",
@@ -65385,7 +65385,7 @@
             },
             {
               "questionNumber": 3,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test6/q3.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_6.mp3",
               "questionText": "Look at the picture marked number 3 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 3 trong cuốn sách bài thi của bạn.",
@@ -65430,7 +65430,7 @@
             },
             {
               "questionNumber": 4,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test6/q4.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_6.mp3",
               "questionText": "Look at the picture marked number 4 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 4 trong cuốn sách bài thi của bạn.",
@@ -65475,7 +65475,7 @@
             },
             {
               "questionNumber": 5,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test6/q5.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_6.mp3",
               "questionText": "Look at the picture marked number 5 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 5 trong cuốn sách bài thi của bạn.",
@@ -65520,7 +65520,7 @@
             },
             {
               "questionNumber": 6,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test6/q6.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_6.mp3",
               "questionText": "Look at the picture marked number 6 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 6 trong cuốn sách bài thi của bạn.",
@@ -68038,7 +68038,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test6/group_62_64.webp",
                   "imageWidth": 466,
                   "imageHeight": 185
                 }
@@ -68207,7 +68207,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test6/group_65_67.webp",
                   "imageWidth": 474,
                   "imageHeight": 335
                 }
@@ -68349,7 +68349,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test6/group_68_70.webp",
                   "imageWidth": 467,
                   "imageHeight": 326
                 }
@@ -70565,7 +70565,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page151/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -70902,7 +70902,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page152/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -71228,7 +71228,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page153/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -71473,7 +71473,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page154/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -71690,7 +71690,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page155/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -71828,7 +71828,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page156/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -72094,7 +72094,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page157/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -72392,7 +72392,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page158/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -72626,7 +72626,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page159/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -72944,7 +72944,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page160/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -73216,7 +73216,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page161/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -73601,7 +73601,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page162/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -73968,7 +73968,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page163/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -74333,7 +74333,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page164/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -74750,7 +74750,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page166/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -74894,7 +74894,7 @@
                   "imageHeight": 732
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page166/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -75252,7 +75252,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page168/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -75396,7 +75396,7 @@
                   "imageHeight": 699
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page168/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -75720,7 +75720,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page170/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -76208,7 +76208,7 @@
                   "imageHeight": 1660
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page171/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -76536,7 +76536,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page172/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -76782,7 +76782,7 @@
                   "imageHeight": 832
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page172/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -77045,7 +77045,7 @@
                   "imageHeight": 638
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page173/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -77407,7 +77407,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page174/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -77602,7 +77602,7 @@
                   "imageHeight": 657
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page174/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -77753,7 +77753,7 @@
                   "imageHeight": 554
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page175/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -78066,7 +78066,7 @@
           "questions": [
             {
               "questionNumber": 1,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test7/q1.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_7.mp3",
               "questionText": "Look at the picture marked number 1 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 1 trong cuốn sách bài thi của bạn.",
@@ -78111,7 +78111,7 @@
             },
             {
               "questionNumber": 2,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test7/q2.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_7.mp3",
               "questionText": "Look at the picture marked number 2 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 2 trong cuốn sách bài thi của bạn.",
@@ -78156,7 +78156,7 @@
             },
             {
               "questionNumber": 3,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test7/q3.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_7.mp3",
               "questionText": "Look at the picture marked number 3 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 3 trong cuốn sách bài thi của bạn.",
@@ -78201,7 +78201,7 @@
             },
             {
               "questionNumber": 4,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test7/q4.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_7.mp3",
               "questionText": "Look at the picture marked number 4 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 4 trong cuốn sách bài thi của bạn.",
@@ -78246,7 +78246,7 @@
             },
             {
               "questionNumber": 5,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test7/q5.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_7.mp3",
               "questionText": "Look at the picture marked number 5 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 5 trong cuốn sách bài thi của bạn.",
@@ -78291,7 +78291,7 @@
             },
             {
               "questionNumber": 6,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test7/q6.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_7.mp3",
               "questionText": "Look at the picture marked number 6 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 6 trong cuốn sách bài thi của bạn.",
@@ -80791,7 +80791,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test7/group_62_64.webp",
                   "imageWidth": 452,
                   "imageHeight": 314
                 }
@@ -80924,7 +80924,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test7/group_65_67.webp",
                   "imageWidth": 474,
                   "imageHeight": 368
                 }
@@ -81057,7 +81057,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test7/group_68_70.webp",
                   "imageWidth": 471,
                   "imageHeight": 339
                 }
@@ -82197,7 +82197,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test7/group_95_97.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test7/group_95_97.webp",
                   "imageWidth": 488,
                   "imageHeight": 165
                 }
@@ -82357,7 +82357,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test7/group_98_100.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test7/group_98_100.webp",
                   "imageWidth": 490,
                   "imageHeight": 261
                 }
@@ -83129,7 +83129,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page180/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -83522,7 +83522,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page181/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -83858,7 +83858,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page182/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -84165,7 +84165,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page183/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -84482,7 +84482,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page184/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -84750,7 +84750,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page185/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -84937,7 +84937,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page186/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -85255,7 +85255,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page187/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -85409,7 +85409,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page188/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -85648,7 +85648,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page189/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -85998,7 +85998,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page190/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -86363,7 +86363,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page191/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -86783,7 +86783,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page192/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -87107,7 +87107,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page193/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -87415,7 +87415,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page195/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -87616,7 +87616,7 @@
                   "imageHeight": 906
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page195/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -87988,7 +87988,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page197/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -88124,7 +88124,7 @@
                   "imageHeight": 990
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page197/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -88431,7 +88431,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page199/block_1.webp",
                   "imageWidth": 1404,
                   "imageHeight": 747,
                   "sentences": [
@@ -88609,7 +88609,7 @@
                   "passageTranslation": "Gửi: Toàn thể Thành viên Thư viện\nTừ: Thư viện Quận Ada\nNgày: 20 tháng 3\nChủ đề: Các buổi thuyết trình sắp tới\nĐính kèm: Lịch_trình_mùa_xuân\n\nKính gửi các thành viên Thư viện Quận Ada:\nLịch thuyết trình mùa xuân được mong đợi bấy lâu của chúng tôi đã được hoàn tất. Chúng tôi kỳ vọng sẽ có lượng người tham dự đông đảo cho chuỗi bài giảng này. Điểm nhấn nổi bật là bài thuyết trình về dịch thuật thơ ca tiếng Ả Rập, được trình bày bởi một diễn giả sẽ có lần đầu tiên đến thăm Thư viện Quận Ada.\n\nViệc tham dự các sự kiện của thư viện luôn hoàn toàn miễn phí và áp dụng theo nguyên tắc ai đến trước được phục vụ trước. Vì vậy xin vui lòng lên kế hoạch phù hợp, đặc biệt là đối với các sự kiện diễn ra tại hai địa điểm nhỏ nhất của chúng tôi: Phòng Helms với 35 chỗ ngồi, và Phòng Avery chỉ có 20 trạm máy tính."
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page199/block_2.webp",
                   "imageWidth": 1194,
                   "imageHeight": 468,
                   "sentences": [
@@ -88770,7 +88770,7 @@
                   "passageTranslation": "Thư viện Quận Ada - Lịch Thuyết Trình Mùa Xuân\n\nChủ đề nổi bật | Diễn giả khách mời | Ngày và Giờ | Địa điểm\n• Văn học bang Idaho | Yvonne Briggs | 10 tháng 4, 4–6 giờ chiều | Phòng Helms\n• Dịch thuật Thơ ca Tiếng Ả Rập | Carole Elgin | 17 tháng 4, 3–5 giờ chiều | Phòng Stokes\n• Thiết kế CV / Sơ yếu lý lịch Hiệu quả | Marc D'Angelo | 24 tháng 4, 3–5 giờ chiều | Phòng Avery\n• Lịch sử Từ điển | Jax Morrison | 8 tháng 5, 4–6 giờ chiều | Phòng Stokes\n• Tác phẩm Phi hư cấu Triết học | Darla Weiss | 15 tháng 5, 3–5 giờ chiều | Phòng Fredricks\n• Lập trình như một Kỹ năng | Alissa Reynolds | 22 tháng 5, 4–6 giờ chiều | Phòng Avery"
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page200/block_1.webp",
                   "imageWidth": 1343,
                   "imageHeight": 968,
                   "sentences": [
@@ -89077,7 +89077,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page201/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -89229,7 +89229,7 @@
                   "imageHeight": 755
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page201/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -89597,7 +89597,7 @@
                   "imageHeight": 1106
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page202/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -89951,7 +89951,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page203/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -90282,7 +90282,7 @@
                   "imageHeight": 1076
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page203/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -90511,7 +90511,7 @@
                   "imageHeight": 710
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page204/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -90839,7 +90839,7 @@
           "questions": [
             {
               "questionNumber": 1,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test8/q1.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_8.mp3",
               "questionText": "Look at the picture marked number 1 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 1 trong cuốn sách bài thi của bạn.",
@@ -90884,7 +90884,7 @@
             },
             {
               "questionNumber": 2,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test8/q2.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_8.mp3",
               "questionText": "Look at the picture marked number 2 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 2 trong cuốn sách bài thi của bạn.",
@@ -90929,7 +90929,7 @@
             },
             {
               "questionNumber": 3,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test8/q3.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_8.mp3",
               "questionText": "Look at the picture marked number 3 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 3 trong cuốn sách bài thi của bạn.",
@@ -90974,7 +90974,7 @@
             },
             {
               "questionNumber": 4,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test8/q4.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_8.mp3",
               "questionText": "Look at the picture marked number 4 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 4 trong cuốn sách bài thi của bạn.",
@@ -91019,7 +91019,7 @@
             },
             {
               "questionNumber": 5,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test8/q5.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_8.mp3",
               "questionText": "Look at the picture marked number 5 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 5 trong cuốn sách bài thi của bạn.",
@@ -91064,7 +91064,7 @@
             },
             {
               "questionNumber": 6,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test8/q6.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/TEST_8.mp3",
               "questionText": "Look at the picture marked number 6 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 6 trong cuốn sách bài thi của bạn.",
@@ -93505,7 +93505,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test8/group_62_64.webp",
                   "imageWidth": 463,
                   "imageHeight": 183
                 }
@@ -93629,7 +93629,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test8/group_65_67.webp",
                   "imageWidth": 461,
                   "imageHeight": 262
                 }
@@ -93771,7 +93771,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test8/group_68_70.webp",
                   "imageWidth": 474,
                   "imageHeight": 182
                 }
@@ -94920,7 +94920,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test8/group_95_97.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test8/group_95_97.webp",
                   "imageWidth": 500,
                   "imageHeight": 380
                 }
@@ -95053,7 +95053,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test8/group_98_100.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test8/group_98_100.webp",
                   "imageWidth": 452,
                   "imageHeight": 216
                 }
@@ -95835,7 +95835,7 @@
               "passageTranslation": "Chào mừng bạn đến với Dining-Ticket, dịch vụ trực tuyến giao những bữa ăn ngon, chất lượng cao đến tận cửa nhà bạn. Để bắt đầu sử dụng Dining-Ticket, bạn chỉ cần nhập vị trí của mình để xem các lựa chọn giao hàng tại địa phương. Tiếp theo, hãy lọc thông tin theo mức giá mong muốn, loại hình ẩm thực hoặc theo tên nhà hàng. Sau đó, theo dõi đơn đặt hàng khi món ăn được nhân viên giao hàng của Dining-Ticket vận chuyển. Thật dễ dàng như vậy đó! Để thưởng thức các món ăn từ nhà hàng yêu thích một cách thoải mái ngay tại chính ngôi nhà của mình, hãy trải nghiệm Dining-Ticket ngay hôm nay!",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page209/block_2.webp",
                   "imageWidth": 1494,
                   "imageHeight": 527,
                   "passageTranslation": "Chào mừng bạn đến với Dining-Ticket, dịch vụ trực tuyến giao những bữa ăn ngon, chất lượng cao đến tận cửa nhà bạn. Để bắt đầu sử dụng Dining-Ticket, bạn chỉ cần nhập vị trí của mình để xem các lựa chọn giao hàng tại địa phương. Tiếp theo, hãy lọc thông tin theo mức giá mong muốn, loại hình ẩm thực hoặc theo tên nhà hàng. Sau đó, theo dõi đơn đặt hàng khi món ăn được nhân viên giao hàng của Dining-Ticket vận chuyển. Thật dễ dàng như vậy đó! Để thưởng thức các món ăn từ nhà hàng yêu thích một cách thoải mái ngay tại chính ngôi nhà của mình, hãy trải nghiệm Dining-Ticket ngay hôm nay!",
@@ -96075,7 +96075,7 @@
               "passageTranslation": "Gửi tới: Rashida Willis <rwillis@pintaur.net>\nTừ: Tài khoản Khách hàng <accounts@stauntonnaturalgas.com>\nNgày: 4 tháng 8\nChủ đề: Thanh toán hóa đơn điện tử\nCô Willis thân mến,\nCảm ơn cô đã lựa chọn phương thức thanh toán hóa đơn điện tử cho tài khoản Khí đốt Tự nhiên Staunton của mình. Bắt đầu từ ngày 20 tháng 8, cô sẽ nhận được bản sao kê hàng tháng dưới dạng điện tử. Để đảm bảo nhận được hóa đơn, vui lòng thêm địa chỉ email của chúng tôi vào danh bạ liên hệ của cô. Bất cứ lúc nào cô cũng có thể quay lại hình thức nhận hóa đơn bằng giấy truyền thống bằng cách chọn tính năng này trong phần cài đặt tài khoản. Không có bất kỳ điều gì khác về quy trình thanh toán của cô bị thay đổi. Hóa đơn của cô vẫn sẽ đến hạn vào ngày đầu tiên của mỗi tháng.\nTrân trọng,\nKhí đốt Tự nhiên Staunton",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page210/block_1.webp",
                   "imageWidth": 1482,
                   "imageHeight": 1064,
                   "passageTranslation": "Gửi tới: Rashida Willis <rwillis@pintaur.net>\nTừ: Tài khoản Khách hàng <accounts@stauntonnaturalgas.com>\nNgày: 4 tháng 8\nChủ đề: Thanh toán hóa đơn điện tử\nCô Willis thân mến,\nCảm ơn cô đã lựa chọn phương thức thanh toán hóa đơn điện tử cho tài khoản Khí đốt Tự nhiên Staunton của mình. Bắt đầu từ ngày 20 tháng 8, cô sẽ nhận được bản sao kê hàng tháng dưới dạng điện tử. Để đảm bảo nhận được hóa đơn, vui lòng thêm địa chỉ email của chúng tôi vào danh bạ liên hệ của cô. Bất cứ lúc nào cô cũng có thể quay lại hình thức nhận hóa đơn bằng giấy truyền thống bằng cách chọn tính năng này trong phần cài đặt tài khoản. Không có bất kỳ điều gì khác về quy trình thanh toán của cô bị thay đổi. Hóa đơn của cô vẫn sẽ đến hạn vào ngày đầu tiên của mỗi tháng.\nTrân trọng,\nKhí đốt Tự nhiên Staunton",
@@ -96453,7 +96453,7 @@
               "passageTranslation": "Gửi tới: Các thành viên Nhóm Kinh doanh Phân khu Đỏ\nTừ: Matias Gama, Giám đốc\nChủ đề: Thông tin\nNgày: 22 tháng 11\nTệp đính kèm: Kết quả kinh doanh quý 3\nTôi xin nhiệt liệt biểu dương tất cả các bạn vì những thành tích công việc xuất sắc trong quý vừa qua! Các bạn hãy tự mình xem báo cáo đính kèm, nơi cung cấp đầy đủ mọi chi tiết. Tuy nhiên, chúng ta vẫn luôn có cơ hội để phát triển hơn nữa. Đó là lý do tại sao chúng tôi đang triển khai một chương trình đào tạo mới. Khóa học sẽ do một đơn vị bên ngoài đảm trách sau khi đã phân tích kỹ lưỡng các nhu cầu của chúng ta. Dù các học phần đào tạo sẽ được triển khai trên toàn bộ tổ chức, nhưng chúng được lên lịch để bắt đầu trước tiên tại bộ phận của chúng ta. Tôi sẽ sớm thông báo các ngày cụ thể tới các bạn. Trong thời gian này, xin hãy tiếp tục phát huy công việc tốt của các bạn.",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page211/block_1.webp",
                   "imageWidth": 1477,
                   "imageHeight": 812,
                   "passageTranslation": "Gửi tới: Các thành viên Nhóm Kinh doanh Phân khu Đỏ\nTừ: Matias Gama, Giám đốc\nChủ đề: Thông tin\nNgày: 22 tháng 11\nTệp đính kèm: Kết quả kinh doanh quý 3\nTôi xin nhiệt liệt biểu dương tất cả các bạn vì những thành tích công việc xuất sắc trong quý vừa qua! Các bạn hãy tự mình xem báo cáo đính kèm, nơi cung cấp đầy đủ mọi chi tiết. Tuy nhiên, chúng ta vẫn luôn có cơ hội để phát triển hơn nữa. Đó là lý do tại sao chúng tôi đang triển khai một chương trình đào tạo mới. Khóa học sẽ do một đơn vị bên ngoài đảm trách sau khi đã phân tích kỹ lưỡng các nhu cầu của chúng ta. Dù các học phần đào tạo sẽ được triển khai trên toàn bộ tổ chức, nhưng chúng được lên lịch để bắt đầu trước tiên tại bộ phận của chúng ta. Tôi sẽ sớm thông báo các ngày cụ thể tới các bạn. Trong thời gian này, xin hãy tiếp tục phát huy công việc tốt của các bạn.",
@@ -96854,7 +96854,7 @@
               "passageTranslation": "Từ: Joanna Markian\nGửi tới: Toàn thể đội ngũ quản lý\nChủ đề: Cuộc họp với ban lãnh đạo Adacorp\nNgày: 11 tháng 1\nKính gửi các đồng nghiệp tại Credulux,\nXin lưu ý rằng cuộc họp Hội đồng Quản trị vào thứ Tư của chúng ta sẽ tập trung thảo luận về thương vụ sáp nhập công ty sắp tới với Công ty TNHH Adacorp. Cuộc họp sẽ có sự tham dự của Giám đốc Điều hành cùng một số quản lý của Adacorp, cũng như các thành viên thuộc đội ngũ pháp lý của cả hai công ty. Vui lòng thu xếp để trực tiếp tham dự cuộc họp này. Mục đích của buổi họp là làm rõ tiến trình và khung thời gian của quá trình sáp nhập. Bất kỳ ai có thắc mắc dành cho Hội đồng Quản trị đều sẽ được dành nhiều thời gian để đặt câu hỏi. Vì lý do này, tôi xin đề nghị chuyển tất cả các nội dung thảo luận không khẩn cấp sang cuộc họp của đội ngũ quản lý vào đầu tháng Hai.\nTrân trọng,\nJoanna Markian",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page212/block_1.webp",
                   "imageWidth": 1481,
                   "imageHeight": 1158,
                   "passageTranslation": "Từ: Joanna Markian\nGửi tới: Toàn thể đội ngũ quản lý\nChủ đề: Cuộc họp với ban lãnh đạo Adacorp\nNgày: 11 tháng 1\nKính gửi các đồng nghiệp tại Credulux,\nXin lưu ý rằng cuộc họp Hội đồng Quản trị vào thứ Tư của chúng ta sẽ tập trung thảo luận về thương vụ sáp nhập công ty sắp tới với Công ty TNHH Adacorp. Cuộc họp sẽ có sự tham dự của Giám đốc Điều hành cùng một số quản lý của Adacorp, cũng như các thành viên thuộc đội ngũ pháp lý của cả hai công ty. Vui lòng thu xếp để trực tiếp tham dự cuộc họp này. Mục đích của buổi họp là làm rõ tiến trình và khung thời gian của quá trình sáp nhập. Bất kỳ ai có thắc mắc dành cho Hội đồng Quản trị đều sẽ được dành nhiều thời gian để đặt câu hỏi. Vì lý do này, tôi xin đề nghị chuyển tất cả các nội dung thảo luận không khẩn cấp sang cuộc họp của đội ngũ quản lý vào đầu tháng Hai.\nTrân trọng,\nJoanna Markian",
@@ -97235,7 +97235,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page213/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -97429,7 +97429,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page214/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -97623,7 +97623,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page215/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -97936,7 +97936,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page216/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -98234,7 +98234,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page217/block_1.webp",
                   "passageTranslation": "Francis Chang [4:32 Chiều]: Chào Connie. Tôi đang sắp xếp lịch trình cho mùa hè này. Chị có còn có thể dạy các lớp chuyên đề vào chiều thứ Sáu hai lần một tháng không? Chúng ta có thể thay phiên nhau, và tôi sẽ phụ trách hai ngày thứ Sáu còn lại.\nConnie Kehoe [4:39 Chiều]: Cảm ơn anh đã liên hệ, Francis. Tôi vẫn muốn tham gia, nhưng mùa hè này tôi sẽ bận rộn hơn. Tôi đang điều phối một giải đấu bóng chuyền.\nFrancis Chang [4:40 Chiều]: À, được rồi. Tôi đoán là tôi có thể đảm nhận các lớp chuyên đề vào ba ngày thứ Sáu mỗi tháng.\nConnie Kehoe [4:42 Chiều]: Như thế thì hoàn hảo quá. Điều đó sẽ cho tôi đủ thời gian cho nghĩa vụ công việc khác của mình.\nFrancis Chang [4:43 Chiều]: Còn một điều nữa là, mùa hè này chúng ta muốn tập trung vào việc vẽ tranh bằng màu nước, thay vì vẽ chì cơ bản.\nConnie Kehoe [4:44 Chiều]: Tôi sẽ xem lại một số giáo án cũ, nhưng điều đó chắc ổn thôi. Ngoài ra, chúng ta hãy sớm gặp nhau để lên ngân sách cho các vật tư của lớp học nhé.",
                   "sentences": [
                     {
@@ -98498,7 +98498,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page218/block_1.webp",
                   "passageTranslation": "Ngày 15 tháng 5\nÔng Roger Lang, Giám đốc Điều hành\nQuỹ Parker Solutions Foundation\n40 Northside Drive, Phòng 500\nPortland, OR 97215\n\nKính gửi ông Lang:\nMục đích của lá thư này là thay mặt ban giám đốc trân trọng kính mời ông làm diễn giả chính tại Hội nghị của Viện Nghiên cứu Giải pháp Xanh Quốc tế (IGSRI). — [1] —. Hội nghị sẽ được tổ chức tại Trung tâm Hội nghị Fairview ở Saint Louis, Missouri, từ ngày 3 đến ngày 5 tháng 12. Ông đã được một số đồng nghiệp của tôi nhiệt tình tiến cử. — [2] —.\n\nGiáo sư Suzanne Benedetto sẽ đọc bài phát biểu khai mạc vào sáng ngày 3 tháng 12. Bản dự thảo chương trình sẽ được gửi tới ông trong vòng hai tuần tới để ông nắm được các chủ đề sẽ được nêu bật tại hội nghị.\n\nChúng tôi kỳ vọng lượng người tham dự năm nay sẽ đạt mức cao nhất từ trước đến nay, khoảng 2.500 đại biểu và 40 diễn giả. — [3] —. Trong số này bao gồm một phái đoàn đông đảo đến từ chi nhánh mới nhất của chúng tôi tại Geneva. — [4] —.\n\nTôi hy vọng sẽ liên hệ lại với ông sau một tuần nữa để trao đổi tiếp và giải đáp bất kỳ thắc mắc nào mà ông có thể có.\n\nTrân trọng kính thư,\nBrian Morgan",
                   "sentences": [
                     {
@@ -98833,7 +98833,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page219/block_1.webp",
                   "passageTranslation": "Chào mừng quý vị!\nQuý vị được dẫn đến bản khảo sát này thông qua một trang trên trang web của Sở Công viên và Giải trí Sergey, từ một trong những bản tin trực tuyến gần đây nhất của tổ chức Ecology Alive, hoặc từ trang mạng xã hội của một người bạn. Bất kể quý vị đến đây bằng cách nào, chúng tôi đều vô cùng cảm kích vì quý vị đã dành thời gian để hoàn thành nó.\n\nBản khảo sát này nhằm mục đích giúp các tổ chức bảo tồn động vật hoang dã tại địa phương tìm ra những phương thức tiếp cận thực tế để thu hút một lực lượng tình nguyện viên tận tụy và đáng tin cậy. Bản khảo sát mất khoảng 15 phút để hoàn thành, và sự tham gia của quý vị là hoàn toàn tự nguyện. Nếu quý vị không muốn trả lời một câu hỏi cụ thể nào đó, quý vị có thể bỏ qua để chuyển sang câu tiếp theo.\n\nNếu quý vị có bất kỳ thắc mắc nào liên quan đến cách thức dữ liệu khảo sát này sẽ được sử dụng, vui lòng liên hệ với Stefan McHann theo địa chỉ stefan_mchann@sergeyparksandrec.gov.\n\nBản khảo sát số #4123\nHọ và tên: Kenshawn Odeyemi",
                   "sentences": [
                     {
@@ -99066,7 +99066,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page220/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -99332,7 +99332,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page221/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -99785,7 +99785,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page222/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -100306,7 +100306,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page224/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -100949,7 +100949,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page226/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -101448,7 +101448,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page228/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -101584,7 +101584,7 @@
                   "imageHeight": 668
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page228/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -101752,7 +101752,7 @@
                   "imageHeight": 585
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page229/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -102042,7 +102042,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page230/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -102162,7 +102162,7 @@
                   "imageHeight": 745
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page230/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -102346,7 +102346,7 @@
                   "imageHeight": 721
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page231/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -102658,7 +102658,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page232/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -102778,7 +102778,7 @@
                   "imageHeight": 970
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page232/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -103074,7 +103074,7 @@
                   "imageHeight": 667
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page233/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -103390,7 +103390,7 @@
           "questions": [
             {
               "questionNumber": 1,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test9/q1.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/Test09.mp3",
               "questionText": "Look at the picture marked number 1 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 1 trong cuốn sách bài thi của bạn.",
@@ -103435,7 +103435,7 @@
             },
             {
               "questionNumber": 2,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test9/q2.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/Test09.mp3",
               "questionText": "Look at the picture marked number 2 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 2 trong cuốn sách bài thi của bạn.",
@@ -103480,7 +103480,7 @@
             },
             {
               "questionNumber": 3,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test9/q3.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/Test09.mp3",
               "questionText": "Look at the picture marked number 3 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 3 trong cuốn sách bài thi của bạn.",
@@ -103525,7 +103525,7 @@
             },
             {
               "questionNumber": 4,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test9/q4.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/Test09.mp3",
               "questionText": "Look at the picture marked number 4 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 4 trong cuốn sách bài thi của bạn.",
@@ -103570,7 +103570,7 @@
             },
             {
               "questionNumber": 5,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test9/q5.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/Test09.mp3",
               "questionText": "Look at the picture marked number 5 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 5 trong cuốn sách bài thi của bạn.",
@@ -103615,7 +103615,7 @@
             },
             {
               "questionNumber": 6,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test9/q6.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/Test09.mp3",
               "questionText": "Look at the picture marked number 6 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 6 trong cuốn sách bài thi của bạn.",
@@ -106003,7 +106003,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test9/group_62_64.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test9/group_62_64.webp",
                   "imageWidth": 509,
                   "imageHeight": 151
                 }
@@ -106136,7 +106136,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test9/group_65_67.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test9/group_65_67.webp",
                   "imageWidth": 460,
                   "imageHeight": 301
                 }
@@ -106276,7 +106276,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test9/group_68_70.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test9/group_68_70.webp",
                   "imageWidth": 454,
                   "imageHeight": 358
                 }
@@ -107410,7 +107410,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test9/group_95_97.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test9/group_95_97.webp",
                   "imageWidth": 475,
                   "imageHeight": 363
                 }
@@ -107529,7 +107529,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/cut/test9/group_98_100.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test9/group_98_100.webp",
                   "imageWidth": 487,
                   "imageHeight": 263
                 }
@@ -108287,7 +108287,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page238/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -108581,7 +108581,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page239/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -109019,7 +109019,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page240/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -109433,7 +109433,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page241/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -109899,7 +109899,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page242/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -110084,7 +110084,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page243/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -110221,7 +110221,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page244/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -110438,7 +110438,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page245/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -110639,7 +110639,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page246/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -111020,7 +111020,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page247/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -111353,7 +111353,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page248/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -111686,7 +111686,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page249/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -112070,7 +112070,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page250/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -112342,7 +112342,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page251/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -112790,7 +112790,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page253/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -113006,7 +113006,7 @@
                   "imageHeight": 874
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page253/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -113265,7 +113265,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page255/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -113514,7 +113514,7 @@
                   "imageHeight": 947
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page255/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -113870,7 +113870,7 @@
               "passageTranslation": "[VĂN BẢN 1 - TRANG WEB]\nDịch vụ Vệ sinh Milford (MJS)\n956 đường Meadowvale, Milford, Connecticut 06460\nHãy để Dịch vụ Vệ sinh Milford (MJS) giúp bạn thể hiện không gian làm việc của mình dưới ánh sáng tuyệt vời nhất. Sử dụng các sản phẩm làm sạch được đánh giá hàng đầu, MJS phục vụ các doanh nghiệp lớn và nhỏ dựa trên nhu cầu và lịch trình cụ thể của từng nơi. Đội ngũ nhân viên được cấp chứng chỉ chuyên nghiệp của chúng tôi cung cấp các dịch vụ vệ sinh chất lượng, an tâm trọn vẹn 7 ngày trong tuần. Bạn có quan tâm không? Dưới đây là quy trình thực hiện:\n1. Liên hệ với MJS kèm theo yêu cầu của bạn, mô tả phương thức chúng tôi có thể phục vụ bạn tốt nhất.\n2. Chúng tôi sẽ đến tận cơ sở kinh doanh của bạn để tư vấn miễn phí.\n3. Chúng tôi liên hệ lại với các đề xuất giải pháp và bảng ước tính chi phí trong vòng 72 giờ.\n4. Bạn xem xét bản ước tính của chúng tôi, và nếu hài lòng, bạn ký hợp đồng dịch vụ.\n\n[VĂN BẢN 2 - LỊCH PHÂN CÔNG]\nDịch vụ Vệ sinh Milford (MJS)\nLịch phân công công việc cho buổi tối thứ Hai, ngày 10 tháng 6:\n- Văn phòng phẩm Hallender | Quét bụi và hút bụi | Đội Bạc (Silver Team)\n- Ngân hàng Shoreside | Lau cửa sổ kính | Đội Xanh lam (Blue Team)*\n- Quán cà phê Larimar | Dọn dẹp vệ sinh phòng vệ sinh | Đội Xanh lá (Green Team)\n- Tiệm giặt là Powder | Làm sạch và đánh bóng sàn nhà | Đội Vàng (Gold Team)*\n- Công ty Kế toán J. Mallery | Quét bụi và hút bụi | Đội Bạc (Silver Team)\n*Lưu ý rằng bắt đầu từ tháng tới, Đội Xanh lam và Đội Vàng sẽ hoán đổi vai trò dọn dẹp cho nhau.\n\n[VĂN BẢN 3 - THƯ TÍN]\nIrene’s Formal Wear • 1800 ngõ Canopy • Milford, Connecticut 06461\nNgày 17 tháng 6\nKính gửi: Dịch vụ Vệ sinh Milford\n956 đường Meadowvale, Milford, Connecticut 06460\nXin chào,\nCông ty của các bạn đã được một khách hàng thân thiết giới thiệu cho tôi. Tôi hiện có một nhu cầu cụ thể: cần làm sạch và đánh bóng sàn chuyên nghiệp tại khu vực tiền sảnh lớn của cơ sở kinh doanh của tôi. Điều rất quan trọng là sảnh phải luôn luôn sáng bóng lấp lánh. Tôi muốn dịch vụ này được cung cấp định kỳ hàng tuần, bắt đầu từ ngày 1 tháng 7. Rất mong sớm nhận được phản hồi từ quý công ty.\nTrân trọng,\nIrene Nogueira\nIrene’s Formal Wear",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page257/block_1.webp",
                   "imageWidth": 1386,
                   "imageHeight": 1454,
                   "sentences": [
@@ -114237,7 +114237,7 @@
                   ]
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page258/block_1.webp",
                   "imageWidth": 1256,
                   "imageHeight": 749,
                   "sentences": [
@@ -114571,7 +114571,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page259/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -114834,7 +114834,7 @@
                   "imageHeight": 1112
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page259/block_3.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -115113,7 +115113,7 @@
                   "imageHeight": 798
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page260/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -115440,7 +115440,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page261/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -115559,7 +115559,7 @@
                   "imageHeight": 903
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page261/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -115742,7 +115742,7 @@
                   "imageHeight": 628
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page262/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -116009,7 +116009,7 @@
           "questions": [
             {
               "questionNumber": 1,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test10/q1.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/Test10.mp3",
               "questionText": "Look at the picture marked number 1 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 1 trong cuốn sách bài thi của bạn.",
@@ -116054,7 +116054,7 @@
             },
             {
               "questionNumber": 2,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test10/q2.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/Test10.mp3",
               "questionText": "Look at the picture marked number 2 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 2 trong cuốn sách bài thi của bạn.",
@@ -116099,7 +116099,7 @@
             },
             {
               "questionNumber": 3,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test10/q3.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/Test10.mp3",
               "questionText": "Look at the picture marked number 3 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 3 trong cuốn sách bài thi của bạn.",
@@ -116144,7 +116144,7 @@
             },
             {
               "questionNumber": 4,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test10/q4.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/Test10.mp3",
               "questionText": "Look at the picture marked number 4 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 4 trong cuốn sách bài thi của bạn.",
@@ -116189,7 +116189,7 @@
             },
             {
               "questionNumber": 5,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test10/q5.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/Test10.mp3",
               "questionText": "Look at the picture marked number 5 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 5 trong cuốn sách bài thi của bạn.",
@@ -116234,7 +116234,7 @@
             },
             {
               "questionNumber": 6,
-              "imageUrl": ".webp",
+              "imageUrl": "uploads/EST 2022/LC/image/test10/q6.webp",
               "audioUrl": "uploads/EST 2022/LC/audio/Test10.mp3",
               "questionText": "Look at the picture marked number 6 in your test book.",
               "questionTranslation": "Nhìn vào bức tranh được đánh dấu số 6 trong cuốn sách bài thi của bạn.",
@@ -118658,7 +118658,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/Test10.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test10/group_62_64.webp",
                   "imageWidth": 469,
                   "imageHeight": 199
                 }
@@ -118791,7 +118791,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/Test10.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test10/group_65_67.webp",
                   "imageWidth": 464,
                   "imageHeight": 328
                 }
@@ -118924,7 +118924,7 @@
               "audioUrl": "uploads/EST 2022/LC/audio/Test10.mp3",
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test10/group_68_70.webp",
                   "imageWidth": 469,
                   "imageHeight": 352
                 }
@@ -120038,7 +120038,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test10/group_95_97.webp",
                   "imageWidth": 453,
                   "imageHeight": 168
                 }
@@ -120189,7 +120189,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/LC/image/test10/group_98_100.webp",
                   "imageWidth": 464,
                   "imageHeight": 268
                 }
@@ -120975,7 +120975,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page267/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -121238,7 +121238,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page268/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -121524,7 +121524,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page269/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -121856,7 +121856,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page270/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -122399,7 +122399,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page271/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -122731,7 +122731,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page272/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -122871,7 +122871,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page273/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -123172,7 +123172,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page274/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -123506,7 +123506,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page275/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -123803,7 +123803,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page276/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -124221,7 +124221,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page277/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -124484,7 +124484,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page278/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -124743,7 +124743,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page279/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -125148,7 +125148,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page280/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -125473,7 +125473,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page282/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -125705,7 +125705,7 @@
                   "imageHeight": 870
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page282/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -126044,7 +126044,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page284/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -126228,7 +126228,7 @@
                   "imageHeight": 984
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page284/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -126519,7 +126519,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page286/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -126879,7 +126879,7 @@
                   "imageHeight": 1485
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page287/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -127143,7 +127143,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page288/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -127405,7 +127405,7 @@
                   "imageHeight": 1072
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page288/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -127548,7 +127548,7 @@
                   "imageHeight": 531
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page289/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -127854,7 +127854,7 @@
               ],
               "passages": [
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page290/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -128184,7 +128184,7 @@
                   "imageHeight": 1196
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page290/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
@@ -128299,7 +128299,7 @@
                   "imageHeight": 550
                 },
                 {
-                  "imageUrl": ".webp",
+                  "imageUrl": "uploads/EST 2022/RC/image/page291/block_1.webp",
                   "sentences": [
                     {
                       "id": "s1",
