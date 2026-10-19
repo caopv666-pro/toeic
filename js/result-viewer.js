@@ -140,8 +140,26 @@ const ResultViewer = {
       return false;
     }
 
-    if (this.resultData && this.resultData.mode === 'part' && this.resultData.partFilter) {
-      this.currentPartFilter = this.resultData.partFilter;
+    const urlPart = urlParams.get('part');
+    if (urlPart && /^part[1-7]$/i.test(urlPart.trim())) {
+      this.currentPartFilter = urlPart.trim().toLowerCase();
+    } else if (this.resultData && this.resultData.mode === 'part' && this.resultData.partFilter) {
+      this.currentPartFilter = String(this.resultData.partFilter).toLowerCase();
+    } else if (this.currentPartFilter === 'all') {
+      this.currentPartFilter = 'part1';
+    }
+
+    if (typeof document !== 'undefined' && typeof document.querySelectorAll === 'function') {
+      document.querySelectorAll('#part-filter-group .filter-pill-btn').forEach(btn => {
+        const btnPart = btn.dataset ? btn.dataset.part : (btn.getAttribute && btn.getAttribute('data-part'));
+        const isActive = (btnPart === this.currentPartFilter);
+        if (btn.classList && typeof btn.classList.toggle === 'function') {
+          btn.classList.toggle('active', isActive);
+        }
+        if (typeof btn.setAttribute === 'function') {
+          btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        }
+      });
     }
 
     if (typeof this.renderSummary === 'function') this.renderSummary();
@@ -864,6 +882,27 @@ const ResultViewer = {
       }
     });
 
+    // Bottom Next / Prev Part navigation bar for Full Review mode
+    if (this.resultData && this.resultData.mode !== 'part' && /^part([1-7])$/i.test(this.currentPartFilter)) {
+      const curIdx = parseInt(this.currentPartFilter.replace(/part/i, ''), 10);
+      const prevPart = curIdx > 1 ? `part${curIdx - 1}` : null;
+      const nextPart = curIdx < 7 ? `part${curIdx + 1}` : null;
+      html += `
+        <div class="review-part-footer-nav" style="display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 20px 0 8px; padding: 12px 16px; background: var(--bg-glass-card); border: 1px solid var(--border-glass); border-radius: var(--radius-lg);">
+          ${prevPart ? `
+            <button type="button" class="btn btn-secondary" onclick="ResultViewer.setPartFilter('${prevPart}'); window.scrollTo({top: Math.max(0, (document.getElementById('detailed-review-section')?.offsetTop || 0) - 80), behavior: 'smooth'});">
+              ⬅ Part ${curIdx - 1}
+            </button>
+          ` : `<div></div>`}
+          ${nextPart ? `
+            <button type="button" class="btn btn-primary" onclick="ResultViewer.setPartFilter('${nextPart}'); window.scrollTo({top: Math.max(0, (document.getElementById('detailed-review-section')?.offsetTop || 0) - 80), behavior: 'smooth'});" style="margin-left: auto;">
+              Part tiếp theo: Part ${curIdx + 1} ➔
+            </button>
+          ` : `<div></div>`}
+        </div>
+      `;
+    }
+
     container.innerHTML = html;
   },
 
@@ -874,7 +913,7 @@ const ResultViewer = {
     const userChoice = q.userChoice;
     const correctChoice = q.correctChoice;
     const isCorrect = q.isCorrect;
-    const hasExplanation = Boolean(q.explanation || q.translation || q.analysis || q.tips || q.optionsTranslation);
+    const hasExplanation = Boolean(q.explanation || q.analysis || q.tips || q.optionsTranslation || q.translation);
     const audioUrl = q.audioUrl;
     const imgUrl = (config && typeof config.resolveAssetUrl === 'function')
       ? config.resolveAssetUrl(q.imageUrl)
@@ -885,10 +924,14 @@ const ResultViewer = {
       : null;
     const partKey = partInfo ? partInfo.key : (q.part || '');
 
-    // Clean redundant ETS boilerplate prompt for Part 1 photographs
-    let cleanQuestionText = q.questionText || '';
-    if (/^Look at the picture marked number \d+ in your test book\.?/i.test(cleanQuestionText.trim())) {
+    // Clean redundant ETS boilerplate prompt & translation for Part 1 photographs
+    let cleanQuestionText = (q.questionText || '').trim();
+    if (/^(Look at the picture marked number \d+ in your test book\.?|Câu \d+$)/i.test(cleanQuestionText)) {
       cleanQuestionText = '';
+    }
+    let cleanQuestionTrans = (q.translation || q.questionTranslation || '').trim();
+    if (partKey === 'part1' && (/^(Nhìn vào bức tranh|Hãy nhìn vào bức tranh)/i.test(cleanQuestionTrans) || !cleanQuestionText)) {
+      cleanQuestionTrans = '';
     }
 
     const optionKeys = (partKey === 'part2' || !q.options?.['D']) ? ['A', 'B', 'C'] : ['A', 'B', 'C', 'D'];
@@ -918,16 +961,22 @@ const ResultViewer = {
         <!-- Audio Player (Part 1 - 2) -->
         ${audioUrl ? UIRenderer.renderAudioPlayer(playerId, audioUrl, `Nghe lại câu ${qNum}`) : ''}
 
-        <!-- Part 2: Spoken Question Script -->
-        ${(partKey === 'part2' && cleanQuestionText) ? `
+        <!-- Part 2: Spoken Question Script + Inline Question Translation -->
+        ${(partKey === 'part2' && (cleanQuestionText || cleanQuestionTrans)) ? `
           <div style="background: rgba(99, 102, 241, 0.12); border-left: 3px solid var(--accent-primary); padding: 8px 12px; border-radius: var(--radius-sm); margin: 8px 0 12px;">
             <span style="font-size: 0.72rem; font-weight: 700; color: var(--accent-secondary); text-transform: uppercase;">🔊 Lời thoại câu hỏi:</span>
-            <p style="font-size: 0.92rem; font-weight: 600; color: var(--text-primary); margin-top: 2px;">"${cleanQuestionText}"</p>
+            ${cleanQuestionText ? `<p style="font-size: 0.92rem; font-weight: 600; color: var(--text-primary); margin-top: 2px;">"${cleanQuestionText}"</p>` : ''}
+            ${cleanQuestionTrans ? `<p class="question-trans-inline" style="font-size: 0.86rem; color: var(--text-secondary); margin-top: 4px; font-style: italic;">${cleanQuestionTrans}</p>` : ''}
           </div>
         ` : ''}
 
-        <!-- Question Text for Part 1, 5 -->
-        ${(partKey !== 'part2' && cleanQuestionText) ? `<p class="question-text" style="font-size: 0.98rem; font-weight: 600; margin: 10px 0 12px; line-height: 1.5;">${cleanQuestionText}</p>` : ''}
+        <!-- Question Text & Inline Translation for Part 5 (or Part 1 if non-boilerplate question exists) -->
+        ${(partKey !== 'part2' && (cleanQuestionText || cleanQuestionTrans)) ? `
+          <div class="question-text-block" style="margin: 10px 0 12px;">
+            ${cleanQuestionText ? `<p class="question-text" style="font-size: 0.98rem; font-weight: 600; margin: 0; line-height: 1.5;">${cleanQuestionText}</p>` : ''}
+            ${cleanQuestionTrans ? `<p class="question-trans-inline" style="font-size: 0.88rem; color: var(--text-secondary); margin: 4px 0 0; line-height: 1.45; font-style: italic;">${cleanQuestionTrans}</p>` : ''}
+          </div>
+        ` : ''}
 
         <!-- Options Group with Inline Translation -->
         <div class="review-options-group">
@@ -966,7 +1015,7 @@ const ResultViewer = {
         <!-- Explanation Accordion -->
         <div style="margin-top: 12px;">
           <button class="explanation-toggle-btn" type="button" id="toggle_btn_${qNum}" aria-expanded="false" aria-controls="panel_exp_${qNum}" onclick="ResultViewer.toggleExplanation(${qNum})">
-            <span>💡 Xem giải thích & Dịch nghĩa</span>
+            <span>💡 Xem lời giải & Phân tích</span>
             <span class="arrow-icon">▼</span>
           </button>
 
@@ -1119,7 +1168,8 @@ const ResultViewer = {
     const userChoice = q.userChoice;
     const correctChoice = q.correctChoice;
     const isCorrect = q.isCorrect;
-    const hasExplanation = Boolean(q.explanation || q.translation || q.analysis || q.tips || q.optionsTranslation);
+    const hasExplanation = Boolean(q.explanation || q.analysis || q.tips || q.optionsTranslation || q.translation);
+    const questionTrans = (q.translation || q.questionTranslation || '').trim();
 
     return `
       <div class="review-q-card animate-fade-in" id="review_q_${qNum}" style="margin-top: 14px; margin-bottom: 0;">
@@ -1134,7 +1184,12 @@ const ResultViewer = {
           </div>
         </div>
 
-        ${q.questionText ? `<p class="question-text" style="font-size: 0.98rem; font-weight: 600; margin: 10px 0 12px; line-height: 1.5;">${q.questionText}</p>` : ''}
+        ${(q.questionText || questionTrans) ? `
+          <div class="question-text-block" style="margin: 10px 0 12px;">
+            ${q.questionText ? `<p class="question-text" style="font-size: 0.98rem; font-weight: 600; margin: 0; line-height: 1.5;">${q.questionText}</p>` : ''}
+            ${questionTrans ? `<p class="question-trans-inline" style="font-size: 0.88rem; color: var(--text-secondary); margin: 4px 0 0; line-height: 1.45; font-style: italic;">${questionTrans}</p>` : ''}
+          </div>
+        ` : ''}
 
         <!-- Options Group with Inline Translation -->
         <div class="review-options-group">
@@ -1173,7 +1228,7 @@ const ResultViewer = {
         <!-- Explanation Accordion -->
         <div style="margin-top: 12px;">
           <button type="button" class="explanation-toggle-btn" id="toggle_btn_${qNum}" aria-expanded="false" aria-controls="panel_exp_${qNum}" onclick="ResultViewer.toggleExplanation(${qNum})">
-            <span>💡 Xem giải thích & Dịch nghĩa</span>
+            <span>💡 Xem lời giải & Phân tích</span>
             <span class="arrow-icon">▼</span>
           </button>
 
@@ -1187,7 +1242,11 @@ const ResultViewer = {
 
   // ── Render Shared Explanation Content Panel (Pedagogical Cards) ──
   renderExplanationContent(q, hasExplanation) {
-    if (!hasExplanation) {
+    const hasExp = Boolean(q && q.explanation);
+    const hasAnalysis = Boolean(q && q.analysis);
+    const hasTips = Boolean(q && q.tips);
+
+    if (!hasExplanation || (!hasExp && !hasAnalysis && !hasTips)) {
       return `
         <div class="exp-empty-notice">
           <span>ℹ️ Lời giải chi tiết và phân tích cho câu hỏi này đang được AI biên soạn và cập nhật.</span>
@@ -1195,28 +1254,8 @@ const ResultViewer = {
       `;
     }
 
-    const questionTrans = q.translation || q.questionTranslation;
-    const hasExp = Boolean(q.explanation);
-    const hasAnalysis = Boolean(q.analysis);
-    const hasTips = Boolean(q.tips);
-
     return `
-      <!-- Card 1: Dịch nghĩa câu hỏi (nếu có) -->
-      ${questionTrans ? `
-        <div class="exp-card exp-trans-card">
-          <div class="exp-card-header">
-            <span class="exp-icon">🌐</span>
-            <span class="exp-title">Dịch nghĩa câu hỏi</span>
-          </div>
-          <div class="exp-card-content">
-            <div class="exp-q-trans" style="margin-bottom: 0;">
-              <div class="exp-q-trans-text" style="font-weight: 500; font-size: 0.94rem; color: var(--text-primary);">${questionTrans}</div>
-            </div>
-          </div>
-        </div>
-      ` : ''}
-
-      <!-- Card 2: Lời giải chi tiết -->
+      <!-- Card: Lời giải chi tiết -->
       ${hasExp ? `
         <div class="exp-card exp-detail-card">
           <div class="exp-card-header">
@@ -1229,7 +1268,7 @@ const ResultViewer = {
         </div>
       ` : ''}
 
-      <!-- Card 3: Phân tích từ vựng & Cấu trúc ngữ pháp -->
+      <!-- Card: Phân tích từ vựng & Cấu trúc ngữ pháp -->
       ${hasAnalysis ? `
         <div class="exp-card exp-analysis-card">
           <div class="exp-card-header">
@@ -1242,7 +1281,7 @@ const ResultViewer = {
         </div>
       ` : ''}
 
-      <!-- Card 4: Mẹo làm bài & Bẫy thường gặp (Part 1, 2) -->
+      <!-- Card: Mẹo làm bài & Bẫy thường gặp -->
       ${hasTips ? `
         <div class="exp-card exp-tips-card">
           <div class="exp-card-header">

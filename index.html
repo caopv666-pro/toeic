@@ -13,8 +13,8 @@
   <link rel="stylesheet" href="css/responsive.css">
   <style>
     .part-filter-btn {
-      padding: 6px 14px;
-      font-size: 0.85rem;
+      padding: 6px 12px;
+      font-size: 0.82rem;
       font-weight: 600;
       border-radius: var(--radius-full);
       background: var(--bg-secondary);
@@ -22,6 +22,7 @@
       color: var(--text-secondary);
       cursor: pointer;
       transition: all var(--transition-fast);
+      white-space: nowrap;
     }
     .part-filter-btn:hover {
       background: var(--bg-glass-hover);
@@ -32,6 +33,107 @@
       color: #ffffff;
       border-color: var(--accent-primary);
       box-shadow: 0 2px 10px var(--accent-primary-glow);
+    }
+    .book-chip-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: nowrap;
+      gap: 6px;
+      margin-bottom: 12px;
+      width: 100%;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .book-chip-row .part-filter-btn {
+      flex: 1 1 0;
+      padding: 7px 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-align: center;
+      min-width: 0;
+    }
+    .tests-grid.tests-grid-2col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+    .test-card.compact-test-card {
+      padding: 14px 14px;
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .compact-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+    }
+    .compact-card-top .test-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .test-best-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: var(--radius-full);
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--success);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .compact-card-actions {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      width: 100%;
+    }
+    .compact-card-actions .test-start-btn {
+      flex: 1 1 auto;
+      padding: 8px 10px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      white-space: nowrap;
+    }
+    .compact-card-actions .test-sol-btn {
+      flex: 0 0 auto;
+      padding: 8px 10px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      white-space: nowrap;
+    }
+    @media (max-width: 480px) {
+      .tests-grid.tests-grid-2col {
+        gap: 8px;
+      }
+      .test-card.compact-test-card {
+        padding: 10px 10px;
+        gap: 8px;
+      }
+      .compact-card-top .test-title {
+        font-size: 0.95rem;
+      }
+      .compact-card-actions .test-start-btn {
+        padding: 7px 8px;
+        font-size: 0.78rem;
+      }
+      .compact-card-actions .test-sol-btn {
+        padding: 7px 7px;
+        font-size: 0.75rem;
+      }
     }
     [data-theme="light"] .part-filter-btn {
       background: #ffffff;
@@ -55,12 +157,11 @@
   <nav class="app-navbar">
     <div class="nav-brand">
       <span>🎯 TOEIC Master</span>
-      <span class="brand-badge">ETS 2022</span>
+      <span class="brand-badge" id="nav-book-badge">ETS 2022</span>
     </div>
     <div class="nav-links">
       <a href="index.html" class="nav-link-btn active">Trang chủ</a>
       <a href="history.html" class="nav-link-btn">Lịch sử thi</a>
-      <a href="/cms/" class="nav-link-btn">⚙️ CMS 18 Auto</a>
       <button class="theme-toggle-btn" id="theme-btn" type="button" onclick="toggleTheme()" aria-label="Đổi giao diện Sáng / Tối" title="Đổi giao diện Sáng / Tối">
         🌓
       </button>
@@ -70,65 +171,60 @@
   <!-- Main Content -->
   <main class="container">
     
-    <!-- Hero Section -->
-    <section class="hero-section">
-      <h1 class="hero-title">Luyện Thi TOEIC Trực Tuyến</h1>
-      <p class="hero-subtitle">
-        Trọn bộ 10 đề thi ETS 2022 chuẩn định dạng mới nhất. Audio cắt từng câu không giật lag, tính giờ 120 phút chuẩn thi thật và xem lời giải phân tích chi tiết.
-      </p>
+    <!-- Compact Top Filter Section -->
+    <section class="hero-section" style="padding: 16px 0 8px;">
 
       <!-- Active Session Alert (If in progress) -->
-      <div id="resume-banner" role="alert" aria-live="polite" style="display: none; max-width: 600px; margin: 0 auto 30px; padding: 16px 20px; background: rgba(99, 102, 241, 0.15); border: 1px solid var(--accent-primary); border-radius: var(--radius-lg); text-align: left;">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+      <div id="resume-banner" role="alert" aria-live="polite" style="display: none; max-width: 600px; margin: 0 auto 14px; padding: 12px 16px; background: rgba(99, 102, 241, 0.15); border: 1px solid var(--accent-primary); border-radius: var(--radius-md); text-align: left;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
           <div>
-            <span style="color: var(--accent-secondary); font-weight: 700; font-size: 0.9rem;">⚠️ BÀI THI ĐANG LÀM DỞ</span>
-            <p id="resume-desc" style="color: var(--text-primary); font-size: 0.95rem; margin-top: 4px;"></p>
+            <span style="color: var(--accent-secondary); font-weight: 700; font-size: 0.85rem;">⚠️ BÀI THI ĐANG LÀM DỞ</span>
+            <p id="resume-desc" style="color: var(--text-primary); font-size: 0.88rem; margin-top: 2px;"></p>
           </div>
-          <div style="display: flex; gap: 8px; align-items: center;">
+          <div style="display: flex; gap: 6px; align-items: center;">
             <button class="btn btn-secondary btn-sm" type="button" onclick="discardActiveExam()" aria-label="Hủy bỏ bài thi đang làm dở" style="border: 1px solid var(--border-color); background: transparent; color: var(--text-secondary);" title="Hủy bỏ bài thi đang làm dở">Hủy ✕</button>
             <button class="btn btn-primary btn-sm" type="button" onclick="resumeActiveExam()" aria-label="Tiếp tục làm bài thi đang làm dở">Làm tiếp ➔</button>
           </div>
         </div>
       </div>
 
-      <!-- Book Selector Pills (ETS 2022 / ETS 2023 / ETS 2024 / ETS 2026) -->
-      <div id="book-selector-wrap" role="group" aria-label="Chọn bộ đề thi" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 18px;">
-        <button class="part-filter-btn active" id="book-btn-2022" data-book="EST 2022" type="button" onclick="selectBook('EST 2022')" aria-pressed="true">📘 Bộ đề ETS 2022 (10 Tests)</button>
-        <button class="part-filter-btn" id="book-btn-2023" data-book="EST 2023" type="button" onclick="selectBook('EST 2023')" aria-pressed="false">📙 Bộ đề ETS 2023 (10 Tests)</button>
-        <button class="part-filter-btn" id="book-btn-2024" data-book="EST 2024" type="button" onclick="selectBook('EST 2024')" aria-pressed="false">📗 Bộ đề ETS 2024 (10 Tests)</button>
-        <button class="part-filter-btn" id="book-btn-2026" data-book="EST 2026" type="button" onclick="selectBook('EST 2026')" aria-pressed="false">🔥 Bộ đề ETS 2026 Mới (10 Tests)</button>
+      <!-- Book Selector Pills (1 Single Compact Row: ETS 2022 / ETS 2023 / ETS 2024 / ETS 2026) -->
+      <div id="book-selector-wrap" class="book-chip-row" role="group" aria-label="Chọn bộ đề thi">
+        <button class="part-filter-btn active" id="book-btn-2022" data-book="EST 2022" type="button" onclick="selectBook('EST 2022')" aria-pressed="true">ETS 2022</button>
+        <button class="part-filter-btn" id="book-btn-2023" data-book="EST 2023" type="button" onclick="selectBook('EST 2023')" aria-pressed="false">ETS 2023</button>
+        <button class="part-filter-btn" id="book-btn-2024" data-book="EST 2024" type="button" onclick="selectBook('EST 2024')" aria-pressed="false">ETS 2024</button>
+        <button class="part-filter-btn" id="book-btn-2026" data-book="EST 2026" type="button" onclick="selectBook('EST 2026')" aria-pressed="false">ETS 2026</button>
       </div>
 
       <!-- Mode Selector Tabs -->
-      <div class="mode-tabs" role="tablist" aria-label="Chọn chế độ thi">
+      <div class="mode-tabs" role="tablist" aria-label="Chọn chế độ thi" style="margin-bottom: 14px;">
         <button class="mode-tab-btn active" id="tab-full" type="button" role="tab" onclick="switchMode('full')" aria-pressed="true" aria-selected="true">
-          ⏱️ Thi Full Test (200 câu - 120 phút)
+          ⏱️ Full Test (200c)
         </button>
         <button class="mode-tab-btn" id="tab-part" type="button" role="tab" onclick="switchMode('part')" aria-pressed="false" aria-selected="false">
-          🎯 Luyện tập theo Part
+          🎯 Theo Part
         </button>
       </div>
 
       <!-- Part Filter Pills (Visible when 'part' mode is selected) -->
-      <div id="part-selector-wrap" style="display: none; justify-content: center; flex-wrap: wrap; gap: 8px; margin-bottom: 36px;">
-        <button class="part-filter-btn active" data-part="part1" type="button" onclick="selectPartFilter('part1', this)" aria-pressed="true">Part 1 (Ảnh - 6c)</button>
-        <button class="part-filter-btn" data-part="part2" type="button" onclick="selectPartFilter('part2', this)" aria-pressed="false">Part 2 (Hỏi đáp - 25c)</button>
-        <button class="part-filter-btn" data-part="part3" type="button" onclick="selectPartFilter('part3', this)" aria-pressed="false">Part 3 (Hội thoại - 39c)</button>
-        <button class="part-filter-btn" data-part="part4" type="button" onclick="selectPartFilter('part4', this)" aria-pressed="false">Part 4 (Bài nói - 30c)</button>
-        <button class="part-filter-btn" data-part="part5" type="button" onclick="selectPartFilter('part5', this)" aria-pressed="false">Part 5 (Điền câu - 30c)</button>
-        <button class="part-filter-btn" data-part="part6" type="button" onclick="selectPartFilter('part6', this)" aria-pressed="false">Part 6 (Đoạn văn - 16c)</button>
-        <button class="part-filter-btn" data-part="part7" type="button" onclick="selectPartFilter('part7', this)" aria-pressed="false">Part 7 (Đọc hiểu - 54c)</button>
+      <div id="part-selector-wrap" style="display: none; justify-content: center; flex-wrap: wrap; gap: 6px; margin-bottom: 14px;">
+        <button class="part-filter-btn active" data-part="part1" type="button" onclick="selectPartFilter('part1', this)" aria-pressed="true">Part 1</button>
+        <button class="part-filter-btn" data-part="part2" type="button" onclick="selectPartFilter('part2', this)" aria-pressed="false">Part 2</button>
+        <button class="part-filter-btn" data-part="part3" type="button" onclick="selectPartFilter('part3', this)" aria-pressed="false">Part 3</button>
+        <button class="part-filter-btn" data-part="part4" type="button" onclick="selectPartFilter('part4', this)" aria-pressed="false">Part 4</button>
+        <button class="part-filter-btn" data-part="part5" type="button" onclick="selectPartFilter('part5', this)" aria-pressed="false">Part 5</button>
+        <button class="part-filter-btn" data-part="part6" type="button" onclick="selectPartFilter('part6', this)" aria-pressed="false">Part 6</button>
+        <button class="part-filter-btn" data-part="part7" type="button" onclick="selectPartFilter('part7', this)" aria-pressed="false">Part 7</button>
       </div>
     </section>
 
-    <!-- Tests 1 - 10 Grid -->
+    <!-- Tests 1 - 10 Grid (2 Tests per row) -->
     <section>
-      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; flex-wrap: wrap; gap: 8px;">
-        <h2 id="book-section-heading" style="font-size: 1.5rem;">Danh Sách 10 Đề Thi ETS 2022</h2>
-        <span style="color: var(--text-muted); font-size: 0.9rem;">10 đề thi • 2.000 câu hỏi • 540 audio cuts</span>
+      <div style="display: none;">
+        <h2 id="book-section-heading">ETS 2022</h2>
       </div>
 
-      <div class="tests-grid" id="tests-card-grid">
+      <div class="tests-grid tests-grid-2col" id="tests-card-grid">
         <!-- Rendered dynamically by script -->
       </div>
     </section>
@@ -243,12 +339,13 @@
           b2026.classList.toggle('active', currentBook === 'EST 2026');
           if (typeof b2026.setAttribute === 'function') b2026.setAttribute('aria-pressed', currentBook === 'EST 2026' ? 'true' : 'false');
         }
+        const navBadge = document.getElementById('nav-book-badge');
+        const shortLabel = currentBook.replace('EST', 'ETS');
         if (heading) {
-          heading.textContent = currentBook === 'EST 2026'
-            ? 'Danh Sách 10 Đề Thi ETS 2026'
-            : (currentBook === 'EST 2024'
-              ? 'Danh Sách 10 Đề Thi ETS 2024'
-              : (currentBook === 'EST 2023' ? 'Danh Sách 10 Đề Thi ETS 2023' : 'Danh Sách 10 Đề Thi ETS 2022'));
+          heading.textContent = shortLabel;
+        }
+        if (navBadge) {
+          navBadge.textContent = shortLabel;
         }
       }
       renderTestCards();
@@ -387,53 +484,74 @@
     function renderTestCards() {
       const grid = document.getElementById('tests-card-grid');
       if (!grid) return;
-      const config = getSafeConfig();
       let html = '';
 
-      const PART_TIME_ESTIMATES = {
-        part1: '6 phút',
-        part2: '12 phút',
-        part3: '20 phút',
-        part4: '15 phút',
-        part5: '15 phút',
-        part6: '12 phút',
-        part7: '55 phút'
-      };
-
-      const bookTitle = (currentBook === 'EST 2026' || currentBook === 'EST 2024' || currentBook === 'EST 2023') ? currentBook : 'EST 2022';
+      const storage = getSafeStorage();
+      const historyList = (storage && typeof storage.getExamHistory === 'function')
+        ? (storage.getExamHistory() || [])
+        : [];
+      const bookKey = (currentBook === 'EST 2026' || currentBook === 'EST 2024' || currentBook === 'EST 2023') ? currentBook : 'EST 2022';
 
       for (let t = 1; t <= 10; t++) {
         const testNumStr = t < 10 ? `0${t}` : `${t}`;
         const isFull = currentMode === 'full';
-        const partInfo = (config.PARTS && config.PARTS[selectedPart]) ? config.PARTS[selectedPart] : { name: 'Part 1', count: 6 };
-        const qCount = isFull ? 200 : partInfo.count;
-        const timeEstimate = isFull ? '120 phút' : (PART_TIME_ESTIMATES[selectedPart] || '15 phút');
-        const partName = isFull ? 'Full 7 Parts (LC + RC)' : partInfo.name;
+        const partShort = !isFull ? ` • P${selectedPart.replace('part', '')}` : '';
+
+        // Find best history record for this book + test + mode
+        let bestBadgeHtml = '';
+        if (Array.isArray(historyList) && historyList.length > 0) {
+          const matches = historyList.filter(item => {
+            if (!item || getSafeTestId(item.testId) !== t) return false;
+            const itemBook = item.bookName || (item.testTitle && item.testTitle.includes('2026') ? 'EST 2026' : item.testTitle && item.testTitle.includes('2024') ? 'EST 2024' : item.testTitle && item.testTitle.includes('2023') ? 'EST 2023' : 'EST 2022');
+            if (itemBook !== bookKey) return false;
+            if (isFull) return item.mode !== 'part';
+            return item.mode === 'part' && String(item.partFilter || '').toLowerCase() === selectedPart;
+          });
+          if (matches.length > 0) {
+            if (isFull) {
+              const bestScore = Math.max(...matches.map(m => Number(m.totalScore) || 0));
+              bestBadgeHtml = `<span class="test-best-badge" title="Điểm cao nhất đã đạt">🏆 ${bestScore}đ</span>`;
+            } else {
+              const bestItem = matches.reduce((a, b) => ((Number(b.totalCorrect) || 0) > (Number(a.totalCorrect) || 0) ? b : a), matches[0]);
+              bestBadgeHtml = `<span class="test-best-badge" title="Kết quả tốt nhất">✓ ${bestItem.totalCorrect || 0}/${bestItem.totalQuestions || 0}</span>`;
+            }
+          }
+        }
 
         html += `
-          <div class="test-card">
-            <div>
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <span style="font-family: var(--font-mono); color: var(--accent-secondary); font-size: 0.8rem; font-weight: 700;">TEST #${testNumStr}</span>
-                <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: var(--success); font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: 600;">Chuẩn ETS</span>
-              </div>
-              <h3 class="test-title">${bookTitle} — Test ${testNumStr}</h3>
-              <div class="test-meta">
-                <span class="test-meta-badge">📝 ${qCount} câu hỏi</span>
-                <span class="test-meta-badge">⏱️ ${timeEstimate}</span>
-                <span class="test-meta-badge">🎯 ${isFull ? 'Full 200' : selectedPart.toUpperCase()}</span>
-              </div>
-              <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 20px;">
-                ${partName}. Trọn bộ âm thanh cắt chất lượng cao, hình ảnh rõ nét và lời giải song ngữ.
-              </p>
+          <div class="test-card compact-test-card">
+            <div class="compact-card-top">
+              <h3 class="test-title">Test ${testNumStr}${partShort}</h3>
+              ${bestBadgeHtml}
             </div>
-            <button type="button" class="btn btn-primary" onclick="startExam(${t})" aria-label="Bắt đầu làm bài Test ${testNumStr}">
-              Bắt đầu làm bài ➔
-            </button>
+            <div class="compact-card-actions">
+              <button type="button" class="btn btn-primary test-start-btn" onclick="startExam(${t})" aria-label="Bắt đầu làm bài Test ${testNumStr}">
+                Bắt đầu ➔
+              </button>
+              <button type="button" class="btn btn-secondary test-sol-btn" onclick="viewTestSolution(${t})" aria-label="Xem giải Test ${testNumStr}" title="Xem lời giải chi tiết Test ${testNumStr}">
+                📖 Giải
+              </button>
+            </div>
           </div>
         `;
       }
       grid.innerHTML = html;
+    }
+
+    function viewTestSolution(testId) {
+      const parsed = getSafeTestId(testId);
+      const clampedTest = Math.min(10, Math.max(1, parsed));
+      if (typeof AppConfig !== 'undefined' && AppConfig && typeof AppConfig.setSelectedBook === 'function') {
+        AppConfig.setSelectedBook(currentBook);
+      }
+      let url = `result.html?test=${clampedTest}&show=review`;
+      if (currentMode === 'part') {
+        url += `&part=${encodeURIComponent(selectedPart)}`;
+      }
+      if (typeof window !== 'undefined' && window.location) {
+        window.location.href = url;
+      }
+      return url;
     }
 
     function startExam(testId) {
@@ -454,6 +572,7 @@
       window.switchMode = switchMode;
       window.selectPartFilter = selectPartFilter;
       window.startExam = startExam;
+      window.viewTestSolution = viewTestSolution;
       window.checkActiveSession = checkActiveSession;
       window.resumeActiveExam = resumeActiveExam;
       window.discardActiveExam = discardActiveExam;
@@ -471,6 +590,7 @@
         switchMode,
         selectPartFilter,
         startExam,
+        viewTestSolution,
         checkActiveSession,
         resumeActiveExam,
         discardActiveExam,

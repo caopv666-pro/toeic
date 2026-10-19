@@ -285,31 +285,33 @@
   }
 
   .mode-tabs {
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
-    border-radius: var(--radius-lg);
+    max-width: 480px;
+    border-radius: var(--radius-full);
     padding: 4px;
-    margin-bottom: 24px;
+    margin-bottom: 14px;
   }
 
   .mode-tab-btn {
-    padding: 10px 14px;
-    font-size: 0.88rem;
+    padding: 8px 10px;
+    font-size: 0.82rem;
     text-align: center;
-    width: 100%;
+    flex: 1 1 0;
+    white-space: nowrap;
   }
 
   .tests-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
   }
 
   .test-card {
-    padding: 18px 16px;
+    padding: 12px 12px;
   }
 
   .test-title {
-    font-size: 1.15rem;
+    font-size: 1rem;
   }
 
   /* Requirement 1: Make images full-width on mobile */

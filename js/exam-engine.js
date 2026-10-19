@@ -568,12 +568,63 @@ const ExamEngine = {
     return isFlagged;
   },
 
+  getPartKeyByQuestionNum(qNum) {
+    const n = parseInt(qNum, 10) || 1;
+    if (n <= 6) return 'part1';
+    if (n <= 31) return 'part2';
+    if (n <= 70) return 'part3';
+    if (n <= 100) return 'part4';
+    if (n <= 130) return 'part5';
+    if (n <= 146) return 'part6';
+    return 'part7';
+  },
+
+  switchExamPart(partKey, shouldScrollTop = true) {
+    const validParts = ['part1', 'part2', 'part3', 'part4', 'part5', 'part6', 'part7'];
+    const targetPart = validParts.includes(partKey) ? partKey : 'part1';
+    this.activeExamPart = targetPart;
+    if (typeof document === 'undefined') return targetPart;
+
+    if (typeof document.querySelectorAll === 'function') {
+      document.querySelectorAll('.exam-part-section').forEach(sec => {
+        const secPart = (sec.dataset && sec.dataset.part) || (sec.getAttribute && sec.getAttribute('data-part'));
+        if (secPart && sec.style) {
+          sec.style.display = (secPart === targetPart) ? 'block' : 'none';
+        }
+      });
+      document.querySelectorAll('.exam-part-chip').forEach(btn => {
+        const btnPart = (btn.dataset && btn.dataset.part) || (btn.getAttribute && btn.getAttribute('data-part'));
+        if (!btnPart) return;
+        const isActive = (btnPart === targetPart);
+        if (btn.classList && typeof btn.classList.toggle === 'function') {
+          btn.classList.toggle('active', isActive);
+        }
+        if (typeof btn.setAttribute === 'function') {
+          btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        }
+      });
+    }
+
+    if (shouldScrollTop && typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+      const prefersReduced = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
+    }
+    return targetPart;
+  },
+
   scrollToQuestion(qNum) {
     if (this._isSubmitting) return false;
     const num = parseInt(qNum, 10);
     if (isNaN(num) || num <= 0) return false;
     this.currentQNum = num;
     if (typeof document === 'undefined') return true;
+
+    if (this.mode === 'full') {
+      const targetPart = this.getPartKeyByQuestionNum(num);
+      if (this.activeExamPart !== targetPart) {
+        this.switchExamPart(targetPart, false);
+      }
+    }
 
     const el = document.getElementById(`q_item_${num}`);
     if (el) {
@@ -708,6 +759,12 @@ const ExamEngine = {
     const lc = this.testData.listening || {};
     const rc = this.testData.reading || {};
     const isPartMode = this.mode === 'part';
+    const isFull = this.mode === 'full';
+    if (isFull && !this.activeExamPart) {
+      this.activeExamPart = this.currentQNum ? this.getPartKeyByQuestionNum(this.currentQNum) : 'part1';
+    }
+    const activePart = isFull ? (this.activeExamPart || 'part1') : this.partFilter;
+
     const getPartQuestions = (p) => Array.isArray(p) ? p : (Array.isArray(p?.questions) ? p.questions : []);
     const getPartGroups = (p) => Array.isArray(p) ? p : (Array.isArray(p?.groups) ? p.groups : []);
 
@@ -715,6 +772,16 @@ const ExamEngine = {
       if (this.mode === 'full') return true;
       return this.partFilter === partKey;
     };
+
+    const PART_META = [
+      { key: 'part1', num: 1, badge: 'Part 1', name: 'Photographs', range: 'Câu 1 – 6' },
+      { key: 'part2', num: 2, badge: 'Part 2', name: 'Question-Response', range: 'Câu 7 – 31' },
+      { key: 'part3', num: 3, badge: 'Part 3', name: 'Conversations', range: 'Câu 32 – 70' },
+      { key: 'part4', num: 4, badge: 'Part 4', name: 'Short Talks', range: 'Câu 71 – 100' },
+      { key: 'part5', num: 5, badge: 'Part 5', name: 'Incomplete Sentences', range: 'Câu 101 – 130' },
+      { key: 'part6', num: 6, badge: 'Part 6', name: 'Text Completion', range: 'Câu 131 – 146' },
+      { key: 'part7', num: 7, badge: 'Part 7', name: 'Reading Comprehension', range: 'Câu 147 – 200' }
+    ];
 
     const renderPartDivider = (badge, name, range) => `
       <div class="part-section-divider">
@@ -724,6 +791,30 @@ const ExamEngine = {
       </div>
     `;
 
+    const renderPartFooterNav = (partIdx) => {
+      if (!isFull) return '';
+      const prevMeta = partIdx > 0 ? PART_META[partIdx - 1] : null;
+      const nextMeta = partIdx < PART_META.length - 1 ? PART_META[partIdx + 1] : null;
+      return `
+        <div class="exam-part-footer-nav" style="display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 24px 0 12px; padding: 14px 16px; background: var(--bg-glass-card); border: 1px solid var(--border-glass); border-radius: var(--radius-lg);">
+          ${prevMeta ? `
+            <button type="button" class="btn btn-secondary" onclick="ExamEngine.switchExamPart('${prevMeta.key}', true)" aria-label="Quay lại ${prevMeta.badge}">
+              ⬅ ${prevMeta.badge}
+            </button>
+          ` : `<div></div>`}
+          ${nextMeta ? `
+            <button type="button" class="btn btn-primary" onclick="ExamEngine.switchExamPart('${nextMeta.key}', true)" aria-label="Chuyển sang ${nextMeta.badge}" style="margin-left: auto;">
+              Tiếp theo: ${nextMeta.badge} (${nextMeta.range}) ➔
+            </button>
+          ` : `
+            <button type="button" class="btn btn-danger" onclick="ExamEngine.confirmSubmit()" aria-label="Nộp bài và xem điểm" style="margin-left: auto;">
+              🏁 Nộp bài & Xem điểm
+            </button>
+          `}
+        </div>
+      `;
+    };
+
     // Master Continuous Audio in Header is for Full Exam Mode only
     // In Part Practice mode, individual questions/groups have their own audio players
     const isFullListening = this.mode === 'full';
@@ -732,61 +823,94 @@ const ExamEngine = {
       headerPlayer.style.display = isFullListening ? 'flex' : 'none';
     }
 
+    if (isFull) {
+      html += `
+        <div class="exam-part-stepper-bar" role="navigation" aria-label="Chọn phần thi Part 1 đến Part 7" style="position: sticky; top: var(--navbar-height, 66px); z-index: 80; display: flex; flex-wrap: nowrap; gap: 6px; overflow-x: auto; padding: 8px 10px; margin-bottom: 14px; background: var(--bg-glass); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--border-glass); border-radius: var(--radius-lg);">
+          ${PART_META.map(m => `
+            <button type="button" class="filter-pill-btn exam-part-chip${activePart === m.key ? ' active' : ''}" data-part="${m.key}" onclick="ExamEngine.switchExamPart('${m.key}', true)" aria-pressed="${activePart === m.key ? 'true' : 'false'}" style="flex: 1 1 0; min-width: 58px; padding: 6px 8px; font-size: 0.8rem; font-weight: 700; text-align: center; white-space: nowrap;">
+              ${m.badge}
+            </button>
+          `).join('')}
+        </div>
+      `;
+    }
+
     // Part 1
     if (shouldRenderPart('part1')) {
+      html += `<div class="exam-part-section" id="exam-part-section-part1" data-part="part1" style="display: ${isFull && activePart !== 'part1' ? 'none' : 'block'};">`;
       html += renderPartDivider('Part 1', 'Photographs', 'Câu 1 – 6');
       getPartQuestions(lc.part1).forEach(q => {
         html += UIRenderer.renderPart1(q, this.userAnswers[q.questionNumber], this.flaggedQuestions.has(q.questionNumber), isPartMode);
       });
+      html += renderPartFooterNav(0);
+      html += `</div>`;
     }
 
     // Part 2
     if (shouldRenderPart('part2')) {
+      html += `<div class="exam-part-section" id="exam-part-section-part2" data-part="part2" style="display: ${isFull && activePart !== 'part2' ? 'none' : 'block'};">`;
       html += renderPartDivider('Part 2', 'Question-Response', 'Câu 7 – 31');
       getPartQuestions(lc.part2).forEach(q => {
         html += UIRenderer.renderPart2(q, this.userAnswers[q.questionNumber], this.flaggedQuestions.has(q.questionNumber), isPartMode);
       });
+      html += renderPartFooterNav(1);
+      html += `</div>`;
     }
 
     // Part 3
     if (shouldRenderPart('part3')) {
+      html += `<div class="exam-part-section" id="exam-part-section-part3" data-part="part3" style="display: ${isFull && activePart !== 'part3' ? 'none' : 'block'};">`;
       html += renderPartDivider('Part 3', 'Conversations', 'Câu 32 – 70');
       getPartGroups(lc.part3).forEach(g => {
         html += UIRenderer.renderGroupAudio(g, 'part3', this.userAnswers, this.flaggedQuestions, isPartMode);
       });
+      html += renderPartFooterNav(2);
+      html += `</div>`;
     }
 
     // Part 4
     if (shouldRenderPart('part4')) {
+      html += `<div class="exam-part-section" id="exam-part-section-part4" data-part="part4" style="display: ${isFull && activePart !== 'part4' ? 'none' : 'block'};">`;
       html += renderPartDivider('Part 4', 'Short Talks', 'Câu 71 – 100');
       getPartGroups(lc.part4).forEach(g => {
         html += UIRenderer.renderGroupAudio(g, 'part4', this.userAnswers, this.flaggedQuestions, isPartMode);
       });
+      html += renderPartFooterNav(3);
+      html += `</div>`;
     }
 
     // Part 5
     if (shouldRenderPart('part5')) {
+      html += `<div class="exam-part-section" id="exam-part-section-part5" data-part="part5" style="display: ${isFull && activePart !== 'part5' ? 'none' : 'block'};">`;
       html += renderPartDivider('Part 5', 'Incomplete Sentences', 'Câu 101 – 130');
       const p5List = getPartQuestions(rc.part5).length > 0 ? getPartQuestions(rc.part5) : getPartQuestions(lc.part5);
       p5List.forEach(q => {
         html += UIRenderer.renderPart5(q, this.userAnswers[q.questionNumber], this.flaggedQuestions.has(q.questionNumber));
       });
+      html += renderPartFooterNav(4);
+      html += `</div>`;
     }
 
     // Part 6
     if (shouldRenderPart('part6')) {
+      html += `<div class="exam-part-section" id="exam-part-section-part6" data-part="part6" style="display: ${isFull && activePart !== 'part6' ? 'none' : 'block'};">`;
       html += renderPartDivider('Part 6', 'Text Completion', 'Câu 131 – 146');
       getPartGroups(rc.part6).forEach(g => {
         html += UIRenderer.renderReadingGroup(g, 'part6', this.userAnswers, this.flaggedQuestions);
       });
+      html += renderPartFooterNav(5);
+      html += `</div>`;
     }
 
     // Part 7
     if (shouldRenderPart('part7')) {
+      html += `<div class="exam-part-section" id="exam-part-section-part7" data-part="part7" style="display: ${isFull && activePart !== 'part7' ? 'none' : 'block'};">`;
       html += renderPartDivider('Part 7', 'Reading Comprehension', 'Câu 147 – 200');
       getPartGroups(rc.part7).forEach(g => {
         html += UIRenderer.renderReadingGroup(g, 'part7', this.userAnswers, this.flaggedQuestions);
       });
+      html += renderPartFooterNav(6);
+      html += `</div>`;
     }
 
     container.innerHTML = html;
