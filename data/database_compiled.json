@@ -2649,8 +2649,8 @@
               "passages": [
                 {
                   "imageUrl": "uploads/EST 2022/LC/image/test1/group_62_64.webp",
-                  "imageWidth": 416,
-                  "imageHeight": 283
+                  "imageWidth": 788,
+                  "imageHeight": 737
                 }
               ],
               "transcript": "[Man] Ms. Giordano, it looks like the last of the wedding guests have left. My staff's going to start packing up our dishes and loading the van.\n[Woman] That's fine. Thank you. The food was delicious. My son and his new wife were very happy with your service.\n[Man] I'm glad you enjoyed it. And again, I'm sorry that some of our wait staff were late arriving. They said they drove right past the turnoff.\n[Woman] I understand. The venue is difficult to see from the road. I really like this location, though, with its view of the mountains from the gardens in the back.",
@@ -2773,8 +2773,8 @@
               "passages": [
                 {
                   "imageUrl": "uploads/EST 2022/LC/image/test1/group_65_67.webp",
-                  "imageWidth": 471,
-                  "imageHeight": 315
+                  "imageWidth": 1024,
+                  "imageHeight": 685
                 }
               ],
               "transcript": "[Woman] Hey, Thomas. You like concerts. Any chance you're interested in the local band showcase this weekend? I have two tickets that I don't need.\n[Man] You got tickets to that? That's surprising. I heard that they sold out in just a few days.\n[Woman] They did, but I actually won these in a radio contest. That's why I'm giving them away instead of selling them. Good seats, too, right in the middle, close to the stage.\n[Man] Sure, I'll take them. Thanks. Why can't you go?\n[Woman] This weekend is my parents' anniversary. My sisters and I are planning a party for them at their home in Boston.",
@@ -2906,8 +2906,8 @@
               "passages": [
                 {
                   "imageUrl": "uploads/EST 2022/LC/image/test1/group_68_70.webp",
-                  "imageWidth": 382,
-                  "imageHeight": 185
+                  "imageWidth": 767,
+                  "imageHeight": 503
                 }
               ],
               "transcript": "[Man] Hello, Bellevue Apartments Management Office. Can I help you?\n[Woman] Hi, I'm Azusa Suzuki. I'm a new tenant here and I live in 2A.\n[Man] How's everything in your apartment so far?\n[Woman] Very good. One thing, though. When can you put my name on the building directory? It still says the previous tenant's name.\n[Man] No problem. I can send someone over now. Unit 2A, you said?\n[Woman] Yes, and I'll be stopping by your office tomorrow with my February rent check.\n[Man] Okay, see you then.",
@@ -3983,8 +3983,8 @@
               "passages": [
                 {
                   "imageUrl": "uploads/EST 2022/LC/image/test1/group_95_97.webp",
-                  "imageWidth": 499,
-                  "imageHeight": 217
+                  "imageWidth": 981,
+                  "imageHeight": 575
                 }
               ],
               "transcript": "You're listening to Making My Company with Mark Sullivan. In each episode, I invite entrepreneurs from around the world to talk about how they built their successful businesses. In celebration of our radio show's 10-year anniversary, our website now has all of our previously aired episodes. You can access them with the click of a button. You can even download them onto mobile devices to listen to on the go. Okay, now I welcome Haru Nakamura to the show. Ms. Nakamura is excited to be here today.",
@@ -4098,8 +4098,8 @@
               "passages": [
                 {
                   "imageUrl": "uploads/EST 2022/LC/image/test1/group_98_100.webp",
-                  "imageWidth": 509,
-                  "imageHeight": 361
+                  "imageWidth": 1024,
+                  "imageHeight": 824
                 }
               ],
               "transcript": "It's Akira calling from the district manager's office. The visual merchandising team wants to make a slight change to the full display standards that we sent you yesterday. They want to move the shirts with the vertical stripes, hang them instead of having them displayed on the shelf. We'll display some colorful accessories there instead, like scarves and ties. Also, hang all the socks on grid wall panels by the cash registers. Those sell best when people can grab them when they walk up to pay. The thicker cold weather socks will be shipped to you soon. You'll get an email confirmation with the details when they're sent.",
@@ -6811,12 +6811,12 @@
                       "text": "February 1",
                       "regions": [
                         {
-                          "x0": 308,
-                          "y0": 140,
-                          "x1": 427,
-                          "y1": 170,
-                          "xPct": 23.6,
-                          "yPct": 18.56
+                          "x0": 210,
+                          "y0": 101,
+                          "x1": 320,
+                          "y1": 127,
+                          "xPct": 20.96,
+                          "yPct": 18.38
                         }
                       ],
                       "confidence": 95,
@@ -6828,12 +6828,12 @@
                       "text": "SOFTWARE TESTING REPORT",
                       "regions": [
                         {
-                          "x0": 309,
-                          "y0": 194,
-                          "x1": 489,
-                          "y1": 218,
-                          "xPct": 23.68,
-                          "yPct": 23.8
+                          "x0": 229,
+                          "y0": 142,
+                          "x1": 367,
+                          "y1": 161,
+                          "xPct": 22.85,
+                          "yPct": 23.3
                         }
                       ],
                       "confidence": 95,
@@ -6845,12 +6845,12 @@
                       "text": "Version of Software Program: Konserted 2.5",
                       "regions": [
                         {
-                          "x0": 308,
-                          "y0": 246,
-                          "x1": 408,
-                          "y1": 270,
-                          "xPct": 23.6,
-                          "yPct": 29.48
+                          "x0": 230,
+                          "y0": 182,
+                          "x1": 304,
+                          "y1": 201,
+                          "xPct": 22.95,
+                          "yPct": 29.09
                         }
                       ],
                       "confidence": 95,
@@ -6862,12 +6862,12 @@
                       "text": "Testing Dates: January 10–12",
                       "regions": [
                         {
-                          "x0": 307,
-                          "y0": 283,
-                          "x1": 405,
-                          "y1": 317,
-                          "xPct": 23.52,
-                          "yPct": 34.61
+                          "x0": 228,
+                          "y0": 211,
+                          "x1": 302,
+                          "y1": 236,
+                          "xPct": 22.75,
+                          "yPct": 34.15
                         }
                       ],
                       "confidence": 95,
@@ -6879,12 +6879,12 @@
                       "text": "Number of Participants: 8",
                       "regions": [
                         {
-                          "x0": 308,
-                          "y0": 320,
-                          "x1": 422,
-                          "y1": 346,
-                          "xPct": 23.6,
-                          "yPct": 37.77
+                          "x0": 229,
+                          "y0": 239,
+                          "x1": 315,
+                          "y1": 259,
+                          "xPct": 22.85,
+                          "yPct": 37.48
                         }
                       ],
                       "confidence": 95,
@@ -6896,12 +6896,12 @@
                       "text": "Software Testing Overview: Participants were asked to complete a series of tasks testing the functionality of the revised Konserted interface.",
                       "regions": [
                         {
-                          "x0": 308,
-                          "y0": 371,
-                          "x1": 423,
-                          "y1": 397,
-                          "xPct": 23.6,
-                          "yPct": 43.34
+                          "x0": 229,
+                          "y0": 279,
+                          "x1": 316,
+                          "y1": 299,
+                          "xPct": 22.85,
+                          "yPct": 43.27
                         }
                       ],
                       "confidence": 95,
@@ -6913,12 +6913,12 @@
                       "text": "In task number 1, participants searched for a concert in a designated area.",
                       "regions": [
                         {
-                          "x0": 441,
-                          "y0": 449,
-                          "x1": 469,
-                          "y1": 473,
-                          "xPct": 33.79,
-                          "yPct": 51.64
+                          "x0": 330,
+                          "y0": 338,
+                          "x1": 351,
+                          "y1": 356,
+                          "xPct": 32.93,
+                          "yPct": 51.52
                         }
                       ],
                       "confidence": 95,
@@ -6930,12 +6930,12 @@
                       "text": "In task number 2, participants searched for new friends on the site.",
                       "regions": [
                         {
-                          "x0": 552,
-                          "y0": 487,
-                          "x1": 580,
-                          "y1": 511,
-                          "xPct": 42.3,
-                          "yPct": 55.79
+                          "x0": 414,
+                          "y0": 367,
+                          "x1": 434,
+                          "y1": 385,
+                          "xPct": 41.32,
+                          "yPct": 55.72
                         }
                       ],
                       "confidence": 95,
@@ -6947,12 +6947,12 @@
                       "text": "In task number 3, participants invited friends to a concert.",
                       "regions": [
                         {
-                          "x0": 566,
-                          "y0": 523,
-                          "x1": 593,
-                          "y1": 548,
-                          "xPct": 43.37,
-                          "yPct": 59.83
+                          "x0": 425,
+                          "y0": 396,
+                          "x1": 444,
+                          "y1": 414,
+                          "xPct": 42.42,
+                          "yPct": 59.91
                         }
                       ],
                       "confidence": 95,
@@ -6964,12 +6964,12 @@
                       "text": "In task number 4, participants posted concert reviews, photos, and videos.",
                       "regions": [
                         {
-                          "x0": 484,
-                          "y0": 561,
-                          "x1": 511,
-                          "y1": 585,
-                          "xPct": 37.09,
-                          "yPct": 63.86
+                          "x0": 363,
+                          "y0": 425,
+                          "x1": 383,
+                          "y1": 443,
+                          "xPct": 36.23,
+                          "yPct": 64.11
                         }
                       ],
                       "confidence": 95,
@@ -6981,12 +6981,12 @@
                       "text": "Initial Findings: Task number 3 proved the most challenging, with three participants unable to complete it in under two minutes.",
                       "regions": [
                         {
-                          "x0": 308,
-                          "y0": 649,
-                          "x1": 386,
-                          "y1": 675,
-                          "xPct": 23.6,
-                          "yPct": 73.69
+                          "x0": 229,
+                          "y0": 492,
+                          "x1": 288,
+                          "y1": 512,
+                          "xPct": 22.85,
+                          "yPct": 74.1
                         }
                       ],
                       "confidence": 95,
@@ -6998,12 +6998,12 @@
                       "text": "A potential cause for this difficulty may be the choice of icons in the menu bar.",
                       "regions": [
                         {
-                          "x0": 1151,
-                          "y0": 692,
-                          "x1": 1174,
-                          "y1": 716,
-                          "xPct": 88.2,
-                          "yPct": 78.17
+                          "x0": 869,
+                          "y0": 523,
+                          "x1": 886,
+                          "y1": 541,
+                          "xPct": 86.73,
+                          "yPct": 78.29
                         }
                       ],
                       "confidence": 95,
@@ -7015,12 +7015,12 @@
                       "text": "Clearer, more intuitive icons could make this task easier to complete for participants.",
                       "regions": [
                         {
-                          "x0": 452,
-                          "y0": 761,
-                          "x1": 553,
-                          "y1": 790,
-                          "xPct": 34.64,
-                          "yPct": 86.24
+                          "x0": 338,
+                          "y0": 579,
+                          "x1": 414,
+                          "y1": 601,
+                          "xPct": 33.73,
+                          "yPct": 86.98
                         }
                       ],
                       "confidence": 95,
@@ -7029,8 +7029,8 @@
                     }
                   ],
                   "passageTranslation": "Ngày 1 tháng 2\nBÁO CÁO KIỂM THỬ PHẦN MỀM\nPhiên bản chương trình phần mềm: Konserted 2.5\nThời gian kiểm thử: Ngày 10–12 tháng 1\nSố lượng người tham gia: 8 người\nTổng quan về đợt kiểm thử phần mềm: Những người tham gia được yêu cầu hoàn thành một chuỗi các tác vụ nhằm kiểm tra tính năng của giao diện Konserted đã được sửa đổi.\nTrong tác vụ số 1, người tham gia đã tìm kiếm một buổi hòa nhạc tại một khu vực được chỉ định.\nTrong tác vụ số 2, người tham gia đã tìm kiếm những người bạn mới trên trang web.\nTrong tác vụ số 3, người tham gia đã mời bạn bè cùng đến một buổi hòa nhạc.\nTrong tác vụ số 4, người tham gia đã đăng tải các bài đánh giá buổi hòa nhạc, hình ảnh và video.\nCác phát hiện ban đầu: Tác vụ số 3 tỏ ra là khó khăn nhất, với 3 người tham gia không thể hoàn thành nó trong thời gian dưới hai phút. Một nguyên nhân tiềm ẩn cho sự khó khăn này có thể là do việc lựa chọn các biểu tượng trong thanh menu. Các biểu tượng rõ ràng hơn, trực quan hơn có thể giúp người tham gia thực hiện tác vụ này dễ dàng hơn.",
-                  "imageWidth": 1305,
-                  "imageHeight": 916
+                  "imageWidth": 1002,
+                  "imageHeight": 691
                 }
               ],
               "questions": [
@@ -7172,12 +7172,12 @@
                       "confidence": 100,
                       "regions": [
                         {
-                          "x0": 158,
-                          "y0": 181,
-                          "x1": 197,
-                          "y1": 203,
-                          "xPct": 11.11,
-                          "yPct": 19.43
+                          "x0": 107,
+                          "y0": 125,
+                          "x1": 136,
+                          "y1": 141,
+                          "xPct": 10.45,
+                          "yPct": 18.46
                         }
                       ],
                       "translation": "Đến: catiyeh@mymailroom.au",
@@ -7189,12 +7189,12 @@
                       "confidence": 100,
                       "regions": [
                         {
-                          "x0": 158,
-                          "y0": 231,
-                          "x1": 232,
-                          "y1": 252,
-                          "xPct": 11.11,
-                          "yPct": 24.11
+                          "x0": 107,
+                          "y0": 161,
+                          "x1": 160,
+                          "y1": 177,
+                          "xPct": 10.45,
+                          "yPct": 23.17
                         }
                       ],
                       "translation": "Từ: achen@mutamark.au",
@@ -7205,12 +7205,12 @@
                       "text": "Date: 1 July",
                       "regions": [
                         {
-                          "x0": 157,
-                          "y0": 276,
-                          "x1": 223,
-                          "y1": 313,
-                          "xPct": 11.04,
-                          "yPct": 29.95
+                          "x0": 107,
+                          "y0": 198,
+                          "x1": 154,
+                          "y1": 213,
+                          "xPct": 10.45,
+                          "yPct": 27.88
                         }
                       ],
                       "confidence": 92,
@@ -7222,12 +7222,12 @@
                       "text": "Subject: Mutamark conference",
                       "regions": [
                         {
-                          "x0": 158,
-                          "y0": 329,
-                          "x1": 259,
-                          "y1": 357,
-                          "xPct": 11.11,
-                          "yPct": 34.16
+                          "x0": 107,
+                          "y0": 234,
+                          "x1": 179,
+                          "y1": 254,
+                          "xPct": 10.45,
+                          "yPct": 33.25
                         }
                       ],
                       "confidence": 88,
@@ -7239,12 +7239,12 @@
                       "text": "Dear Ms. Atiyeh,",
                       "regions": [
                         {
-                          "x0": 155,
-                          "y0": 399,
-                          "x1": 216,
-                          "y1": 420,
-                          "xPct": 10.9,
-                          "yPct": 40.19
+                          "x0": 105,
+                          "y0": 285,
+                          "x1": 148,
+                          "y1": 300,
+                          "xPct": 10.25,
+                          "yPct": 39.27
                         }
                       ],
                       "confidence": 90,
@@ -7256,12 +7256,12 @@
                       "text": "To follow up on our phone conversation earlier today, I would like to extend to you a formal written invitation to speak at the eighth annual Mutamark conference, scheduled to take place this year from 17 to 20 September in Zagros.",
                       "regions": [
                         {
-                          "x0": 154,
-                          "y0": 466,
-                          "x1": 185,
-                          "y1": 487,
-                          "xPct": 10.83,
-                          "yPct": 46.6
+                          "x0": 104,
+                          "y0": 334,
+                          "x1": 126,
+                          "y1": 350,
+                          "xPct": 10.16,
+                          "yPct": 45.81
                         }
                       ],
                       "confidence": 88,
@@ -7273,12 +7273,12 @@
                       "text": "Because you drew a sizeable crowd when you appeared at the conference in the past, we will be making special arrangements for your visit this time.",
                       "regions": [
                         {
-                          "x0": 937,
-                          "y0": 538,
-                          "x1": 1040,
-                          "y1": 560,
-                          "xPct": 65.89,
-                          "yPct": 53.59
+                          "x0": 671,
+                          "y0": 385,
+                          "x1": 747,
+                          "y1": 401,
+                          "xPct": 65.53,
+                          "yPct": 52.49
                         }
                       ],
                       "confidence": 95,
@@ -7290,12 +7290,12 @@
                       "text": "The Blue Room at the Debeljak Hotel holds only 120, so this year we are also booking the Koros Hall, which has a capacity of 270.",
                       "regions": [
                         {
-                          "x0": 651,
-                          "y0": 603,
-                          "x1": 698,
-                          "y1": 624,
-                          "xPct": 45.78,
-                          "yPct": 59.71
+                          "x0": 464,
+                          "y0": 433,
+                          "x1": 498,
+                          "y1": 449,
+                          "xPct": 45.31,
+                          "yPct": 58.77
                         }
                       ],
                       "confidence": 92,
@@ -7307,12 +7307,12 @@
                       "text": "We can offer you a 40-to-50-minute slot on the last day of the conference, when attendance should be at its peak.",
                       "regions": [
                         {
-                          "x0": 1254,
-                          "y0": 641,
-                          "x1": 1293,
-                          "y1": 662,
-                          "xPct": 88.19,
-                          "yPct": 63.35
+                          "x0": 903,
+                          "y0": 459,
+                          "x1": 930,
+                          "y1": 475,
+                          "xPct": 88.18,
+                          "yPct": 62.17
                         }
                       ],
                       "confidence": 91,
@@ -7324,12 +7324,12 @@
                       "text": "Please e-mail me to confirm your acceptance and to let me know more about your audiovisual requirements.",
                       "regions": [
                         {
-                          "x0": 444,
-                          "y0": 701,
-                          "x1": 523,
-                          "y1": 723,
-                          "xPct": 31.22,
-                          "yPct": 69.19
+                          "x0": 314,
+                          "y0": 507,
+                          "x1": 370,
+                          "y1": 523,
+                          "xPct": 30.66,
+                          "yPct": 68.46
                         }
                       ],
                       "confidence": 95,
@@ -7341,12 +7341,12 @@
                       "text": "We can provide overhead projection for still images if you will be using them again.",
                       "regions": [
                         {
-                          "x0": 722,
-                          "y0": 737,
-                          "x1": 761,
-                          "y1": 758,
-                          "xPct": 50.77,
-                          "yPct": 72.54
+                          "x0": 515,
+                          "y0": 532,
+                          "x1": 544,
+                          "y1": 547,
+                          "xPct": 50.29,
+                          "yPct": 71.6
                         }
                       ],
                       "confidence": 94,
@@ -7358,12 +7358,12 @@
                       "text": "Very best regards,",
                       "regions": [
                         {
-                          "x0": 154,
-                          "y0": 834,
-                          "x1": 211,
-                          "y1": 862,
-                          "xPct": 10.83,
-                          "yPct": 82.49
+                          "x0": 103,
+                          "y0": 605,
+                          "x1": 144,
+                          "y1": 625,
+                          "xPct": 10.06,
+                          "yPct": 81.81
                         }
                       ],
                       "confidence": 96,
@@ -7375,12 +7375,12 @@
                       "text": "Alex Chen, Conference Planning",
                       "regions": [
                         {
-                          "x0": 153,
-                          "y0": 901,
-                          "x1": 212,
-                          "y1": 922,
-                          "xPct": 10.76,
-                          "yPct": 88.23
+                          "x0": 102,
+                          "y0": 654,
+                          "x1": 144,
+                          "y1": 669,
+                          "xPct": 9.96,
+                          "yPct": 87.57
                         }
                       ],
                       "confidence": 94,
@@ -7392,12 +7392,12 @@
                       "text": "Mutamark Headquarters, Melbourne",
                       "regions": [
                         {
-                          "x0": 153,
-                          "y0": 934,
-                          "x1": 283,
-                          "y1": 956,
-                          "xPct": 10.76,
-                          "yPct": 91.48
+                          "x0": 103,
+                          "y0": 678,
+                          "x1": 195,
+                          "y1": 694,
+                          "xPct": 10.06,
+                          "yPct": 90.84
                         }
                       ],
                       "confidence": 90,
@@ -7406,8 +7406,8 @@
                     }
                   ],
                   "passageTranslation": "Người nhận: catiyeh@mymailroom.au\nNgười gửi: achen@mutamark.au\nNgày: 1 tháng 7\nChủ đề: Hội nghị Mutamark\nKính gửi cô Atiyeh,\nĐể tiếp nối cuộc trò chuyện qua điện thoại của chúng ta vào đầu ngày hôm nay, tôi xin trân trọng gửi tới cô lời mời chính thức bằng văn bản để làm diễn giả phát biểu tại hội nghị thường niên Mutamark lần thứ tám, dự kiến diễn ra năm nay từ ngày 17 đến ngày 20 tháng 9 tại Zagros.\nBởi vì cô đã thu hút một lượng khán giả rất đông đảo khi xuất hiện tại hội nghị trước đây, lần này chúng tôi sẽ có những sắp xếp đặc biệt cho chuyến ghé thăm của cô. Phòng họp Blue Room tại Khách sạn Debeljak chỉ có sức chứa 120 người, do đó năm nay chúng tôi cũng đang tiến hành đặt thêm Hội trường Koros Hall với sức chứa lên tới 270 người.\nChúng tôi có thể dành cho cô một khung thời lượng từ 40 đến 50 phút vào ngày cuối cùng của hội nghị, khi mà lượng người tham dự dự kiến sẽ đạt mức đỉnh điểm.\nXin vui lòng gửi email phản hồi để xác nhận sự đồng ý của cô và cho tôi biết thêm về các yêu cầu thiết bị âm thanh - hình ảnh của cô. Chúng tôi có thể bố trí máy chiếu hắt cho các hình ảnh tĩnh nếu cô dự định tiếp tục sử dụng chúng.\nTrân trọng kính thư,\nAlex Chen, Ban Kế hoạch Hội nghị\nTrụ sở chính Mutamark, Melbourne",
-                  "imageWidth": 1422,
-                  "imageHeight": 1045
+                  "imageWidth": 1024,
+                  "imageHeight": 764
                 }
               ],
               "questions": [
@@ -7577,12 +7577,12 @@
                       "analysis": "Phân tích câu:\n* Monorail = Tàu một ray (loại hình đường sắt đô thị chạy trên một đường ray đơn)\n* Coming to Sudbury = Sắp có mặt / sắp được triển khai tại thành phố Sudbury\n\nCấu trúc:\n* [N] + Coming to [Place]: Tiêu đề báo chí dạng rút gọn mang nghĩa điều gì sắp đến/triển khai tại đâu.",
                       "regions": [
                         {
-                          "x0": 444,
-                          "y0": 121,
-                          "x1": 622,
-                          "y1": 153,
-                          "xPct": 43.15,
-                          "yPct": 25.63
+                          "x0": 335,
+                          "y0": 68,
+                          "x1": 469,
+                          "y1": 92,
+                          "xPct": 41.51,
+                          "yPct": 20.81
                         }
                       ]
                     },
@@ -7593,12 +7593,12 @@
                       "analysis": "Phân tích câu:\n* Ottawa-based Saenger, Inc. = Công ty Saenger, Inc. có trụ sở tại Ottawa\n* has been selected by the city of Sudbury = đã được thành phố Sudbury lựa chọn\n* to build a monorail system = để xây dựng hệ thống tàu một ray\n* that will connect the city’s commercial district to the airport = kết nối khu thương mại của thành phố với sân bay\n\nCấu trúc:\n* [Place]-based (adj): Có trụ sở tại [địa điểm].\n* be selected to + V (v): Được lựa chọn để làm gì.\n* connect A to B: Kết nối A với B.",
                       "regions": [
                         {
-                          "x0": 445,
-                          "y0": 188,
-                          "x1": 468,
-                          "y1": 214,
-                          "xPct": 43.25,
-                          "yPct": 35.85
+                          "x0": 335,
+                          "y0": 119,
+                          "x1": 353,
+                          "y1": 139,
+                          "xPct": 41.51,
+                          "yPct": 31.45
                         }
                       ]
                     },
@@ -7609,12 +7609,12 @@
                       "analysis": "Phân tích câu:\n* Funding for the system = Nguồn kinh phí cho hệ thống\n* is drawn from = được rút ra / huy động từ\n* a combination of public agencies and private investors = sự kết hợp giữa các cơ quan công quyền và các nhà đầu tư tư nhân\n\nCấu trúc:\n* be drawn from: Được lấy từ / huy động từ nguồn nào.\n* a combination of A and B: Sự kết hợp giữa A và B.",
                       "regions": [
                         {
-                          "x0": 444,
-                          "y0": 322,
-                          "x1": 546,
-                          "y1": 350,
-                          "xPct": 43.15,
-                          "yPct": 58.63
+                          "x0": 334,
+                          "y0": 222,
+                          "x1": 411,
+                          "y1": 243,
+                          "xPct": 41.39,
+                          "yPct": 54.98
                         }
                       ]
                     },
@@ -7625,12 +7625,12 @@
                       "analysis": "Phân tích câu:\n* Ticket sales for the monorail = Doanh số bán vé của tàu một ray\n* will also provide = cũng sẽ mang lại / cung cấp\n* a new source of revenue for the city = một nguồn thu mới cho thành phố\n\nCấu trúc:\n* source of revenue: Nguồn doanh thu, nguồn thu nhập ngân sách.\n* ticket sales: Doanh số bán vé.",
                       "regions": [
                         {
-                          "x0": 732,
-                          "y0": 389,
-                          "x1": 809,
-                          "y1": 410,
-                          "xPct": 71.14,
-                          "yPct": 68.68
+                          "x0": 551,
+                          "y0": 274,
+                          "x1": 609,
+                          "y1": 290,
+                          "xPct": 68.28,
+                          "yPct": 65.61
                         }
                       ]
                     },
@@ -7641,19 +7641,19 @@
                       "analysis": "Phân tích câu:\n* Construction = Công trình xây dựng\n* is slated to begin in early June = được lên kế hoạch khởi công vào đầu tháng 6\n* and is expected to be completed within four years = và kỳ vọng hoàn tất trong vòng 4 năm\n\nCấu trúc:\n* be slated to do something: Được lên lịch / dự kiến làm gì.\n* be expected to do something: Được kỳ vọng / dự kiến làm gì.\n* within [time]: Trong vòng khoảng thời gian bao lâu.",
                       "regions": [
                         {
-                          "x0": 828,
-                          "y0": 456,
-                          "x1": 986,
-                          "y1": 477,
-                          "xPct": 80.47,
-                          "yPct": 79.9
+                          "x0": 625,
+                          "y0": 326,
+                          "x1": 744,
+                          "y1": 342,
+                          "xPct": 77.45,
+                          "yPct": 77.38
                         }
                       ]
                     }
                   ],
                   "passageTranslation": "Tàu một ray sắp có mặt tại Sudbury\n\n(Ngày 4 tháng 2) — Công ty Saenger, Inc., có trụ sở tại Ottawa, đã được chính quyền thành phố Sudbury lựa chọn để xây dựng một hệ thống tàu một ray kết nối khu trung tâm thương mại của thành phố với sân bay. — [1] —. Nguồn kinh phí cho hệ thống được huy động từ sự kết hợp giữa các cơ quan ban ngành công quyền và các nhà đầu tư tư nhân. — [2] —. Doanh thu bán vé của tuyến tàu một ray này cũng sẽ đem lại một nguồn thu ngân sách mới cho thành phố. — [3] —. Công trình xây dựng dự kiến sẽ bắt đầu khởi công vào đầu tháng 6 và kỳ vọng hoàn thành trong vòng 4 năm. — [4] —.",
-                  "imageWidth": 1029,
-                  "imageHeight": 597
+                  "imageWidth": 807,
+                  "imageHeight": 442
                 }
               ],
               "questions": [
@@ -7767,12 +7767,12 @@
                       "analysis": "Phân tích câu:\n* Dennis Beck (2:52 P.M.) = Tên người gửi và mốc thời gian tin nhắn.",
                       "regions": [
                         {
-                          "x0": 297,
-                          "y0": 248,
-                          "x1": 395,
-                          "y1": 272,
-                          "xPct": 23.97,
-                          "yPct": 19.3
+                          "x0": 218,
+                          "y0": 158,
+                          "x1": 289,
+                          "y1": 176,
+                          "xPct": 21.89,
+                          "yPct": 17.19
                         }
                       ]
                     },
@@ -7783,12 +7783,12 @@
                       "analysis": "Phân tích câu:\n* Hi, Corinne = Lời chào đồng nghiệp thân mật nơi công sở.",
                       "regions": [
                         {
-                          "x0": 298,
-                          "y0": 285,
-                          "x1": 337,
-                          "y1": 312,
-                          "xPct": 24.05,
-                          "yPct": 22.14
+                          "x0": 218,
+                          "y0": 185,
+                          "x1": 247,
+                          "y1": 205,
+                          "xPct": 21.89,
+                          "yPct": 20.02
                         }
                       ]
                     },
@@ -7799,12 +7799,12 @@
                       "analysis": "Phân tích câu:\n* I just want to be sure = Tôi chỉ muốn chắc chắn/đảm bảo rằng\n* that you saw the document = bạn đã xem tài liệu\n* I sent you = mà tôi đã gửi cho bạn (mệnh đề quan hệ rút gọn)\n\nCấu trúc:\n* want to be sure that + clause: Muốn đảm bảo/chắc chắn điều gì.",
                       "regions": [
                         {
-                          "x0": 473,
-                          "y0": 286,
-                          "x1": 483,
-                          "y1": 309,
-                          "xPct": 38.18,
-                          "yPct": 21.93
+                          "x0": 347,
+                          "y0": 186,
+                          "x1": 353,
+                          "y1": 203,
+                          "xPct": 34.84,
+                          "yPct": 19.82
                         }
                       ]
                     },
@@ -7815,12 +7815,12 @@
                       "analysis": "Phân tích câu:\n* It’s the combined market analysis = Đó là bản phân tích thị trường kết hợp\n* and advertising proposal = và đề xuất quảng cáo\n* for the Keyes Elegant Home group = dành cho tập đoàn Keyes Elegant Home\n\nCấu trúc:\n* combined (adj): Kết hợp, tổng hợp.\n* market analysis: Phân tích thị trường.\n* advertising proposal: Đề xuất chiến dịch quảng cáo.",
                       "regions": [
                         {
-                          "x0": 427,
-                          "y0": 322,
-                          "x1": 468,
-                          "y1": 345,
-                          "xPct": 34.46,
-                          "yPct": 24.49
+                          "x0": 313,
+                          "y0": 212,
+                          "x1": 343,
+                          "y1": 230,
+                          "xPct": 31.43,
+                          "yPct": 22.46
                         }
                       ]
                     },
@@ -7831,12 +7831,12 @@
                       "analysis": "Phân tích câu:\n* We’re preparing it = Chúng ta đang chuẩn bị tài liệu đó\n* for tomorrow’s presentation = cho buổi thuyết trình ngày mai\n* to the client = trước khách hàng đối tác\n\nCấu trúc:\n* prepare something for something: Chuẩn bị cái gì cho sự kiện gì.\n* presentation to someone: Buổi thuyết trình trước ai.",
                       "regions": [
                         {
-                          "x0": 906,
-                          "y0": 361,
-                          "x1": 984,
-                          "y1": 385,
-                          "xPct": 73.12,
-                          "yPct": 27.32
+                          "x0": 664,
+                          "y0": 239,
+                          "x1": 721,
+                          "y1": 257,
+                          "xPct": 66.67,
+                          "yPct": 25.1
                         }
                       ]
                     },
@@ -7847,12 +7847,12 @@
                       "analysis": "Phân tích câu:\n* Corinne McCall (2:53 P.M.) = Tên người nhận phản hồi và mốc thời gian.",
                       "regions": [
                         {
-                          "x0": 298,
-                          "y0": 489,
-                          "x1": 413,
-                          "y1": 513,
-                          "xPct": 24.05,
-                          "yPct": 36.41
+                          "x0": 218,
+                          "y0": 337,
+                          "x1": 301,
+                          "y1": 354,
+                          "xPct": 21.89,
+                          "yPct": 34.57
                         }
                       ]
                     },
@@ -7863,12 +7863,12 @@
                       "analysis": "Phân tích câu:\n* Yes = Lời xác nhận ngắn gọn rằng đã nhận được thông tin.",
                       "regions": [
                         {
-                          "x0": 297,
-                          "y0": 526,
-                          "x1": 351,
-                          "y1": 549,
-                          "xPct": 23.97,
-                          "yPct": 38.96
+                          "x0": 217,
+                          "y0": 364,
+                          "x1": 256,
+                          "y1": 381,
+                          "xPct": 21.79,
+                          "yPct": 37.21
                         }
                       ]
                     },
@@ -7879,12 +7879,12 @@
                       "analysis": "Phân tích câu:\n* I have just downloaded it = Tôi vừa mới tải nó xuống\n\nCấu trúc:\n* have just + V3/ed: Vừa mới làm xong việc gì (thì hiện tại hoàn thành với 'just').",
                       "regions": [
                         {
-                          "x0": 362,
-                          "y0": 526,
-                          "x1": 372,
-                          "y1": 549,
-                          "xPct": 29.22,
-                          "yPct": 38.96
+                          "x0": 265,
+                          "y0": 364,
+                          "x1": 271,
+                          "y1": 381,
+                          "xPct": 26.61,
+                          "yPct": 37.21
                         }
                       ]
                     },
@@ -7895,12 +7895,12 @@
                       "analysis": "Phân tích câu:\n* Is this about = Đây có phải là về\n* their new line of tableware = dòng sản phẩm dụng cụ bàn ăn mới của họ không\n\nCấu trúc:\n* line of [products]: Dòng sản phẩm.\n* tableware (n): Đồ dùng bày bàn ăn (bát đĩa, dao dĩa, ly tách).",
                       "regions": [
                         {
-                          "x0": 718,
-                          "y0": 528,
-                          "x1": 740,
-                          "y1": 551,
-                          "xPct": 57.95,
-                          "yPct": 39.11
+                          "x0": 526,
+                          "y0": 364,
+                          "x1": 543,
+                          "y1": 381,
+                          "xPct": 52.81,
+                          "yPct": 37.21
                         }
                       ]
                     },
@@ -7911,12 +7911,12 @@
                       "analysis": "Phân tích câu:\n* Dennis Beck (2:54 P.M.) = Tên người gửi và mốc thời gian tin nhắn tiếp theo.",
                       "regions": [
                         {
-                          "x0": 296,
-                          "y0": 660,
-                          "x1": 394,
-                          "y1": 684,
-                          "xPct": 23.89,
-                          "yPct": 48.55
+                          "x0": 217,
+                          "y0": 463,
+                          "x1": 288,
+                          "y1": 481,
+                          "xPct": 21.79,
+                          "yPct": 46.97
                         }
                       ]
                     },
@@ -7927,12 +7927,12 @@
                       "analysis": "Phân tích câu:\n* Yes = Xác nhận đúng nội dung đồng nghiệp vừa hỏi.",
                       "regions": [
                         {
-                          "x0": 297,
-                          "y0": 697,
-                          "x1": 350,
-                          "y1": 720,
-                          "xPct": 23.97,
-                          "yPct": 51.1
+                          "x0": 217,
+                          "y0": 491,
+                          "x1": 256,
+                          "y1": 508,
+                          "xPct": 21.79,
+                          "yPct": 49.61
                         }
                       ]
                     },
@@ -7943,12 +7943,12 @@
                       "analysis": "Phân tích câu:\n* I'd like you = Tôi muốn bạn / nhờ bạn\n* to read it over = đọc lướt qua kỹ lưỡng để rà soát nội dung\n\nCấu trúc:\n* would like someone to do something: Muốn/nhờ ai đó làm gì.\n* read over (phr. v): Đọc soát lại từ đầu đến cuối.",
                       "regions": [
                         {
-                          "x0": 362,
-                          "y0": 697,
-                          "x1": 398,
-                          "y1": 720,
-                          "xPct": 29.22,
-                          "yPct": 51.1
+                          "x0": 264,
+                          "y0": 491,
+                          "x1": 290,
+                          "y1": 508,
+                          "xPct": 26.51,
+                          "yPct": 49.61
                         }
                       ]
                     },
@@ -7959,12 +7959,12 @@
                       "analysis": "Phân tích câu:\n* Corinne McCall (3:01 P.M.) = Tên người phản hồi và mốc thời gian.",
                       "regions": [
                         {
-                          "x0": 297,
-                          "y0": 793,
-                          "x1": 413,
-                          "y1": 818,
-                          "xPct": 23.97,
-                          "yPct": 58.06
+                          "x0": 217,
+                          "y0": 563,
+                          "x1": 301,
+                          "y1": 580,
+                          "xPct": 21.79,
+                          "yPct": 56.64
                         }
                       ]
                     },
@@ -7975,12 +7975,12 @@
                       "analysis": "Phân tích câu:\n* No problem = Câu đồng ý sẵn lòng giúp đỡ hoặc nhận nhiệm vụ một cách vui vẻ.",
                       "regions": [
                         {
-                          "x0": 296,
-                          "y0": 831,
-                          "x1": 336,
-                          "y1": 854,
-                          "xPct": 23.89,
-                          "yPct": 60.61
+                          "x0": 216,
+                          "y0": 590,
+                          "x1": 245,
+                          "y1": 607,
+                          "xPct": 21.69,
+                          "yPct": 59.28
                         }
                       ]
                     },
@@ -7991,12 +7991,12 @@
                       "analysis": "Phân tích câu:\n* Would you like me to revise anything = Bạn có muốn tôi chỉnh sửa điều gì không\n* or do you want me to just check = hay bạn chỉ muốn tôi kiểm tra\n* that it is all clear = xem mọi nội dung đã rõ ràng, mạch lạc chưa\n\nCấu trúc:\n* revise (v): Chỉnh sửa, biên tập lại.\n* all clear: Hoàn toàn rõ ràng, không có khúc mắc.",
                       "regions": [
                         {
-                          "x0": 474,
-                          "y0": 831,
-                          "x1": 561,
-                          "y1": 855,
-                          "xPct": 38.26,
-                          "yPct": 60.68
+                          "x0": 346,
+                          "y0": 590,
+                          "x1": 410,
+                          "y1": 607,
+                          "xPct": 34.74,
+                          "yPct": 59.28
                         }
                       ]
                     },
@@ -8007,12 +8007,12 @@
                       "analysis": "Phân tích câu:\n* Dennis Beck (3:02 P.M.) = Tên người gửi và mốc thời gian tin nhắn hướng dẫn chi tiết.",
                       "regions": [
                         {
-                          "x0": 296,
-                          "y0": 970,
-                          "x1": 393,
-                          "y1": 994,
-                          "xPct": 23.89,
-                          "yPct": 70.55
+                          "x0": 216,
+                          "y0": 694,
+                          "x1": 287,
+                          "y1": 711,
+                          "xPct": 21.69,
+                          "yPct": 69.43
                         }
                       ]
                     },
@@ -8023,12 +8023,12 @@
                       "analysis": "Phân tích câu:\n* Feel free to add information = Bạn cứ thoải mái bổ sung thông tin\n* to the section “Advertising Strategies” = vào mục \"Chiến lược Quảng cáo\"\n* since that is your area of expertise = vì đó chính là lĩnh vực chuyên môn của bạn\n\nCấu trúc:\n* feel free to + V: Cứ tự nhiên / thoải mái làm gì.\n* area of expertise: Lĩnh vực chuyên môn, thế mạnh chuyên sâu.\n* since = because: Bởi vì (liên từ chỉ lý do).",
                       "regions": [
                         {
-                          "x0": 296,
-                          "y0": 1006,
-                          "x1": 351,
-                          "y1": 1029,
-                          "xPct": 23.89,
-                          "yPct": 73.03
+                          "x0": 216,
+                          "y0": 721,
+                          "x1": 255,
+                          "y1": 738,
+                          "xPct": 21.69,
+                          "yPct": 72.07
                         }
                       ]
                     },
@@ -8039,12 +8039,12 @@
                       "analysis": "Phân tích câu:\n* Corinne McCall (3:03 P.M.) = Tên người phản hồi và mốc thời gian kết thúc trao đổi.",
                       "regions": [
                         {
-                          "x0": 296,
-                          "y0": 1142,
-                          "x1": 412,
-                          "y1": 1167,
-                          "xPct": 23.89,
-                          "yPct": 82.82
+                          "x0": 216,
+                          "y0": 822,
+                          "x1": 300,
+                          "y1": 840,
+                          "xPct": 21.69,
+                          "yPct": 82.03
                         }
                       ]
                     },
@@ -8055,12 +8055,12 @@
                       "analysis": "Phân tích câu:\n* Will do = Cách nói vắn tắt công sở thông dụng của \"(I) will do (so/that)\", thể hiện sự đồng thuận nhận việc.",
                       "regions": [
                         {
-                          "x0": 295,
-                          "y0": 1179,
-                          "x1": 351,
-                          "y1": 1202,
-                          "xPct": 23.81,
-                          "yPct": 85.31
+                          "x0": 215,
+                          "y0": 849,
+                          "x1": 255,
+                          "y1": 867,
+                          "xPct": 21.59,
+                          "yPct": 84.67
                         }
                       ]
                     },
@@ -8071,19 +8071,19 @@
                       "analysis": "Phân tích câu:\n* I'll get it back to you = Tôi sẽ gửi trả lại tài liệu cho bạn\n* before the end of the day = trước khi hết ngày làm việc hôm nay\n\nCấu trúc:\n* get something back to someone: Gửi trả lại tài liệu/kết quả cho ai.\n* before the end of the day (EOD): Trước cuối ngày làm việc.",
                       "regions": [
                         {
-                          "x0": 413,
-                          "y0": 1180,
-                          "x1": 451,
-                          "y1": 1203,
-                          "xPct": 33.33,
-                          "yPct": 85.38
+                          "x0": 301,
+                          "y0": 850,
+                          "x1": 328,
+                          "y1": 867,
+                          "xPct": 30.22,
+                          "yPct": 84.67
                         }
                       ]
                     }
                   ],
                   "passageTranslation": "Dennis Beck (2:52 chiều): Chào Corinne. Tôi chỉ muốn chắc chắn rằng bạn đã xem tài liệu tôi gửi cho bạn. Đó là bản phân tích thị trường kết hợp đề xuất quảng cáo dành cho tập đoàn Keyes Elegant Home. Chúng ta đang chuẩn bị tài liệu này cho buổi thuyết trình ngày mai với khách hàng.\nCorinne McCall (2:53 chiều): Vâng, tôi vừa mới tải tài liệu đó xuống. Tài liệu này nói về dòng sản phẩm đồ dùng bàn ăn mới của họ phải không?\nDennis Beck (2:54 chiều): Đúng rồi. Tôi muốn nhờ bạn đọc kỹ lại toàn bộ tài liệu giúp tôi.\nCorinne McCall (3:01 chiều): Không vấn đề gì cả. Bạn có muốn tôi chỉnh sửa nội dung gì không, hay bạn chỉ muốn tôi kiểm tra xem mọi thứ đã rõ ràng, dễ hiểu chưa?\nDennis Beck (3:02 chiều): Bạn cứ thoải mái bổ sung thêm thông tin vào phần “Chiến lược Quảng cáo” nhé, vì đó chính là lĩnh vực chuyên môn của bạn mà.\nCorinne McCall (3:03 chiều): Tôi sẽ làm ngay. Tôi sẽ gửi lại tài liệu cho bạn trước khi hết ngày hôm nay nhé.",
-                  "imageWidth": 1239,
-                  "imageHeight": 1409
+                  "imageWidth": 996,
+                  "imageHeight": 1024
                 }
               ],
               "questions": [
@@ -8849,12 +8849,12 @@
                       "text": "SLEEP SOUNDLY SOLUTIONS",
                       "regions": [
                         {
-                          "x0": 441,
-                          "y0": 274,
-                          "x1": 572,
-                          "y1": 301,
-                          "xPct": 30.63,
-                          "yPct": 33.11
+                          "x0": 295,
+                          "y0": 162,
+                          "x1": 388,
+                          "y1": 182,
+                          "xPct": 28.81,
+                          "yPct": 29.07
                         }
                       ],
                       "confidence": 92,
@@ -8866,12 +8866,12 @@
                       "text": "Thank you for choosing Sleep Soundly Solutions!",
                       "regions": [
                         {
-                          "x0": 437,
-                          "y0": 329,
-                          "x1": 519,
-                          "y1": 355,
-                          "xPct": 30.35,
-                          "yPct": 39.05
+                          "x0": 292,
+                          "y0": 201,
+                          "x1": 350,
+                          "y1": 221,
+                          "xPct": 28.52,
+                          "yPct": 35.3
                         }
                       ],
                       "confidence": 88,
@@ -8883,12 +8883,12 @@
                       "text": "The updated control panel is linked to an integrated system that allows you to activate and disable all security systems in your home, including your Sleep Soundly motion sensor as well as your fire, smoke, and carbon monoxide detectors.",
                       "regions": [
                         {
-                          "x0": 127,
-                          "y0": 383,
-                          "x1": 180,
-                          "y1": 410,
-                          "xPct": 8.82,
-                          "yPct": 45.1
+                          "x0": 70,
+                          "y0": 242,
+                          "x1": 108,
+                          "y1": 261,
+                          "xPct": 6.84,
+                          "yPct": 41.69
                         }
                       ],
                       "confidence": 80,
@@ -8900,12 +8900,12 @@
                       "text": "All Sleep Soundly residential alarm systems have been tested thoroughly to ensure the highest quality and sensitivity, so you can sleep soundly in the knowledge that your home is protected.",
                       "regions": [
                         {
-                          "x0": 126,
-                          "y0": 522,
-                          "x1": 167,
-                          "y1": 549,
-                          "xPct": 8.75,
-                          "yPct": 60.4
+                          "x0": 69,
+                          "y0": 342,
+                          "x1": 97,
+                          "y1": 362,
+                          "xPct": 6.74,
+                          "yPct": 57.83
                         }
                       ],
                       "confidence": 92,
@@ -8917,12 +8917,12 @@
                       "text": "We have also developed a new smartphone application that will notify you of any disturbances wherever you are.",
                       "regions": [
                         {
-                          "x0": 397,
-                          "y0": 604,
-                          "x1": 443,
-                          "y1": 629,
-                          "xPct": 27.57,
-                          "yPct": 69.2
+                          "x0": 263,
+                          "y0": 400,
+                          "x1": 296,
+                          "y1": 418,
+                          "xPct": 25.68,
+                          "yPct": 66.77
                         }
                       ],
                       "confidence": 94,
@@ -8934,12 +8934,12 @@
                       "text": "The app is available for download now.",
                       "regions": [
                         {
-                          "x0": 819,
-                          "y0": 642,
-                          "x1": 872,
-                          "y1": 669,
-                          "xPct": 56.88,
-                          "yPct": 73.6
+                          "x0": 563,
+                          "y0": 427,
+                          "x1": 601,
+                          "y1": 446,
+                          "xPct": 54.98,
+                          "yPct": 71.25
                         }
                       ],
                       "confidence": 95,
@@ -8951,12 +8951,12 @@
                       "text": "Sleep Soundly control equipment is carefully manufactured for use with Sleep Soundly detectors and alarms.",
                       "regions": [
                         {
-                          "x0": 128,
-                          "y0": 696,
-                          "x1": 199,
-                          "y1": 731,
-                          "xPct": 8.89,
-                          "yPct": 80.42
+                          "x0": 70,
+                          "y0": 468,
+                          "x1": 122,
+                          "y1": 493,
+                          "xPct": 6.84,
+                          "yPct": 78.75
                         }
                       ],
                       "confidence": 92,
@@ -8968,12 +8968,12 @@
                       "text": "Using products manufactured by other companies may result in an alarm system that does not meet safety requirements for residential buildings or comply with local laws.",
                       "regions": [
                         {
-                          "x0": 435,
-                          "y0": 737,
-                          "x1": 517,
-                          "y1": 771,
-                          "xPct": 30.21,
-                          "yPct": 84.82
+                          "x0": 290,
+                          "y0": 497,
+                          "x1": 349,
+                          "y1": 521,
+                          "xPct": 28.32,
+                          "yPct": 83.23
                         }
                       ],
                       "confidence": 94,
@@ -8982,8 +8982,8 @@
                     }
                   ],
                   "passageTranslation": "GIẢI PHÁP GIẤC NGỦ NGON (SLEEP SOUNDLY SOLUTIONS)\n\nCảm ơn quý khách đã lựa chọn Giải pháp Giấc ngủ ngon! Bảng điều khiển được cập nhật được kết nối với một hệ thống tích hợp cho phép quý khách kích hoạt và vô hiệu hóa tất cả các hệ thống an ninh trong ngôi nhà của mình, bao gồm cảm biến chuyển động Sleep Soundly cũng như các thiết bị báo lửa, khói và khí carbon monoxide. Tất cả các hệ thống báo động nhà ở của Sleep Soundly đều đã được kiểm định nghiêm ngặt để đảm bảo chất lượng và độ nhạy cao nhất, giúp quý khách hoàn toàn an tâm và ngủ ngon khi biết rằng tổ ấm của mình luôn được bảo vệ an toàn.\n\nChúng tôi cũng đã phát triển một ứng dụng điện thoại thông minh mới sẽ thông báo cho quý khách về bất kỳ sự xáo trộn hoặc bất thường nào dù quý khách đang ở bất kỳ đâu. Ứng dụng hiện đã sẵn sàng để tải xuống.\n\nThiết bị điều khiển Sleep Soundly được chế tạo tỉ mỉ chuyên dụng để sử dụng cùng các thiết bị dò và báo động chính hãng Sleep Soundly. Việc sử dụng các sản phẩm do các công ty khác sản xuất có thể dẫn đến hệ thống báo động không đáp ứng các tiêu chuẩn an toàn dành cho các tòa nhà dân cư hoặc không tuân thủ các quy định pháp luật địa phương.",
-                  "imageWidth": 1440,
-                  "imageHeight": 909
+                  "imageWidth": 1024,
+                  "imageHeight": 626
                 }
               ],
               "questions": [
@@ -9120,12 +9120,12 @@
                       "text": "March 29",
                       "regions": [
                         {
-                          "x0": 139,
-                          "y0": 94,
-                          "x1": 229,
-                          "y1": 117,
-                          "xPct": 10.31,
-                          "yPct": 9.11
+                          "x0": 93,
+                          "y0": 59,
+                          "x1": 154,
+                          "y1": 75,
+                          "xPct": 9.08,
+                          "yPct": 8.24
                         }
                       ],
                       "confidence": 95,
@@ -9137,12 +9137,12 @@
                       "text": "Dr. Maritza Geerlings",
                       "regions": [
                         {
-                          "x0": 139,
-                          "y0": 160,
-                          "x1": 179,
-                          "y1": 182,
-                          "xPct": 10.31,
-                          "yPct": 14.16
+                          "x0": 92,
+                          "y0": 105,
+                          "x1": 120,
+                          "y1": 121,
+                          "xPct": 8.98,
+                          "yPct": 13.3
                         }
                       ],
                       "confidence": 95,
@@ -9154,12 +9154,12 @@
                       "text": "Poseidonstraat 392",
                       "regions": [
                         {
-                          "x0": 139,
-                          "y0": 193,
-                          "x1": 348,
-                          "y1": 217,
-                          "xPct": 10.31,
-                          "yPct": 16.89
+                          "x0": 92,
+                          "y0": 128,
+                          "x1": 236,
+                          "y1": 144,
+                          "xPct": 8.98,
+                          "yPct": 15.82
                         }
                       ],
                       "confidence": 95,
@@ -9171,12 +9171,12 @@
                       "text": "Paramaribo",
                       "regions": [
                         {
-                          "x0": 138,
-                          "y0": 222,
-                          "x1": 304,
-                          "y1": 260,
-                          "xPct": 10.24,
-                          "yPct": 20.23
+                          "x0": 92,
+                          "y0": 151,
+                          "x1": 206,
+                          "y1": 167,
+                          "xPct": 8.98,
+                          "yPct": 18.35
                         }
                       ],
                       "confidence": 95,
@@ -9188,12 +9188,12 @@
                       "text": "Suriname",
                       "regions": [
                         {
-                          "x0": 139,
-                          "y0": 259,
-                          "x1": 276,
-                          "y1": 283,
-                          "xPct": 10.31,
-                          "yPct": 22.02
+                          "x0": 91,
+                          "y0": 174,
+                          "x1": 186,
+                          "y1": 190,
+                          "xPct": 8.89,
+                          "yPct": 20.88
                         }
                       ],
                       "confidence": 95,
@@ -9205,12 +9205,12 @@
                       "text": "Dear Dr. Geerlings,",
                       "regions": [
                         {
-                          "x0": 138,
-                          "y0": 342,
-                          "x1": 206,
-                          "y1": 365,
-                          "xPct": 10.24,
-                          "yPct": 28.4
+                          "x0": 91,
+                          "y0": 232,
+                          "x1": 139,
+                          "y1": 247,
+                          "xPct": 8.89,
+                          "yPct": 27.14
                         }
                       ],
                       "confidence": 95,
@@ -9222,12 +9222,12 @@
                       "text": "I am writing to thank you for your years of service on the faculty of the Jamaican Agricultural Training Academy (JATA) and to let you know about some exciting developments.",
                       "regions": [
                         {
-                          "x0": 138,
-                          "y0": 400,
-                          "x1": 148,
-                          "y1": 422,
-                          "xPct": 10.24,
-                          "yPct": 32.84
+                          "x0": 91,
+                          "y0": 272,
+                          "x1": 98,
+                          "y1": 287,
+                          "xPct": 8.89,
+                          "yPct": 31.54
                         }
                       ],
                       "confidence": 95,
@@ -9239,12 +9239,12 @@
                       "text": "As you know, JATA was originally established as a vocational school for agriculture but now offers courses in a varied array of disciplines, including cybersecurity, electrical engineering, and health information management.",
                       "regions": [
                         {
-                          "x0": 347,
-                          "y0": 468,
-                          "x1": 382,
-                          "y1": 491,
-                          "xPct": 25.74,
-                          "yPct": 38.21
+                          "x0": 235,
+                          "y0": 319,
+                          "x1": 259,
+                          "y1": 335,
+                          "xPct": 22.95,
+                          "yPct": 36.81
                         }
                       ],
                       "confidence": 95,
@@ -9256,12 +9256,12 @@
                       "text": "Our student body, which for the first ten years consisted almost exclusively of locals, is now culturally diverse, with students from across the Americas and Europe.",
                       "regions": [
                         {
-                          "x0": 1209,
-                          "y0": 540,
-                          "x1": 1263,
-                          "y1": 564,
-                          "xPct": 89.69,
-                          "yPct": 43.89
+                          "x0": 827,
+                          "y0": 368,
+                          "x1": 865,
+                          "y1": 384,
+                          "xPct": 80.76,
+                          "yPct": 42.2
                         }
                       ],
                       "confidence": 95,
@@ -9273,12 +9273,12 @@
                       "text": "Today’s students work with sophisticated equipment, much of which did not exist in our early days.",
                       "regions": [
                         {
-                          "x0": 136,
-                          "y0": 632,
-                          "x1": 237,
-                          "y1": 660,
-                          "xPct": 10.09,
-                          "yPct": 51.36
+                          "x0": 89,
+                          "y0": 433,
+                          "x1": 159,
+                          "y1": 453,
+                          "xPct": 8.69,
+                          "yPct": 49.78
                         }
                       ],
                       "confidence": 95,
@@ -9290,12 +9290,12 @@
                       "text": "To reflect these and other significant changes that JATA has undergone over time, the Board of Trustees has approved a proposal by the Faculty Senate to rename the institution the Caribbean Academy of Science and Technology.",
                       "regions": [
                         {
-                          "x0": 136,
-                          "y0": 723,
-                          "x1": 167,
-                          "y1": 745,
-                          "xPct": 10.09,
-                          "yPct": 57.98
+                          "x0": 88,
+                          "y0": 496,
+                          "x1": 110,
+                          "y1": 512,
+                          "xPct": 8.59,
+                          "yPct": 56.26
                         }
                       ],
                       "confidence": 95,
@@ -9307,12 +9307,12 @@
                       "text": "As a result, a new institutional logo will be adopted.",
                       "regions": [
                         {
-                          "x0": 1083,
-                          "y0": 795,
-                          "x1": 1118,
-                          "y1": 819,
-                          "xPct": 80.34,
-                          "yPct": 63.74
+                          "x0": 741,
+                          "y0": 546,
+                          "x1": 765,
+                          "y1": 562,
+                          "xPct": 72.36,
+                          "yPct": 61.76
                         }
                       ],
                       "confidence": 95,
@@ -9324,12 +9324,12 @@
                       "text": "All students and faculty members, both current and former, are invited to participate in a logo design contest.",
                       "regions": [
                         {
-                          "x0": 688,
-                          "y0": 825,
-                          "x1": 729,
-                          "y1": 848,
-                          "xPct": 51.04,
-                          "yPct": 65.99
+                          "x0": 469,
+                          "y0": 568,
+                          "x1": 496,
+                          "y1": 583,
+                          "xPct": 45.8,
+                          "yPct": 64.07
                         }
                       ],
                       "confidence": 95,
@@ -9341,12 +9341,12 @@
                       "text": "Information about the contest will be forthcoming.",
                       "regions": [
                         {
-                          "x0": 1143,
-                          "y0": 862,
-                          "x1": 1310,
-                          "y1": 886,
-                          "xPct": 84.79,
-                          "yPct": 68.95
+                          "x0": 781,
+                          "y0": 593,
+                          "x1": 896,
+                          "y1": 609,
+                          "xPct": 76.27,
+                          "yPct": 66.92
                         }
                       ],
                       "confidence": 95,
@@ -9358,12 +9358,12 @@
                       "text": "The renaming ceremony and the introduction of the new logo will take place at 11 A.M. on 1 June, the twentieth anniversary of the institution.",
                       "regions": [
                         {
-                          "x0": 134,
-                          "y0": 945,
-                          "x1": 187,
-                          "y1": 968,
-                          "xPct": 9.94,
-                          "yPct": 75.33
+                          "x0": 87,
+                          "y0": 652,
+                          "x1": 123,
+                          "y1": 668,
+                          "xPct": 8.5,
+                          "yPct": 73.41
                         }
                       ],
                       "confidence": 95,
@@ -9375,12 +9375,12 @@
                       "text": "We hope you will be able to join us.",
                       "regions": [
                         {
-                          "x0": 1038,
-                          "y0": 985,
-                          "x1": 1080,
-                          "y1": 1008,
-                          "xPct": 77,
-                          "yPct": 78.44
+                          "x0": 709,
+                          "y0": 679,
+                          "x1": 738,
+                          "y1": 695,
+                          "xPct": 69.24,
+                          "yPct": 76.37
                         }
                       ],
                       "confidence": 95,
@@ -9392,12 +9392,12 @@
                       "text": "Sincerely,",
                       "regions": [
                         {
-                          "x0": 135,
-                          "y0": 1069,
-                          "x1": 268,
-                          "y1": 1098,
-                          "xPct": 10.01,
-                          "yPct": 85.45
+                          "x0": 87,
+                          "y0": 738,
+                          "x1": 178,
+                          "y1": 758,
+                          "xPct": 8.5,
+                          "yPct": 83.3
                         }
                       ],
                       "confidence": 95,
@@ -9409,12 +9409,12 @@
                       "text": "Audley Bartlett",
                       "regions": [
                         {
-                          "x0": 135,
-                          "y0": 1116,
-                          "x1": 266,
-                          "y1": 1154,
-                          "xPct": 10.01,
-                          "yPct": 89.81
+                          "x0": 87,
+                          "y0": 771,
+                          "x1": 177,
+                          "y1": 797,
+                          "xPct": 8.5,
+                          "yPct": 87.58
                         }
                       ],
                       "confidence": 95,
@@ -9426,12 +9426,12 @@
                       "text": "Vice President for Academic Affairs,",
                       "regions": [
                         {
-                          "x0": 133,
-                          "y0": 1196,
-                          "x1": 191,
-                          "y1": 1219,
-                          "xPct": 9.87,
-                          "yPct": 94.86
+                          "x0": 85,
+                          "y0": 826,
+                          "x1": 125,
+                          "y1": 842,
+                          "xPct": 8.3,
+                          "yPct": 92.53
                         }
                       ],
                       "confidence": 95,
@@ -9443,12 +9443,12 @@
                       "text": "Jamaican Agricultural Training Academy",
                       "regions": [
                         {
-                          "x0": 133,
-                          "y0": 1229,
-                          "x1": 268,
-                          "y1": 1252,
-                          "xPct": 9.87,
-                          "yPct": 97.43
+                          "x0": 85,
+                          "y0": 849,
+                          "x1": 178,
+                          "y1": 866,
+                          "xPct": 8.3,
+                          "yPct": 95.16
                         }
                       ],
                       "confidence": 95,
@@ -9457,8 +9457,8 @@
                     }
                   ],
                   "passageTranslation": "Ngày 29 tháng 3\nTiến sĩ Maritza Geerlings\nSố 392 Đường Poseidon\nParamaribo\nSuriname\n\nKính gửi Tiến sĩ Geerlings,\n\nTôi viết thư này nhằm bày tỏ lòng biết ơn sâu sắc đối với những năm tháng cống hiến quý báu của bà trong ban giảng huấn tại Học viện Đào tạo Nông nghiệp Jamaica (JATA), đồng thời thông báo tới bà về một số bước phát triển đầy triển vọng sắp tới.\n\nNhư bà đã biết, JATA ban đầu được thành lập như một trường dạy nghề chuyên về nông nghiệp, nhưng hiện nay đã mở rộng và cung cấp các khóa học thuộc nhiều chuyên ngành đa dạng, bao gồm an ninh mạng, kỹ thuật điện và quản lý thông tin y tế. Cộng đồng sinh viên của chúng tôi, vốn trong 10 năm đầu tiên hầu như chỉ bao gồm người bản địa, thì nay đã vô cùng đa dạng về mặt văn hóa, với các sinh viên đến từ khắp các nước châu Mỹ và châu Âu. Sinh viên ngày nay được thực hành trên các trang thiết bị tối tân, nhiều thiết bị trong số đó thậm chí còn chưa từng xuất hiện vào thời kỳ đầu thành lập học viện.\n\nNhằm phản ánh đúng những bước chuyển mình quan trọng này cũng như những bước phát triển mà JATA đã trải qua theo thời gian, Hội đồng Quản trị đã chính thức phê duyệt đề xuất từ Hội đồng Giảng viên về việc đổi tên học viện thành Học viện Khoa học và Công nghệ Caribbean. Theo đó, học viện cũng sẽ áp dụng một mẫu logo hoàn toàn mới. Toàn thể sinh viên và giảng viên, bao gồm cả những thành viên hiện tại và cựu thành viên, đều được trân trọng kính mời tham gia cuộc thi thiết kế logo mới này. Thông tin chi tiết về cuộc thi sẽ sớm được công bố.\n\nLễ đổi tên chính thức cùng buổi lễ ra mắt logo mới sẽ diễn ra vào lúc 11 giờ sáng ngày 1 tháng 6, đúng vào dịp kỷ niệm 20 năm ngày thành lập học viện.\n\nChúng tôi rất hy vọng sẽ được đón tiếp bà đến tham dự chung vui cùng chúng tôi.\n\nTrân trọng,\nAudley Bartlett\nPhó Chủ tịch phụ trách Học vụ,\nHọc viện Đào tạo Nông nghiệp Jamaica",
-                  "imageWidth": 1348,
-                  "imageHeight": 1285
+                  "imageWidth": 1024,
+                  "imageHeight": 910
                 }
               ],
               "questions": [
@@ -10246,12 +10246,12 @@
                       "analysis": "Tiêu đề tạp chí kinh doanh xuất hiện ở đầu trang báo.",
                       "regions": [
                         {
-                          "x0": 90,
-                          "y0": 144,
-                          "x1": 201,
-                          "y1": 169,
-                          "xPct": 6.29,
-                          "yPct": 15.53
+                          "x0": 56,
+                          "y0": 85,
+                          "x1": 134,
+                          "y1": 103,
+                          "xPct": 5.47,
+                          "yPct": 13.39
                         }
                       ]
                     },
@@ -10262,12 +10262,12 @@
                       "analysis": "Kỳ xuất bản của tạp chí (số tháng 4).",
                       "regions": [
                         {
-                          "x0": 91,
-                          "y0": 181,
-                          "x1": 160,
-                          "y1": 212,
-                          "xPct": 6.36,
-                          "yPct": 19.49
+                          "x0": 55,
+                          "y0": 112,
+                          "x1": 105,
+                          "y1": 135,
+                          "xPct": 5.37,
+                          "yPct": 17.56
                         }
                       ]
                     },
@@ -10278,12 +10278,12 @@
                       "analysis": "Phân tích câu:\\n* Improve = Cải thiện\\n* Your Office Environment = Môi trường văn phòng của bạn\\n* Now! = Ngay bây giờ!\\n\\nCấu trúc:\\n* Câu mệnh lệnh bắt đầu bằng động từ nguyên thể (Improve).",
                       "regions": [
                         {
-                          "x0": 90,
-                          "y0": 248,
-                          "x1": 294,
-                          "y1": 296,
-                          "xPct": 6.29,
-                          "yPct": 27.21
+                          "x0": 55,
+                          "y0": 161,
+                          "x1": 201,
+                          "y1": 195,
+                          "xPct": 5.37,
+                          "yPct": 25.36
                         }
                       ]
                     },
@@ -10294,12 +10294,12 @@
                       "analysis": "Phân tích câu:\\n* Today’s office environment = Môi trường văn phòng ngày nay (Chủ ngữ)\\n* featuring numerous corridors, unexciting beige or white walls, and often rows of identical, windowless cubicles = với nhiều hành lang, các bức tường màu be/trắng tẻ nhạt, và các dãy buồng làm việc không cửa sổ giống hệt nhau (cụm phân từ rút gọn bổ nghĩa)\\n* might not inspire comfort, beauty, and energy = có thể không mang lại sự thoải mái, vẻ đẹp và năng lượng (Vị ngữ chính)\\n\\nCấu trúc:\\n* feature (v): có nét đặc trưng\\n* unexciting (adj): tẻ nhạt, đơn điệu\\n* identical (adj): giống hệt nhau\\n* cubicle (n): ô/cabin làm việc",
                       "regions": [
                         {
-                          "x0": 90,
-                          "y0": 378,
-                          "x1": 195,
-                          "y1": 410,
-                          "xPct": 6.29,
-                          "yPct": 37.68
+                          "x0": 54,
+                          "y0": 255,
+                          "x1": 130,
+                          "y1": 277,
+                          "xPct": 5.27,
+                          "yPct": 36.02
                         }
                       ]
                     },
@@ -10310,15 +10310,14 @@
                       "analysis": "Phân tích câu:\\n* However = Tuy nhiên\\n* there are some easy, inexpensive ways = có một vài cách dễ dàng, chi phí thấp\\n* to make your office space more inviting = để làm cho không gian văn phòng trở nên cuốn hút hơn\\n\\nCấu trúc:\\n* inexpensive (adj): không đắt đỏ\\n* make + O + adj: làm cho ai/cái gì trở nên như thế nào\\n* inviting (adj): hấp dẫn, dễ chịu, mời gọi",
                       "regions": [
                         {
-                          "x0": 488,
-                          "y0": 519,
-                          "x1": 618,
-                          "y1": 548,
-                          "xPct": 34.1,
-                          "yPct": 50.37
+                          "x0": 340,
+                          "y0": 355,
+                          "x1": 434,
+                          "y1": 375,
+                          "xPct": 33.2,
+                          "yPct": 48.76
                         }
-                      ],
-                      "keepRegion": true
+                      ]
                     },
                     {
                       "id": "s6",
@@ -10327,12 +10326,12 @@
                       "analysis": "Tiêu đề danh mục các mẹo cải thiện chất lượng không khí văn phòng.",
                       "regions": [
                         {
-                          "x0": 88,
-                          "y0": 636,
-                          "x1": 136,
-                          "y1": 660,
-                          "xPct": 6.15,
-                          "yPct": 60.66
+                          "x0": 54,
+                          "y0": 441,
+                          "x1": 88,
+                          "y1": 458,
+                          "xPct": 5.27,
+                          "yPct": 59.56
                         }
                       ]
                     },
@@ -10343,12 +10342,12 @@
                       "analysis": "Phân tích câu:\\n* Add green plants = Bổ sung cây xanh\\n* to the décor = vào phong cách trang trí nội thất\\n\\nCấu trúc:\\n* add something to something: thêm cái gì vào đâu\\n* décor (n): đồ trang trí, bài trí nội thất",
                       "regions": [
                         {
-                          "x0": 125,
-                          "y0": 681,
-                          "x1": 182,
-                          "y1": 705,
-                          "xPct": 8.74,
-                          "yPct": 64.8
+                          "x0": 80,
+                          "y0": 474,
+                          "x1": 120,
+                          "y1": 492,
+                          "xPct": 7.81,
+                          "yPct": 63.98
                         }
                       ]
                     },
@@ -10359,12 +10358,12 @@
                       "analysis": "Phân tích câu:\\n* Plants offer a natural filtration system = Cây xanh đem lại hệ thống lọc tự nhiên\\n* increasing oxygen levels = làm tăng nồng độ khí oxy\\n\\nCấu trúc:\\n* offer (v): mang lại, cung cấp\\n* filtration system (n): hệ thống thanh lọc\\n* oxygen levels (n): nồng độ oxy",
                       "regions": [
                         {
-                          "x0": 125,
-                          "y0": 715,
-                          "x1": 206,
-                          "y1": 752,
-                          "xPct": 8.74,
-                          "yPct": 69.12
+                          "x0": 82,
+                          "y0": 498,
+                          "x1": 138,
+                          "y1": 516,
+                          "xPct": 8.01,
+                          "yPct": 67.1
                         }
                       ]
                     },
@@ -10375,12 +10374,12 @@
                       "analysis": "Phân tích câu:\\n* Nonflowering plants = Cây không nở hoa (Chủ ngữ)\\n* should be preferred = nên được ưu tiên (thể bị động)\\n* as they will not scatter pollen = bởi vì chúng không làm vương vãi phấn hoa (mệnh đề nguyên nhân)\\n\\nCấu trúc:\\n* nonflowering (adj): không ra hoa\\n* prefer (v): chuộng hơn, ưu tiên hơn\\n* scatter (v): rải rác, phân tán\\n* pollen (n): phấn hoa",
                       "regions": [
                         {
-                          "x0": 124,
-                          "y0": 784,
-                          "x1": 314,
-                          "y1": 816,
-                          "xPct": 8.67,
-                          "yPct": 75
+                          "x0": 80,
+                          "y0": 548,
+                          "x1": 217,
+                          "y1": 571,
+                          "xPct": 7.81,
+                          "yPct": 74.25
                         }
                       ]
                     },
@@ -10391,12 +10390,12 @@
                       "analysis": "Phân tích câu:\\n* A small, tabletop air purifier = Một máy lọc không khí để bàn loại nhỏ\\n* helps improve stale air = giúp làm mới bầu không khí ngột ngạt/tù đọng\\n* and removes dust = và loại trừ bụi bẩn\\n\\nCấu trúc:\\n* tabletop (adj): để trên mặt bàn\\n* air purifier (n): máy lọc không khí\\n* stale (adj): tù đọng, ngột ngạt\\n* dust (n): bụi bặm",
                       "regions": [
                         {
-                          "x0": 124,
-                          "y0": 864,
-                          "x1": 147,
-                          "y1": 888,
-                          "xPct": 8.67,
-                          "yPct": 81.62
+                          "x0": 81,
+                          "y0": 607,
+                          "x1": 95,
+                          "y1": 624,
+                          "xPct": 7.91,
+                          "yPct": 81.14
                         }
                       ]
                     },
@@ -10407,12 +10406,12 @@
                       "analysis": "Tiêu đề danh mục các giải pháp cải thiện ánh sáng trong môi trường làm việc.",
                       "regions": [
                         {
-                          "x0": 87,
-                          "y0": 949,
-                          "x1": 164,
-                          "y1": 973,
-                          "xPct": 6.08,
-                          "yPct": 89.43
+                          "x0": 53,
+                          "y0": 669,
+                          "x1": 108,
+                          "y1": 691,
+                          "xPct": 5.18,
+                          "yPct": 89.86
                         }
                       ]
                     },
@@ -10423,12 +10422,12 @@
                       "analysis": "Phân tích câu:\\n* Take breaks = Nghỉ giải lao ngắn\\n* and go outdoors = và ra ngoài trời\\n\\nCấu trúc:\\n* take a break: nghỉ giải lao\\n* outdoors (adv/n): ngoài trời",
                       "regions": [
                         {
-                          "x0": 124,
-                          "y0": 994,
-                          "x1": 187,
-                          "y1": 1018,
-                          "xPct": 8.67,
-                          "yPct": 93.57
+                          "x0": 79,
+                          "y0": 701,
+                          "x1": 125,
+                          "y1": 719,
+                          "xPct": 7.71,
+                          "yPct": 93.5
                         }
                       ]
                     },
@@ -10439,15 +10438,14 @@
                       "analysis": "Phân tích câu:\\n* Even just five minutes before or after lunch break = Dù chỉ là năm phút trước hay sau giờ ăn trưa (Chủ ngữ)\\n* will provide your eyes with a respite = sẽ cho đôi mắt của bạn một khoảng nghỉ ngơi\\n* from artificial light sources = khỏi các nguồn phát ánh sáng nhân tạo\\n\\nCấu trúc:\\n* provide somebody with something: cung cấp cho ai điều gì\\n* respite (n): thời gian nghỉ ngơi tạm thời\\n* artificial light (n): ánh sáng nhân tạo",
                       "regions": [
                         {
-                          "x0": 533,
-                          "y0": 998,
-                          "x1": 650,
-                          "y1": 1025,
-                          "xPct": 37.25,
-                          "yPct": 94.21
+                          "x0": 375,
+                          "y0": 697,
+                          "x1": 409,
+                          "y1": 729,
+                          "xPct": 36.62,
+                          "yPct": 94.8
                         }
-                      ],
-                      "keepRegion": true
+                      ]
                     },
                     {
                       "id": "s14",
@@ -10456,12 +10454,12 @@
                       "analysis": "Phân tích câu:\\n* Use desktop lamps = Dùng đèn để bàn\\n* with full-spectrum lightbulbs = với bóng đèn quang phổ đầy đủ mô phỏng ánh sáng tự nhiên\\n\\nCấu trúc:\\n* desktop lamp (n): đèn bàn\\n* full-spectrum (adj): toàn phổ (ánh sáng tự nhiên giúp giảm mỏi mắt)",
                       "regions": [
                         {
-                          "x0": 755,
-                          "y0": 264,
-                          "x1": 810,
-                          "y1": 320,
-                          "xPct": 52.76,
-                          "yPct": 29.41
+                          "x0": 531,
+                          "y0": 170,
+                          "x1": 568,
+                          "y1": 188,
+                          "xPct": 51.86,
+                          "yPct": 24.45
                         }
                       ]
                     },
@@ -10472,12 +10470,12 @@
                       "analysis": "Phân tích câu:\\n* Install double-glazed windows = Lắp đặt cửa kính hai lớp\\n* instead of blinds = thay vì dùng rèm chớp\\n* to reduce glare = để giảm bớt độ lóa/chói mắt\\n* while maintaining natural light = trong khi vẫn giữ được ánh sáng tự nhiên\\n\\nCấu trúc:\\n* double-glazed (adj): lắp kính hai lớp\\n* blinds (n): rèm chớp, rèm sáo\\n* reduce (v): giảm thiểu\\n* glare (n): độ chói mắt\\n* maintain (v): duy trì",
                       "regions": [
                         {
-                          "x0": 755,
-                          "y0": 342,
-                          "x1": 836,
-                          "y1": 367,
-                          "xPct": 52.76,
-                          "yPct": 33.73
+                          "x0": 531,
+                          "y0": 226,
+                          "x1": 589,
+                          "y1": 244,
+                          "xPct": 51.86,
+                          "yPct": 31.73
                         }
                       ]
                     },
@@ -10488,12 +10486,12 @@
                       "analysis": "Tiêu đề danh mục các phương pháp giải tỏa áp lực nơi công sở.",
                       "regions": [
                         {
-                          "x0": 714,
-                          "y0": 461,
-                          "x1": 799,
-                          "y1": 486,
-                          "xPct": 49.9,
-                          "yPct": 44.67
+                          "x0": 502,
+                          "y0": 311,
+                          "x1": 558,
+                          "y1": 329,
+                          "xPct": 49.02,
+                          "yPct": 42.78
                         }
                       ]
                     },
@@ -10504,12 +10502,12 @@
                       "analysis": "Phân tích câu:\\n* Earplugs or noise-cancelling headphones = Nút bịt tai hoặc tai nghe chống ồn (Chủ ngữ)\\n* can block distracting noise = có thể ngăn chặn tiếng ồn gây phân tâm\\n* in an open office floor plan = trong không gian văn phòng mở không vách ngăn kín\\n\\nCấu trúc:\\n* earplugs (n): nút nhét tai\\n* noise-cancelling (adj): khử ồn chủ động\\n* distracting (adj): gây xao nhãng\\n* open floor plan (n): mặt bằng mở",
                       "regions": [
                         {
-                          "x0": 752,
-                          "y0": 508,
-                          "x1": 872,
-                          "y1": 539,
-                          "xPct": 52.55,
-                          "yPct": 49.54
+                          "x0": 530,
+                          "y0": 345,
+                          "x1": 615,
+                          "y1": 368,
+                          "xPct": 51.76,
+                          "yPct": 47.85
                         }
                       ]
                     },
@@ -10520,12 +10518,12 @@
                       "analysis": "Phân tích câu:\\n* Photographs of loved ones and places [that] we have visited for vacation = Ảnh chụp người thân và những nơi từng đi nghỉ dưỡng (Chủ ngữ)\\n* are reminders of our life away from the office = là lời nhắc nhớ về cuộc sống bên ngoài chốn văn phòng (Vị ngữ)\\n\\nCấu trúc:\\n* loved ones (n): người thân yêu\\n* reminder (n): vật nhắc nhở\\n* away from: tách rời, bên ngoài",
                       "regions": [
                         {
-                          "x0": 752,
-                          "y0": 621,
-                          "x1": 916,
-                          "y1": 659,
-                          "xPct": 52.55,
-                          "yPct": 60.57
+                          "x0": 529,
+                          "y0": 428,
+                          "x1": 647,
+                          "y1": 451,
+                          "xPct": 51.66,
+                          "yPct": 58.65
                         }
                       ]
                     },
@@ -10536,12 +10534,12 @@
                       "analysis": "Phân tích câu:\\n* Select a few favorite pictures = Chọn vài bức hình yêu thích\\n* as important decorative elements = làm những thành phần trang trí quan trọng\\n\\nCấu trúc:\\n* select (v): lựa chọn\\n* decorative (adj): trang trí\\n* element (n): thành tố, yếu tố",
                       "regions": [
                         {
-                          "x0": 1047,
-                          "y0": 693,
-                          "x1": 1125,
-                          "y1": 717,
-                          "xPct": 73.17,
-                          "yPct": 65.9
+                          "x0": 739,
+                          "y0": 478,
+                          "x1": 796,
+                          "y1": 496,
+                          "xPct": 72.17,
+                          "yPct": 64.5
                         }
                       ]
                     },
@@ -10552,18 +10550,18 @@
                       "analysis": "Phân tích câu:\\n* Dear readers = Bạn đọc thân mến\\n* if you have tips to add to this list = nếu bạn có mẹo hay muốn bổ sung vào danh sách này (Mệnh đề if loại 1)\\n* send them in = hãy gửi chúng đến tòa soạn (Mệnh lệnh thức)\\n* and they will be published in next month’s issue = và chúng sẽ được in trong số báo tháng tới\\n\\nCấu trúc:\\n* tip (n): mẹo hay\\n* send in (phr v): gửi bài đóng góp về tòa soạn\\n* publish (v): xuất bản",
                       "regions": [
                         {
-                          "x0": 723,
-                          "y0": 898,
-                          "x1": 793,
-                          "y1": 922,
-                          "xPct": 50.52,
-                          "yPct": 84.74
+                          "x0": 508,
+                          "y0": 630,
+                          "x1": 554,
+                          "y1": 648,
+                          "xPct": 49.61,
+                          "yPct": 84.27
                         }
                       ]
                     }
                   ],
-                  "imageWidth": 1431,
-                  "imageHeight": 1088
+                  "imageWidth": 1024,
+                  "imageHeight": 769
                 },
                 {
                   "imageUrl": "uploads/EST 2022/RC/image/page021/block_2.webp",
@@ -11866,12 +11864,12 @@
                       "analysis": "Thông tin người nhận email nội bộ: Roberta Tsu.",
                       "regions": [
                         {
-                          "x0": 94,
-                          "y0": 112,
-                          "x1": 132,
-                          "y1": 133,
-                          "xPct": 6.99,
-                          "yPct": 17.23
+                          "x0": 74,
+                          "y0": 86,
+                          "x1": 103,
+                          "y1": 102,
+                          "xPct": 7.23,
+                          "yPct": 16.92
                         }
                       ]
                     },
@@ -11882,12 +11880,12 @@
                       "analysis": "Thông tin người gửi email: Joseph Morgan thuộc công ty thiết kế Pelter Graphics.",
                       "regions": [
                         {
-                          "x0": 94,
-                          "y0": 161,
-                          "x1": 167,
-                          "y1": 182,
-                          "xPct": 6.99,
-                          "yPct": 23.58
+                          "x0": 75,
+                          "y0": 123,
+                          "x1": 130,
+                          "y1": 139,
+                          "xPct": 7.32,
+                          "yPct": 23.05
                         }
                       ]
                     },
@@ -11898,12 +11896,12 @@
                       "analysis": "Thời điểm gửi email trao đổi về dự án thiết kế tài liệu tiếp thị.",
                       "regions": [
                         {
-                          "x0": 94,
-                          "y0": 205,
-                          "x1": 159,
-                          "y1": 242,
-                          "xPct": 6.99,
-                          "yPct": 31.35
+                          "x0": 76,
+                          "y0": 161,
+                          "x1": 124,
+                          "y1": 176,
+                          "xPct": 7.42,
+                          "yPct": 29.19
                         }
                       ]
                     },
@@ -11914,12 +11912,12 @@
                       "analysis": "Tiêu đề email đề cập đến cuốn sách của tác giả Emilio Costa.",
                       "regions": [
                         {
-                          "x0": 94,
-                          "y0": 251,
-                          "x1": 155,
-                          "y1": 290,
-                          "xPct": 6.99,
-                          "yPct": 37.56
+                          "x0": 75,
+                          "y0": 194,
+                          "x1": 121,
+                          "y1": 224,
+                          "xPct": 7.32,
+                          "yPct": 37.15
                         }
                       ]
                     },
@@ -11930,12 +11928,12 @@
                       "analysis": "Lời chào mở đầu email đồng nghiệp thân mật.",
                       "regions": [
                         {
-                          "x0": 92,
-                          "y0": 327,
-                          "x1": 151,
-                          "y1": 348,
-                          "xPct": 6.84,
-                          "yPct": 45.08
+                          "x0": 73,
+                          "y0": 250,
+                          "x1": 118,
+                          "y1": 266,
+                          "xPct": 7.13,
+                          "yPct": 44.11
                         }
                       ]
                     },
@@ -11946,12 +11944,12 @@
                       "analysis": "Phân tích câu:\n* I'm looking forward to finishing up (Tớ rất mong đợi hoàn tất)\n* our brochure design (bản thiết kế tài liệu quảng cáo của chúng ta)\n* for Entchen Financial Consultants (dành cho Công ty Tư vấn Tài chính Entchen)\n\nCấu trúc:\n* look forward to + V-ing: hào hứng, trông chờ làm gì\n* finish up: hoàn thành xong xuôi\n* brochure (n): tờ rơi / cuốn tài liệu quảng cáo giới thiệu sản phẩm dịch vụ.",
                       "regions": [
                         {
-                          "x0": 91,
-                          "y0": 393,
-                          "x1": 134,
-                          "y1": 414,
-                          "xPct": 6.77,
-                          "yPct": 53.63
+                          "x0": 74,
+                          "y0": 301,
+                          "x1": 104,
+                          "y1": 317,
+                          "xPct": 7.23,
+                          "yPct": 52.57
                         }
                       ]
                     },
@@ -11962,12 +11960,12 @@
                       "analysis": "Phân tích câu:\n* Before we submit our final draft (Trước khi chúng ta nộp bản thảo hoàn chỉnh cuối cùng)\n* I would like to rethink (tớ muốn xem xét lại / nghĩ lại)\n* how we are presenting our data (cách thức chúng ta đang trình bày dữ liệu của mình)\n\nCấu trúc:\n* submit a draft: nộp bản thảo\n* would like to do something: muốn làm gì\n* present data: trình bày, hiển thị dữ liệu/thông tin.",
                       "regions": [
                         {
-                          "x0": 258,
-                          "y0": 426,
-                          "x1": 342,
-                          "y1": 447,
-                          "xPct": 19.18,
-                          "yPct": 57.9
+                          "x0": 199,
+                          "y0": 326,
+                          "x1": 262,
+                          "y1": 342,
+                          "xPct": 19.43,
+                          "yPct": 56.72
                         }
                       ]
                     },
@@ -11978,12 +11976,12 @@
                       "analysis": "Phân tích câu:\n* Have you had a chance (Cậu đã có dịp / cơ hội nào)\n* to look through the Costa book (để xem lướt qua cuốn sách của Costa)\n* [that] I showed you (mà tớ đã chỉ cho cậu xem chưa)\n\nCấu trúc:\n* have a chance to do something: có cơ hội làm gì\n* look through: đọc lướt qua, xem qua tài liệu/sách vở.",
                       "regions": [
                         {
-                          "x0": 357,
-                          "y0": 460,
-                          "x1": 421,
-                          "y1": 481,
-                          "xPct": 26.54,
-                          "yPct": 62.31
+                          "x0": 274,
+                          "y0": 352,
+                          "x1": 321,
+                          "y1": 367,
+                          "xPct": 26.76,
+                          "yPct": 60.86
                         }
                       ]
                     },
@@ -11994,12 +11992,12 @@
                       "analysis": "Phân tích câu:\n* He gives great advice (Ông ấy đưa ra những lời khuyên rất hay)\n* on improving the clarity (về việc nâng cao độ rõ ràng, minh bạch)\n* of financial information (của các thông tin tài chính)\n* in marketing materials (trong những tài liệu tiếp thị quảng bá)\n\nCấu trúc:\n* give advice on something: đưa ra lời khuyên về vấn đề gì\n* clarity (n): sự rõ ràng, dễ hiểu\n* marketing materials (n): ấn phẩm/tài liệu tiếp thị.",
                       "regions": [
                         {
-                          "x0": 162,
-                          "y0": 493,
-                          "x1": 197,
-                          "y1": 514,
-                          "xPct": 12.04,
-                          "yPct": 66.58
+                          "x0": 127,
+                          "y0": 377,
+                          "x1": 152,
+                          "y1": 393,
+                          "xPct": 12.4,
+                          "yPct": 65.17
                         }
                       ]
                     },
@@ -12010,12 +12008,12 @@
                       "analysis": "Phân tích câu:\n* Anyway, let's talk about it (Dù sao thì, hãy cùng bàn về điều đó)\n* at lunch tomorrow (vào bữa ăn trưa ngày mai)\n\nCấu trúc:\n* anyway (adv): dù sao đi nữa (dùng để chuyển chủ đề hoặc kết thúc ý)\n* let's + V-bare: lời rủ rê / đề xuất cùng làm gì.",
                       "regions": [
                         {
-                          "x0": 362,
-                          "y0": 527,
-                          "x1": 471,
-                          "y1": 554,
-                          "xPct": 26.91,
-                          "yPct": 71.76
+                          "x0": 278,
+                          "y0": 402,
+                          "x1": 359,
+                          "y1": 423,
+                          "xPct": 27.15,
+                          "yPct": 70.15
                         }
                       ]
                     },
@@ -12026,19 +12024,19 @@
                       "analysis": "Lời chào kết thư và chữ ký đồng nghiệp.",
                       "regions": [
                         {
-                          "x0": 91,
-                          "y0": 592,
-                          "x1": 152,
-                          "y1": 616,
-                          "xPct": 6.77,
-                          "yPct": 79.79
+                          "x0": 73,
+                          "y0": 453,
+                          "x1": 118,
+                          "y1": 471,
+                          "xPct": 7.13,
+                          "yPct": 78.11
                         }
                       ]
                     }
                   ],
                   "passageTranslation": "Người nhận: roberta.tsu@peltergraphics.com\nNgười gửi: joseph.morgan@peltergraphics.com\nNgày: 22 tháng 6\nChủ đề: Sách của Costa\n\nRoberta thân mến,\nTớ rất mong chờ được hoàn thành thiết kế tài liệu quảng cáo cho Công ty Tư vấn Tài chính Entchen. Trước khi chúng ta nộp bản thảo cuối cùng, tớ muốn cân nhắc lại cách chúng ta đang trình bày dữ liệu. Cậu đã có cơ hội đọc qua cuốn sách của Costa mà tớ cho cậu xem chưa? Ông ấy đưa ra những lời khuyên rất tuyệt vời về việc nâng cao tính rõ ràng của thông tin tài chính trong các tài liệu tiếp thị. Dù sao thì, chúng ta hãy cùng thảo luận về việc này vào bữa trưa ngày mai nhé.\n\nThân ái,\nJoseph",
-                  "imageWidth": 1345,
-                  "imageHeight": 772
+                  "imageWidth": 1024,
+                  "imageHeight": 603
                 }
               ],
               "questions": [
@@ -12538,8 +12536,8 @@
                 },
                 {
                   "imageUrl": "uploads/EST 2022/RC/image/page027/block_2.webp",
-                  "imageWidth": 1361,
-                  "imageHeight": 753,
+                  "imageWidth": 1024,
+                  "imageHeight": 621,
                   "passageTranslation": "Người gửi: anabautista@lenoiva-health.com\nNgười nhận: t.rowell@jantunipropertydevelopers.com\nNgày: 20 tháng 2\nChủ đề: Thắc mắc về việc thuê mặt bằng\n\nKính gửi ông Rowell,\n\nTôi là chủ sở hữu của Lenoiva, một công ty công nghệ chăm sóc sức khỏe. Chúng tôi dự định mở rộng hoạt động và cần không gian văn phòng mới. Tòa nhà Anton là một trong những địa điểm ở Clanton mà chúng tôi đang cân nhắc. Chúng tôi được biết dự án phục dựng tòa nhà này của quý công ty sẽ hoàn thành vào mùa xuân năm nay, đây là thời điểm rất thuận lợi cho chúng tôi. Chúng tôi đặc biệt bị thu hút bởi việc dễ dàng tiếp cận các dịch vụ giao thông công cộng mà tòa nhà của quý công ty mang lại. Quý công ty có còn diện tích nào trống để cho thuê không? Chúng tôi dự kiến cần một không gian có diện tích ít nhất là 300 mét vuông. Liệu có chỗ đỗ xe dành riêng cho nhân viên của chúng tôi nếu chúng tôi thuê ở đó không? Chúng tôi rất cảm kích trước bất kỳ thông tin nào ông có thể cung cấp.\n\nXin chân thành cảm ơn trước,\nAna Bautista",
                   "sentences": [
                     {
@@ -12549,15 +12547,14 @@
                       "analysis": "Địa chỉ email của người gửi (Ana Bautista - chủ sở hữu Lenoiva).",
                       "regions": [
                         {
-                          "x0": 68,
-                          "y0": 50,
-                          "x1": 153,
-                          "y1": 73,
-                          "xPct": 5,
-                          "yPct": 9.69
+                          "x0": 51,
+                          "y0": 40,
+                          "x1": 115,
+                          "y1": 58,
+                          "xPct": 4.98,
+                          "yPct": 9.34
                         }
-                      ],
-                      "keepRegion": true
+                      ]
                     },
                     {
                       "id": "s2",
@@ -12566,15 +12563,14 @@
                       "analysis": "Địa chỉ email của người nhận (ông Rowell tại JPD).",
                       "regions": [
                         {
-                          "x0": 66,
-                          "y0": 101,
-                          "x1": 115,
-                          "y1": 125,
-                          "xPct": 4.85,
-                          "yPct": 16.6
+                          "x0": 50,
+                          "y0": 78,
+                          "x1": 83,
+                          "y1": 96,
+                          "xPct": 4.88,
+                          "yPct": 15.46
                         }
-                      ],
-                      "keepRegion": true
+                      ]
                     },
                     {
                       "id": "s3",
@@ -12583,15 +12579,14 @@
                       "analysis": "Ngày gửi thư điện tử hỏi thuê mặt bằng.",
                       "regions": [
                         {
-                          "x0": 68,
-                          "y0": 151,
-                          "x1": 142,
-                          "y1": 174,
-                          "xPct": 5,
-                          "yPct": 23.11
+                          "x0": 51,
+                          "y0": 113,
+                          "x1": 107,
+                          "y1": 144,
+                          "xPct": 4.98,
+                          "yPct": 23.19
                         }
-                      ],
-                      "keepRegion": true
+                      ]
                     },
                     {
                       "id": "s4",
@@ -12600,15 +12595,14 @@
                       "analysis": "Tiêu đề thư liên quan đến việc hỏi thuê mặt bằng kinh doanh (lease inquiry).",
                       "regions": [
                         {
-                          "x0": 66,
-                          "y0": 201,
-                          "x1": 187,
-                          "y1": 230,
-                          "xPct": 4.85,
-                          "yPct": 30.54
+                          "x0": 50,
+                          "y0": 151,
+                          "x1": 140,
+                          "y1": 185,
+                          "xPct": 4.88,
+                          "yPct": 29.79
                         }
-                      ],
-                      "keepRegion": true
+                      ]
                     },
                     {
                       "id": "s5",
@@ -12617,15 +12611,14 @@
                       "analysis": "Lời chào mở đầu thư trang trọng trong giao tiếp thương mại.",
                       "regions": [
                         {
-                          "x0": 72,
-                          "y0": 263,
-                          "x1": 132,
-                          "y1": 284,
-                          "xPct": 5.29,
-                          "yPct": 37.72
+                          "x0": 54,
+                          "y0": 203,
+                          "x1": 99,
+                          "y1": 219,
+                          "xPct": 5.27,
+                          "yPct": 35.27
                         }
-                      ],
-                      "keepRegion": true
+                      ]
                     },
                     {
                       "id": "s6",
@@ -12634,15 +12627,14 @@
                       "analysis": "Phân tích câu:\n* I am the owner of Lenoiva = Tôi là chủ sở hữu của công ty Lenoiva\n* a health-care technology company = một công ty công nghệ y tế/chăm sóc sức khỏe (cụm danh từ đồng vị giải thích cho Lenoiva)\n\nCấu trúc:\n* owner (n): chủ sở hữu\n* health-care (n): chăm sóc y tế, sức khỏe\n* technology (n): công nghệ",
                       "regions": [
                         {
-                          "x0": 71,
-                          "y0": 324,
-                          "x1": 128,
-                          "y1": 345,
-                          "xPct": 5.22,
-                          "yPct": 45.82
+                          "x0": 51,
+                          "y0": 250,
+                          "x1": 95,
+                          "y1": 268,
+                          "xPct": 4.98,
+                          "yPct": 43.16
                         }
-                      ],
-                      "keepRegion": true
+                      ]
                     },
                     {
                       "id": "s7",
@@ -12651,15 +12643,14 @@
                       "analysis": "Phân tích câu:\n* We plan to expand our operations = Chúng tôi lên kế hoạch mở rộng quy mô hoạt động\n* and we need new office space = và chúng tôi cần không gian văn phòng mới\n\nCấu trúc:\n* plan to do something: dự định làm gì\n* expand (v): mở rộng, phát triển\n* operation (n): hoạt động kinh doanh, vận hành\n* office space (n): không gian văn phòng",
                       "regions": [
                         {
-                          "x0": 904,
-                          "y0": 331,
-                          "x1": 943,
-                          "y1": 351,
-                          "xPct": 66.42,
-                          "yPct": 46.61
+                          "x0": 681,
+                          "y0": 252,
+                          "x1": 710,
+                          "y1": 268,
+                          "xPct": 66.5,
+                          "yPct": 43.16
                         }
-                      ],
-                      "keepRegion": true
+                      ]
                     },
                     {
                       "id": "s8",
@@ -12668,15 +12659,14 @@
                       "analysis": "Phân tích câu:\n* The Anton Building is = Tòa nhà Anton là\n* one of the locations in Clanton = một trong những địa điểm tại Clanton\n* that we are considering = mà chúng tôi đang xem xét, cân nhắc (mệnh đề quan hệ bổ nghĩa cho locations)\n\nCấu trúc:\n* one of + danh từ số nhiều: một trong những...\n* consider (v): cân nhắc, xem xét",
                       "regions": [
                         {
-                          "x0": 622,
-                          "y0": 358,
-                          "x1": 670,
-                          "y1": 379,
+                          "x0": 468,
+                          "y0": 275,
+                          "x1": 504,
+                          "y1": 291,
                           "xPct": 45.7,
-                          "yPct": 50.33
+                          "yPct": 46.86
                         }
-                      ],
-                      "keepRegion": true
+                      ]
                     },
                     {
                       "id": "s9",
@@ -12685,15 +12675,14 @@
                       "analysis": "Phân tích câu:\n* We have been informed that = Chúng tôi đã được thông báo rằng (bị động hiện tại hoàn thành)\n* your restoration project of this building = dự án phục chế tòa nhà này của quý vị (chủ ngữ mệnh đề that)\n* will be finished sometime this spring = sẽ được hoàn tất vào khoảng mùa xuân này\n* which is good timing for us = điều này là thời điểm rất thuận lợi cho chúng tôi (mệnh đề quan hệ không xác định bổ nghĩa cho cả mệnh đề trước)\n\nCấu trúc:\n* inform (v): thông báo\n* restoration (n): sự phục dựng, trùng tu\n* sometime (adv): vào một thời điểm nào đó\n* timing (n): sự chọn thời điểm, thời cơ",
                       "regions": [
                         {
-                          "x0": 506,
-                          "y0": 389,
-                          "x1": 544,
-                          "y1": 410,
-                          "xPct": 37.18,
-                          "yPct": 54.45
+                          "x0": 381,
+                          "y0": 298,
+                          "x1": 409,
+                          "y1": 314,
+                          "xPct": 37.21,
+                          "yPct": 50.56
                         }
-                      ],
-                      "keepRegion": true
+                      ]
                     },
                     {
                       "id": "s10",
@@ -12702,15 +12691,14 @@
                       "analysis": "Phân tích câu:\n* We are particularly attracted by = Chúng tôi đặc biệt bị cuốn hút/thuyết phục bởi\n* the easy access to public transportation services = việc tiếp cận dễ dàng đến các dịch vụ giao thông công cộng\n* that your building offers = mà tòa nhà của quý vị cung cấp (mệnh đề quan hệ bổ nghĩa cho services)\n\nCấu trúc:\n* particularly (adv): đặc biệt là\n* attract (v): thu hút, lôi cuốn\n* access to something: lối vào, khả năng tiếp cận cái gì\n* public transportation (n): phương tiện giao thông công cộng",
                       "regions": [
                         {
-                          "x0": 1130,
-                          "y0": 424,
-                          "x1": 1170,
-                          "y1": 444,
-                          "xPct": 83.03,
-                          "yPct": 58.96
+                          "x0": 852,
+                          "y0": 323,
+                          "x1": 880,
+                          "y1": 339,
+                          "xPct": 83.2,
+                          "yPct": 54.59
                         }
-                      ],
-                      "keepRegion": true
+                      ]
                     },
                     {
                       "id": "s11",
@@ -12719,15 +12707,14 @@
                       "analysis": "Phân tích câu:\n* Do you still have = Quý vị có còn\n* spaces available for rent? = các diện tích/mặt bằng sẵn có để cho thuê không?\n\nCấu trúc:\n* available (adj): sẵn có, còn trống\n* for rent: dùng để cho thuê",
                       "regions": [
                         {
-                          "x0": 161,
-                          "y0": 478,
-                          "x1": 198,
-                          "y1": 499,
-                          "xPct": 11.83,
-                          "yPct": 66.27
+                          "x0": 121,
+                          "y0": 367,
+                          "x1": 148,
+                          "y1": 383,
+                          "xPct": 11.82,
+                          "yPct": 61.67
                         }
-                      ],
-                      "keepRegion": true
+                      ]
                     },
                     {
                       "id": "s12",
@@ -12736,15 +12723,14 @@
                       "analysis": "Phân tích câu:\n* We anticipate needing = Chúng tôi dự trù/ước tính sẽ cần\n* a space at least 300 square metres in size = một không gian có kích thước tối thiểu là 300 mét vuông\n\nCấu trúc:\n* anticipate + V-ing: dự đoán, lường trước việc gì\n* at least: tối thiểu, ít nhất\n* square metre (n): mét vuông\n* in size: về mặt kích thước, diện tích",
                       "regions": [
                         {
-                          "x0": 740,
-                          "y0": 482,
-                          "x1": 780,
-                          "y1": 503,
-                          "xPct": 54.37,
-                          "yPct": 66.8
+                          "x0": 558,
+                          "y0": 369,
+                          "x1": 586,
+                          "y1": 385,
+                          "xPct": 54.49,
+                          "yPct": 62
                         }
-                      ],
-                      "keepRegion": true
+                      ]
                     },
                     {
                       "id": "s13",
@@ -12753,15 +12739,14 @@
                       "analysis": "Phân tích câu:\n* Would there be = Liệu có sẵn\n* any reserved parking for our employees = bất kỳ chỗ đậu xe nào dành riêng cho nhân viên chúng tôi\n* if we rented there? = nếu chúng tôi thuê mặt bằng ở đó không? (câu điều kiện loại 2 giả định)\n\nCấu trúc:\n* reserved (adj): được giữ trước, dành riêng\n* parking (n): khu vực đỗ xe\n* employee (n): người lao động, nhân viên",
                       "regions": [
                         {
-                          "x0": 421,
-                          "y0": 510,
-                          "x1": 503,
-                          "y1": 531,
-                          "xPct": 30.93,
-                          "yPct": 70.52
+                          "x0": 317,
+                          "y0": 391,
+                          "x1": 378,
+                          "y1": 407,
+                          "xPct": 30.96,
+                          "yPct": 65.54
                         }
-                      ],
-                      "keepRegion": true
+                      ]
                     },
                     {
                       "id": "s14",
@@ -12770,15 +12755,14 @@
                       "analysis": "Phân tích câu:\n* We would appreciate = Chúng tôi sẽ rất biết ơn/trân trọng\n* any information you can provide = mọi thông tin mà ông có thể chia sẻ, cung cấp\n\nCấu trúc:\n* appreciate (v): đánh giá cao, trân trọng, cảm kích\n* provide (v): cung cấp, đáp ứng",
                       "regions": [
                         {
-                          "x0": 249,
-                          "y0": 540,
-                          "x1": 288,
-                          "y1": 561,
-                          "xPct": 18.3,
-                          "yPct": 74.5
+                          "x0": 185,
+                          "y0": 414,
+                          "x1": 215,
+                          "y1": 430,
+                          "xPct": 18.07,
+                          "yPct": 69.24
                         }
-                      ],
-                      "keepRegion": true
+                      ]
                     },
                     {
                       "id": "s15",
@@ -12787,15 +12771,14 @@
                       "analysis": "Lời cảm ơn lịch thiệp kết thúc thư trước khi đối phương phản hồi.",
                       "regions": [
                         {
-                          "x0": 70,
-                          "y0": 600,
-                          "x1": 148,
-                          "y1": 621,
-                          "xPct": 5.14,
-                          "yPct": 82.47
+                          "x0": 51,
+                          "y0": 460,
+                          "x1": 111,
+                          "y1": 476,
+                          "xPct": 4.98,
+                          "yPct": 76.65
                         }
-                      ],
-                      "keepRegion": true
+                      ]
                     },
                     {
                       "id": "s16",
@@ -12804,15 +12787,14 @@
                       "analysis": "Chữ ký và họ tên người gửi thư.",
                       "regions": [
                         {
-                          "x0": 70,
-                          "y0": 661,
-                          "x1": 121,
-                          "y1": 682,
-                          "xPct": 5.14,
-                          "yPct": 90.57
+                          "x0": 51,
+                          "y0": 507,
+                          "x1": 89,
+                          "y1": 523,
+                          "xPct": 4.98,
+                          "yPct": 84.22
                         }
-                      ],
-                      "keepRegion": true
+                      ]
                     }
                   ]
                 },
@@ -13229,15 +13211,14 @@
                       "text": "From: Tanya Jefferson <tjeff@keysuppliers.com>",
                       "translation": "Người gửi: Tanya Jefferson <tjeff@keysuppliers.com>",
                       "analysis": "Phân tích câu:\n* From: = Trường thông tin người gửi email\n* Tanya Jefferson = Chủ nhiệm câu lạc bộ hoạt động ngoài trời",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 80,
-                          "y0": 145,
-                          "x1": 200,
-                          "y1": 180,
-                          "xPct": 4.18,
-                          "yPct": 18.61
+                          "x0": 85,
+                          "y0": 85,
+                          "x1": 147,
+                          "y1": 102,
+                          "xPct": 8.3,
+                          "yPct": 18.99
                         }
                       ]
                     },
@@ -13246,15 +13227,14 @@
                       "text": "To: info@danestongear.com",
                       "translation": "Người nhận: info@danestongear.com",
                       "analysis": "Phân tích câu:\n* To: = Trường thông tin người nhận email\n* info@danestongear.com = Địa chỉ email tiếp nhận thông tin của Daneston Gear Company",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 80,
-                          "y0": 215,
-                          "x1": 150,
-                          "y1": 250,
-                          "xPct": 4.18,
-                          "yPct": 25.85
+                          "x0": 84,
+                          "y0": 122,
+                          "x1": 116,
+                          "y1": 139,
+                          "xPct": 8.2,
+                          "yPct": 25.88
                         }
                       ]
                     },
@@ -13263,15 +13243,14 @@
                       "text": "Subject: Request for group rental information",
                       "translation": "Tiêu đề: Yêu cầu thông tin thuê thuyền theo nhóm",
                       "analysis": "Phân tích câu:\n* Request for = Lời yêu cầu, đề nghị về việc gì\n* group rental information = Thông tin thuê thuyền theo nhóm",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 80,
-                          "y0": 285,
-                          "x1": 220,
-                          "y1": 320,
-                          "xPct": 4.18,
-                          "yPct": 33.09
+                          "x0": 84,
+                          "y0": 155,
+                          "x1": 173,
+                          "y1": 187,
+                          "xPct": 8.2,
+                          "yPct": 34.82
                         }
                       ]
                     },
@@ -13280,15 +13259,14 @@
                       "text": "Date: May 29",
                       "translation": "Ngày: 29 tháng 5",
                       "analysis": "Phân tích câu:\n* Date: = Ngày gửi thư điện tử\n* May 29 = Ngày 29 tháng 5",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 80,
-                          "y0": 355,
-                          "x1": 180,
-                          "y1": 390,
-                          "xPct": 4.18,
-                          "yPct": 40.33
+                          "x0": 85,
+                          "y0": 187,
+                          "x1": 139,
+                          "y1": 225,
+                          "xPct": 8.3,
+                          "yPct": 41.9
                         }
                       ]
                     },
@@ -13297,15 +13275,14 @@
                       "text": "Hello Daneston Gear Company (DGC),",
                       "translation": "Xin chào Công ty Thiết bị Daneston (DGC),",
                       "analysis": "Phân tích câu:\n* Daneston Gear Company (DGC) = Tên công ty cung cấp dịch vụ cho thuê đồ dùng và thuyền chèo ngoài trời",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 85,
-                          "y0": 450,
-                          "x1": 170,
-                          "y1": 485,
-                          "xPct": 4.44,
-                          "yPct": 50.16
+                          "x0": 88,
+                          "y0": 241,
+                          "x1": 138,
+                          "y1": 257,
+                          "xPct": 8.59,
+                          "yPct": 47.86
                         }
                       ]
                     },
@@ -13314,15 +13291,14 @@
                       "text": "I am the president of an activities club.",
                       "translation": "Tôi là chủ nhiệm của một câu lạc bộ hoạt động ngoài trời.",
                       "analysis": "Phân tích câu:\n* president = Chủ tịch, người đứng đầu, chủ nhiệm\n* activities club = Câu lạc bộ tổ chức các hoạt động dã ngoại",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 85,
-                          "y0": 525,
-                          "x1": 105,
-                          "y1": 560,
-                          "xPct": 4.44,
-                          "yPct": 57.91
+                          "x0": 88,
+                          "y0": 286,
+                          "x1": 93,
+                          "y1": 302,
+                          "xPct": 8.59,
+                          "yPct": 56.24
                         }
                       ]
                     },
@@ -13331,15 +13307,14 @@
                       "text": "This month, our 30 members intend to take a day trip to Daneston to go boating on the lake.",
                       "translation": "Trong tháng này, 30 thành viên của chúng tôi dự định thực hiện một chuyến đi trong ngày tới Daneston để chèo thuyền trên hồ.",
                       "analysis": "Phân tích câu:\n* intend to do something = Có dự định làm gì\n* take a day trip to = Đi du lịch trong ngày tới đâu\n* go boating on the lake = Đi chèo thuyền dạo chơi trên hồ",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 885,
-                          "y0": 525,
-                          "x1": 960,
-                          "y1": 560,
-                          "xPct": 46.19,
-                          "yPct": 57.91
+                          "x0": 467,
+                          "y0": 288,
+                          "x1": 507,
+                          "y1": 303,
+                          "xPct": 45.61,
+                          "yPct": 56.42
                         }
                       ]
                     },
@@ -13348,15 +13323,14 @@
                       "text": "Could you please send me information regarding your rates and offerings?",
                       "translation": "Bạn có thể vui lòng gửi cho tôi thông tin về bảng giá và các dịch vụ cung cấp của bạn được không?",
                       "analysis": "Phân tích câu:\n* Could you please + V = Cấu trúc câu hỏi yêu cầu lịch sự\n* regarding = Liên quan đến, về vấn đề gì\n* rates and offerings = Mức giá và các gói dịch vụ/sản phẩm cung cấp",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 955,
-                          "y0": 568,
-                          "x1": 1050,
-                          "y1": 600,
-                          "xPct": 49.84,
-                          "yPct": 62.05
+                          "x0": 499,
+                          "y0": 310,
+                          "x1": 554,
+                          "y1": 326,
+                          "xPct": 48.73,
+                          "yPct": 60.71
                         }
                       ]
                     },
@@ -13365,15 +13339,14 @@
                       "text": "We are most interested in renting boats that seat one person.",
                       "translation": "Chúng tôi quan tâm nhiều nhất đến việc thuê các loại thuyền dành cho một người ngồi.",
                       "analysis": "Phân tích câu:\n* be most interested in + V-ing = Quan tâm nhiều nhất đến việc gì\n* boats that seat one person = Những chiếc thuyền có sức chứa một người ngồi (seat: chứa, có chỗ ngồi cho)",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 805,
-                          "y0": 610,
-                          "x1": 865,
-                          "y1": 642,
-                          "xPct": 42.01,
-                          "yPct": 66.39
+                          "x0": 425,
+                          "y0": 332,
+                          "x1": 452,
+                          "y1": 348,
+                          "xPct": 41.5,
+                          "yPct": 64.8
                         }
                       ]
                     },
@@ -13382,15 +13355,14 @@
                       "text": "Some time ago, I rented a kayak for myself from DGC, but this will be my first time renting from DGC for a group.",
                       "translation": "Cách đây một thời gian, tôi đã từng tự thuê một chiếc thuyền kayak từ DGC cho bản thân mình, nhưng đây sẽ là lần đầu tiên tôi thuê thuyền từ DGC cho cả một nhóm.",
                       "analysis": "Phân tích câu:\n* Some time ago = Cách đây một khoảng thời gian\n* rented a kayak for myself = Đã từng thuê thuyền kayak cho chính mình (dẫn chứng trả lời Q196)\n* first time renting for a group = Lần đầu tiên thuê cho một nhóm người",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 310,
-                          "y0": 650,
-                          "x1": 400,
-                          "y1": 685,
-                          "xPct": 16.18,
-                          "yPct": 70.84
+                          "x0": 163,
+                          "y0": 354,
+                          "x1": 212,
+                          "y1": 370,
+                          "xPct": 15.92,
+                          "yPct": 68.9
                         }
                       ]
                     },
@@ -13399,15 +13371,14 @@
                       "text": "Thank you,",
                       "translation": "Xin cảm ơn,",
                       "analysis": "Phân tích câu:\n* Thank you = Lời cảm ơn lịch sự kết thư",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 85,
-                          "y0": 795,
-                          "x1": 180,
-                          "y1": 830,
-                          "xPct": 4.44,
-                          "yPct": 85.83
+                          "x0": 86,
+                          "y0": 421,
+                          "x1": 144,
+                          "y1": 437,
+                          "xPct": 8.4,
+                          "yPct": 81.38
                         }
                       ]
                     },
@@ -13416,21 +13387,20 @@
                       "text": "Tanya Jefferson",
                       "translation": "Tanya Jefferson",
                       "analysis": "Phân tích câu:\n* Tanya Jefferson = Tên người gửi thư",
-                      "keepRegion": true,
                       "regions": [
                         {
                           "x0": 85,
-                          "y0": 880,
-                          "x1": 180,
-                          "y1": 915,
-                          "xPct": 4.44,
-                          "yPct": 94.62
+                          "y0": 466,
+                          "x1": 141,
+                          "y1": 486,
+                          "xPct": 8.3,
+                          "yPct": 90.5
                         }
                       ]
                     }
                   ],
-                  "imageWidth": 1916,
-                  "imageHeight": 967
+                  "imageWidth": 1024,
+                  "imageHeight": 537
                 },
                 {
                   "imageUrl": "uploads/EST 2022/RC/image/page029/block_2.webp",
@@ -13441,15 +13411,14 @@
                       "text": "From: info@danestongear.com",
                       "translation": "Người gửi: info@danestongear.com",
                       "analysis": "Phân tích câu:\n* From: = Trường thông tin người gửi email\n* info@danestongear.com = Địa chỉ email công ty Daneston Gear Company",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 40,
-                          "y0": 45,
-                          "x1": 150,
-                          "y1": 85,
-                          "xPct": 2.18,
-                          "yPct": 8.35
+                          "x0": 59,
+                          "y0": 35,
+                          "x1": 122,
+                          "y1": 52,
+                          "xPct": 5.76,
+                          "yPct": 8.55
                         }
                       ]
                     },
@@ -13458,15 +13427,14 @@
                       "text": "To: Tanya Jefferson <tjeff@keysuppliers.com>",
                       "translation": "Người nhận: Tanya Jefferson <tjeff@keysuppliers.com>",
                       "analysis": "Phân tích câu:\n* To: = Trường thông tin người nhận email\n* Tanya Jefferson = Khách hàng đại diện cho câu lạc bộ",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 40,
-                          "y0": 110,
-                          "x1": 100,
-                          "y1": 150,
-                          "xPct": 2.18,
-                          "yPct": 14.73
+                          "x0": 57,
+                          "y0": 72,
+                          "x1": 90,
+                          "y1": 89,
+                          "xPct": 5.57,
+                          "yPct": 14.64
                         }
                       ]
                     },
@@ -13475,15 +13443,14 @@
                       "text": "Subject: RE: Request for group rental information",
                       "translation": "Tiêu đề: RE: Yêu cầu thông tin thuê thuyền theo nhóm",
                       "analysis": "Phân tích câu:\n* RE: = Reply (Thư hồi đáp email trước đó)",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 40,
-                          "y0": 175,
-                          "x1": 180,
-                          "y1": 215,
-                          "xPct": 2.18,
-                          "yPct": 21.12
+                          "x0": 58,
+                          "y0": 105,
+                          "x1": 147,
+                          "y1": 138,
+                          "xPct": 5.66,
+                          "yPct": 22.7
                         }
                       ]
                     },
@@ -13492,15 +13459,14 @@
                       "text": "Date: May 30",
                       "translation": "Ngày: 30 tháng 5",
                       "analysis": "Phân tích câu:\n* Date: = Ngày gửi phản hồi\n* May 30 = Ngày 30 tháng 5",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 40,
-                          "y0": 240,
-                          "x1": 140,
-                          "y1": 280,
-                          "xPct": 2.18,
-                          "yPct": 27.5
+                          "x0": 58,
+                          "y0": 147,
+                          "x1": 113,
+                          "y1": 164,
+                          "xPct": 5.66,
+                          "yPct": 26.97
                         }
                       ]
                     },
@@ -13509,15 +13475,14 @@
                       "text": "Attachment: Price list",
                       "translation": "Tệp đính kèm: Bảng giá",
                       "analysis": "Phân tích câu:\n* Attachment = Tệp tài liệu đính kèm\n* Price list = Bảng giá dịch vụ",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 40,
-                          "y0": 300,
-                          "x1": 220,
-                          "y1": 340,
-                          "xPct": 2.18,
-                          "yPct": 33.4
+                          "x0": 57,
+                          "y0": 178,
+                          "x1": 190,
+                          "y1": 210,
+                          "xPct": 5.57,
+                          "yPct": 34.54
                         }
                       ]
                     },
@@ -13526,15 +13491,14 @@
                       "text": "Dear Ms. Jefferson,",
                       "translation": "Kính gửi cô Jefferson,",
                       "analysis": "Phân tích câu:\n* Dear Ms. Jefferson = Lời chào mở đầu thư trang trọng trong giao tiếp kinh doanh",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 45,
-                          "y0": 390,
-                          "x1": 130,
-                          "y1": 425,
-                          "xPct": 2.46,
-                          "yPct": 41.75
+                          "x0": 61,
+                          "y0": 231,
+                          "x1": 105,
+                          "y1": 247,
+                          "xPct": 5.96,
+                          "yPct": 40.63
                         }
                       ]
                     },
@@ -13543,15 +13507,14 @@
                       "text": "Thank you for contacting us regarding your group’s anticipated visit to DGC.",
                       "translation": "Cảm ơn cô đã liên hệ với chúng tôi về chuyến tham quan dự kiến của nhóm cô tới DGC.",
                       "analysis": "Phân tích câu:\n* Thank you for + V-ing = Lời cảm ơn vì đã làm gì\n* contact somebody regarding something = Liên hệ với ai về việc gì\n* anticipated visit = Chuyến ghé thăm/tham quan dự kiến",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 45,
-                          "y0": 475,
-                          "x1": 140,
-                          "y1": 510,
-                          "xPct": 2.46,
-                          "yPct": 50.1
+                          "x0": 60,
+                          "y0": 277,
+                          "x1": 118,
+                          "y1": 293,
+                          "xPct": 5.86,
+                          "yPct": 48.19
                         }
                       ]
                     },
@@ -13560,15 +13523,14 @@
                       "text": "We look forward to equipping your club for its next adventure.",
                       "translation": "Chúng tôi rất mong được trang bị cho câu lạc bộ của cô cho chuyến phiêu lưu sắp tới.",
                       "analysis": "Phân tích câu:\n* look forward to + V-ing = Rất trông mong, mong đợi làm gì\n* equip somebody for something = Trang bị đồ nghề, thiết bị cho ai chuẩn bị việc gì\n* adventure = Chuyến phiêu lưu, dã ngoại",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 1495,
-                          "y0": 475,
-                          "x1": 1555,
-                          "y1": 510,
-                          "xPct": 81.6,
-                          "yPct": 50.1
+                          "x0": 810,
+                          "y0": 280,
+                          "x1": 839,
+                          "y1": 296,
+                          "xPct": 79.1,
+                          "yPct": 48.68
                         }
                       ]
                     },
@@ -13577,15 +13539,14 @@
                       "text": "A price list is attached to this e-mail.",
                       "translation": "Một bảng giá đã được đính kèm theo email này.",
                       "analysis": "Phân tích câu:\n* be attached to = Được đính kèm vào (thể bị động)\n* price list = Bảng giá",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 1075,
-                          "y0": 515,
-                          "x1": 1105,
-                          "y1": 550,
-                          "xPct": 58.68,
-                          "yPct": 54.03
+                          "x0": 585,
+                          "y0": 302,
+                          "x1": 599,
+                          "y1": 317,
+                          "xPct": 57.13,
+                          "yPct": 52.14
                         }
                       ]
                     },
@@ -13594,15 +13555,14 @@
                       "text": "If you wish to discuss our rentals in more detail, please call me at (888) 555-1578.",
                       "translation": "Nếu cô muốn trao đổi chi tiết hơn về các dịch vụ thuê thuyền của chúng tôi, vui lòng gọi cho tôi theo số (888) 555-1578.",
                       "analysis": "Phân tích câu:\n* wish to do something = Muốn/mong muốn làm gì\n* in more detail = Một cách chi tiết hơn\n* please call me at = Vui lòng gọi cho tôi theo số máy...",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 220,
-                          "y0": 555,
-                          "x1": 250,
-                          "y1": 590,
-                          "xPct": 12.01,
-                          "yPct": 57.96
+                          "x0": 134,
+                          "y0": 322,
+                          "x1": 150,
+                          "y1": 338,
+                          "xPct": 13.09,
+                          "yPct": 55.59
                         }
                       ]
                     },
@@ -13611,15 +13571,14 @@
                       "text": "Incidentally, we recently added a rowboat option that is an excellent choice for adults who wish to boat with their children.",
                       "translation": "Nhân tiện, gần đây chúng tôi vừa bổ sung thêm lựa chọn thuyền chèo tay (rowboat), đây là một lựa chọn tuyệt vời cho những người lớn muốn đi thuyền cùng con nhỏ của mình.",
                       "analysis": "Phân tích câu:\n* Incidentally = Nhân tiện, tiện đây\n* recently added = Gần đây đã bổ sung thêm (dẫn chứng trả lời Q198)\n* rowboat option = Lựa chọn thuyền chèo tay\n* excellent choice = Sự lựa chọn tuyệt vời",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 45,
-                          "y0": 595,
-                          "x1": 220,
-                          "y1": 630,
-                          "xPct": 2.46,
-                          "yPct": 61.89
+                          "x0": 60,
+                          "y0": 345,
+                          "x1": 174,
+                          "y1": 366,
+                          "xPct": 5.86,
+                          "yPct": 60.2
                         }
                       ]
                     },
@@ -13628,15 +13587,14 @@
                       "text": "I will be pleased to help you when you are ready to make your reservation.",
                       "translation": "Tôi rất hân hạnh được hỗ trợ cô khi cô đã sẵn sàng đặt chỗ.",
                       "analysis": "Phân tích câu:\n* be pleased to do something = Rất vui lòng/hân hạnh làm việc gì\n* make a reservation = Đặt chỗ trước",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 45,
-                          "y0": 710,
-                          "x1": 65,
-                          "y1": 745,
-                          "xPct": 2.46,
-                          "yPct": 73.18
+                          "x0": 60,
+                          "y0": 413,
+                          "x1": 64,
+                          "y1": 429,
+                          "xPct": 5.86,
+                          "yPct": 70.56
                         }
                       ]
                     },
@@ -13645,15 +13603,14 @@
                       "text": "Best,",
                       "translation": "Trân trọng,",
                       "analysis": "Phân tích câu:\n* Best = Lời chúc kết thư thân thiện",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 45,
-                          "y0": 785,
-                          "x1": 130,
-                          "y1": 820,
-                          "xPct": 2.46,
-                          "yPct": 80.55
+                          "x0": 58,
+                          "y0": 459,
+                          "x1": 104,
+                          "y1": 477,
+                          "xPct": 5.66,
+                          "yPct": 78.45
                         }
                       ]
                     },
@@ -13662,21 +13619,20 @@
                       "text": "Adam Goldstein",
                       "translation": "Adam Goldstein",
                       "analysis": "Phân tích câu:\n* Adam Goldstein = Nhân viên chăm sóc khách hàng của DGC",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 45,
-                          "y0": 865,
-                          "x1": 150,
-                          "y1": 900,
-                          "xPct": 2.46,
-                          "yPct": 88.41
+                          "x0": 58,
+                          "y0": 504,
+                          "x1": 114,
+                          "y1": 520,
+                          "xPct": 5.66,
+                          "yPct": 85.53
                         }
                       ]
                     }
                   ],
-                  "imageWidth": 1832,
-                  "imageHeight": 1018
+                  "imageWidth": 1024,
+                  "imageHeight": 608
                 },
                 {
                   "imageUrl": "uploads/EST 2022/RC/image/page030/block_1.webp",
@@ -13687,15 +13643,14 @@
                       "text": "DGC Price list",
                       "translation": "Bảng giá DGC",
                       "analysis": "Phân tích câu:\n* DGC = Viết tắt của Daneston Gear Company\n* Price list = Bảng giá niêm yết",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 555,
-                          "y0": 45,
-                          "x1": 630,
-                          "y1": 85,
-                          "xPct": 38.12,
-                          "yPct": 8.8
+                          "x0": 326,
+                          "y0": 49,
+                          "x1": 383,
+                          "y1": 68,
+                          "xPct": 40.95,
+                          "yPct": 11.68
                         }
                       ]
                     },
@@ -13704,15 +13659,14 @@
                       "text": "Boat type | Hourly rate | Additional 1/2 hour",
                       "translation": "Loại thuyền | Giá theo giờ | Mỗi 1/2 giờ tiếp theo",
                       "analysis": "Phân tích câu:\n* Boat type = Danh mục chủng loại thuyền\n* Hourly rate = Mức giá tính theo từng giờ\n* Additional 1/2 hour = Mức phí cho mỗi nửa giờ phát sinh thêm",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 245,
-                          "y0": 120,
-                          "x1": 340,
-                          "y1": 160,
-                          "xPct": 16.83,
-                          "yPct": 16.56
+                          "x0": 208,
+                          "y0": 91,
+                          "x1": 258,
+                          "y1": 109,
+                          "xPct": 26.13,
+                          "yPct": 18.73
                         }
                       ]
                     },
@@ -13721,15 +13675,14 @@
                       "text": "Option 1: 2-person canoe ($13 / $8)",
                       "translation": "Lựa chọn 1: Xuồng canoe 2 người ($13/giờ đầu, $8 mỗi 1/2 giờ tiếp theo)",
                       "analysis": "Phân tích câu:\n* canoe = Xuồng ba lá, thuyền độc mộc\n* 2-person canoe = Thuyền canoe 2 chỗ ngồi",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 80,
-                          "y0": 240,
-                          "x1": 195,
-                          "y1": 285,
-                          "xPct": 5.49,
-                          "yPct": 29.5
+                          "x0": 85,
+                          "y0": 157,
+                          "x1": 162,
+                          "y1": 181,
+                          "xPct": 10.68,
+                          "yPct": 31.1
                         }
                       ]
                     },
@@ -13738,15 +13691,14 @@
                       "text": "Option 2: 3-person canoe ($15 / $8)",
                       "translation": "Lựa chọn 2: Xuồng canoe 3 người ($15/giờ đầu, $8 mỗi 1/2 giờ tiếp theo)",
                       "analysis": "Phân tích câu:\n* 3-person canoe = Thuyền canoe 3 chỗ ngồi",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 80,
-                          "y0": 315,
-                          "x1": 195,
-                          "y1": 360,
-                          "xPct": 5.49,
-                          "yPct": 37.27
+                          "x0": 85,
+                          "y0": 197,
+                          "x1": 162,
+                          "y1": 222,
+                          "xPct": 10.68,
+                          "yPct": 38.14
                         }
                       ]
                     },
@@ -13755,15 +13707,14 @@
                       "text": "Option 3: 1-person kayak ($11 / $8)",
                       "translation": "Lựa chọn 3: Thuyền kayak 1 người ($11/giờ đầu, $8 mỗi 1/2 giờ tiếp theo)",
                       "analysis": "Phân tích câu:\n* kayak = Thuyền kayak\n* 1-person kayak = Thuyền kayak 1 chỗ ngồi (dẫn chứng trả lời Q197)",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 80,
-                          "y0": 390,
-                          "x1": 195,
-                          "y1": 435,
-                          "xPct": 5.49,
-                          "yPct": 45.03
+                          "x0": 84,
+                          "y0": 237,
+                          "x1": 162,
+                          "y1": 262,
+                          "xPct": 10.55,
+                          "yPct": 45.02
                         }
                       ]
                     },
@@ -13772,15 +13723,14 @@
                       "text": "Option 4: 2-person kayak ($14 / $8)",
                       "translation": "Lựa chọn 4: Thuyền kayak 2 người ($14/giờ đầu, $8 mỗi 1/2 giờ tiếp theo)",
                       "analysis": "Phân tích câu:\n* 2-person kayak = Thuyền kayak 2 chỗ ngồi",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 80,
-                          "y0": 465,
-                          "x1": 195,
-                          "y1": 510,
-                          "xPct": 5.49,
-                          "yPct": 52.8
+                          "x0": 84,
+                          "y0": 277,
+                          "x1": 162,
+                          "y1": 302,
+                          "xPct": 10.55,
+                          "yPct": 51.89
                         }
                       ]
                     },
@@ -13789,15 +13739,14 @@
                       "text": "Option 5: 3- or 4-person rowboat (3 adults or 2 adults and 2 small children) ($13 / $9)",
                       "translation": "Lựa chọn 5: Thuyền chèo tay rowboat 3 hoặc 4 người (3 người lớn hoặc 2 người lớn và 2 trẻ nhỏ) ($13/giờ đầu, $9 mỗi 1/2 giờ tiếp theo)",
                       "analysis": "Phân tích câu:\n* rowboat = Thuyền chèo bằng mái chèo tay\n* $13 = Giá thuê 1 giờ đầu (Hourly rate, dẫn chứng trả lời Q198)",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 80,
-                          "y0": 540,
-                          "x1": 195,
-                          "y1": 585,
-                          "xPct": 5.49,
-                          "yPct": 60.56
+                          "x0": 84,
+                          "y0": 317,
+                          "x1": 161,
+                          "y1": 342,
+                          "xPct": 10.55,
+                          "yPct": 58.76
                         }
                       ]
                     },
@@ -13806,15 +13755,14 @@
                       "text": "We are open every day from April to October, 10:00 A.M. to 6:30 P.M.",
                       "translation": "Chúng tôi mở cửa hàng ngày từ tháng 4 đến tháng 10, từ 10:00 sáng đến 6:30 chiều.",
                       "analysis": "Phân tích câu:\n* open every day = Mở cửa mỗi ngày\n* from April to October = Từ tháng Tư đến tháng Mười",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 50,
-                          "y0": 705,
-                          "x1": 110,
-                          "y1": 735,
-                          "xPct": 3.43,
-                          "yPct": 76.09
+                          "x0": 58,
+                          "y0": 413,
+                          "x1": 91,
+                          "y1": 430,
+                          "xPct": 7.29,
+                          "yPct": 73.88
                         }
                       ]
                     },
@@ -13823,15 +13771,14 @@
                       "text": "All boats must be returned by 6:15 P.M. on the day they are rented.",
                       "translation": "Tất cả các thuyền phải được trả lại trước 6:15 chiều trong ngày thuê.",
                       "analysis": "Phân tích câu:\n* must be returned = Bắt buộc phải được trả lại (thể bị động)\n* by 6:15 P.M. = Trước 6 giờ 15 phút chiều\n* on the day they are rented = Vào đúng ngày thuê",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 50,
-                          "y0": 750,
-                          "x1": 100,
-                          "y1": 780,
-                          "xPct": 3.43,
-                          "yPct": 80.75
+                          "x0": 58,
+                          "y0": 438,
+                          "x1": 87,
+                          "y1": 457,
+                          "xPct": 7.29,
+                          "yPct": 78.52
                         }
                       ]
                     },
@@ -13840,15 +13787,14 @@
                       "text": "Life jackets and paddles are included in the rental fee.",
                       "translation": "Áo phao và mái chèo đã được bao gồm trong phí thuê thuyền.",
                       "analysis": "Phân tích câu:\n* Life jackets = Áo phao cứu sinh (dẫn chứng trả lời Q200)\n* paddles = Mái chèo thuyền\n* are included in = Được bao gồm trong\n* rental fee = Chi phí thuê thuyền",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 50,
-                          "y0": 795,
-                          "x1": 110,
-                          "y1": 825,
-                          "xPct": 3.43,
-                          "yPct": 85.4
+                          "x0": 60,
+                          "y0": 464,
+                          "x1": 97,
+                          "y1": 484,
+                          "xPct": 7.54,
+                          "yPct": 83.16
                         }
                       ]
                     },
@@ -13857,21 +13803,20 @@
                       "text": "Groups of ten or more qualify for a discount if they book at least one week in advance.",
                       "translation": "Các nhóm từ mười người trở lên sẽ đủ điều kiện được giảm giá nếu đặt trước ít nhất một tuần.",
                       "analysis": "Phân tích câu:\n* Groups of ten or more = Các đoàn/nhóm từ 10 người trở lên (dẫn chứng trả lời Q199)\n* qualify for a discount = Đủ điều kiện để nhận chiết khấu/giảm giá\n* at least one week in advance = Trước ít nhất một tuần",
-                      "keepRegion": true,
                       "regions": [
                         {
-                          "x0": 50,
-                          "y0": 845,
-                          "x1": 150,
-                          "y1": 880,
-                          "xPct": 3.43,
-                          "yPct": 91.1
+                          "x0": 59,
+                          "y0": 492,
+                          "x1": 133,
+                          "y1": 517,
+                          "xPct": 7.41,
+                          "yPct": 88.83
                         }
                       ]
                     }
                   ],
-                  "imageWidth": 1456,
-                  "imageHeight": 966
+                  "imageWidth": 796,
+                  "imageHeight": 582
                 }
               ],
               "questions": [
