@@ -1886,10 +1886,15 @@ const ResultViewer = {
         ? ((firstR.y0 / refH) * 100)
         : Math.max(0, sy1Pct - 2.6);
 
-      if (prefix === 'lb_' && sy1Pct > 50) {
-        // Trong chế độ Lightbox toàn màn hình, nếu câu ở nửa dưới thì hiển thị phía trên để không chạm dock ở đáy
-        card.style.bottom = `calc(${Math.min(88, Math.max(3, 100 - sy0Pct)).toFixed(2)}% + 12px)`;
-        card.style.top = 'auto';
+      if (prefix === 'lb_') {
+        // Trong chế độ Lightbox zoom toàn màn hình: ảnh căn ở đầu, đặt popup ngay dưới ảnh để không che mất nội dung bài đọc
+        card.style.top = 'calc(100% + 10px)';
+        card.style.bottom = 'auto';
+        if (typeof card.scrollIntoView === 'function') {
+          try {
+            card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          } catch (_) {}
+        }
       } else {
         // Dịch xuống dưới tọa độ câu một khoảng rõ ràng (10px), cho phép tràn xuống dưới ra ngoài ảnh
         card.style.top = `calc(${Math.min(96, sy1Pct).toFixed(2)}% + 10px)`;

@@ -627,7 +627,9 @@
   }
 
   .lightbox-sentence-popover {
-    max-height: min(240px, 42vh) !important;
+    width: min(97vw, 680px) !important;
+    max-width: 97vw !important;
+    max-height: min(240px, 36vh) !important;
   }
 
   .sentence-lookup-header {
