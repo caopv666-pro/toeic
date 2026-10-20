@@ -589,6 +589,11 @@
     font-size: var(--badge-font, clamp(5.5px, 1.55cqw, 8.5px));
   }
 
+  .lightbox-sentence-btn {
+    padding: 5px 9px;
+    font-size: 0.74rem;
+  }
+
   /* Action buttons on Result page */
   .result-hero .result-action-btns .btn {
     width: 100%;
@@ -607,6 +612,22 @@
     width: 97%;
     max-height: min(260px, 54vh);
     padding: 7px 9px;
+  }
+
+  .lightbox-sentence-dock {
+    bottom: max(12px, env(safe-area-inset-bottom, 12px));
+    max-width: 96vw;
+    padding: 6px 8px;
+    gap: 6px;
+  }
+
+  .lightbox-sentence-btn {
+    padding: 5px 11px;
+    font-size: 0.78rem;
+  }
+
+  .lightbox-sentence-popover {
+    max-height: min(240px, 42vh) !important;
   }
 
   .sentence-lookup-header {

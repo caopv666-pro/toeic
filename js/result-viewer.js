@@ -1792,6 +1792,19 @@ const ResultViewer = {
     }
   },
 
+  handleSentenceBtnClick(gid, pIdx, sIdx, prefix = 'lb_') {
+    const card = document.getElementById(`sentence_card_${prefix}${gid}_${pIdx}`);
+    const currentBtn = document.getElementById(`btn_${prefix}${gid}_${pIdx}_${sIdx}`);
+    const isCurrentActive = currentBtn && currentBtn.classList.contains('active');
+    const isCardVisible = card && card.style.display !== 'none';
+
+    if (isCurrentActive && isCardVisible) {
+      this.closeSentenceCard(gid, pIdx, prefix);
+    } else {
+      this.selectSentence(gid, pIdx, sIdx, prefix);
+    }
+  },
+
   selectSentence(gid, pIdx, sIdx, prefix = '') {
     const passage = this.getPassage(gid, pIdx);
     if (!passage || !passage.sentences || !passage.sentences[sIdx]) return;
@@ -1801,6 +1814,25 @@ const ResultViewer = {
     if (layer) {
       layer.querySelectorAll('.sentence-overlay-box').forEach(b => b.classList.remove('active'));
       layer.querySelectorAll(`.sentence-box-${prefix}${gid}-${pIdx}-${sIdx}`).forEach(b => b.classList.add('active'));
+    }
+
+    // Đồng bộ trạng thái active của nút câu trong thanh dock (nếu đang ở màn hình zoom Lightbox)
+    const dock = document.getElementById(`sentence_dock_${prefix}${gid}_${pIdx}`);
+    if (dock) {
+      dock.querySelectorAll('.lightbox-sentence-btn').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      const activeBtn = document.getElementById(`btn_${prefix}${gid}_${pIdx}_${sIdx}`);
+      if (activeBtn) {
+        activeBtn.classList.add('active');
+        activeBtn.setAttribute('aria-pressed', 'true');
+        if (typeof activeBtn.scrollIntoView === 'function') {
+          try {
+            activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          } catch (_) {}
+        }
+      }
     }
 
     const card = document.getElementById(`sentence_card_${prefix}${gid}_${pIdx}`);
@@ -1837,9 +1869,9 @@ const ResultViewer = {
         ? ((firstR.y0 / refH) * 100)
         : Math.max(0, sy1Pct - 2.6);
 
-      if (prefix === 'lb_' && sy1Pct > 65) {
-        // Trong chế độ Lightbox toàn màn hình, nếu câu ở sát đáy thì hiển thị phía trên
-        card.style.bottom = `calc(${Math.min(88, Math.max(3, 100 - sy0Pct)).toFixed(2)}% + 10px)`;
+      if (prefix === 'lb_' && sy1Pct > 50) {
+        // Trong chế độ Lightbox toàn màn hình, nếu câu ở nửa dưới thì hiển thị phía trên để không chạm dock ở đáy
+        card.style.bottom = `calc(${Math.min(88, Math.max(3, 100 - sy0Pct)).toFixed(2)}% + 12px)`;
         card.style.top = 'auto';
       } else {
         // Dịch xuống dưới tọa độ câu một khoảng rõ ràng (10px), cho phép tràn xuống dưới ra ngoài ảnh
@@ -1865,6 +1897,14 @@ const ResultViewer = {
     if (layer) {
       layer.querySelectorAll('.sentence-overlay-box').forEach(b => b.classList.remove('active'));
     }
+
+    const dock = document.getElementById(`sentence_dock_${prefix}${gid}_${pIdx}`);
+    if (dock) {
+      dock.querySelectorAll('.lightbox-sentence-btn').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+    }
   },
 
   openPassageLightbox(gid, pIdx, url) {
@@ -1876,6 +1916,10 @@ const ResultViewer = {
     const imgEl = modal.querySelector('#lightbox-modal-img');
     const container = modal.querySelector('.lightbox-img-container') || (imgEl && imgEl.parentElement);
     if (!imgEl || !container || typeof document.createElement !== 'function') return opened;
+
+    // Dọn dẹp dock cũ nếu có trong modal
+    const prevDock = modal.querySelector('.lightbox-sentence-dock');
+    if (prevDock && typeof prevDock.remove === 'function') prevDock.remove();
 
     // Tạo lớp tọa độ câu và thẻ popup dịch câu ngay trong chế độ kính lúp (Lightbox)
     const overlaysLayer = document.createElement('div');
@@ -1898,6 +1942,35 @@ const ResultViewer = {
       <div class="sentence-text-note" id="sentence_note_lb_${gid}_${pIdx}"></div>
     `;
     container.appendChild(popover);
+
+    // Tạo thanh dock chứa các nút câu ở dưới cùng nếu bài đọc có dữ liệu sentences
+    const passage = this.getPassage(gid, pIdx);
+    if (passage && Array.isArray(passage.sentences) && passage.sentences.length > 0) {
+      const dock = document.createElement('div');
+      dock.className = 'lightbox-sentence-dock';
+      dock.id = `sentence_dock_lb_${gid}_${pIdx}`;
+      dock.setAttribute('role', 'toolbar');
+      dock.setAttribute('aria-label', 'Danh sách câu bài đọc');
+      dock.onclick = (e) => e.stopPropagation();
+
+      passage.sentences.forEach((s, sIdx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'lightbox-sentence-btn';
+        btn.id = `btn_lb_${gid}_${pIdx}_${sIdx}`;
+        btn.setAttribute('data-sidx', `${sIdx}`);
+        btn.setAttribute('aria-pressed', 'false');
+        btn.setAttribute('aria-label', `Xem dịch và giải thích câu ${sIdx + 1}`);
+        btn.textContent = `Câu ${sIdx + 1}`;
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          this.handleSentenceBtnClick(gid, pIdx, sIdx, 'lb_');
+        };
+        dock.appendChild(btn);
+      });
+
+      modal.appendChild(dock);
+    }
 
     const bindOverlays = () => {
       this.setupPassageOverlays(imgEl, gid, pIdx, 'lb_');

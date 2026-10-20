@@ -772,6 +772,116 @@
   transform: scale(1.1);
 }
 
+/* ── Lightbox Bottom Sentence Dock & Controls ── */
+.lightbox-sentence-dock {
+  position: fixed;
+  bottom: max(16px, env(safe-area-inset-bottom, 16px));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1020;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: min(92vw, 840px);
+  padding: 8px 12px;
+  background: rgba(15, 23, 42, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.lightbox-sentence-dock::-webkit-scrollbar {
+  height: 4px;
+}
+
+.lightbox-sentence-dock::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.lightbox-sentence-dock::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.lightbox-sentence-btn {
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.12);
+  color: #f8fafc;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: var(--radius-full);
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+  user-select: none;
+  outline: none;
+}
+
+.lightbox-sentence-btn:hover {
+  background: rgba(255, 255, 255, 0.24);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.45);
+  transform: translateY(-1px);
+}
+
+.lightbox-sentence-btn:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.lightbox-sentence-btn.active,
+.lightbox-sentence-btn[aria-pressed="true"] {
+  background: var(--accent-primary);
+  color: #ffffff;
+  border-color: var(--accent-primary);
+  box-shadow: 0 2px 10px rgba(99, 102, 241, 0.6);
+  font-weight: 700;
+  transform: scale(1.04);
+}
+
+[data-theme="light"] .lightbox-sentence-dock {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(15, 23, 42, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+[data-theme="light"] .lightbox-sentence-dock::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+[data-theme="light"] .lightbox-sentence-btn {
+  background: #f1f5f9;
+  color: #334155;
+  border-color: #cbd5e1;
+}
+
+[data-theme="light"] .lightbox-sentence-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+  border-color: #94a3b8;
+}
+
+[data-theme="light"] .lightbox-sentence-btn.active,
+[data-theme="light"] .lightbox-sentence-btn[aria-pressed="true"] {
+  background: var(--accent-primary);
+  color: #ffffff;
+  border-color: var(--accent-primary);
+  box-shadow: 0 2px 10px rgba(79, 70, 229, 0.4);
+}
+
+.lightbox-sentence-popover {
+  z-index: 1030 !important;
+  max-height: min(280px, 45vh) !important;
+}
+
 /* ── Question Palette (200 Question Grid) ── */
 .palette-container {
   display: flex;
