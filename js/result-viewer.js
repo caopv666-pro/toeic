@@ -1080,7 +1080,7 @@ const ResultViewer = {
           ` : `<div></div>`}
           ${nextPart ? `
             <button type="button" class="btn btn-primary" onclick="ResultViewer.setPartFilter('${nextPart}'); window.scrollTo({top: Math.max(0, (document.getElementById('detailed-review-section')?.offsetTop || 0) - 80), behavior: 'smooth'});" style="margin-left: auto;">
-              Part tiếp theo: Part ${curIdx + 1} ➔
+              Part ${curIdx + 1} ➔
             </button>
           ` : `<div></div>`}
         </div>

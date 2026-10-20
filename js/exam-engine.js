@@ -804,7 +804,7 @@ const ExamEngine = {
           ` : `<div></div>`}
           ${nextMeta ? `
             <button type="button" class="btn btn-primary" onclick="ExamEngine.switchExamPart('${nextMeta.key}', true)" aria-label="Chuyển sang ${nextMeta.badge}" style="margin-left: auto;">
-              Tiếp theo: ${nextMeta.badge} (${nextMeta.range}) ➔
+              ${nextMeta.badge} ➔
             </button>
           ` : `
             <button type="button" class="btn btn-danger" onclick="ExamEngine.confirmSubmit()" aria-label="Nộp bài và xem điểm" style="margin-left: auto;">
