@@ -187,8 +187,6 @@ const StorageService = {
         questionNumber: q.questionNumber,
         part: q.part,
         groupId: q.groupId,
-        imageUrl: q.imageUrl || '',
-        expectedRange: q.expectedRange || null,
         userChoice: q.userChoice,
         correctChoice: q.correctChoice,
         isCorrect: q.isCorrect
@@ -439,7 +437,7 @@ const StorageService = {
     }
   },
 
-  // Temporary storage for result page viewing
+  // Temporary storage for result page viewing (stores ONLY user answers & score summary; media/coords/explanations are always loaded from DB)
   setCurrentResult(result) {
     // 1. Type Safety & Payload Validation (Object Contract)
     if (!result || typeof result !== 'object' || Array.isArray(result)) {
@@ -455,7 +453,21 @@ const StorageService = {
 
     let serialized;
     try {
-      serialized = JSON.stringify(result);
+      const rawDetailed = Array.isArray(result.detailedQuestions)
+        ? result.detailedQuestions.filter(q => q && typeof q === 'object')
+        : [];
+      const slimDetailed = rawDetailed.map(q => ({
+        questionNumber: q.questionNumber,
+        part: q.part,
+        groupId: q.groupId,
+        userChoice: q.userChoice,
+        correctChoice: q.correctChoice,
+        isCorrect: q.isCorrect
+      }));
+      serialized = JSON.stringify({
+        ...result,
+        detailedQuestions: slimDetailed
+      });
     } catch (err) {
       console.warn('Failed to serialize result object in setCurrentResult:', err);
       return false;
@@ -464,27 +476,6 @@ const StorageService = {
     const key = this.LATEST_RESULT_KEY || 'toeic_latest_result';
     let saved = false;
 
-    const buildSlimSerialized = () => {
-      try {
-        const rawDetailed = Array.isArray(result.detailedQuestions)
-          ? result.detailedQuestions.filter(q => q && typeof q === 'object')
-          : [];
-        const slimDetailed = rawDetailed.map(q => ({
-          questionNumber: q.questionNumber,
-          part: q.part,
-          groupId: q.groupId,
-          imageUrl: q.imageUrl || '',
-          expectedRange: q.expectedRange || null,
-          userChoice: q.userChoice,
-          correctChoice: q.correctChoice,
-          isCorrect: q.isCorrect
-        }));
-        return JSON.stringify({ ...result, detailedQuestions: slimDetailed });
-      } catch (_) {
-        return null;
-      }
-    };
-
     // 2. Try saving to sessionStorage first (primary for current tab session)
     if (sessStorage) {
       try {
@@ -492,14 +483,7 @@ const StorageService = {
         sessStorage.setItem(key, serialized);
         saved = true;
       } catch (e) {
-        const slimStr = buildSlimSerialized();
-        if (slimStr) {
-          try {
-            sessStorage.setItem(key, slimStr);
-            saved = true;
-          } catch (_) {}
-        }
-        if (!saved) console.warn('sessionStorage failed in setCurrentResult:', e);
+        console.warn('sessionStorage failed in setCurrentResult:', e);
       }
     }
 
@@ -510,13 +494,6 @@ const StorageService = {
         storage.setItem(key, serialized);
         saved = true;
       } catch (err) {
-        const slimStr = buildSlimSerialized();
-        if (slimStr) {
-          try {
-            storage.setItem(key, slimStr);
-            saved = true;
-          } catch (_) {}
-        }
         if (!saved) {
           console.error('All storage attempts failed in setCurrentResult:', err);
         }
