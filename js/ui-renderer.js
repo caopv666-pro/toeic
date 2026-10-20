@@ -539,6 +539,8 @@ const UIRenderer = {
       if (prevPopover && typeof prevPopover.remove === 'function') prevPopover.remove();
       const prevDock = modal.querySelector('.lightbox-sentence-dock');
       if (prevDock && typeof prevDock.remove === 'function') prevDock.remove();
+      const prevToolbar = modal.querySelector('.lightbox-coord-toolbar');
+      if (prevToolbar && typeof prevToolbar.remove === 'function') prevToolbar.remove();
       imgEl.onload = null;
       imgEl.onclick = null;
       imgEl.style.display = '';
@@ -588,6 +590,8 @@ const UIRenderer = {
 
     const prevDock = modal.querySelector('.lightbox-sentence-dock');
     if (prevDock && typeof prevDock.remove === 'function') prevDock.remove();
+    const prevToolbar = modal.querySelector('.lightbox-coord-toolbar');
+    if (prevToolbar && typeof prevToolbar.remove === 'function') prevToolbar.remove();
 
     // Restore background scrolling
     if (document.body) {

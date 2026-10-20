@@ -7,7 +7,7 @@ const AppConfig = {
   // Self-hosted static database and media assets in toeic-web
   // Empty API_BASE_URL loads all data and assets locally from current origin (no port 3000 needed)
   API_BASE_URL: '',
-  ASSET_VERSION: '20261020a',
+  ASSET_VERSION: '20261020_mvg5y5ia',
   BOOK_NAME: 'EST 2022',
   BOOKS: {
     'EST 2022': { label: 'ETS 2022', dbFile: 'data/database_EST_2022.json' },

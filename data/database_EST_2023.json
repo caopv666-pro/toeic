@@ -65784,70 +65784,386 @@
                       "analysis": "Phân tích câu:\n* Tên người gửi bức thư.",
                       "regions": [
                         {
-                          "x0": 88,
-                          "y0": 65,
-                          "x1": 154,
-                          "y1": 84,
-                          "xPct": 14.4,
-                          "yPct": 41.38
+                          "x0": 42,
+                          "y0": 3,
+                          "x1": 108,
+                          "y1": 22,
+                          "xPct": 4.76,
+                          "yPct": 3.58
                         }
                       ],
-                      "confidence": 95,
-                      "keepRegion": true
+                      "confidence": 95
                     },
                     {
                       "id": "s2",
-                      "text": "Raxconnect, Inc. 620 Weir Road",
-                      "translation": "Công ty Raxconnect, Inc., Số 620 Đường Weir",
-                      "analysis": "Phân tích câu:\n* Tên công ty và địa chỉ đường của trụ sở.",
+                      "text": "Raxconnect, Inc.",
+                      "translation": "Công ty Raxconnect, Inc.",
+                      "analysis": "Phân tích câu:\n* Tên công ty gửi thư.",
                       "regions": [
                         {
-                          "x0": 87,
-                          "y0": 86,
-                          "x1": 193,
-                          "y1": 104,
-                          "xPct": 14.24,
-                          "yPct": 51.23
+                          "x0": 41,
+                          "y0": 24,
+                          "x1": 147,
+                          "y1": 42,
+                          "xPct": 4.65,
+                          "yPct": 6.83
                         }
-                      ],
-                      "confidence": 88,
-                      "keepRegion": true
+                      ]
                     },
                     {
                       "id": "s3",
+                      "text": "620 Weir Road",
+                      "translation": "Số 620 Đường Weir",
+                      "analysis": "Phân tích câu:\n* Địa chỉ đường của trụ sở công ty.",
+                      "regions": [
+                        {
+                          "x0": 42,
+                          "y0": 46,
+                          "x1": 72,
+                          "y1": 60,
+                          "xPct": 4.76,
+                          "yPct": 9.76
+                        }
+                      ]
+                    },
+                    {
+                      "id": "s4",
                       "text": "Glasgow G91 9HX",
                       "translation": "Thành phố Glasgow, mã bưu chính G91 9HX",
                       "analysis": "Phân tích câu:\n* Thành phố và mã bưu chính của người gửi.",
                       "regions": [
                         {
-                          "x0": 88,
-                          "y0": 128,
-                          "x1": 162,
-                          "y1": 147,
-                          "xPct": 14.4,
-                          "yPct": 72.41
+                          "x0": 42,
+                          "y0": 66,
+                          "x1": 116,
+                          "y1": 85,
+                          "xPct": 4.76,
+                          "yPct": 13.82
                         }
                       ],
-                      "confidence": 77,
-                      "keepRegion": true
+                      "confidence": 77
                     },
                     {
-                      "id": "s4",
+                      "id": "s5",
                       "text": "11 March",
                       "translation": "Ngày 11 tháng 3",
                       "analysis": "Phân tích câu:\n* Ngày viết bức thư.",
                       "regions": [
                         {
-                          "x0": 88,
-                          "y0": 166,
-                          "x1": 106,
-                          "y1": 180,
-                          "xPct": 14.4,
-                          "yPct": 88.67
+                          "x0": 42,
+                          "y0": 103,
+                          "x1": 60,
+                          "y1": 118,
+                          "xPct": 4.76,
+                          "yPct": 19.19
                         }
                       ],
-                      "confidence": 96,
-                      "keepRegion": true
+                      "confidence": 96
+                    },
+                    {
+                      "id": "s6",
+                      "text": "Alyssa Susilo",
+                      "translation": "Người nhận: Alyssa Susilo",
+                      "analysis": "Phân tích câu:\n* Tên người nhận bức thư.",
+                      "regions": [
+                        {
+                          "x0": 40,
+                          "y0": 145,
+                          "x1": 99,
+                          "y1": 164,
+                          "xPct": 4.54,
+                          "yPct": 26.67
+                        }
+                      ],
+                      "confidence": 96
+                    },
+                    {
+                      "id": "s7",
+                      "text": "29 Lefroy Street",
+                      "translation": "Địa chỉ: Số 29 Phố Lefroy",
+                      "analysis": "Phân tích câu:\n* Địa chỉ nhà của cô Alyssa Susilo.",
+                      "regions": [
+                        {
+                          "x0": 41,
+                          "y0": 167,
+                          "x1": 61,
+                          "y1": 182,
+                          "xPct": 4.65,
+                          "yPct": 29.59
+                        }
+                      ],
+                      "confidence": 95
+                    },
+                    {
+                      "id": "s8",
+                      "text": "Glasgow G3 7BQ",
+                      "translation": "Thành phố Glasgow, mã bưu chính G3 7BQ",
+                      "analysis": "Phân tích câu:\n* Thành phố và mã bưu chính (khu vực Finnieston).",
+                      "regions": [
+                        {
+                          "x0": 41,
+                          "y0": 188,
+                          "x1": 115,
+                          "y1": 207,
+                          "xPct": 4.65,
+                          "yPct": 33.66
+                        }
+                      ],
+                      "confidence": 63
+                    },
+                    {
+                      "id": "s9",
+                      "text": "Dear Ms. Susilo,",
+                      "translation": "Kính gửi cô Susilo,",
+                      "analysis": "Phân tích câu:\n* Lời chào mở đầu bức thư.",
+                      "regions": [
+                        {
+                          "x0": 40,
+                          "y0": 225,
+                          "x1": 83,
+                          "y1": 240,
+                          "xPct": 4.54,
+                          "yPct": 39.02
+                        }
+                      ],
+                      "confidence": 95
+                    },
+                    {
+                      "id": "s10",
+                      "text": "As you may know, Raxconnect has been expanding its services in the Glasgow area over the past year.",
+                      "translation": "Như cô có thể đã biết, Raxconnect đã và đang mở rộng các dịch vụ của mình tại khu vực Glasgow trong suốt năm qua.",
+                      "analysis": "Phân tích câu:\n* As you may know = Như cô có thể đã biết\n* Raxconnect has been expanding its services in the Glasgow area over the past year. = Raxconnect đã và đang mở rộng các dịch vụ của mình tại khu vực Glasgow trong suốt năm qua.\n\nCấu trúc:\n* has been expanding: thì hiện tại hoàn thành tiếp diễn diễn tả quá trình mở rộng dịch vụ suốt 1 năm qua.",
+                      "regions": [
+                        {
+                          "x0": 39,
+                          "y0": 262,
+                          "x1": 62,
+                          "y1": 277,
+                          "xPct": 4.42,
+                          "yPct": 45.04
+                        }
+                      ],
+                      "confidence": 91
+                    },
+                    {
+                      "id": "s11",
+                      "text": "Our new fibre-optic cable lines offer faster and more reliable service and eliminate the need for aboveground wiring.",
+                      "translation": "Các đường truyền cáp quang mới của chúng tôi mang lại dịch vụ nhanh hơn, đáng tin cậy hơn và loại bỏ nhu cầu đi dây nổi trên mặt đất.",
+                      "analysis": "Phân tích câu:\n* fibre-optic cable lines: đường truyền cáp quang\n* eliminate the need for aboveground wiring: xóa bỏ sự cần thiết của hệ thống dây điện/cáp nổi.",
+                      "regions": [
+                        {
+                          "x0": 215,
+                          "y0": 283,
+                          "x1": 249,
+                          "y1": 298,
+                          "xPct": 24.38,
+                          "yPct": 48.46
+                        }
+                      ],
+                      "confidence": 95
+                    },
+                    {
+                      "id": "s12",
+                      "text": "In order for the system to work, we need to install Internet connection devices throughout the city.",
+                      "translation": "Để hệ thống có thể vận hành, chúng tôi cần lắp đặt các thiết bị kết nối Internet trên khắp thành phố.",
+                      "analysis": "Phân tích câu:\n* In order for the system to work = Để hệ thống có thể vận hành\n* we need to install Internet connection devices throughout the city. = chúng tôi cần lắp đặt các thiết bị kết nối Internet trên khắp thành phố.\n* In order for + N + to V: Để cho cái gì làm gì.\n\nCấu trúc:\n* Cụm động từ nguyên mẫu có \"to\" (to-infinitive) chỉ mục đích hoặc bổ nghĩa cho động từ/tính từ phía trước.",
+                      "regions": [
+                        {
+                          "x0": 544,
+                          "y0": 304,
+                          "x1": 563,
+                          "y1": 319,
+                          "xPct": 61.68,
+                          "yPct": 51.87
+                        }
+                      ],
+                      "confidence": 95
+                    },
+                    {
+                      "id": "s13",
+                      "text": "Phase 1 of our construction work involved City Centre.",
+                      "translation": "Giai đoạn 1 trong công tác thi công của chúng tôi liên quan đến khu Trung tâm Thành phố (City Centre).",
+                      "analysis": "Phân tích câu:\n* Phase 1 involved City Centre: Giai đoạn 1 triển khai ở khu trung tâm.",
+                      "regions": [
+                        {
+                          "x0": 699,
+                          "y0": 324,
+                          "x1": 753,
+                          "y1": 339,
+                          "xPct": 79.25,
+                          "yPct": 55.12
+                        }
+                      ],
+                      "confidence": 96
+                    },
+                    {
+                      "id": "s14",
+                      "text": "Phase 2 involved West End.",
+                      "translation": "Giai đoạn 2 triển khai tại khu West End.",
+                      "analysis": "Phân tích câu:\n* Phase 2 involved West End: Giai đoạn 2 triển khai ở khu phía Tây.",
+                      "regions": [
+                        {
+                          "x0": 442,
+                          "y0": 346,
+                          "x1": 495,
+                          "y1": 361,
+                          "xPct": 50.11,
+                          "yPct": 58.7
+                        }
+                      ],
+                      "confidence": 95
+                    },
+                    {
+                      "id": "s15",
+                      "text": "Although Phase 2 took longer than expected, we were able to expedite Phase 3 and get back on schedule.",
+                      "translation": "Mặc dù Giai đoạn 2 kéo dài lâu hơn dự kiến, chúng tôi đã có thể đẩy nhanh tiến độ Giai đoạn 3 và bắt kịp lại lịch trình.",
+                      "analysis": "Phân tích câu:\n* expedite Phase 3: đẩy nhanh tiến độ Giai đoạn 3 (triển khai tại khu Southside)\n* get back on schedule: quay trở lại đúng tiến độ.",
+                      "regions": [
+                        {
+                          "x0": 696,
+                          "y0": 345,
+                          "x1": 781,
+                          "y1": 365,
+                          "xPct": 78.91,
+                          "yPct": 59.35
+                        }
+                      ],
+                      "confidence": 95
+                    },
+                    {
+                      "id": "s16",
+                      "text": "Phase 4 is now ready to begin in your area.",
+                      "translation": "Giai đoạn 4 hiện đã sẵn sàng để bắt đầu tại khu vực của cô.",
+                      "analysis": "Phân tích câu:\n* Phase 4 is now ready to begin in your area: Giai đoạn 4 chuẩn bị khởi công tại khu phố của người nhận (Finnieston).",
+                      "regions": [
+                        {
+                          "x0": 157,
+                          "y0": 388,
+                          "x1": 210,
+                          "y1": 404,
+                          "xPct": 17.8,
+                          "yPct": 65.69
+                        }
+                      ],
+                      "confidence": 95
+                    },
+                    {
+                      "id": "s17",
+                      "text": "Raxconnect would like to place a small Internet connection hub on your property at 29 Lefroy Street.",
+                      "translation": "Raxconnect mong muốn đặt một bộ chia kết nối Internet nhỏ trên phần bất động sản của cô tại số 29 Phố Lefroy.",
+                      "analysis": "Phân tích câu:\n* Raxconnect would like to place a small Internet = Raxconnect mong muốn đặt một bộ chia kết nối Internet nhỏ\n* connection hub on your property at 29 Lefroy Street. = trên phần bất động sản của cô tại số 29 Phố Lefroy.\n\nCấu trúc:\n* Cụm động từ nguyên mẫu có \"to\" (to-infinitive) chỉ mục đích hoặc bổ nghĩa cho động từ/tính từ phía trước.",
+                      "regions": [
+                        {
+                          "x0": 40,
+                          "y0": 426,
+                          "x1": 141,
+                          "y1": 441,
+                          "xPct": 4.54,
+                          "yPct": 71.71
+                        }
+                      ],
+                      "confidence": 80
+                    },
+                    {
+                      "id": "s18",
+                      "text": "Because of its central location on the street, your front yard would make an optimal connection point.",
+                      "translation": "Nhờ vị trí nằm ở trung tâm trên con phố, khoảng sân trước nhà cô sẽ tạo thành một điểm kết nối tối ưu.",
+                      "analysis": "Phân tích câu:\n* Because of its central location on the street = Nhờ vị trí nằm ở trung tâm trên con phố\n* your front yard would make an optimal connection point. = khoảng sân trước nhà cô sẽ tạo thành một điểm kết nối tối ưu.\n\nCấu trúc:\n* Because of + cụm danh từ: Bởi vì...\n* optimal connection point: điểm kết nối lý tưởng/tối ưu nhất.",
+                      "regions": [
+                        {
+                          "x0": 198,
+                          "y0": 447,
+                          "x1": 271,
+                          "y1": 462,
+                          "xPct": 22.45,
+                          "yPct": 75.12
+                        }
+                      ]
+                    },
+                    {
+                      "id": "s19",
+                      "text": "Please call us at 0141 496 0001 by 10 April to let us know whether we may proceed.",
+                      "translation": "Vui lòng gọi cho chúng tôi theo số 0141 496 0001 trước ngày 10 tháng 4 để cho chúng tôi biết liệu chúng tôi có được phép tiến hành hay không.",
+                      "analysis": "Phân tích câu:\n* Please call us at 0141 496 0001 by 10 April = Vui lòng gọi cho chúng tôi theo số 0141 496 0001 trước ngày 10 tháng\n* to let us know whether we may proceed. = 4 để cho chúng tôi biết liệu chúng tôi có được phép tiến hành hay không.\n\nCấu trúc:\n* Câu mệnh lệnh lịch sự với \"Please + V-inf\" thường dùng để đưa ra hướng dẫn hoặc yêu cầu trong văn bản thương mại.\n* Cụm động từ nguyên mẫu có \"to\" (to-infinitive) chỉ mục đích hoặc bổ nghĩa cho động từ/tính từ phía trước.",
+                      "regions": [
+                        {
+                          "x0": 418,
+                          "y0": 468,
+                          "x1": 473,
+                          "y1": 483,
+                          "xPct": 47.39,
+                          "yPct": 78.54
+                        }
+                      ],
+                      "confidence": 95
+                    },
+                    {
+                      "id": "s20",
+                      "text": "Thank you.",
+                      "translation": "Xin cảm ơn cô.",
+                      "analysis": "Phân tích câu:\n* Lời cảm ơn cuối thư.",
+                      "regions": [
+                        {
+                          "x0": 488,
+                          "y0": 488,
+                          "x1": 546,
+                          "y1": 504,
+                          "xPct": 55.33,
+                          "yPct": 81.95
+                        }
+                      ],
+                      "confidence": 95
+                    },
+                    {
+                      "id": "s21",
+                      "text": "Sincerely,",
+                      "translation": "Trân trọng,",
+                      "analysis": "Phân tích câu:\n* Lời kết thư.",
+                      "regions": [
+                        {
+                          "x0": 40,
+                          "y0": 526,
+                          "x1": 124,
+                          "y1": 545,
+                          "xPct": 4.54,
+                          "yPct": 88.62
+                        }
+                      ],
+                      "confidence": 95
+                    },
+                    {
+                      "id": "s22",
+                      "text": "Brandy Mortimer",
+                      "translation": "Chữ ký: Brandy Mortimer",
+                      "analysis": "Phân tích câu:\n* Chữ ký của người gửi.",
+                      "regions": [
+                        {
+                          "x0": 40,
+                          "y0": 555,
+                          "x1": 130,
+                          "y1": 580,
+                          "xPct": 4.54,
+                          "yPct": 94.31
+                        }
+                      ],
+                      "confidence": 87
+                    },
+                    {
+                      "id": "s23",
+                      "text": "Brandy Mortimer, Utilities Adviser",
+                      "translation": "Brandy Mortimer, Cố vấn Tiện ích Hạ tầng",
+                      "analysis": "Phân tích câu:\n* Họ tên và chức danh người gửi.",
+                      "regions": [
+                        {
+                          "x0": 39,
+                          "y0": 586,
+                          "x1": 105,
+                          "y1": 605,
+                          "xPct": 4.42,
+                          "yPct": 98.37
+                        }
+                      ],
+                      "confidence": 94
                     }
                   ],
                   "ocrVerify": {
@@ -65875,354 +66191,108 @@
                     "hasMcqOptions": false,
                     "issues": []
                   },
-                  "imageWidth": 611,
-                  "imageHeight": 203,
-                  "passageTranslation": "Brandy Mortimer\nCông ty Raxconnect, Inc., Số 620 Đường Weir\nGlasgow G91 9HX\nNgày 11 tháng 3"
+                  "imageWidth": 882,
+                  "imageHeight": 615,
+                  "passageTranslation": "Người gửi: Brandy Mortimer\nCông ty Raxconnect, Inc.\nSố 620 Đường Weir\nThành phố Glasgow, mã bưu chính G91 9HX\nNgày 11 tháng 3\nNgười nhận: Alyssa Susilo\nĐịa chỉ: Số 29 Phố Lefroy\nThành phố Glasgow, mã bưu chính G3 7BQ\nKính gửi cô Susilo,\nNhư cô có thể đã biết, Raxconnect đã và đang mở rộng các dịch vụ của mình tại khu vực Glasgow trong suốt năm qua.\nCác đường truyền cáp quang mới của chúng tôi mang lại dịch vụ nhanh hơn, đáng tin cậy hơn và loại bỏ nhu cầu đi dây nổi trên mặt đất.\nĐể hệ thống có thể vận hành, chúng tôi cần lắp đặt các thiết bị kết nối Internet trên khắp thành phố.\nGiai đoạn 1 trong công tác thi công của chúng tôi liên quan đến khu Trung tâm Thành phố (City Centre).\nGiai đoạn 2 triển khai tại khu West End.\nMặc dù Giai đoạn 2 kéo dài lâu hơn dự kiến, chúng tôi đã có thể đẩy nhanh tiến độ Giai đoạn 3 và bắt kịp lại lịch trình.\nGiai đoạn 4 hiện đã sẵn sàng để bắt đầu tại khu vực của cô.\nRaxconnect mong muốn đặt một bộ chia kết nối Internet nhỏ trên phần bất động sản của cô tại số 29 Phố Lefroy.\nNhờ vị trí nằm ở trung tâm trên con phố, khoảng sân trước nhà cô sẽ tạo thành một điểm kết nối tối ưu.\nVui lòng gọi cho chúng tôi theo số 0141 496 0001 trước ngày 10 tháng 4 để cho chúng tôi biết liệu chúng tôi có được phép tiến hành hay không.\nXin cảm ơn cô.\nTrân trọng,\nChữ ký: Brandy Mortimer\nBrandy Mortimer, Cố vấn Tiện ích Hạ tầng"
                 },
                 {
                   "imageUrl": "uploads/EST 2023/RC/image/page177/block_2.webp",
                   "sentences": [
                     {
                       "id": "s1",
-                      "text": "Alyssa Susilo",
-                      "translation": "Người nhận: Alyssa Susilo",
-                      "analysis": "Phân tích câu:\n* Tên người nhận bức thư.",
+                      "text": "Raxconnect Expands Service",
+                      "translation": "Raxconnect Mở Rộng Dịch Vụ",
+                      "analysis": "Phân tích câu:\n* Tiêu đề bài báo nói về việc công ty viễn thông Raxconnect mở rộng phạm vi cung cấp dịch vụ.",
                       "regions": [
                         {
-                          "x0": 17,
-                          "y0": 23,
-                          "x1": 76,
-                          "y1": 42,
-                          "xPct": 2.16,
-                          "yPct": 8.24
+                          "x0": 32,
+                          "y0": 9,
+                          "x1": 172,
+                          "y1": 29,
+                          "xPct": 7.16,
+                          "yPct": 5.56
                         }
-                      ],
-                      "confidence": 96,
-                      "keepRegion": true
+                      ]
                     },
                     {
                       "id": "s2",
-                      "text": "29 Lefroy Street",
-                      "translation": "Địa chỉ: Số 29 Phố Lefroy",
-                      "analysis": "Phân tích câu:\n* Địa chỉ nhà của cô Alyssa Susilo.",
+                      "text": "GLASGOW (14 March)—After unexpected delays in West End, Raxconnect has finally completed the latest phase of its project to install fibre-optic cable throughout the city.",
+                      "translation": "GLASGOW (14 tháng 3) — Sau những sự chậm trễ ngoài dự kiến tại khu vực West End, Raxconnect cuối cùng đã hoàn thành giai đoạn mới nhất trong dự án lắp đặt cáp quang trên khắp thành phố.",
+                      "analysis": "Phân tích câu:\n* After unexpected delays in West End = Sau những sự chậm trễ ngoài dự kiến tại West End\n* Raxconnect has finally completed the latest phase of its project = Raxconnect cuối cùng đã hoàn tất giai đoạn mới nhất của dự án\n* to install fibre-optic cable throughout the city. = nhằm lắp đặt cáp quang trên toàn thành phố.\n\nCấu trúc:\n* has finally completed: thì hiện tại hoàn thành diễn tả kết quả vừa đạt được.\n* fibre-optic cable: cáp quang.",
                       "regions": [
                         {
-                          "x0": 18,
-                          "y0": 45,
-                          "x1": 38,
-                          "y1": 60,
-                          "xPct": 2.28,
-                          "yPct": 11.76
+                          "x0": 29,
+                          "y0": 51,
+                          "x1": 125,
+                          "y1": 66,
+                          "xPct": 6.49,
+                          "yPct": 12.64
                         }
-                      ],
-                      "confidence": 95,
-                      "keepRegion": true
+                      ]
                     },
                     {
                       "id": "s3",
-                      "text": "Glasgow G3 7BQ",
-                      "translation": "Thành phố Glasgow, mã bưu chính G3 7BQ",
-                      "analysis": "Phân tích câu:\n* Thành phố và mã bưu chính (khu vực Finnieston).",
+                      "text": "Residents and businesses in Southside are now enjoying faster Internet service.",
+                      "translation": "Người dân và các doanh nghiệp tại khu vực Southside hiện đang được tận hưởng dịch vụ Internet nhanh hơn.",
+                      "analysis": "Phân tích câu:\n* Residents and businesses in Southside = Cư dân và các doanh nghiệp ở khu Southside\n* are now enjoying faster Internet service. = hiện đang được sử dụng dịch vụ Internet tốc độ cao hơn (nhờ vừa hoàn tất Giai đoạn 3).",
                       "regions": [
                         {
-                          "x0": 18,
-                          "y0": 66,
-                          "x1": 92,
-                          "y1": 85,
-                          "xPct": 2.28,
-                          "yPct": 16.67
+                          "x0": 28,
+                          "y0": 136,
+                          "x1": 103,
+                          "y1": 150,
+                          "xPct": 6.26,
+                          "yPct": 28.74
                         }
-                      ],
-                      "confidence": 63,
-                      "keepRegion": true
+                      ]
                     },
                     {
                       "id": "s4",
-                      "text": "Dear Ms. Susilo,",
-                      "translation": "Kính gửi cô Susilo,",
-                      "analysis": "Phân tích câu:\n* Lời chào mở đầu bức thư.",
+                      "text": "For the next phase of the project, in Finnieston, Raxconnect has identified key locations for connection hubs and is currently reaching out to residents and homeowners so that work can begin as soon as possible.",
+                      "translation": "Đối với giai đoạn tiếp theo của dự án tại khu vực Finnieston, Raxconnect đã xác định được các vị trí trọng điểm cho các trạm kết nối và hiện đang liên hệ với cư dân cũng như chủ nhà để công việc thi công có thể bắt đầu sớm nhất có thể.",
+                      "analysis": "Phân tích câu:\n* For the next phase of the project, in Finnieston = Cho giai đoạn tiếp theo của dự án tại khu Finnieston (Giai đoạn 4)\n* Raxconnect has identified key locations for connection hubs = Raxconnect đã xác định các vị trí chiến lược để đặt bộ chia kết nối\n* and is currently reaching out to residents and homeowners = và hiện đang liên hệ với người dân cùng các chủ hộ\n* so that work can begin as soon as possible. = để công tác thi công có thể khởi động sớm nhất có thể.\n\nCấu trúc:\n* reach out to somebody: liên hệ, tiếp cận ai đó.\n* so that + mệnh đề: để mà (chỉ mục đích).",
                       "regions": [
                         {
-                          "x0": 17,
-                          "y0": 104,
-                          "x1": 60,
-                          "y1": 118,
-                          "xPct": 2.16,
-                          "yPct": 23.14
+                          "x0": 28,
+                          "y0": 189,
+                          "x1": 55,
+                          "y1": 203,
+                          "xPct": 6.26,
+                          "yPct": 38.89
                         }
-                      ],
-                      "confidence": 95,
-                      "keepRegion": true
+                      ]
                     },
                     {
                       "id": "s5",
-                      "text": "As you may know, Raxconnect has been expanding its services in the Glasgow area over the past year.",
-                      "translation": "Như cô có thể đã biết, Raxconnect đã và đang mở rộng các dịch vụ của mình tại khu vực Glasgow trong suốt năm qua.",
-                      "analysis": "Phân tích câu:\n* As you may know = Như cô có thể đã biết\n* Raxconnect has been expanding its services in the Glasgow area over the past year. = Raxconnect đã và đang mở rộng các dịch vụ của mình tại khu vực Glasgow trong suốt năm qua.\n\nCấu trúc:\n* has been expanding: thì hiện tại hoàn thành tiếp diễn diễn tả quá trình mở rộng dịch vụ suốt 1 năm qua.",
+                      "text": "The moves follow an announcement made earlier this year that Raxconnect had invested £350 million to expand its network.",
+                      "translation": "Những động thái này diễn ra sau một thông báo được đưa ra hồi đầu năm nay rằng Raxconnect đã đầu tư 350 triệu bảng Anh để mở rộng mạng lưới của mình.",
+                      "analysis": "Phân tích câu:\n* The moves follow an announcement made earlier this year = Những bước đi này tiếp nối một thông báo được đưa ra hồi đầu năm nay\n* that Raxconnect had invested £350 million to expand its network. = rằng Raxconnect đã đầu tư 350 triệu bảng Anh nhằm mở rộng mạng lưới.\n\nCấu trúc:\n* Rút gọn mệnh đề quan hệ dạng bị động: \"announcement [which was] made earlier this year\".",
                       "regions": [
                         {
-                          "x0": 16,
-                          "y0": 140,
-                          "x1": 39,
-                          "y1": 155,
-                          "xPct": 2.03,
-                          "yPct": 30.39
+                          "x0": 28,
+                          "y0": 305,
+                          "x1": 57,
+                          "y1": 319,
+                          "xPct": 6.26,
+                          "yPct": 61.11
                         }
-                      ],
-                      "confidence": 91,
-                      "keepRegion": true
+                      ]
                     },
                     {
                       "id": "s6",
-                      "text": "Our new fibre-optic cable lines offer faster and more reliable service and eliminate the need for aboveground wiring.",
-                      "translation": "Các đường truyền cáp quang mới của chúng tôi mang lại dịch vụ nhanh hơn, đáng tin cậy hơn và loại bỏ nhu cầu đi dây nổi trên mặt đất.",
-                      "analysis": "Phân tích câu:\n* fibre-optic cable lines: đường truyền cáp quang\n* eliminate the need for aboveground wiring: xóa bỏ sự cần thiết của hệ thống dây điện/cáp nổi.",
+                      "text": "Local officials hope that the project brings new business and spending to their neighbourhoods.",
+                      "translation": "Các quan chức địa phương hy vọng rằng dự án sẽ mang lại hoạt động kinh doanh và chi tiêu mới cho các khu phố của họ.",
+                      "analysis": "Phân tích câu:\n* Local officials hope that = Các giới chức địa phương kỳ vọng rằng\n* the project brings new business and spending to their neighbourhoods. = dự án sẽ thu hút thêm doanh nghiệp và sức mua mới đến với các khu dân cư của họ.",
                       "regions": [
                         {
-                          "x0": 192,
-                          "y0": 161,
-                          "x1": 226,
-                          "y1": 176,
-                          "xPct": 24.37,
-                          "yPct": 34.51
-                        }
-                      ],
-                      "confidence": 95,
-                      "keepRegion": true
-                    },
-                    {
-                      "id": "s7",
-                      "text": "In order for the system to work, we need to install Internet connection devices throughout the city.",
-                      "translation": "Để hệ thống có thể vận hành, chúng tôi cần lắp đặt các thiết bị kết nối Internet trên khắp thành phố.",
-                      "analysis": "Phân tích câu:\n* In order for the system to work = Để hệ thống có thể vận hành\n* we need to install Internet connection devices throughout the city. = chúng tôi cần lắp đặt các thiết bị kết nối Internet trên khắp thành phố.\n* In order for + N + to V: Để cho cái gì làm gì.\n\nCấu trúc:\n* Cụm động từ nguyên mẫu có \"to\" (to-infinitive) chỉ mục đích hoặc bổ nghĩa cho động từ/tính từ phía trước.",
-                      "regions": [
-                        {
-                          "x0": 521,
-                          "y0": 182,
-                          "x1": 540,
-                          "y1": 197,
-                          "xPct": 66.12,
-                          "yPct": 38.63
-                        }
-                      ],
-                      "confidence": 95,
-                      "keepRegion": true
-                    },
-                    {
-                      "id": "s8",
-                      "text": "Phase 1 of our construction work involved City Centre.",
-                      "translation": "Giai đoạn 1 trong công tác thi công của chúng tôi liên quan đến khu Trung tâm Thành phố (City Centre).",
-                      "analysis": "Phân tích câu:\n* Phase 1 involved City Centre: Giai đoạn 1 triển khai ở khu trung tâm.",
-                      "regions": [
-                        {
-                          "x0": 676,
-                          "y0": 203,
-                          "x1": 730,
-                          "y1": 217,
-                          "xPct": 85.79,
-                          "yPct": 42.55
-                        }
-                      ],
-                      "confidence": 96,
-                      "keepRegion": true
-                    },
-                    {
-                      "id": "s9",
-                      "text": "Phase 2 involved West End.",
-                      "translation": "Giai đoạn 2 triển khai tại khu West End.",
-                      "analysis": "Phân tích câu:\n* Phase 2 involved West End: Giai đoạn 2 triển khai ở khu phía Tây.",
-                      "regions": [
-                        {
-                          "x0": 419,
-                          "y0": 225,
-                          "x1": 472,
-                          "y1": 239,
-                          "xPct": 53.17,
-                          "yPct": 46.86
-                        }
-                      ],
-                      "confidence": 95,
-                      "keepRegion": true
-                    },
-                    {
-                      "id": "s10",
-                      "text": "Although Phase 2 took longer than expected, we were able to expedite Phase 3 and get back on schedule.",
-                      "translation": "Mặc dù Giai đoạn 2 kéo dài lâu hơn dự kiến, chúng tôi đã có thể đẩy nhanh tiến độ Giai đoạn 3 và bắt kịp lại lịch trình.",
-                      "analysis": "Phân tích câu:\n* expedite Phase 3: đẩy nhanh tiến độ Giai đoạn 3 (triển khai tại khu Southside)\n* get back on schedule: quay trở lại đúng tiến độ.",
-                      "regions": [
-                        {
-                          "x0": 673,
-                          "y0": 224,
-                          "x1": 758,
-                          "y1": 243,
-                          "xPct": 85.41,
-                          "yPct": 47.65
-                        }
-                      ],
-                      "confidence": 95,
-                      "keepRegion": true
-                    },
-                    {
-                      "id": "s11",
-                      "text": "Phase 4 is now ready to begin in your area.",
-                      "translation": "Giai đoạn 4 hiện đã sẵn sàng để bắt đầu tại khu vực của cô.",
-                      "analysis": "Phân tích câu:\n* Phase 4 is now ready to begin in your area: Giai đoạn 4 chuẩn bị khởi công tại khu phố của người nhận (Finnieston).",
-                      "regions": [
-                        {
-                          "x0": 134,
-                          "y0": 267,
-                          "x1": 187,
-                          "y1": 282,
-                          "xPct": 17.01,
-                          "yPct": 55.29
-                        }
-                      ],
-                      "confidence": 95,
-                      "keepRegion": true
-                    },
-                    {
-                      "id": "s12",
-                      "text": "Raxconnect would like to place a small Internet connection hub on your property at 29 Lefroy Street.",
-                      "translation": "Raxconnect mong muốn đặt một bộ chia kết nối Internet nhỏ trên phần bất động sản của cô tại số 29 Phố Lefroy.",
-                      "analysis": "Phân tích câu:\n* Raxconnect would like to place a small Internet = Raxconnect mong muốn đặt một bộ chia kết nối Internet nhỏ\n* connection hub on your property at 29 Lefroy Street. = trên phần bất động sản của cô tại số 29 Phố Lefroy.\n\nCấu trúc:\n* Cụm động từ nguyên mẫu có \"to\" (to-infinitive) chỉ mục đích hoặc bổ nghĩa cho động từ/tính từ phía trước.",
-                      "regions": [
-                        {
-                          "x0": 16,
-                          "y0": 304,
-                          "x1": 118,
-                          "y1": 319,
-                          "xPct": 2.03,
-                          "yPct": 62.55
-                        }
-                      ],
-                      "confidence": 80,
-                      "keepRegion": true
-                    },
-                    {
-                      "id": "s13",
-                      "text": "Because of its central location on the street, your front yard",
-                      "translation": "Nhờ vị trí nằm ở trung tâm trên con phố, khoảng sân trước nhà cô",
-                      "analysis": "Phân tích câu:\n* Because of its central location on the street = Nhờ vị trí nằm ở trung tâm trên con phố\n* your front yard = khoảng sân trước nhà cô\n\nCấu trúc:\n* Because of its central location: Bởi vì vị trí trung tâm của nó.",
-                      "regions": [
-                        {
-                          "x0": 175,
-                          "y0": 325,
-                          "x1": 248,
-                          "y1": 340,
-                          "xPct": 22.21,
-                          "yPct": 66.67
-                        }
-                      ],
-                      "confidence": 47,
-                      "keepRegion": true
-                    },
-                    {
-                      "id": "s14",
-                      "text": "would make an optimal connection point.",
-                      "translation": "sẽ tạo thành một điểm kết nối tối ưu.",
-                      "analysis": "Phân tích câu:\n* optimal connection point: điểm kết nối lý tưởng/tối ưu nhất.",
-                      "regions": [
-                        {
-                          "x0": 16,
-                          "y0": 346,
-                          "x1": 69,
+                          "x0": 339,
+                          "y0": 347,
+                          "x1": 383,
                           "y1": 361,
-                          "xPct": 2.03,
-                          "yPct": 70.78
+                          "xPct": 75.84,
+                          "yPct": 69.16
                         }
-                      ],
-                      "confidence": 96,
-                      "keepRegion": true
-                    },
-                    {
-                      "id": "s15",
-                      "text": "Please call us at 0141 496 0001 by 10 April to let us know whether we may proceed.",
-                      "translation": "Vui lòng gọi cho chúng tôi theo số 0141 496 0001 trước ngày 10 tháng 4 để cho chúng tôi biết liệu chúng tôi có được phép tiến hành hay không.",
-                      "analysis": "Phân tích câu:\n* Please call us at 0141 496 0001 by 10 April = Vui lòng gọi cho chúng tôi theo số 0141 496 0001 trước ngày 10 tháng\n* to let us know whether we may proceed. = 4 để cho chúng tôi biết liệu chúng tôi có được phép tiến hành hay không.\n\nCấu trúc:\n* Câu mệnh lệnh lịch sự với \"Please + V-inf\" thường dùng để đưa ra hướng dẫn hoặc yêu cầu trong văn bản thương mại.\n* Cụm động từ nguyên mẫu có \"to\" (to-infinitive) chỉ mục đích hoặc bổ nghĩa cho động từ/tính từ phía trước.",
-                      "regions": [
-                        {
-                          "x0": 395,
-                          "y0": 346,
-                          "x1": 451,
-                          "y1": 361,
-                          "xPct": 50.13,
-                          "yPct": 70.78
-                        }
-                      ],
-                      "confidence": 95,
-                      "keepRegion": true
-                    },
-                    {
-                      "id": "s16",
-                      "text": "Thank you.",
-                      "translation": "Xin cảm ơn cô.",
-                      "analysis": "Phân tích câu:\n* Lời cảm ơn cuối thư.",
-                      "regions": [
-                        {
-                          "x0": 464,
-                          "y0": 367,
-                          "x1": 523,
-                          "y1": 382,
-                          "xPct": 58.88,
-                          "yPct": 74.9
-                        }
-                      ],
-                      "confidence": 95,
-                      "keepRegion": true
-                    },
-                    {
-                      "id": "s17",
-                      "text": "Sincerely,",
-                      "translation": "Trân trọng,",
-                      "analysis": "Phân tích câu:\n* Lời kết thư.",
-                      "regions": [
-                        {
-                          "x0": 17,
-                          "y0": 405,
-                          "x1": 101,
-                          "y1": 423,
-                          "xPct": 2.16,
-                          "yPct": 82.94
-                        }
-                      ],
-                      "confidence": 95,
-                      "keepRegion": true
-                    },
-                    {
-                      "id": "s18",
-                      "text": "Brandy Mortimer",
-                      "translation": "Chữ ký: Brandy Mortimer",
-                      "analysis": "Phân tích câu:\n* Chữ ký của người gửi.",
-                      "regions": [
-                        {
-                          "x0": 17,
-                          "y0": 434,
-                          "x1": 107,
-                          "y1": 458,
-                          "xPct": 2.16,
-                          "yPct": 89.8
-                        }
-                      ],
-                      "confidence": 87,
-                      "keepRegion": true
-                    },
-                    {
-                      "id": "s19",
-                      "text": "Brandy Mortimer, Utilities Adviser",
-                      "translation": "Brandy Mortimer, Cố vấn Tiện ích Hạ tầng",
-                      "analysis": "Phân tích câu:\n* Họ tên và chức danh người gửi.",
-                      "regions": [
-                        {
-                          "x0": 16,
-                          "y0": 465,
-                          "x1": 82,
-                          "y1": 483,
-                          "xPct": 2.03,
-                          "yPct": 94.71
-                        }
-                      ],
-                      "confidence": 94,
-                      "keepRegion": true
+                      ]
                     }
                   ],
                   "ocrVerify": {
@@ -66250,9 +66320,9 @@
                     "hasMcqOptions": false,
                     "issues": []
                   },
-                  "imageWidth": 788,
-                  "imageHeight": 510,
-                  "passageTranslation": "Người nhận: Alyssa Susilo\n29 Phố Lefroy, Glasgow G3 7BQ\nKính gửi cô Susilo,\nNhư cô có thể đã biết, Raxconnect đã và đang mở rộng các dịch vụ của mình tại khu vực Glasgow trong suốt năm qua. Các đường cáp quang mới của chúng tôi cung cấp dịch vụ nhanh hơn, đáng tin cậy hơn và loại bỏ nhu cầu lắp đặt đường dây nổi trên mặt đất. Để hệ thống hoạt động được, chúng tôi cần lắp đặt các thiết bị kết nối Internet trên khắp thành phố. Giai đoạn 1 của công trình thi công liên quan đến Khu Trung tâm Thành phố. Giai đoạn 2 liên quan đến Khu Phía Tây. Mặc dù Giai đoạn 2 mất nhiều thời gian hơn dự kiến, chúng tôi đã có thể đẩy nhanh tiến độ Giai đoạn 3 và đưa dự án trở lại đúng lịch trình. Giai đoạn 4 hiện đã sẵn sàng để bắt đầu tại khu vực của cô.\nRaxconnect mong muốn đặt một trạm kết nối Internet nhỏ trên phần đất của cô tại số 29 Phố Lefroy. Nhờ vị trí trung tâm trên con phố, sân trước của cô sẽ tạo thành một điểm kết nối tối ưu. Vui lòng gọi cho chúng tôi theo số 0141 496 0001 trước ngày 10 tháng 4 để cho chúng tôi biết liệu chúng tôi có thể tiến hành hay không. Xin cảm ơn.\nTrân trọng,\nBrandy Mortimer\nBrandy Mortimer, Cố vấn Tiện ích"
+                  "imageWidth": 447,
+                  "imageHeight": 522,
+                  "passageTranslation": "Raxconnect Mở Rộng Dịch Vụ\nGLASGOW (14 tháng 3) — Sau những sự chậm trễ ngoài dự kiến tại khu vực West End, Raxconnect cuối cùng đã hoàn thành giai đoạn mới nhất trong dự án lắp đặt cáp quang trên khắp thành phố.\nNgười dân và các doanh nghiệp tại khu vực Southside hiện đang được tận hưởng dịch vụ Internet nhanh hơn.\nĐối với giai đoạn tiếp theo của dự án tại khu vực Finnieston, Raxconnect đã xác định được các vị trí trọng điểm cho các trạm kết nối và hiện đang liên hệ với cư dân cũng như chủ nhà để công việc thi công có thể bắt đầu sớm nhất có thể.\nNhững động thái này diễn ra sau một thông báo được đưa ra hồi đầu năm nay rằng Raxconnect đã đầu tư 350 triệu bảng Anh để mở rộng mạng lưới của mình.\nCác quan chức địa phương hy vọng rằng dự án sẽ mang lại hoạt động kinh doanh và chi tiêu mới cho các khu phố của họ."
                 },
                 {
                   "imageUrl": "uploads/EST 2023/RC/image/page178/block_1.webp",

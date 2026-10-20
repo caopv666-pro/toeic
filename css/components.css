@@ -892,6 +892,157 @@
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.65) !important;
 }
 
+/* ── Lightbox Admin Coordinate Adjuster Toolbar (&pass=1231aA) ── */
+.lightbox-coord-toolbar {
+  position: fixed;
+  top: max(14px, env(safe-area-inset-top, 14px));
+  left: 14px;
+  z-index: 1025;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(15, 23, 42, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--radius-full);
+  padding: 4px 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  max-width: calc(100vw - 76px);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.coord-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.coord-tool-btn {
+  background: rgba(255, 255, 255, 0.12);
+  color: #f8fafc;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
+  min-width: 28px;
+  height: 28px;
+  padding: 0 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+  outline: none;
+}
+
+.coord-tool-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.coord-tool-btn:active {
+  transform: scale(0.92);
+}
+
+.coord-tool-btn.font-btn {
+  font-size: 0.74rem;
+  font-weight: 800;
+  min-width: 28px;
+}
+
+.coord-tool-btn.save-btn {
+  background: var(--success);
+  color: #ffffff;
+  border-color: var(--success);
+  padding: 0 10px;
+  font-size: 0.78rem;
+}
+
+.coord-tool-btn.save-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.coord-tool-btn.reset-btn {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.coord-tool-btn.reset-btn:hover {
+  background: var(--danger);
+  color: #ffffff;
+}
+
+.coord-separator {
+  width: 1px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 0 2px;
+}
+
+.coord-offset-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--accent-secondary);
+  background: rgba(99, 102, 241, 0.15);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  font-family: monospace;
+}
+
+[data-theme="light"] .lightbox-coord-toolbar {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(15, 23, 42, 0.15);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="light"] .coord-tool-btn {
+  background: #f1f5f9;
+  color: #1e293b;
+  border-color: #cbd5e1;
+}
+
+[data-theme="light"] .coord-tool-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+[data-theme="light"] .coord-separator {
+  background: rgba(15, 23, 42, 0.15);
+}
+
+/* Toast Notification */
+.toeic-app-toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(15, 23, 42, 0.95);
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: var(--radius-full);
+  font-size: 0.88rem;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 10050;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.toeic-app-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
 /* ── Question Palette (200 Question Grid) ── */
 .palette-container {
   display: flex;

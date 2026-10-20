@@ -1669,11 +1669,40 @@ const ResultViewer = {
 
   // ── Interactive Passage Sentence Lookup (Part 6 & Part 7) ──
   getPassage(gid, pIdx) {
+    let p = null;
     if (this.groupsMap && this.groupsMap[gid]) {
-      return this.groupsMap[gid].groupPassages?.[pIdx] || null;
+      p = this.groupsMap[gid].groupPassages?.[pIdx] || null;
+    } else {
+      const q = (this.resultData?.detailedQuestions || []).find(x => x.groupId === gid || x.questionNumber === gid);
+      p = q && q.groupPassages && q.groupPassages[pIdx] ? q.groupPassages[pIdx] : null;
     }
-    const q = (this.resultData?.detailedQuestions || []).find(x => x.groupId === gid || x.questionNumber === gid);
-    return q && q.groupPassages && q.groupPassages[pIdx] ? q.groupPassages[pIdx] : null;
+    if (p && typeof localStorage !== 'undefined' && !p._localLoaded) {
+      try {
+        let bName = this.resultData?.bookName || '';
+        if (!bName && typeof this.resultData?.testTitle === 'string') {
+          const match = this.resultData.testTitle.match(/^(EST\s+\d{4})/i);
+          if (match) bName = match[1].toUpperCase();
+        }
+        if (!bName && typeof window !== 'undefined') {
+          const params = new URLSearchParams(window.location.search);
+          const urlBook = params.get('book');
+          if (urlBook) bName = urlBook.replace(/_/g, ' ');
+        }
+        const safeBook = (bName || 'EST_2022').replace(/\s+/g, '_');
+        const testId = this.resultData?.testId || 1;
+        const localKey = `toeic_coords_${safeBook}_test${testId}_${gid}_${pIdx}`;
+        const saved = localStorage.getItem(localKey);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed.sentences) && parsed.sentences.length > 0) {
+            p.sentences = parsed.sentences;
+            if (parsed.customBadgeFontSize) p.customBadgeFontSize = parsed.customBadgeFontSize;
+          }
+        }
+      } catch (_) {}
+      p._localLoaded = true;
+    }
+    return p;
   },
 
   setupPassageOverlays(img, gid, pIdx, prefix = '') {
@@ -1689,7 +1718,10 @@ const ResultViewer = {
 
     const applyProportionalBadgeScale = () => {
       const renderW = img.clientWidth || (typeof img.getBoundingClientRect === 'function' ? img.getBoundingClientRect().width : 0) || 360;
-      const bFont = Math.max(5.5, Math.min(11, renderW * 0.0125));
+      let bFont = Math.max(5.5, Math.min(11, renderW * 0.0125));
+      if (passage.customBadgeFontSize) {
+        bFont = passage.customBadgeFontSize;
+      }
       layer.style.setProperty('--badge-font', `${bFont.toFixed(2)}px`);
     };
     applyProportionalBadgeScale();
@@ -1942,6 +1974,40 @@ const ResultViewer = {
     // Dọn dẹp dock cũ nếu có trong modal
     const prevDock = modal.querySelector('.lightbox-sentence-dock');
     if (prevDock && typeof prevDock.remove === 'function') prevDock.remove();
+    const prevToolbar = modal.querySelector('.lightbox-coord-toolbar');
+    if (prevToolbar && typeof prevToolbar.remove === 'function') prevToolbar.remove();
+
+    // Nếu có tham số pass=1231aA trên URL: Hiển thị thanh công cụ điều chỉnh tọa độ & font chữ
+    if (this.isCoordEditAuthorized()) {
+      const passage = this.getPassage(gid, pIdx);
+      if (passage && Array.isArray(passage.sentences) && passage.sentences.length > 0) {
+        const toolbar = document.createElement('div');
+        toolbar.className = 'lightbox-coord-toolbar';
+        toolbar.id = `coord_toolbar_lb_${gid}_${pIdx}`;
+        toolbar.setAttribute('role', 'toolbar');
+        toolbar.setAttribute('aria-label', 'Công cụ điều chỉnh tọa độ ô số');
+        toolbar.onclick = (e) => e.stopPropagation();
+
+        toolbar.innerHTML = `
+          <div class="coord-btn-group">
+            <button type="button" class="coord-tool-btn" onclick="ResultViewer.shiftPassageCoords('${gid}', ${pIdx}, -0.3, 0)" title="Dịch toàn bộ sang trái 0.3%" aria-label="Dịch sang trái">◀</button>
+            <button type="button" class="coord-tool-btn" onclick="ResultViewer.shiftPassageCoords('${gid}', ${pIdx}, 0, -0.3)" title="Dịch toàn bộ lên trên 0.3%" aria-label="Dịch lên trên">▲</button>
+            <button type="button" class="coord-tool-btn" onclick="ResultViewer.shiftPassageCoords('${gid}', ${pIdx}, 0, 0.3)" title="Dịch toàn bộ xuống dưới 0.3%" aria-label="Dịch xuống dưới">▼</button>
+            <button type="button" class="coord-tool-btn" onclick="ResultViewer.shiftPassageCoords('${gid}', ${pIdx}, 0.3, 0)" title="Dịch toàn bộ sang phải 0.3%" aria-label="Dịch sang phải">▶</button>
+          </div>
+          <div class="coord-separator"></div>
+          <div class="coord-btn-group">
+            <button type="button" class="coord-tool-btn font-btn" onclick="ResultViewer.adjustPassageBadgeFont('${gid}', ${pIdx}, -0.5)" title="Giảm cỡ chữ số" aria-label="Giảm cỡ chữ số">A-</button>
+            <button type="button" class="coord-tool-btn font-btn" onclick="ResultViewer.adjustPassageBadgeFont('${gid}', ${pIdx}, 0.5)" title="Tăng cỡ chữ số" aria-label="Tăng cỡ chữ số">A+</button>
+          </div>
+          <div class="coord-separator"></div>
+          <span class="coord-offset-badge" id="coord_badge_lb_${gid}_${pIdx}">Δ: 0%</span>
+          <button type="button" class="coord-tool-btn save-btn" id="btn_save_coords_lb_${gid}_${pIdx}" onclick="ResultViewer.savePassageCoords('${gid}', ${pIdx})" title="Lưu tọa độ mới vào DB">💾 Lưu</button>
+          <button type="button" class="coord-tool-btn reset-btn" onclick="ResultViewer.resetPassageCoords('${gid}', ${pIdx})" title="Hoàn tác về ban đầu" aria-label="Hoàn tác">↺</button>
+        `;
+        modal.appendChild(toolbar);
+      }
+    }
 
     // Tạo lớp tọa độ câu và thẻ popup dịch câu ngay trong chế độ kính lúp (Lightbox)
     const overlaysLayer = document.createElement('div');
@@ -2014,6 +2080,203 @@ const ResultViewer = {
 
   closeLightbox() {
     UIRenderer.closeLightbox();
+  },
+
+  // ── Admin Coordinate Adjuster Tool (&pass=1231aA) ──
+  isCoordEditAuthorized() {
+    if (typeof window === 'undefined') return false;
+    try {
+      const p = new URLSearchParams(window.location.search);
+      return p.get('pass') === '1231aA';
+    } catch (_) {
+      return false;
+    }
+  },
+
+  shiftPassageCoords(gid, pIdx, dX, dY) {
+    const passage = this.getPassage(gid, pIdx);
+    if (!passage || !Array.isArray(passage.sentences)) return;
+
+    if (!passage._origSentences) {
+      passage._origSentences = JSON.parse(JSON.stringify(passage.sentences));
+    }
+
+    passage._shiftX = Number(((passage._shiftX || 0) + dX).toFixed(2));
+    passage._shiftY = Number(((passage._shiftY || 0) + dY).toFixed(2));
+
+    const refW = passage.imageWidth || 800;
+    const refH = passage.imageHeight || 1000;
+
+    passage.sentences.forEach(s => {
+      if (!Array.isArray(s.regions)) return;
+      s.regions.forEach(r => {
+        if (!r) return;
+        if (typeof r.xPct === 'number' && !isNaN(r.xPct)) {
+          r.xPct = Number((r.xPct + dX).toFixed(2));
+        }
+        if (typeof r.yPct === 'number' && !isNaN(r.yPct)) {
+          r.yPct = Number((r.yPct + dY).toFixed(2));
+        }
+        if (r.x0 != null) r.x0 = Math.round(r.x0 + (dX / 100) * refW);
+        if (r.x1 != null) r.x1 = Math.round(r.x1 + (dX / 100) * refW);
+        if (r.y0 != null) r.y0 = Math.round(r.y0 + (dY / 100) * refH);
+        if (r.y1 != null) r.y1 = Math.round(r.y1 + (dY / 100) * refH);
+      });
+    });
+
+    if (typeof document !== 'undefined') {
+      const imgEl = document.querySelector('#lightbox-modal-img');
+      if (imgEl) this.setupPassageOverlays(imgEl, gid, pIdx, 'lb_');
+      const bgImg = document.getElementById(`img_${gid}_${pIdx}`);
+      if (bgImg) this.setupPassageOverlays(bgImg, gid, pIdx, '');
+      this.updateCoordBadge(gid, pIdx);
+    }
+  },
+
+  adjustPassageBadgeFont(gid, pIdx, deltaPx) {
+    const passage = this.getPassage(gid, pIdx);
+    if (!passage) return;
+    const current = passage.customBadgeFontSize || 7.5;
+    const nextFont = Math.max(4.5, Math.min(14, Number((current + deltaPx).toFixed(1))));
+    passage.customBadgeFontSize = nextFont;
+
+    if (typeof document !== 'undefined') {
+      const layer = document.getElementById(`overlays_lb_${gid}_${pIdx}`);
+      if (layer) layer.style.setProperty('--badge-font', `${nextFont}px`);
+      const bgLayer = document.getElementById(`overlays_${gid}_${pIdx}`);
+      if (bgLayer) bgLayer.style.setProperty('--badge-font', `${nextFont}px`);
+      this.updateCoordBadge(gid, pIdx);
+    }
+  },
+
+  updateCoordBadge(gid, pIdx) {
+    if (typeof document === 'undefined') return;
+    const passage = this.getPassage(gid, pIdx);
+    const b = document.getElementById(`coord_badge_lb_${gid}_${pIdx}`);
+    if (!b || !passage) return;
+    const sX = passage._shiftX || 0;
+    const sY = passage._shiftY || 0;
+    const fStr = passage.customBadgeFontSize ? ` | ${passage.customBadgeFontSize}px` : '';
+    b.textContent = `X:${sX > 0 ? '+' : ''}${sX}% Y:${sY > 0 ? '+' : ''}${sY}%${fStr}`;
+  },
+
+  resetPassageCoords(gid, pIdx) {
+    const passage = this.getPassage(gid, pIdx);
+    if (!passage || !passage._origSentences) return;
+    passage.sentences = JSON.parse(JSON.stringify(passage._origSentences));
+    passage._shiftX = 0;
+    passage._shiftY = 0;
+    passage.customBadgeFontSize = null;
+
+    if (typeof document !== 'undefined') {
+      const imgEl = document.querySelector('#lightbox-modal-img');
+      if (imgEl) this.setupPassageOverlays(imgEl, gid, pIdx, 'lb_');
+      const bgImg = document.getElementById(`img_${gid}_${pIdx}`);
+      if (bgImg) this.setupPassageOverlays(bgImg, gid, pIdx, '');
+      const b = document.getElementById(`coord_badge_lb_${gid}_${pIdx}`);
+      if (b) b.textContent = 'Δ: 0%';
+    }
+    this.showToast('↺ Đã hoàn tác về tọa độ ban đầu');
+  },
+
+  async savePassageCoords(gid, pIdx) {
+    const passage = this.getPassage(gid, pIdx);
+    if (!passage || !Array.isArray(passage.sentences)) return false;
+
+    let bookName = this.resultData?.bookName || '';
+    if (!bookName && typeof this.resultData?.testTitle === 'string') {
+      const match = this.resultData.testTitle.match(/^(EST\s+\d{4})/i);
+      if (match) bookName = match[1].toUpperCase();
+    }
+    if (!bookName && typeof window !== 'undefined') {
+      const p = new URLSearchParams(window.location.search);
+      const urlBook = p.get('book');
+      if (urlBook) bookName = urlBook.replace(/_/g, ' ');
+    }
+    if (!bookName) bookName = 'EST 2026';
+
+    let testId = Number(this.resultData?.testId || 1);
+    if (isNaN(testId) && typeof window !== 'undefined') {
+      const p = new URLSearchParams(window.location.search);
+      const urlTest = parseInt(p.get('test'), 10);
+      if (!isNaN(urlTest)) testId = urlTest;
+    }
+
+    const saveBtn = (typeof document !== 'undefined') ? document.getElementById(`btn_save_coords_lb_${gid}_${pIdx}`) : null;
+    if (saveBtn) {
+      saveBtn.disabled = true;
+      saveBtn.textContent = '⏳ Đang lưu...';
+    }
+
+    // Luôn lưu vào LocalStorage để có tác dụng lập tức trên client
+    try {
+      const safeBook = bookName.replace(/\s+/g, '_');
+      const localKey = `toeic_coords_${safeBook}_test${testId}_${gid}_${pIdx}`;
+      localStorage.setItem(localKey, JSON.stringify({
+        sentences: passage.sentences,
+        customBadgeFontSize: passage.customBadgeFontSize || null,
+        updatedAt: new Date().toISOString()
+      }));
+    } catch (_) {}
+
+    // Gửi request lưu vào DB trên server
+    try {
+      const res = await fetch('/api/save-passage-coords', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          pass: '1231aA',
+          bookName,
+          testId,
+          groupId: gid,
+          passageIdx: pIdx,
+          sentences: passage.sentences,
+          customBadgeFontSize: passage.customBadgeFontSize || null
+        })
+      });
+
+      const data = await res.json();
+      if (data && data.ok) {
+        if (saveBtn) {
+          saveBtn.textContent = '✅ Đã lưu!';
+          setTimeout(() => {
+            saveBtn.textContent = '💾 Lưu';
+            saveBtn.disabled = false;
+          }, 2000);
+        }
+        this.showToast('✅ Đã lưu tọa độ mới vào DB thành công!');
+        return true;
+      } else {
+        throw new Error(data?.error || 'Lỗi server');
+      }
+    } catch (err) {
+      if (saveBtn) {
+        saveBtn.textContent = '💾 Đã lưu Local';
+        setTimeout(() => {
+          saveBtn.textContent = '💾 Lưu';
+          saveBtn.disabled = false;
+        }, 2000);
+      }
+      this.showToast('💾 Đã lưu vào LocalStorage (Chế độ static / offline)');
+      return false;
+    }
+  },
+
+  showToast(message, duration = 3000) {
+    if (typeof document === 'undefined') return;
+    let toast = document.getElementById('toeic-app-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'toeic-app-toast';
+      toast.className = 'toeic-app-toast';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(() => {
+      toast.classList.remove('show');
+    }, duration);
   },
 
   // ── Dynamically rehydrate latest explanations from DB if any questions were missing explanations ──
