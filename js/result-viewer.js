@@ -1989,23 +1989,25 @@ const ResultViewer = {
         toolbar.onclick = (e) => e.stopPropagation();
 
         toolbar.innerHTML = `
-          <div class="coord-btn-group">
-            <button type="button" class="coord-tool-btn" onclick="ResultViewer.shiftPassageCoords('${gid}', ${pIdx}, -0.3, 0)" title="Dịch toàn bộ sang trái 0.3%" aria-label="Dịch sang trái">◀</button>
-            <button type="button" class="coord-tool-btn" onclick="ResultViewer.shiftPassageCoords('${gid}', ${pIdx}, 0, -0.3)" title="Dịch toàn bộ lên trên 0.3%" aria-label="Dịch lên trên">▲</button>
-            <button type="button" class="coord-tool-btn" onclick="ResultViewer.shiftPassageCoords('${gid}', ${pIdx}, 0, 0.3)" title="Dịch toàn bộ xuống dưới 0.3%" aria-label="Dịch xuống dưới">▼</button>
-            <button type="button" class="coord-tool-btn" onclick="ResultViewer.shiftPassageCoords('${gid}', ${pIdx}, 0.3, 0)" title="Dịch toàn bộ sang phải 0.3%" aria-label="Dịch sang phải">▶</button>
+          <div class="coord-toolbar-row coord-arrows-row">
+            <button type="button" class="coord-tool-btn coord-arrow-btn" onclick="ResultViewer.shiftPassageCoords('${gid}', ${pIdx}, -0.3, 0)" title="Dịch toàn bộ sang trái 0.3%" aria-label="Dịch sang trái">◀</button>
+            <button type="button" class="coord-tool-btn coord-arrow-btn" onclick="ResultViewer.shiftPassageCoords('${gid}', ${pIdx}, 0, -0.3)" title="Dịch toàn bộ lên trên 0.3%" aria-label="Dịch lên trên">▲</button>
+            <button type="button" class="coord-tool-btn coord-arrow-btn" onclick="ResultViewer.shiftPassageCoords('${gid}', ${pIdx}, 0, 0.3)" title="Dịch toàn bộ xuống dưới 0.3%" aria-label="Dịch xuống dưới">▼</button>
+            <button type="button" class="coord-tool-btn coord-arrow-btn" onclick="ResultViewer.shiftPassageCoords('${gid}', ${pIdx}, 0.3, 0)" title="Dịch toàn bộ sang phải 0.3%" aria-label="Dịch sang phải">▶</button>
           </div>
-          <div class="coord-separator"></div>
-          <div class="coord-btn-group">
+          <div class="coord-toolbar-row coord-actions-row">
             <button type="button" class="coord-tool-btn font-btn" onclick="ResultViewer.adjustPassageBadgeFont('${gid}', ${pIdx}, -0.5)" title="Giảm cỡ chữ số" aria-label="Giảm cỡ chữ số">A-</button>
             <button type="button" class="coord-tool-btn font-btn" onclick="ResultViewer.adjustPassageBadgeFont('${gid}', ${pIdx}, 0.5)" title="Tăng cỡ chữ số" aria-label="Tăng cỡ chữ số">A+</button>
+            <span class="coord-offset-badge" id="coord_badge_lb_${gid}_${pIdx}">Δ: 0%</span>
+            <button type="button" class="coord-tool-btn save-btn" id="btn_save_coords_lb_${gid}_${pIdx}" onclick="ResultViewer.savePassageCoords('${gid}', ${pIdx})" title="Lưu tọa độ mới vào DB">💾 Lưu</button>
+            <button type="button" class="coord-tool-btn reset-btn" onclick="ResultViewer.resetPassageCoords('${gid}', ${pIdx})" title="Hoàn tác về ban đầu" aria-label="Hoàn tác">↺</button>
           </div>
-          <div class="coord-separator"></div>
-          <span class="coord-offset-badge" id="coord_badge_lb_${gid}_${pIdx}">Δ: 0%</span>
-          <button type="button" class="coord-tool-btn save-btn" id="btn_save_coords_lb_${gid}_${pIdx}" onclick="ResultViewer.savePassageCoords('${gid}', ${pIdx})" title="Lưu tọa độ mới vào DB">💾 Lưu</button>
-          <button type="button" class="coord-tool-btn reset-btn" onclick="ResultViewer.resetPassageCoords('${gid}', ${pIdx})" title="Hoàn tác về ban đầu" aria-label="Hoàn tác">↺</button>
         `;
-        modal.appendChild(toolbar);
+        if (typeof container.insertAdjacentElement === 'function') {
+          container.insertAdjacentElement('afterend', toolbar);
+        } else {
+          modal.appendChild(toolbar);
+        }
       }
     }
 
@@ -2272,10 +2274,10 @@ const ResultViewer = {
       document.body.appendChild(toast);
     }
     toast.textContent = message;
-    toast.classList.add('show');
+    if (toast && toast.classList) toast.classList.add('show');
     clearTimeout(toast._timer);
     toast._timer = setTimeout(() => {
-      toast.classList.remove('show');
+      if (toast && toast.classList) toast.classList.remove('show');
     }, duration);
   },
 

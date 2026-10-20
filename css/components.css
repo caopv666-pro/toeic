@@ -717,8 +717,9 @@
   background: rgba(0, 0, 0, 0.88);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  align-items: flex-start; /* Căn ở đầu để ảnh và popup thoáng đãng, dễ đọc */
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Căn ở đầu để ảnh và popup thoáng đãng, dễ đọc */
   padding: max(60px, calc(env(safe-area-inset-top, 16px) + 44px)) 12px max(88px, calc(env(safe-area-inset-bottom, 16px) + 68px)) 12px;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
@@ -894,40 +895,43 @@
 
 /* ── Lightbox Admin Coordinate Adjuster Toolbar (&pass=1231aA) ── */
 .lightbox-coord-toolbar {
-  position: fixed;
-  top: max(14px, env(safe-area-inset-top, 14px));
-  left: 14px;
+  position: relative;
+  margin: 16px auto 14px;
   z-index: 1025;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 10px;
   background: rgba(15, 23, 42, 0.94);
   border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: var(--radius-full);
-  padding: 4px 8px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  border-radius: var(--radius-lg);
+  padding: 10px 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  max-width: calc(100vw - 76px);
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  max-width: min(94vw, 480px);
+  width: auto;
+  box-sizing: border-box;
 }
 
-.coord-btn-group {
+.coord-toolbar-row {
   display: flex;
   align-items: center;
-  gap: 2px;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 .coord-tool-btn {
   background: rgba(255, 255, 255, 0.12);
   color: #f8fafc;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: var(--radius-full);
-  min-width: 28px;
-  height: 28px;
-  padding: 0 6px;
-  font-size: 0.78rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--radius-md);
+  min-width: 44px;
+  height: 42px;
+  padding: 0 10px;
+  font-size: 0.92rem;
   font-weight: 700;
   display: inline-flex;
   align-items: center;
@@ -936,6 +940,7 @@
   transition: all var(--transition-fast);
   user-select: none;
   outline: none;
+  box-sizing: border-box;
 }
 
 .coord-tool-btn:hover {
@@ -948,22 +953,41 @@
   transform: scale(0.92);
 }
 
+.coord-tool-btn.coord-arrow-btn {
+  min-width: 56px;
+  height: 46px;
+  font-size: 1.35rem;
+  background: rgba(99, 102, 241, 0.25);
+  border-color: rgba(99, 102, 241, 0.5);
+  color: #e0e7ff;
+}
+
+.coord-tool-btn.coord-arrow-btn:hover {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: #ffffff;
+}
+
 .coord-tool-btn.font-btn {
-  font-size: 0.74rem;
+  font-size: 0.95rem;
   font-weight: 800;
-  min-width: 28px;
+  min-width: 48px;
+  height: 42px;
 }
 
 .coord-tool-btn.save-btn {
   background: var(--success);
   color: #ffffff;
   border-color: var(--success);
-  padding: 0 10px;
-  font-size: 0.78rem;
+  padding: 0 14px;
+  min-width: 90px;
+  height: 42px;
+  font-size: 0.95rem;
+  font-weight: 800;
 }
 
 .coord-tool-btn.save-btn:hover {
-  filter: brightness(1.1);
+  filter: brightness(1.15);
   transform: translateY(-1px);
 }
 
@@ -971,6 +995,9 @@
   background: rgba(239, 68, 68, 0.2);
   color: #f87171;
   border-color: rgba(239, 68, 68, 0.4);
+  min-width: 44px;
+  height: 42px;
+  font-size: 1.15rem;
 }
 
 .coord-tool-btn.reset-btn:hover {
@@ -978,28 +1005,27 @@
   color: #ffffff;
 }
 
-.coord-separator {
-  width: 1px;
-  height: 18px;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 0 2px;
-}
-
 .coord-offset-badge {
-  font-size: 0.68rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: var(--accent-secondary);
-  background: rgba(99, 102, 241, 0.15);
-  padding: 2px 6px;
+  background: rgba(99, 102, 241, 0.18);
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  padding: 8px 10px;
   border-radius: var(--radius-sm);
   white-space: nowrap;
   font-family: monospace;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  box-sizing: border-box;
 }
 
 [data-theme="light"] .lightbox-coord-toolbar {
   background: rgba(255, 255, 255, 0.96);
   border-color: rgba(15, 23, 42, 0.15);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
 }
 
 [data-theme="light"] .coord-tool-btn {
@@ -1013,8 +1039,15 @@
   color: #0f172a;
 }
 
-[data-theme="light"] .coord-separator {
-  background: rgba(15, 23, 42, 0.15);
+[data-theme="light"] .coord-tool-btn.coord-arrow-btn {
+  background: #ede9fe;
+  color: #4338ca;
+  border-color: #c4b5fd;
+}
+
+[data-theme="light"] .coord-tool-btn.coord-arrow-btn:hover {
+  background: var(--accent-primary);
+  color: #ffffff;
 }
 
 /* Toast Notification */
