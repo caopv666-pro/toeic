@@ -689,6 +689,57 @@
     margin-bottom: 8px;
   }
 
+  /* Compact Circular Donut Breakdown on Mobile */
+  .part-breakdown-grid.has-donuts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .part-donut-card {
+    flex: 1 1 calc(25% - 8px);
+    min-width: 70px;
+    padding: 10px 4px;
+  }
+
+  .part-donut-card:nth-child(n+5) {
+    flex: 1 1 calc(33.333% - 8px);
+  }
+
+  .part-donut-chart-wrap {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 6px;
+  }
+
+  .part-donut-pct {
+    font-size: 8px;
+  }
+
+  .part-donut-name {
+    font-size: 0.78rem;
+  }
+
+  .part-donut-sub {
+    font-size: 0.62rem;
+  }
+
+  .part-donut-score {
+    font-size: 0.72rem;
+  }
+
+  .part-single-summary-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .part-single-summary-info > div {
+    justify-content: center;
+  }
+
   .review-q-header {
     margin-bottom: 5px;
     padding-bottom: 4px;
@@ -818,6 +869,33 @@
   .palette-grid {
     grid-template-columns: repeat(4, 1fr);
     gap: 5px;
+  }
+
+  .part-breakdown-grid.has-donuts {
+    gap: 5px;
+  }
+  .part-donut-card {
+    flex: 1 1 calc(25% - 5px);
+    padding: 8px 2px;
+  }
+  .part-donut-card:nth-child(n+5) {
+    flex: 1 1 calc(33.333% - 5px);
+  }
+  .part-donut-chart-wrap {
+    width: 38px;
+    height: 38px;
+  }
+  .part-donut-pct {
+    font-size: 7.5px;
+  }
+  .part-donut-name {
+    font-size: 0.72rem;
+  }
+  .part-donut-sub {
+    display: none;
+  }
+  .part-donut-score {
+    font-size: 0.68rem;
   }
 }
 

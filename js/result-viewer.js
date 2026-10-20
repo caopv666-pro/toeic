@@ -634,6 +634,7 @@ const ResultViewer = {
     // Render Part Breakdown Grid
     const partGrid = document.getElementById('result-part-breakdown');
     if (partGrid) {
+      if (partGrid.classList) partGrid.classList.add('has-donuts');
       let partHtml = '';
       if (isPartMode && r.partFilter) {
         const pKey = r.partFilter;
@@ -653,42 +654,58 @@ const ResultViewer = {
         }
 
         partHtml = `
-          <div class="part-stat-card" style="grid-column: 1 / -1; padding: 20px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
-              <div>
-                <span style="font-weight: 800; font-size: 1.15rem; color: var(--text-primary);">${partName}</span>
-                <span class="badge" style="margin-left: 10px; background: rgba(99, 102, 241, 0.15); color: var(--accent-secondary); font-size: 0.8rem; padding: 3px 10px; border-radius: 6px;">${this.escapeHtml(badge)}</span>
+          <div class="part-stat-card part-single-summary-card">
+            <div class="part-single-summary-chart">
+              <div class="part-donut-chart-wrap" role="progressbar" aria-valuenow="${accuracy}" aria-valuemin="0" aria-valuemax="100" aria-label="Tỷ lệ chính xác ${accuracy}%">
+                <svg class="part-donut-chart" viewBox="0 0 36 36" role="img" aria-hidden="true">
+                  <path class="part-donut-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                  <path class="part-donut-fill" stroke-dasharray="${accuracy}, 100" stroke="${color}" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                  <text x="18" y="18" dy=".3em" text-anchor="middle" class="part-donut-pct" fill="${color}">${accuracy}%</text>
+                </svg>
               </div>
-              <span style="font-weight: 800; font-size: 1.1rem; color: ${color};">
-                ${accuracy}% (${totalCorr}/${totalQ} câu)
-              </span>
             </div>
-            <div class="part-progress-bar" role="progressbar" aria-valuenow="${accuracy}" aria-valuemin="0" aria-valuemax="100" aria-label="Tỷ lệ chính xác ${accuracy}%" style="height: 10px; margin-bottom: 12px;">
-              <div class="part-progress-fill" style="width: ${accuracy}%; background: ${color};"></div>
+            <div class="part-single-summary-info">
+              <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px;">
+                <span style="font-weight: 800; font-size: 1.15rem; color: var(--text-primary);">${partName}</span>
+                <span class="badge" style="background: rgba(99, 102, 241, 0.15); color: var(--accent-secondary); font-size: 0.8rem; padding: 3px 10px; border-radius: 6px;">${this.escapeHtml(badge)}</span>
+                <span style="font-weight: 800; font-size: 1.05rem; color: ${color};">(${totalCorr}/${totalQ} câu)</span>
+              </div>
+              <p style="color: var(--text-secondary); font-size: 0.92rem; margin: 0;">💡 <strong>Đánh giá năng lực:</strong> ${this.escapeHtml(advice)}</p>
             </div>
-            <p style="color: var(--text-secondary); font-size: 0.92rem; margin: 0;">💡 <strong>Đánh giá năng lực:</strong> ${this.escapeHtml(advice)}</p>
           </div>
         `;
       } else if (r.partStats && typeof r.partStats === 'object') {
         for (const [key, stat] of Object.entries(r.partStats)) {
           if (!stat || typeof stat !== 'object') continue;
           const partInfo = partsConfig[key];
-          const partName = this.escapeHtml(partInfo?.name || key);
+          const rawName = partInfo?.name || key;
+          const partNum = key.replace(/^part(\d+)$/i, 'Part $1');
+          const partSub = rawName.includes(':') ? rawName.split(':')[1].trim() : '';
+          const partName = this.escapeHtml(rawName);
           const statTotal = Number.isFinite(stat.total) && stat.total > 0 ? stat.total : 0;
           const statCorrect = Number.isFinite(stat.correct) && stat.correct >= 0 ? stat.correct : 0;
           const pct = statTotal > 0 ? Math.max(0, Math.min(100, Math.round((statCorrect / statTotal) * 100))) : 0;
           const color = pct >= 70 ? 'var(--success)' : (pct >= 50 ? 'var(--warning)' : 'var(--danger)');
 
           partHtml += `
-            <div class="part-stat-card">
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-weight: 700; font-size: 0.95rem;">${partName}</span>
-                <span style="font-weight: 700; color: ${color};">
-                  ${pct}% (${statCorrect}/${statTotal})
-                </span>
+            <div class="part-stat-card part-donut-card"
+                 role="button"
+                 tabindex="0"
+                 onclick="ResultViewer.setPartFilter('${key}'); document.getElementById('detailed-review-section')?.scrollIntoView({behavior: 'smooth', block: 'start'});"
+                 onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); ResultViewer.setPartFilter('${key}'); document.getElementById('detailed-review-section')?.scrollIntoView({behavior: 'smooth', block: 'start'});}"
+                 title="${partName}: ${pct}% (${statCorrect}/${statTotal} câu) - Nhấn để xem chi tiết"
+                 aria-label="${partName}: ${pct}%, ${statCorrect} trên ${statTotal} câu đúng. Nhấn để lọc phần này.">
+              <div class="part-donut-chart-wrap" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100" aria-label="Tỷ lệ chính xác ${partName}: ${pct}%">
+                <svg class="part-donut-chart" viewBox="0 0 36 36" role="img" aria-hidden="true">
+                  <path class="part-donut-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                  <path class="part-donut-fill" stroke-dasharray="${pct}, 100" stroke="${color}" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                  <text x="18" y="18" dy=".3em" text-anchor="middle" class="part-donut-pct" fill="${color}">${pct}%</text>
+                </svg>
               </div>
-              <div class="part-progress-bar" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100" aria-label="Tỷ lệ chính xác ${partName}: ${pct}%">
-                <div class="part-progress-fill" style="width: ${pct}%; background: ${color};"></div>
+              <div class="part-donut-info">
+                <span class="part-donut-name">${partNum}</span>
+                ${partSub ? `<span class="part-donut-sub" title="${this.escapeHtml(partSub)}">${this.escapeHtml(partSub)}</span>` : ''}
+                <span class="part-donut-score" style="color: ${color};">${statCorrect}/${statTotal}</span>
               </div>
             </div>
           `;

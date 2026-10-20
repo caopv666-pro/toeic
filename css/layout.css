@@ -223,3 +223,137 @@
   background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
   border-radius: var(--radius-full);
 }
+
+/* ── Modern Compact Circular Donut Breakdown Grid ── */
+.part-breakdown-grid.has-donuts {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+.part-donut-card {
+  background: var(--bg-glass-card);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 12px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.part-donut-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-primary);
+  background: var(--bg-card-hover, rgba(255, 255, 255, 0.05));
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.part-donut-card:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.part-donut-chart-wrap {
+  width: 52px;
+  height: 52px;
+  margin-bottom: 8px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.part-donut-chart {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.part-donut-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.12);
+  stroke-width: 3.2;
+}
+
+[data-theme="light"] .part-donut-bg {
+  stroke: rgba(15, 23, 42, 0.1);
+}
+
+.part-donut-fill {
+  fill: none;
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.part-donut-pct {
+  font-family: var(--font-heading);
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.part-donut-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 100%;
+}
+
+.part-donut-name {
+  font-weight: 700;
+  font-size: 0.84rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.part-donut-sub {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  line-height: 1.2;
+  padding: 0 2px;
+}
+
+.part-donut-score {
+  font-size: 0.76rem;
+  font-weight: 700;
+  margin-top: 2px;
+  line-height: 1.2;
+}
+
+/* 1 Part Practice Mode Compact Card */
+.part-single-summary-card {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 20px;
+}
+
+.part-single-summary-chart .part-donut-chart-wrap {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+.part-single-summary-chart .part-donut-pct {
+  font-size: 8.5px;
+}
+
+.part-single-summary-info {
+  flex: 1;
+  min-width: 0;
+}
