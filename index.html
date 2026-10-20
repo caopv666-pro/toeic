@@ -7,10 +7,10 @@
   <meta name="description" content="Nền tảng thi thử TOEIC trực tuyến chuẩn format ETS 2022, audio cắt từng câu, chấm điểm 990 tự động và lời giải chi tiết.">
   
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/layout.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/base.css?v=20261020a">
+  <link rel="stylesheet" href="css/layout.css?v=20261020a">
+  <link rel="stylesheet" href="css/components.css?v=20261020a">
+  <link rel="stylesheet" href="css/responsive.css?v=20261020a">
   <style>
     .part-filter-btn {
       padding: 6px 12px;
@@ -232,8 +232,8 @@
   </main>
 
   <!-- Scripts -->
-  <script src="js/app-config.js"></script>
-  <script src="js/storage-service.js"></script>
+  <script src="js/app-config.js?v=20261020a"></script>
+  <script src="js/storage-service.js?v=20261020a"></script>
   <script>
     let currentMode = 'full';
     let selectedPart = 'part1';
@@ -544,7 +544,7 @@
       if (typeof AppConfig !== 'undefined' && AppConfig && typeof AppConfig.setSelectedBook === 'function') {
         AppConfig.setSelectedBook(currentBook);
       }
-      let url = `result.html?test=${clampedTest}&show=review`;
+      let url = `result.html?book=${encodeURIComponent(currentBook)}&test=${clampedTest}&show=review`;
       if (currentMode === 'part') {
         url += `&part=${encodeURIComponent(selectedPart)}`;
       }
@@ -557,6 +557,9 @@
     function startExam(testId) {
       const parsed = getSafeTestId(testId);
       const clampedTest = Math.min(10, Math.max(1, parsed));
+      if (typeof AppConfig !== 'undefined' && AppConfig && typeof AppConfig.setSelectedBook === 'function') {
+        AppConfig.setSelectedBook(currentBook);
+      }
       let url = `exam.html?test=${clampedTest}&mode=${currentMode}`;
       if (currentMode === 'part') {
         url += `&part=${encodeURIComponent(selectedPart)}`;

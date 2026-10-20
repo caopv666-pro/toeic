@@ -7,6 +7,7 @@ const AppConfig = {
   // Self-hosted static database and media assets in toeic-web
   // Empty API_BASE_URL loads all data and assets locally from current origin (no port 3000 needed)
   API_BASE_URL: '',
+  ASSET_VERSION: '20261020a',
   BOOK_NAME: 'EST 2022',
   BOOKS: {
     'EST 2022': { label: 'ETS 2022', dbFile: 'data/database_EST_2022.json' },
@@ -91,7 +92,12 @@ const AppConfig = {
     }
 
     // Normalize backslashes (Windows paths) and remove leading slashes
-    const cleanPath = trimmed.replace(/\\/g, '/').replace(/^\/+/, '');
+    let cleanPath = trimmed.replace(/\\/g, '/').replace(/^\/+/, '');
+
+    // Append cache-busting version for image assets so replaced cut images are never served stale from browser cache
+    if (this.ASSET_VERSION && /\.(webp|jpe?g|png)$/i.test(cleanPath) && !cleanPath.includes('?')) {
+      cleanPath = `${cleanPath}?v=${this.ASSET_VERSION}`;
+    }
 
     // Prepend API_BASE_URL if configured, stripping any trailing slash
     const baseUrl = (typeof this.API_BASE_URL === 'string' ? this.API_BASE_URL : '').trim().replace(/\/+$/, '');

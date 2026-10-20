@@ -98,6 +98,7 @@ const ResultViewer = {
   },
 
   async init(customSearch = null) {
+    this.resultData = null;
     const searchStr = (typeof customSearch === 'string')
       ? customSearch
       : ((typeof window !== 'undefined' && window.location && window.location.search) ? window.location.search : '');
@@ -110,6 +111,9 @@ const ResultViewer = {
     if (urlBook && config && typeof config.setSelectedBook === 'function') {
       config.setSelectedBook(urlBook);
     }
+    const activeBook = urlBook || ((config && typeof config.getSelectedBook === 'function')
+      ? this._normalizeBookParam(config.getSelectedBook())
+      : null);
 
     // 2. Parse ?q=62 or ?question=62 and ?show=review
     let targetQNum = null;
@@ -146,14 +150,25 @@ const ResultViewer = {
     const storage = this._getStorage();
 
     const matchesBook = (item) => {
-      if (!urlBook || !item) return true;
+      if (!item) return true;
+      const targetBookToMatch = urlBook || activeBook;
+      if (!targetBookToMatch) return true;
       const itemBook = this._normalizeBookParam(item.bookName || item.book);
-      if (itemBook) return itemBook === urlBook;
-      if (item.testTitle && String(item.testTitle).toUpperCase().includes(urlBook)) return true;
-      return false;
+      if (itemBook) return itemBook === targetBookToMatch;
+      if (item.testTitle) {
+        const titleBook = this._normalizeBookParam(item.testTitle);
+        if (titleBook) return titleBook === targetBookToMatch;
+      }
+      return !urlBook;
     };
 
-    if (urlResultId && storage && typeof storage.getExamHistory === 'function') {
+    // CRITICAL FIX: When user clicks "📖 Giải" (?show=review) or opens a direct audit link (?q=...) without a specific history record ID (?id=...),
+    // ALWAYS load fresh solution data directly from the compiled database instead of stale localStorage history!
+    if (isDirectReview && !urlResultId) {
+      await this.loadReviewModeFromDB(urlTestId || 1, activeBook);
+    }
+
+    if (!this.resultData && urlResultId && storage && typeof storage.getExamHistory === 'function') {
       const history = storage.getExamHistory();
       const match = Array.isArray(history) ? history.find(h => h && h.id === urlResultId) : null;
       if (match) {
@@ -179,12 +194,14 @@ const ResultViewer = {
     }
 
     const needsDBLoad =
-      (urlTestId && (!this.resultData || parseInt(this.resultData.testId, 10) !== urlTestId)) ||
-      (urlBook && (!this.resultData || !matchesBook(this.resultData))) ||
-      (targetQNum && (!this.resultData || !Array.isArray(this.resultData.detailedQuestions) || !this.resultData.detailedQuestions.some(q => q && Number(q.questionNumber) === targetQNum)));
+      (!isDirectReview || urlResultId) && (
+        (urlTestId && (!this.resultData || parseInt(this.resultData.testId, 10) !== urlTestId)) ||
+        (urlBook && (!this.resultData || !matchesBook(this.resultData))) ||
+        (targetQNum && (!this.resultData || !Array.isArray(this.resultData.detailedQuestions) || !this.resultData.detailedQuestions.some(q => q && Number(q.questionNumber) === targetQNum)))
+      );
 
     if (needsDBLoad) {
-      await this.loadReviewModeFromDB(urlTestId || (this.resultData && parseInt(this.resultData.testId, 10)) || 1, urlBook);
+      await this.loadReviewModeFromDB(urlTestId || (this.resultData && parseInt(this.resultData.testId, 10)) || 1, activeBook);
     }
 
     if (!this.resultData) {
@@ -2124,7 +2141,7 @@ const ResultViewer = {
         // If question belongs to a group (Part 3, 4, 6, 7)
         const freshG = (q.groupId && gMap[q.groupId]) || qGroupMap[q.questionNumber];
         if (freshG) {
-          if (!q.groupId && freshG.groupId) {
+          if (freshG.groupId && q.groupId !== freshG.groupId) {
             q.groupId = freshG.groupId;
             hasUpdates = true;
           }

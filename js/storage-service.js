@@ -464,22 +464,59 @@ const StorageService = {
     const key = this.LATEST_RESULT_KEY || 'toeic_latest_result';
     let saved = false;
 
+    const buildSlimSerialized = () => {
+      try {
+        const rawDetailed = Array.isArray(result.detailedQuestions)
+          ? result.detailedQuestions.filter(q => q && typeof q === 'object')
+          : [];
+        const slimDetailed = rawDetailed.map(q => ({
+          questionNumber: q.questionNumber,
+          part: q.part,
+          groupId: q.groupId,
+          imageUrl: q.imageUrl || '',
+          expectedRange: q.expectedRange || null,
+          userChoice: q.userChoice,
+          correctChoice: q.correctChoice,
+          isCorrect: q.isCorrect
+        }));
+        return JSON.stringify({ ...result, detailedQuestions: slimDetailed });
+      } catch (_) {
+        return null;
+      }
+    };
+
     // 2. Try saving to sessionStorage first (primary for current tab session)
     if (sessStorage) {
       try {
+        try { sessStorage.removeItem(key); } catch (_) {}
         sessStorage.setItem(key, serialized);
         saved = true;
       } catch (e) {
-        console.warn('sessionStorage failed in setCurrentResult:', e);
+        const slimStr = buildSlimSerialized();
+        if (slimStr) {
+          try {
+            sessStorage.setItem(key, slimStr);
+            saved = true;
+          } catch (_) {}
+        }
+        if (!saved) console.warn('sessionStorage failed in setCurrentResult:', e);
       }
     }
 
     // 3. Mirror or fallback to localStorage (cross-tab / refresh persistence)
     if (storage) {
       try {
+        try { storage.removeItem(key); } catch (_) {}
         storage.setItem(key, serialized);
         saved = true;
       } catch (err) {
+        const slimStr = buildSlimSerialized();
+        if (slimStr) {
+          try {
+            storage.setItem(key, slimStr);
+            saved = true;
+          } catch (_) {}
+        }
         if (!saved) {
           console.error('All storage attempts failed in setCurrentResult:', err);
         }
