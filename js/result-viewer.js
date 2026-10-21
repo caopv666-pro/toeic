@@ -2233,16 +2233,17 @@ const ResultViewer = {
         note.style.display = s.analysis ? 'block' : 'none';
       }
 
-      // Nâng z-index của khung chứa ảnh đang mở popup để khi popup tràn xuống dưới ra ngoài ảnh không bị các phần tử bên dưới đè lên
+      // Nâng z-index của khung chứa ảnh đang mở popup để khi popup thoát ra ngoài ảnh không bị các phần tử khác đè lên
       if (!prefix && typeof document !== 'undefined') {
         document.querySelectorAll('.interactive-passage-container').forEach(el => {
           el.style.zIndex = '';
         });
         const passWrap = document.getElementById(`pass_wrap_${gid}_${pIdx}`);
-        if (passWrap) passWrap.style.zIndex = '45';
+        if (passWrap) passWrap.style.zIndex = '60';
+        card.style.zIndex = '70';
       }
 
-      // Định vị popup cách tọa độ câu một khoảng vừa phải bên dưới, cho phép tràn xuống dưới ra ngoài ảnh
+      // Định vị popup cách tọa độ câu một khoảng vừa phải
       const firstR = s.regions && s.regions[0];
       const refH = passage.imageHeight || 1000;
       const sy1Pct = firstR
@@ -2262,24 +2263,25 @@ const ResultViewer = {
           } catch (_) {}
         }
       } else {
-        // Hiển thị bên trên tọa độ câu một khoảng rõ ràng (10px) để không che nội dung câu và bài đọc ở dưới
+        // Cho phép popup hoàn toàn thoát ra ngoài khung ảnh, hiển thị bên trên tọa độ câu (cách 12px) để không che nội dung bài đọc
         card.style.top = 'auto';
-        card.style.bottom = `calc(${Math.max(0, 100 - sy0Pct).toFixed(2)}% + 10px)`;
+        card.style.bottom = `calc(${Math.max(0, 100 - sy0Pct).toFixed(2)}% + 12px)`;
       }
 
       card.style.display = 'block';
       card.scrollTop = 0;
 
-      // Bảo đảm nếu đỉnh popup vượt quá đỉnh của container ảnh, căn sát đỉnh ảnh để không bị khuất
-      if (!prefix && card.parentElement && typeof card.getBoundingClientRect === 'function') {
-        try {
-          const cardRect = card.getBoundingClientRect();
-          const parentRect = card.parentElement.getBoundingClientRect();
-          if (cardRect.top < parentRect.top - 15) {
-            card.style.bottom = 'auto';
-            card.style.top = '0px';
-          }
-        } catch (_) {}
+      // Đảm bảo khi popup thoát lên trên khung ảnh, nếu đỉnh popup vượt quá mép trên màn hình thì tự động cuộn nhẹ để nhìn thấy trọn vẹn popup
+      if (!prefix && typeof window !== 'undefined' && typeof card.getBoundingClientRect === 'function') {
+        setTimeout(() => {
+          try {
+            const cardRect = card.getBoundingClientRect();
+            const safeTop = 75;
+            if (cardRect.top < safeTop) {
+              window.scrollBy({ top: cardRect.top - safeTop - 15, behavior: 'smooth' });
+            }
+          } catch (_) {}
+        }, 20);
       }
     }
   },

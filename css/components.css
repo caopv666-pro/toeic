@@ -1839,15 +1839,15 @@
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
   margin-top: 0 !important;
-  z-index: 45;
+  z-index: 70;
   background: rgba(15, 23, 42, 0.96) !important;
   color: #f8fafc;
   border: 1.5px solid var(--accent-primary);
   border-radius: var(--radius-md);
   padding: 8px 11px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.58);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 [data-theme="light"] .sentence-floating-popover {
