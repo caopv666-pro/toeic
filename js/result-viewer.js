@@ -1527,76 +1527,79 @@ const ResultViewer = {
              data-group-index="${groupIndex}"
              data-part="${group.part}"
              data-range="${range[0]}-${range[1]}">
-          <!-- Mobile Top Navigation Header -->
-          <div class="mobile-group-header-bar">
-            <button type="button" class="btn-group-nav btn-group-prev" onclick="ResultViewer.navReadingGroup('${group.part}', -1)" ${groupIndex === 0 ? 'disabled' : ''} aria-label="Nhóm trước">
-              ‹ Trước
-            </button>
-            <div class="group-nav-info">
-              <span class="group-nav-range-title">Câu ${range[0]} – ${range[1]}</span>
-            </div>
-            <button type="button" class="btn-group-nav btn-group-next" onclick="ResultViewer.navReadingGroup('${group.part}', 1)" ${groupIndex === totalGroups - 1 ? 'disabled' : ''} aria-label="Nhóm tiếp theo">
-              Tiếp ›
-            </button>
-          </div>
-
-          <!-- Group Header (Desktop PC) -->
-          <div class="group-review-header pc-only-header">
-            <span class="group-review-badge">
-              📖 ${badgeLabel} • Câu ${range[0]}–${range[1]}
-            </span>
-          </div>
-
-          <!-- Left Column (Desktop) / Scrollable Background (Mobile): Passage Images & Overlays -->
-          <div class="reading-stage-images passages-images-wrap">
-            ${group.groupPassages && group.groupPassages.length > 0 ? `
-              <div class="group-passages-wrap">
-                ${group.groupPassages.map((p, pIdx) => {
-                  const pUrl = typeof p === 'string' ? p : p.imageUrl;
-                  const fullUrl = (config && typeof config.resolveAssetUrl === 'function') ? config.resolveAssetUrl(pUrl) : (pUrl || '');
-                  return `
-                    <div class="interactive-passage-container" id="pass_wrap_${gid}_${pIdx}">
-                      <div class="passage-image-wrap" id="img_wrap_${gid}_${pIdx}">
-                        <button type="button" class="image-zoom-btn-icon" onclick="event.stopPropagation(); ResultViewer.openPassageLightbox('${gid}', ${pIdx}, '${fullUrl}')" title="Phóng to ảnh" aria-label="Phóng to ảnh">🔍</button>
-                        <img src="${fullUrl}" alt="Passage ${pIdx + 1}"
-                             class="interactive-passage-img"
-                             id="img_${gid}_${pIdx}"
-                             onload="ResultViewer.setupPassageOverlays(this, '${gid}', ${pIdx})"
-                             onclick="ResultViewer.handlePassageImageClick(event, this, '${gid}', ${pIdx})">
-                        <div class="passage-overlays-layer" id="overlays_${gid}_${pIdx}"></div>
-
-                        <!-- Floating Sentence Lookup Popover -->
-                        <div class="sentence-lookup-card sentence-floating-popover" id="sentence_card_${gid}_${pIdx}" style="display: none;" onclick="event.stopPropagation()">
-                          <div class="sentence-lookup-header">
-                            <span class="sentence-badge" id="sentence_badge_${gid}_${pIdx}">Câu 1</span>
-                            <button type="button" class="sentence-close-btn" onclick="ResultViewer.closeSentenceCard('${gid}', ${pIdx})">&times;</button>
-                          </div>
-                          <div class="sentence-text-en" id="sentence_en_${gid}_${pIdx}"></div>
-                          <div class="sentence-text-vi" id="sentence_vi_${gid}_${pIdx}"></div>
-                          <div class="sentence-text-note" id="sentence_note_${gid}_${pIdx}"></div>
-                        </div>
-                      </div>
-
-                      ${Array.isArray(p.sentences) && p.sentences.length > 0 ? `
-                        <div class="passage-inline-sentence-dock" id="sentence_dock_${gid}_${pIdx}" role="toolbar" aria-label="Danh sách câu bài đọc">
-                          ${p.sentences.map((s, sIdx) => `
-                            <button type="button" class="lightbox-sentence-btn inline-sentence-btn"
-                                    id="btn_${gid}_${pIdx}_${sIdx}"
-                                    data-sidx="${sIdx}"
-                                    aria-pressed="false"
-                                    aria-label="Xem dịch và giải thích câu ${sIdx + 1}"
-                                    onclick="event.stopPropagation(); ResultViewer.handleSentenceBtnClick('${gid}', ${pIdx}, ${sIdx}, '')">
-                              Câu ${sIdx + 1}
-                            </button>
-                          `).join('')}
-                        </div>
-                      ` : ''}
-                    </div>
-                  `;
-                }).join('')}
+          <!-- Pinned Top Zone on Mobile (131-134 -> Passage Image -> Câu 1, Câu 2) / Display Contents on PC -->
+          <div class="reading-group-pinned-top">
+            <!-- Mobile Top Navigation Header -->
+            <div class="mobile-group-header-bar">
+              <button type="button" class="btn-group-nav btn-group-prev" onclick="ResultViewer.navReadingGroup('${group.part}', -1)" ${groupIndex === 0 ? 'disabled' : ''} aria-label="Nhóm trước">
+                ‹ Trước
+              </button>
+              <div class="group-nav-info">
+                <span class="group-nav-range-title">Câu ${range[0]} – ${range[1]}</span>
               </div>
-            ` : ''}
+              <button type="button" class="btn-group-nav btn-group-next" onclick="ResultViewer.navReadingGroup('${group.part}', 1)" ${groupIndex === totalGroups - 1 ? 'disabled' : ''} aria-label="Nhóm tiếp theo">
+                Tiếp ›
+              </button>
+            </div>
 
+            <!-- Group Header (Desktop PC) -->
+            <div class="group-review-header pc-only-header">
+              <span class="group-review-badge">
+                📖 ${badgeLabel} • Câu ${range[0]}–${range[1]}
+              </span>
+            </div>
+
+            <!-- Left Column (Desktop) / Pinned Image & Sentence Dock (Mobile) -->
+            <div class="reading-stage-images passages-images-wrap">
+              ${group.groupPassages && group.groupPassages.length > 0 ? `
+                <div class="group-passages-wrap">
+                  ${group.groupPassages.map((p, pIdx) => {
+                    const pUrl = typeof p === 'string' ? p : p.imageUrl;
+                    const fullUrl = (config && typeof config.resolveAssetUrl === 'function') ? config.resolveAssetUrl(pUrl) : (pUrl || '');
+                    return `
+                      <div class="interactive-passage-container" id="pass_wrap_${gid}_${pIdx}">
+                        <div class="passage-image-wrap" id="img_wrap_${gid}_${pIdx}">
+                          <button type="button" class="image-zoom-btn-icon" onclick="event.stopPropagation(); ResultViewer.openPassageLightbox('${gid}', ${pIdx}, '${fullUrl}')" title="Phóng to ảnh" aria-label="Phóng to ảnh">🔍</button>
+                          <img src="${fullUrl}" alt="Passage ${pIdx + 1}"
+                               class="interactive-passage-img"
+                               id="img_${gid}_${pIdx}"
+                               onload="ResultViewer.setupPassageOverlays(this, '${gid}', ${pIdx})"
+                               onclick="ResultViewer.handlePassageImageClick(event, this, '${gid}', ${pIdx})">
+                          <div class="passage-overlays-layer" id="overlays_${gid}_${pIdx}"></div>
+
+                          <!-- Floating Sentence Lookup Popover -->
+                          <div class="sentence-lookup-card sentence-floating-popover" id="sentence_card_${gid}_${pIdx}" style="display: none;" onclick="event.stopPropagation()">
+                            <div class="sentence-lookup-header">
+                              <span class="sentence-badge" id="sentence_badge_${gid}_${pIdx}">Câu 1</span>
+                              <button type="button" class="sentence-close-btn" onclick="ResultViewer.closeSentenceCard('${gid}', ${pIdx})">&times;</button>
+                            </div>
+                            <div class="sentence-text-en" id="sentence_en_${gid}_${pIdx}"></div>
+                            <div class="sentence-text-vi" id="sentence_vi_${gid}_${pIdx}"></div>
+                            <div class="sentence-text-note" id="sentence_note_${gid}_${pIdx}"></div>
+                          </div>
+                        </div>
+
+                        ${Array.isArray(p.sentences) && p.sentences.length > 0 ? `
+                          <div class="passage-inline-sentence-dock" id="sentence_dock_${gid}_${pIdx}" role="toolbar" aria-label="Danh sách câu bài đọc">
+                            ${p.sentences.map((s, sIdx) => `
+                              <button type="button" class="lightbox-sentence-btn inline-sentence-btn"
+                                      id="btn_${gid}_${pIdx}_${sIdx}"
+                                      data-sidx="${sIdx}"
+                                      aria-pressed="false"
+                                      aria-label="Xem dịch và giải thích câu ${sIdx + 1}"
+                                      onclick="event.stopPropagation(); ResultViewer.handleSentenceBtnClick('${gid}', ${pIdx}, ${sIdx}, '')">
+                                Câu ${sIdx + 1}
+                              </button>
+                            `).join('')}
+                          </div>
+                        ` : ''}
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              ` : ''}
+
+            </div>
           </div>
 
           <!-- Right Column (Desktop) / Questions Section Underneath (Mobile): Sub-questions -->

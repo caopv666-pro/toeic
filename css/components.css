@@ -913,7 +913,8 @@
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-full);
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 [data-theme="light"] .passage-inline-sentence-dock {
@@ -923,14 +924,9 @@
 }
 
 .passage-inline-sentence-dock::-webkit-scrollbar {
-  height: 4px;
-}
-.passage-inline-sentence-dock::-webkit-scrollbar-track {
-  background: transparent;
-}
-.passage-inline-sentence-dock::-webkit-scrollbar-thumb {
-  background: var(--border-glass);
-  border-radius: 4px;
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 .sentence-inline-popover {
@@ -3112,11 +3108,13 @@ html.no-animations *::after {
 /* Mobile Layout (max-width: 768px): Pinned Top (Header + Image + Câu 1..n) + Scrollable Bottom Question Card */
 @media (max-width: 768px) {
 
-  /* Eliminate extra bottom page padding when viewing reading groups so the pinned stage locks cleanly at bottom */
+  /* Eliminate extra bottom page padding and ancestor transforms so sticky pinning works identically to Part bar */
   main.container:has(.reading-group-stage.mobile-active-group),
   #detailed-review-section:has(.reading-group-stage.mobile-active-group) {
     padding-bottom: 0 !important;
     margin-bottom: 0 !important;
+    animation: none !important;
+    transform: none !important;
   }
 
   /* On Mobile, hide groups that are not active */
@@ -3124,15 +3122,15 @@ html.no-animations *::after {
     display: none !important;
   }
 
-  /* Active Reading Group Stage on Mobile: Fixed viewport height below navbar & filter tabs bar */
+  /* Active Reading Group Stage on Mobile */
   .reading-group-stage.mobile-active-group {
     display: flex !important;
     flex-direction: column !important;
-    position: sticky !important;
-    top: 76px !important;
+    position: relative !important;
+    top: auto !important;
     height: calc(100vh - 78px) !important;
-    height: calc(100dvh - 78px) !important;
-    max-height: calc(100dvh - 78px) !important;
+    height: calc(100svh - 78px) !important;
+    max-height: calc(100svh - 78px) !important;
     padding: 0 0 4px 0 !important;
     margin: 0 !important;
     border: 1px solid var(--border-glass);
@@ -3140,6 +3138,30 @@ html.no-animations *::after {
     overflow: visible !important;
     background: var(--bg-secondary);
     box-sizing: border-box !important;
+    animation: none !important;
+    transform: none !important;
+  }
+
+  /* Pinned Top Container (from Câu 131-134 through Passage Image to end of Câu 1, Câu 2):
+     Pinned with position: sticky right under the Part 1..7 bar, identical to how Part bar pins! */
+  .reading-group-stage .reading-group-pinned-top {
+    display: flex !important;
+    flex-direction: column !important;
+    position: sticky !important;
+    top: 76px !important;
+    z-index: 85 !important;
+    background: var(--bg-secondary, #111622) !important;
+    border-bottom: 1px solid var(--border-glass, rgba(255, 255, 255, 0.12)) !important;
+    border-radius: var(--radius-md, 12px) var(--radius-md, 12px) 0 0 !important;
+    padding-bottom: 4px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    flex: 0 0 auto !important;
+  }
+
+  [data-theme="light"] .reading-group-stage .reading-group-pinned-top {
+    background: #ffffff !important;
+    border-bottom-color: #cbd5e1 !important;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08) !important;
   }
 
   /* Hide redundant outer reading-group-nav-bar on mobile */
@@ -3153,7 +3175,7 @@ html.no-animations *::after {
     align-items: center;
     justify-content: space-between;
     gap: 8px;
-    padding: 6px 10px;
+    padding: 5px 10px;
     background: var(--bg-glass-card, rgba(15, 23, 42, 0.96));
     border-bottom: 1px solid var(--border-glass, rgba(255, 255, 255, 0.12));
     border-radius: var(--radius-md, 12px) var(--radius-md, 12px) 0 0;
@@ -3223,18 +3245,18 @@ html.no-animations *::after {
     touch-action: pan-x pinch-zoom !important;
   }
 
-  .reading-group-stage .interactive-passage-img {
-    max-height: 34vh !important;
-    max-height: 34dvh !important;
+  .reading-group-stage .reading-stage-images img.interactive-passage-img {
+    max-height: 30vh !important;
+    max-height: 30svh !important;
     width: 100% !important;
     object-fit: contain !important;
     display: block !important;
     margin: 0 auto !important;
   }
 
-  .reading-group-stage .group-passages-wrap:has(.interactive-passage-container + .interactive-passage-container) .interactive-passage-img {
-    max-height: 18vh !important;
-    max-height: 18dvh !important;
+  .reading-group-stage .group-passages-wrap:has(.interactive-passage-container + .interactive-passage-container) img.interactive-passage-img {
+    max-height: 16vh !important;
+    max-height: 16svh !important;
   }
 
   /* Hide master translation accordion as requested */
@@ -3242,14 +3264,22 @@ html.no-animations *::after {
     display: none !important;
   }
 
-  /* Ultra-compact <Câu 1, Câu 2, ...> dock on mobile so it occupies minimal vertical space and stays pinned */
+  /* Ultra-compact <Câu 1, Câu 2, ...> dock on mobile with hidden scrollbar */
   .passage-inline-sentence-dock {
     padding: 3px 6px !important;
-    margin-top: 4px !important;
+    margin-top: 3px !important;
     gap: 4px !important;
     border-radius: 14px !important;
     touch-action: pan-x !important;
     overscroll-behavior-x: contain !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  .passage-inline-sentence-dock::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
   }
 
   .passage-inline-sentence-dock .inline-sentence-btn,
@@ -3341,7 +3371,8 @@ html.no-animations *::after {
     -webkit-overflow-scrolling: touch !important;
     overscroll-behavior-y: contain !important;
     touch-action: pan-x pan-y !important;
-    scrollbar-width: thin !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
     margin: 0 !important;
     padding: 10px 12px 16px 12px !important;
     background: var(--bg-glass-card, rgba(15, 23, 42, 0.85)) !important;
@@ -3349,10 +3380,19 @@ html.no-animations *::after {
     border-radius: var(--radius-md, 12px) !important;
     box-shadow: var(--shadow-sm, 0 2px 8px rgba(0, 0, 0, 0.2)) !important;
   }
+
+  .reading-group-stage .group-subquestions-list .review-q-card::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
 }
 
-/* Hide mobile subquestions navigation on PC */
+/* Hide mobile subquestions navigation on PC and make pinned wrapper transparent to CSS Grid */
 @media (min-width: 769px) {
+  .reading-group-pinned-top {
+    display: contents !important;
+  }
   .mobile-subquestions-nav {
     display: none !important;
   }
