@@ -320,6 +320,20 @@ const UIRenderer = {
            data-group-index="${groupIndex}"
            data-part="${partKey}"
            data-range="${range[0]}-${range[1]}">
+        <!-- Mobile Top Group Navigation Bar -->
+        <div class="mobile-group-header-bar">
+          <button type="button" class="btn-group-nav btn-group-prev" onclick="ExamEngine.navReadingGroup('${partKey}', -1)" ${groupIndex === 0 ? 'disabled' : ''} aria-label="Nhóm trước">
+            ‹ Trước
+          </button>
+          <div class="group-nav-info">
+            <span class="group-nav-badge">${partKey === 'part6' ? 'Part 6' : 'Part 7'} • Nhóm ${groupIndex + 1}/${totalGroups}</span>
+            <span class="group-nav-range">Câu ${range[0]} – ${range[1]}</span>
+          </div>
+          <button type="button" class="btn-group-nav btn-group-next" onclick="ExamEngine.navReadingGroup('${partKey}', 1)" ${groupIndex === totalGroups - 1 ? 'disabled' : ''} aria-label="Nhóm tiếp theo">
+            Tiếp ›
+          </button>
+        </div>
+
         <div class="passage-header pc-only-header">
           📖 ${partKey === 'part6' ? 'Part 6: Text Completion' : 'Part 7: Reading Comprehension'} (Câu ${range[0]} - ${range[1]})
         </div>
@@ -398,7 +412,11 @@ const UIRenderer = {
                 <button type="button" class="btn-next-group-bottom" onclick="ExamEngine.navReadingGroup('${partKey}', 1)">
                   Sang nhóm tiếp theo ➔
                 </button>
-              ` : ''}
+              ` : (partKey === 'part6' ? `
+                <button type="button" class="btn-next-group-bottom" onclick="ExamEngine.switchExamPart('part7', true)">
+                  Chuyển sang Part 7 ➔
+                </button>
+              ` : '')}
             </div>
           </div>
         </div>

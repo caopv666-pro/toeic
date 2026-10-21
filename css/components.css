@@ -2851,7 +2851,7 @@ html.no-animations *::after {
 
 .reading-stage-images img,
 .interactive-passage-img {
-  max-width: 520px;
+  max-width: 640px;
   width: 100%;
   height: auto;
   object-fit: contain;
@@ -2860,40 +2860,41 @@ html.no-animations *::after {
 }
 
 .interactive-passage-container {
-  max-width: 520px;
+  max-width: 640px;
   margin: 0 auto;
 }
 
 /* Desktop PC Layout (min-width: 992px): 2-Column Split View */
 @media (min-width: 992px) {
-  /* On Desktop PC, hide redundant mobile group navigation bar */
-  .reading-group-nav-bar {
+  /* On Desktop PC, hide redundant mobile group navigation bars */
+  .reading-group-nav-bar,
+  .mobile-group-header-bar {
     display: none !important;
   }
 
   .reading-group-stage {
     display: grid !important;
-    grid-template-columns: minmax(360px, 480px) minmax(400px, 1fr) !important;
-    gap: 24px;
+    grid-template-columns: minmax(460px, 640px) minmax(380px, 1fr) !important;
+    gap: 28px;
     align-items: start;
-    padding: 20px 22px;
-    margin-bottom: 24px;
+    padding: 22px 24px;
+    margin-bottom: 28px;
   }
 
   .reading-group-stage .passage-header,
   .reading-group-stage .group-review-header {
     grid-column: 1 / -1;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
   }
 
-  /* Left Column: Sticky Passage Image(s) */
+  /* Left Column: Sticky Passage Image(s) - stays in view while questions scroll */
   .reading-group-stage .reading-stage-images {
     position: sticky;
-    top: calc(var(--navbar-height, 66px) + 16px);
-    max-height: calc(100vh - 100px);
+    top: calc(var(--navbar-height, 66px) + 12px);
+    max-height: calc(100vh - 96px);
     overflow-y: auto;
     overflow-x: hidden;
-    padding-right: 6px;
+    padding-right: 8px;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -2921,9 +2922,23 @@ html.no-animations *::after {
   .reading-group-stage .reading-sheet-body {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     overflow: visible;
     padding: 0;
+  }
+
+  /* Compact Question Cards on PC */
+  .reading-group-stage .question-item,
+  .reading-group-stage .review-q-card {
+    padding: 10px 14px;
+    margin-bottom: 10px;
+    border-radius: var(--radius-md, 10px);
+  }
+
+  .reading-group-stage .question-text {
+    font-size: 0.92rem;
+    line-height: 1.48;
+    margin-bottom: 6px;
   }
 
   /* Part 5 on Desktop PC: 2-Column Options Grid across full width */
@@ -2938,24 +2953,19 @@ html.no-animations *::after {
   .reading-group-stage .review-options-group {
     display: flex;
     flex-direction: column;
-    gap: 7px;
+    gap: 6px;
   }
 
   .reading-group-stage .option-btn {
-    padding: 9px 14px;
-    font-size: 0.9rem;
-    min-height: 40px;
+    padding: 7px 12px;
+    font-size: 0.88rem;
+    min-height: 36px;
     border-radius: var(--radius-sm, 8px);
   }
 
   .reading-group-stage .review-opt-card {
-    padding: 9px 12px;
-    font-size: 0.88rem;
-  }
-
-  .reading-group-stage .review-q-card {
-    padding: 14px 16px;
-    margin-bottom: 0;
+    padding: 7px 10px;
+    font-size: 0.85rem;
   }
 
   .btn-next-group-bottom {
@@ -2975,8 +2985,8 @@ html.no-animations *::after {
     display: flex !important;
     flex-direction: column;
     position: relative;
-    height: calc(100dvh - 120px);
-    max-height: calc(100dvh - 120px);
+    height: calc(100dvh - 110px);
+    max-height: calc(100dvh - 110px);
     padding: 0;
     margin: 0;
     border: 1px solid var(--border-glass);
@@ -2985,27 +2995,70 @@ html.no-animations *::after {
     background: var(--bg-secondary);
   }
 
-  /* Mobile Reading Nav Bar (Compact & Clean) */
-  .reading-group-nav-bar {
-    padding: 6px 10px;
-    margin-bottom: 8px;
-    border-radius: 12px;
+  /* Navigation Bar inside active group card (Sticky at top) */
+  .mobile-group-header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    padding: 7px 10px;
+    background: var(--bg-glass-card, rgba(15, 23, 42, 0.94));
+    border-bottom: 1px solid var(--border-glass, rgba(255, 255, 255, 0.12));
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     position: sticky;
-    top: var(--navbar-height, 56px);
-    z-index: 40;
+    top: 0;
+    z-index: 45;
+    flex-shrink: 0;
   }
 
   .btn-group-nav {
     padding: 5px 12px;
+    border-radius: 16px;
     font-size: 0.78rem;
+    font-weight: 700;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    cursor: pointer;
+    transition: all var(--transition-fast, 0.2s);
+  }
+
+  .btn-group-nav:disabled {
+    opacity: 0.35 !important;
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+  }
+
+  .btn-group-next {
+    background: var(--accent-primary, #6366f1);
+    border-color: var(--accent-primary, #6366f1);
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+  }
+
+  .group-nav-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    line-height: 1.25;
   }
 
   .group-nav-badge {
     font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--accent-primary, #818cf8);
   }
 
   .group-nav-range {
     font-size: 0.72rem;
+    color: var(--text-muted, #94a3b8);
+  }
+
+  /* Hide outer review navigation on mobile when viewing reading groups */
+  .reading-part-nav,
+  #review-questions-container:has(.reading-group-stage) .review-part-footer-nav {
+    display: none !important;
   }
 
   /* Hide redundant PC header on mobile */
@@ -3016,35 +3069,35 @@ html.no-animations *::after {
   /* Top Image Area: Scrollable behind the sheet */
   .reading-group-stage .reading-stage-images {
     position: absolute;
-    top: 0;
+    top: 44px; /* Sits cleanly below mobile-group-header-bar */
     left: 0;
     right: 0;
     bottom: 0;
     overflow-y: auto;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 8px 8px 150px 8px;
+    padding: 8px 8px 140px 8px;
     z-index: 10;
   }
 
-  /* Bottom Questions Sheet: Overlays Image */
+  /* Bottom Questions Sheet: Overlays Image with clear peek state */
   .reading-group-stage .reading-questions-sheet {
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0 !important;
-    height: 82%;
-    max-height: 82%;
+    height: 84%;
+    max-height: 84%;
     background: var(--bg-glass-card, #1e293b);
     border-top: 2.5px solid var(--accent-primary, #6366f1);
     border-radius: 18px 18px 0 0;
-    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 -10px 35px rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
     z-index: 30;
     display: flex;
     flex-direction: column;
-    transform: translateY(calc(100% - 130px)); /* Peek height 130px */
+    transform: translateY(calc(100% - 105px)); /* Peek 105px shows handle + title cleanly */
     transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
     touch-action: pan-y;
   }
@@ -3057,7 +3110,7 @@ html.no-animations *::after {
   /* Drag Handle of Sheet */
   .reading-sheet-handle {
     width: 100%;
-    padding: 8px 0 6px;
+    padding: 8px 10px 6px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -3085,15 +3138,16 @@ html.no-animations *::after {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 0.76rem;
+    font-size: 0.78rem;
     font-weight: 700;
     color: var(--accent-primary, #818cf8);
-    margin-top: 3px;
+    margin-top: 4px;
   }
 
-  .reading-sheet-icon {
-    font-size: 0.7rem;
-    transition: transform 0.25s ease;
+  .reading-sheet-hint {
+    font-size: 0.68rem;
+    color: var(--text-muted, #94a3b8);
+    margin-top: 2px;
   }
 
   /* Scrollable questions inside sheet */
@@ -3125,9 +3179,10 @@ html.no-animations *::after {
 }
 
 /* Light Mode Overrides */
-[data-theme="light"] .reading-group-nav-bar {
-  background: rgba(255, 255, 255, 0.95);
-  border-color: rgba(0, 0, 0, 0.1);
+[data-theme="light"] .reading-group-nav-bar,
+[data-theme="light"] .mobile-group-header-bar {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(203, 213, 225, 0.8);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 }
 
@@ -3141,6 +3196,14 @@ html.no-animations *::after {
   background: #6366f1;
   color: #ffffff;
   border-color: #6366f1;
+}
+
+[data-theme="light"] .group-nav-badge {
+  color: #4f46e5;
+}
+
+[data-theme="light"] .group-nav-range {
+  color: #64748b;
 }
 
 [data-theme="light"] .reading-group-stage .reading-questions-sheet {

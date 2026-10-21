@@ -1004,12 +1004,15 @@ const ResultViewer = {
   // ── Reading Group Navigation & Gestures (Part 6 & Part 7 in Review Mode) ──
   navReadingGroup(partKey, delta) {
     if (typeof document === 'undefined') return;
-    const navBar = document.getElementById(`reading-nav-${partKey}`);
-    if (!navBar) return;
-    const currentIdx = parseInt(navBar.getAttribute('data-active-idx') || '0', 10);
-    const total = parseInt(navBar.getAttribute('data-total') || '1', 10);
+    const stageCards = Array.from(document.querySelectorAll(`.reading-group-stage[data-part="${partKey}"]`));
+    if (stageCards.length === 0) return;
+    let currentIdx = stageCards.findIndex(c => c.classList.contains('mobile-active-group'));
+    if (currentIdx === -1) {
+      const navBar = document.getElementById(`reading-nav-${partKey}`);
+      currentIdx = navBar ? parseInt(navBar.getAttribute('data-active-idx') || '0', 10) : 0;
+    }
     const newIdx = currentIdx + delta;
-    if (newIdx >= 0 && newIdx < total) {
+    if (newIdx >= 0 && newIdx < stageCards.length) {
       this.activateReadingGroup(partKey, newIdx, true);
     }
   },
@@ -1073,6 +1076,11 @@ const ResultViewer = {
           sheet.classList.remove('sheet-expanded');
           const icon = sheet.querySelector('.reading-sheet-icon');
           if (icon) icon.textContent = '▲';
+        }
+        const navOffset = 65;
+        const cardTop = activeCard.getBoundingClientRect().top + ((typeof window !== 'undefined' && window.pageYOffset) || (document.documentElement ? document.documentElement.scrollTop : 0) || 0);
+        if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+          window.scrollTo({ top: Math.max(0, cardTop - navOffset), behavior: 'smooth' });
         }
       } else {
         const headerOffset = 90;
@@ -1293,8 +1301,9 @@ const ResultViewer = {
       const curIdx = parseInt(this.currentPartFilter.replace(/part/i, ''), 10);
       const prevPart = curIdx > 1 ? `part${curIdx - 1}` : null;
       const nextPart = curIdx < 7 ? `part${curIdx + 1}` : null;
+      const isReadingPart = curIdx === 6 || curIdx === 7;
       html += `
-        <div class="review-part-footer-nav" style="display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 20px 0 8px; padding: 12px 16px; background: var(--bg-glass-card); border: 1px solid var(--border-glass); border-radius: var(--radius-lg);">
+        <div class="review-part-footer-nav ${isReadingPart ? 'reading-part-nav' : ''}" style="display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 20px 0 8px; padding: 12px 16px; background: var(--bg-glass-card); border: 1px solid var(--border-glass); border-radius: var(--radius-lg);">
           ${prevPart ? `
             <button type="button" class="btn btn-secondary" onclick="ResultViewer.setPartFilter('${prevPart}'); window.scrollTo({top: Math.max(0, (document.getElementById('detailed-review-section')?.offsetTop || 0) - 80), behavior: 'smooth'});">
               ⬅ Part ${curIdx - 1}
@@ -1454,6 +1463,20 @@ const ResultViewer = {
              data-group-index="${groupIndex}"
              data-part="${group.part}"
              data-range="${range[0]}-${range[1]}">
+          <!-- Mobile Top Navigation Header -->
+          <div class="mobile-group-header-bar">
+            <button type="button" class="btn-group-nav btn-group-prev" onclick="ResultViewer.navReadingGroup('${group.part}', -1)" ${groupIndex === 0 ? 'disabled' : ''} aria-label="Nhóm trước">
+              ‹ Trước
+            </button>
+            <div class="group-nav-info">
+              <span class="group-nav-badge">${badgeLabel} • Nhóm ${groupIndex + 1}/${totalGroups}</span>
+              <span class="group-nav-range">Câu ${range[0]} – ${range[1]}</span>
+            </div>
+            <button type="button" class="btn-group-nav btn-group-next" onclick="ResultViewer.navReadingGroup('${group.part}', 1)" ${groupIndex === totalGroups - 1 ? 'disabled' : ''} aria-label="Nhóm tiếp theo">
+              Tiếp ›
+            </button>
+          </div>
+
           <!-- Group Header (Desktop PC) -->
           <div class="group-review-header pc-only-header">
             <span class="group-review-badge">
@@ -1522,7 +1545,11 @@ const ResultViewer = {
                 <button type="button" class="btn-next-group-bottom" onclick="ResultViewer.navReadingGroup('${group.part}', 1)">
                   Xem nhóm tiếp theo ➔
                 </button>
-              ` : ''}
+              ` : (group.part === 'part6' ? `
+                <button type="button" class="btn-next-group-bottom" onclick="ResultViewer.setPartFilter('part7'); window.scrollTo({top: 0, behavior: 'smooth'});">
+                  Chuyển sang Part 7 ➔
+                </button>
+              ` : '')}
             </div>
           </div>
         </div>
