@@ -1335,6 +1335,9 @@ const ResultViewer = {
 
     container.innerHTML = html;
     this.initReadingSheetGestures();
+    if (typeof UIRenderer !== 'undefined' && typeof UIRenderer.syncReadingStageHeights === 'function') {
+      UIRenderer.syncReadingStageHeights();
+    }
   },
 
   // ── Render Standalone Question Review (Part 1, Part 2, Part 5) ──

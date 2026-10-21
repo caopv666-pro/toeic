@@ -516,7 +516,7 @@
 
 .q-image-container img {
   max-width: 100%;
-  max-height: 440px;
+  max-height: 600px;
   object-fit: contain;
   display: block;
 }
@@ -2957,32 +2957,49 @@ html.no-animations *::after {
     margin-bottom: 6px;
   }
 
-  /* Left Column: Sticky Passage Image(s) - stays in view while questions scroll */
+  /* Left Column: Passage Images scroll naturally with main page scroll */
   .reading-group-stage .reading-stage-images {
-    position: sticky;
-    top: calc(var(--navbar-height, 66px) + 12px);
-    max-height: calc(100vh - 96px);
-    overflow-y: auto;
-    overflow-x: hidden;
+    position: static !important;
+    max-height: none !important;
+    overflow-y: visible !important;
+    overflow-x: visible !important;
     padding-right: 8px;
     display: flex;
     flex-direction: column;
     gap: 12px;
   }
 
-  /* Right Column: Questions & Explanations */
+  /* Right Column: Questions & Explanations with independent scroll when height > images */
   .reading-group-stage .reading-questions-sheet {
     display: flex;
     flex-direction: column;
     gap: 12px;
     min-width: 0;
-    position: static;
+    position: sticky;
+    top: calc(var(--navbar-height, 66px) + 12px);
     height: auto;
-    max-height: none;
     background: transparent;
     border: none;
     box-shadow: none;
     transform: none;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding-right: 6px;
+  }
+
+  .reading-group-stage .reading-questions-sheet::-webkit-scrollbar {
+    width: 6px;
+  }
+  .reading-group-stage .reading-questions-sheet::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: var(--radius-full);
+  }
+  .reading-group-stage .reading-questions-sheet::-webkit-scrollbar-thumb {
+    background: var(--border-glass);
+    border-radius: var(--radius-full);
+  }
+  .reading-group-stage .reading-questions-sheet::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-primary);
   }
 
   .reading-group-stage .reading-sheet-handle {

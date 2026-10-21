@@ -689,6 +689,76 @@ const UIRenderer = {
     }
 
     return true;
+  },
+
+  // ── Auto Sync Reading Questions Scroll vs Passage Images ──
+  syncReadingStageHeights() {
+    if (typeof document === 'undefined') return;
+    if (typeof window !== 'undefined' && window.innerWidth < 992) return;
+
+    const stages = document.querySelectorAll('.reading-group-stage');
+    stages.forEach(stage => {
+      const imagesWrap = stage.querySelector('.reading-stage-images');
+      const questionsSheet = stage.querySelector('.reading-questions-sheet');
+      if (!imagesWrap || !questionsSheet) return;
+
+      const updateHeight = () => {
+        if (typeof window !== 'undefined' && window.innerWidth < 992) {
+          questionsSheet.style.maxHeight = '';
+          questionsSheet.style.overflowY = '';
+          return;
+        }
+
+        const imgHeight = imagesWrap.offsetHeight || 0;
+        if (imgHeight <= 0) return;
+
+        // Reset tạm thời để lấy đúng scrollHeight thực tế của nội dung câu hỏi
+        questionsSheet.style.maxHeight = 'none';
+        const questionsHeight = questionsSheet.scrollHeight || 0;
+
+        if (questionsHeight > imgHeight) {
+          // Vùng câu hỏi dài hơn vùng ảnh -> giới hạn bằng chiều cao ảnh, có scroll riêng
+          questionsSheet.style.maxHeight = `${imgHeight}px`;
+          questionsSheet.style.overflowY = 'auto';
+        } else {
+          // Vùng câu hỏi có height <= vùng ảnh -> KHÔNG có scroll của câu hỏi
+          questionsSheet.style.maxHeight = 'none';
+          questionsSheet.style.overflowY = 'visible';
+        }
+      };
+
+      // Thực thi cập nhật ngay
+      updateHeight();
+
+      // Lắng nghe khi ảnh tải xong
+      const imgs = imagesWrap.querySelectorAll('img');
+      imgs.forEach(img => {
+        if (!img._heightSyncBound) {
+          img._heightSyncBound = true;
+          if (img.complete) {
+            updateHeight();
+          } else {
+            img.addEventListener('load', updateHeight);
+            img.addEventListener('error', updateHeight);
+          }
+        }
+      });
+
+      // Theo dõi biến đổi kích thước qua ResizeObserver
+      if (typeof ResizeObserver !== 'undefined' && !stage._stageObserver) {
+        stage._stageObserver = new ResizeObserver(() => {
+          updateHeight();
+        });
+        stage._stageObserver.observe(imagesWrap);
+      }
+    });
+
+    if (typeof window !== 'undefined' && !UIRenderer._resizeBound) {
+      UIRenderer._resizeBound = true;
+      window.addEventListener('resize', () => {
+        UIRenderer.syncReadingStageHeights();
+      });
+    }
   }
 };
 

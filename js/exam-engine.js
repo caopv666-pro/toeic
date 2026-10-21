@@ -1099,6 +1099,9 @@ const ExamEngine = {
 
     container.innerHTML = html;
     this.initReadingSheetGestures();
+    if (typeof UIRenderer !== 'undefined' && typeof UIRenderer.syncReadingStageHeights === 'function') {
+      UIRenderer.syncReadingStageHeights();
+    }
     if (isFullListening) {
       this.initMasterAudio();
     }
