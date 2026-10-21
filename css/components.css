@@ -3214,6 +3214,24 @@ html.no-animations *::after {
     display: none !important;
   }
 
+  /* Ultra-compact <Câu 1, Câu 2, ...> dock on mobile so it occupies minimal vertical space */
+  .passage-inline-sentence-dock {
+    padding: 3px 6px !important;
+    margin-top: 4px !important;
+    gap: 4px !important;
+    border-radius: 14px !important;
+  }
+
+  .passage-inline-sentence-dock .inline-sentence-btn,
+  .passage-inline-sentence-dock .lightbox-sentence-btn {
+    padding: 2px 8px !important;
+    font-size: 0.7rem !important;
+    min-height: 22px !important;
+    height: 22px !important;
+    line-height: 1 !important;
+    border-radius: 10px !important;
+  }
+
   /* Bottom Questions Area: placed directly below passage dock in normal flow */
   .reading-group-stage .reading-questions-sheet {
     position: relative !important;
@@ -3227,14 +3245,16 @@ html.no-animations *::after {
     border-radius: 0 !important;
     box-shadow: none !important;
     transform: none !important;
-    padding: 10px 8px 0 8px !important;
-    margin-top: 6px !important;
+    padding: 4px 6px 0 6px !important;
+    margin-top: 2px !important;
     z-index: 1 !important;
     display: flex !important;
     flex-direction: column !important;
   }
 
-  .reading-sheet-handle {
+  .reading-sheet-handle,
+  .mobile-subquestions-nav,
+  .btn-next-group-bottom {
     display: none !important;
   }
 
@@ -3243,46 +3263,6 @@ html.no-animations *::after {
     flex-direction: column !important;
     padding: 0 !important;
     overflow: visible !important;
-  }
-
-  /* Mobile Sub-questions Pill Navigation */
-  .mobile-subquestions-nav {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 6px 2px 10px 2px;
-    margin-bottom: 2px;
-    scrollbar-width: none;
-  }
-  .mobile-subquestions-nav::-webkit-scrollbar {
-    display: none;
-  }
-  .subq-nav-pill {
-    flex: 0 0 auto;
-    padding: 5px 12px;
-    border-radius: var(--radius-full, 9999px);
-    font-size: 0.78rem;
-    font-weight: 600;
-    border: 1px solid var(--border-glass, rgba(255, 255, 255, 0.15));
-    background: rgba(255, 255, 255, 0.06);
-    color: var(--text-secondary, #cbd5e1);
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .subq-nav-pill.active {
-    background: var(--accent-primary, #6366f1);
-    border-color: var(--accent-primary, #6366f1);
-    color: #ffffff;
-    font-weight: 700;
-    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.35);
-  }
-  .subq-nav-pill.is-correct {
-    border-left: 3px solid var(--success, #10b981);
-  }
-  .subq-nav-pill.is-wrong {
-    border-left: 3px solid var(--danger, #ef4444);
   }
 
   /* Horizontal swipe container for question cards on mobile */
@@ -3294,10 +3274,15 @@ html.no-animations *::after {
     overflow-y: hidden !important;
     scroll-snap-type: x mandatory !important;
     -webkit-overflow-scrolling: touch !important;
-    gap: 12px !important;
-    padding: 4px 2px 10px 2px !important;
+    gap: 10px !important;
+    padding: 2px 2px 8px 2px !important;
     margin-top: 0 !important;
-    scrollbar-width: thin;
+    scrollbar-width: none !important;
+    touch-action: pan-x pan-y !important;
+  }
+
+  .reading-group-stage .group-subquestions-list::-webkit-scrollbar {
+    display: none !important;
   }
 
   /* Question Card inside group on Mobile */
@@ -3308,32 +3293,19 @@ html.no-animations *::after {
     scroll-snap-align: start !important;
     scroll-snap-stop: always !important;
     box-sizing: border-box !important;
-    max-height: 480px !important;
+    max-height: 360px !important;
     overflow-y: auto !important;
+    overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch !important;
-    overscroll-behavior: contain !important;
+    overscroll-behavior-y: auto !important;
+    touch-action: pan-x pan-y !important;
+    scrollbar-width: thin !important;
     margin: 0 !important;
-    padding: 12px !important;
+    padding: 10px 12px !important;
     background: var(--bg-glass-card, rgba(15, 23, 42, 0.85)) !important;
     border: 1px solid var(--border-glass, rgba(255, 255, 255, 0.12)) !important;
     border-radius: var(--radius-md, 12px) !important;
     box-shadow: var(--shadow-sm, 0 2px 8px rgba(0, 0, 0, 0.2)) !important;
-  }
-
-  .btn-next-group-bottom {
-    display: block;
-    width: 100%;
-    margin: 12px 0 6px 0;
-    padding: 10px 16px;
-    font-size: 0.88rem;
-    font-weight: 700;
-    border-radius: var(--radius-md, 10px);
-    background: var(--accent-primary, #6366f1);
-    color: #ffffff;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
-    text-align: center;
   }
 }
 

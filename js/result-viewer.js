@@ -1594,32 +1594,10 @@ const ResultViewer = {
               </div>
             </div>
 
-            <!-- Mobile Subquestions Pill Navigation (e.g. [✓ Câu 139] [✓ Câu 140] ...) -->
-            <div class="mobile-subquestions-nav" id="subq_nav_${gid}" role="tablist" aria-label="Danh sách câu hỏi nhóm">
-              ${group.questions.map((q, qSubIdx) => `
-                <button type="button" class="subq-nav-pill ${qSubIdx === 0 ? 'active' : ''} ${q.isCorrect ? 'is-correct' : 'is-wrong'}"
-                        role="tab"
-                        aria-selected="${qSubIdx === 0 ? 'true' : 'false'}"
-                        id="subq_pill_${gid}_${q.questionNumber}"
-                        onclick="ResultViewer.scrollToSubQuestion('${gid}', ${q.questionNumber})">
-                  ${q.isCorrect ? '✓' : '✗'} Câu ${q.questionNumber}
-                </button>
-              `).join('')}
-            </div>
-
             <div class="reading-sheet-body">
-              <div class="group-subquestions-list" id="subq_list_${gid}" onscroll="ResultViewer.handleSubQuestionsScroll('${gid}')">
+              <div class="group-subquestions-list" id="subq_list_${gid}">
                 ${group.questions.map(q => this.renderSubQuestionItem(q)).join('')}
               </div>
-              ${groupIndex < totalGroups - 1 ? `
-                <button type="button" class="btn-next-group-bottom" onclick="ResultViewer.navReadingGroup('${group.part}', 1)">
-                  Xem nhóm tiếp theo ➔
-                </button>
-              ` : (group.part === 'part6' ? `
-                <button type="button" class="btn-next-group-bottom" onclick="ResultViewer.setPartFilter('part7'); window.scrollTo({top: 0, behavior: 'smooth'});">
-                  Chuyển sang Part 7 ➔
-                </button>
-              ` : '')}
             </div>
           </div>
         </div>
