@@ -132,7 +132,8 @@
 }
 
 /* ── Responsive Breakpoints ── */
-@media (max-width: 1024px) {
+/* Màn hình <= 1400px: Bảng câu hỏi khi thi chỉ hiện khi màn hình lớn hơn 1400px */
+@media (max-width: 1400px) {
   .exam-layout {
     grid-template-columns: 1fr;
     gap: 20px;
@@ -140,12 +141,12 @@
   }
 
   .exam-sidebar-col {
-    display: none; /* Hidden on tablet/mobile, opened via drawer */
+    display: none !important; /* Chỉ hiện khi màn hình lớn hơn 1400 */
   }
 
-  /* Unify: Hide duplicate timer and submit from top navbar on mobile/tablet */
+  /* Unify: Hide duplicate timer and submit from top navbar when bottom bar is active */
   .exam-navbar #desktop-timer-wrap,
-  .exam-navbar .nav-links {
+  .exam-navbar #btn-submit-top {
     display: none !important;
   }
 
@@ -155,6 +156,12 @@
 
   .mobile-palette-drawer {
     display: block;
+  }
+}
+
+@media (max-width: 1024px) {
+  .exam-navbar .nav-links {
+    display: none !important;
   }
 }
 

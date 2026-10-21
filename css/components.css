@@ -2903,7 +2903,7 @@ html.no-animations *::after {
 
 .reading-stage-images img,
 .interactive-passage-img {
-  max-width: 640px;
+  max-width: 100%;
   width: 100%;
   height: auto;
   object-fit: contain;
@@ -2912,11 +2912,11 @@ html.no-animations *::after {
 }
 
 .interactive-passage-container {
-  max-width: 640px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
-/* Desktop PC Layout (min-width: 992px): 2-Column Split View */
+/* Desktop PC Layout (min-width: 992px): 2-Column Split View (Ratio 6 Images : 4 Questions) */
 @media (min-width: 992px) {
   /* On Desktop PC, hide redundant mobile group navigation bars */
   .reading-group-nav-bar,
@@ -2926,7 +2926,7 @@ html.no-animations *::after {
 
   .reading-group-stage {
     display: grid !important;
-    grid-template-columns: minmax(460px, 640px) minmax(380px, 1fr) !important;
+    grid-template-columns: minmax(0, 6fr) minmax(0, 4fr) !important;
     gap: 28px;
     align-items: start;
     padding: 22px 24px;

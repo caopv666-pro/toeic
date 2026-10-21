@@ -110,12 +110,33 @@
 .exam-sidebar-col {
   position: sticky;
   top: 90px;
+  width: clamp(280px, 23vw, 360px);
+  max-width: 360px;
   max-height: calc(100vh - 110px);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
+}
+
+/* Large Desktop Exam Workspace (Screens > 1400px): Ratio 10 (Exam) : 3 (Palette) */
+@media (min-width: 1401px) {
+  .container:has(.exam-layout),
+  .container.exam-container {
+    max-width: min(96vw, 1800px);
+  }
+
+  .exam-layout {
+    grid-template-columns: minmax(0, 10fr) clamp(280px, 23vw, 360px);
+    gap: 32px;
+  }
+
+  .exam-sidebar-col {
+    width: clamp(280px, 23vw, 360px);
+    max-width: 360px;
+    display: flex;
+  }
 }
 
 /* Exam Top Bar Controls */
