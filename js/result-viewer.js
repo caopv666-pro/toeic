@@ -1246,7 +1246,13 @@ const ResultViewer = {
             currentGroup.groupPassages = q.groupPassages;
           }
           if (!currentGroup.groupAudioUrl && (q.audioUrl || q.groupAudioUrl)) {
-            currentGroup.groupAudioUrl = q.audioUrl || q.groupAudioUrl;
+            let gAudio = q.audioUrl || q.groupAudioUrl;
+            if (gAudio && /TEST_\d+\.mp3|Test\d+\.mp3/i.test(gAudio)) {
+              const bName = this.resultData?.bookName || 'EST 2022';
+              const tId = this.resultData?.testId || 1;
+              gAudio = `uploads/${bName}/LC/audio/cut/test${tId}/${currentGroup.groupId}.mp3`;
+            }
+            currentGroup.groupAudioUrl = gAudio;
           }
           if (!currentGroup.groupTranslation) {
             currentGroup.groupTranslation = synthFromSentences(currentGroup.groupSentences) || synthFromPassages(currentGroup.groupPassages);
@@ -1256,6 +1262,12 @@ const ResultViewer = {
           const gSentences = q.groupSentences || [];
           const gPassages = q.groupPassages || [];
           const gTrans = q.groupTranslation || q.passageTranslation || synthFromSentences(gSentences) || synthFromPassages(gPassages) || '';
+          let gAudio = q.audioUrl || q.groupAudioUrl || '';
+          if (gAudio && /TEST_\d+\.mp3|Test\d+\.mp3/i.test(gAudio)) {
+            const bName = this.resultData?.bookName || 'EST 2022';
+            const tId = this.resultData?.testId || 1;
+            gAudio = `uploads/${bName}/LC/audio/cut/test${tId}/${q.groupId}.mp3`;
+          }
           currentGroup = {
             type: 'group',
             groupId: q.groupId,
@@ -1265,7 +1277,7 @@ const ResultViewer = {
             groupSentences: gSentences,
             groupTranscript: q.groupTranscript || '',
             groupTranslation: gTrans,
-            groupAudioUrl: q.audioUrl || q.groupAudioUrl || '',
+            groupAudioUrl: gAudio,
             questions: [q]
           };
           this.groupsMap[q.groupId] = currentGroup;
@@ -1333,7 +1345,12 @@ const ResultViewer = {
     const correctChoice = q.correctChoice;
     const isCorrect = q.isCorrect;
     const hasExplanation = Boolean(q.explanation || q.analysis || q.tips || q.optionsTranslation || q.translation);
-    const audioUrl = q.audioUrl;
+    let audioUrl = q.audioUrl;
+    if (audioUrl && /TEST_\d+\.mp3|Test\d+\.mp3/i.test(audioUrl)) {
+      const bName = this.resultData?.bookName || 'EST 2022';
+      const tId = this.resultData?.testId || 1;
+      audioUrl = `uploads/${bName}/LC/audio/cut/test${tId}/q${qNum}.mp3`;
+    }
     const imgUrl = (config && typeof config.resolveAssetUrl === 'function')
       ? config.resolveAssetUrl(q.imageUrl)
       : (q.imageUrl || '');
@@ -2746,7 +2763,7 @@ const ResultViewer = {
             hasUpdates = true;
           }
           // Sync audioUrl (Part 1, 2)
-          if (freshQ.audioUrl && q.audioUrl !== freshQ.audioUrl) {
+          if (freshQ.audioUrl && (q.audioUrl !== freshQ.audioUrl || /TEST_\d+\.mp3|Test\d+\.mp3/i.test(q.audioUrl))) {
             q.audioUrl = freshQ.audioUrl;
             hasUpdates = true;
           }
@@ -2841,7 +2858,7 @@ const ResultViewer = {
             hasUpdates = true;
           }
           // Sync group audio
-          if (freshG.audioUrl && (!q.audioUrl || !q.groupAudioUrl)) {
+          if (freshG.audioUrl && (!q.audioUrl || !q.groupAudioUrl || /TEST_\d+\.mp3|Test\d+\.mp3/i.test(q.audioUrl) || /TEST_\d+\.mp3|Test\d+\.mp3/i.test(q.groupAudioUrl))) {
             q.audioUrl = freshG.audioUrl;
             q.groupAudioUrl = freshG.audioUrl;
             hasUpdates = true;

@@ -98,6 +98,24 @@ const AudioController = {
       return false;
     }
 
+    // Safety fallback: if an individual question or group player is passed the full test audio (TEST_X.mp3),
+    // automatically rewrite it to the specific cut audio file to prevent playing the 46-minute general test audio!
+    if (/TEST_\d+\.mp3|Test\d+\.mp3/i.test(audioUrl) && !playerId.includes('master')) {
+      const book = (typeof AppConfig !== 'undefined' && typeof AppConfig.getSelectedBook === 'function')
+        ? AppConfig.getSelectedBook()
+        : 'EST 2022';
+      const testMatch = audioUrl.match(/TEST_(\d+)/i) || audioUrl.match(/Test(\d+)/i) || ((typeof window !== 'undefined' && window.location && window.location.search) ? window.location.search.match(/test=(\d+)/i) : null);
+      const testNum = testMatch ? parseInt(testMatch[1], 10) : 1;
+      
+      const qMatch = playerId.match(/(\d+)/);
+      if (playerId.includes('group')) {
+        const gidMatch = playerId.replace(/^review_player_|^audio_/, '');
+        audioUrl = `uploads/${book}/LC/audio/cut/test${testNum}/${gidMatch}.mp3`;
+      } else if (qMatch) {
+        audioUrl = `uploads/${book}/LC/audio/cut/test${testNum}/q${qMatch[1]}.mp3`;
+      }
+    }
+
     const playerWrap = document.getElementById(playerId);
     if (!playerWrap) return false;
 

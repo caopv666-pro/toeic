@@ -1438,6 +1438,17 @@ const ExamEngine = {
         if (section === 'reading') correctCountRC++;
       }
 
+      let rawAudio = qObj.audioUrl || qObj.groupAudioUrl || '';
+      if (rawAudio && /TEST_\d+\.mp3|Test\d+\.mp3/i.test(rawAudio)) {
+        const b = this.bookName || 'EST 2022';
+        const tid = this.testId || 1;
+        if (qObj.groupId && (pKey === 'part3' || pKey === 'part4')) {
+          rawAudio = `uploads/${b}/LC/audio/cut/test${tid}/${qObj.groupId}.mp3`;
+        } else {
+          rawAudio = `uploads/${b}/LC/audio/cut/test${tid}/q${qNum}.mp3`;
+        }
+      }
+
       detailedQuestions.push({
         questionNumber: qNum,
         part: pKey,
@@ -1448,7 +1459,7 @@ const ExamEngine = {
         isCorrect,
         questionText: qObj.questionText || '',
         imageUrl: qObj.imageUrl || '',
-        audioUrl: qObj.audioUrl || qObj.groupAudioUrl || '',
+        audioUrl: rawAudio,
         options: qObj.options || {},
         explanation: qObj.explanation || '',
         translation: qObj.translation || qObj.questionTranslation || '',
