@@ -3109,27 +3109,37 @@ html.no-animations *::after {
   }
 }
 
-/* Mobile Layout (max-width: 768px): 1 Group View + Scrollable Image + Horizontal Question Carousel */
+/* Mobile Layout (max-width: 768px): Pinned Top (Header + Image + Câu 1..n) + Scrollable Bottom Question Card */
 @media (max-width: 768px) {
+
+  /* Eliminate extra bottom page padding when viewing reading groups so the pinned stage locks cleanly at bottom */
+  main.container:has(.reading-group-stage.mobile-active-group),
+  #detailed-review-section:has(.reading-group-stage.mobile-active-group) {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
 
   /* On Mobile, hide groups that are not active */
   .reading-group-stage:not(.mobile-active-group) {
     display: none !important;
   }
 
-  /* Active Reading Group Stage on Mobile */
+  /* Active Reading Group Stage on Mobile: Fixed viewport height below navbar & filter tabs bar */
   .reading-group-stage.mobile-active-group {
     display: flex !important;
     flex-direction: column !important;
-    position: relative;
-    height: auto !important;
-    max-height: none !important;
-    padding: 0 0 16px 0 !important;
-    margin: 0 0 16px 0 !important;
+    position: sticky !important;
+    top: 76px !important;
+    height: calc(100vh - 78px) !important;
+    height: calc(100dvh - 78px) !important;
+    max-height: calc(100dvh - 78px) !important;
+    padding: 0 0 4px 0 !important;
+    margin: 0 !important;
     border: 1px solid var(--border-glass);
     border-radius: var(--radius-md, 12px);
     overflow: visible !important;
     background: var(--bg-secondary);
+    box-sizing: border-box !important;
   }
 
   /* Hide redundant outer reading-group-nav-bar on mobile */
@@ -3137,34 +3147,36 @@ html.no-animations *::after {
     display: none !important;
   }
 
-  /* Navigation Bar inside active group card (Sticky at top) */
+  /* Pinned Navigation Bar inside active group card (Câu 131 - 134) */
   .mobile-group-header-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 8px;
-    padding: 8px 12px;
-    background: var(--bg-glass-card, rgba(15, 23, 42, 0.94));
+    padding: 6px 10px;
+    background: var(--bg-glass-card, rgba(15, 23, 42, 0.96));
     border-bottom: 1px solid var(--border-glass, rgba(255, 255, 255, 0.12));
+    border-radius: var(--radius-md, 12px) var(--radius-md, 12px) 0 0;
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-    position: sticky;
-    top: 48px;
+    position: relative !important;
+    top: auto !important;
     z-index: 45;
-    flex-shrink: 0;
+    flex: 0 0 auto !important;
+    touch-action: none !important;
   }
 
   .group-nav-range-title {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     font-weight: 700;
     color: var(--accent-primary, #818cf8);
     letter-spacing: -0.2px;
   }
 
   .btn-group-nav {
-    padding: 5px 12px;
+    padding: 4px 12px;
     border-radius: 16px;
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     font-weight: 700;
     border: 1px solid rgba(255, 255, 255, 0.18);
     background: rgba(255, 255, 255, 0.08);
@@ -3196,17 +3208,33 @@ html.no-animations *::after {
     display: none !important;
   }
 
-  /* Top Image Area */
+  /* Pinned Top Image + Sentence Dock Area (from under 131-134 to end of Câu 1, Câu 2) */
   .reading-group-stage .reading-stage-images {
+    flex: 0 0 auto !important;
     position: relative !important;
     top: auto !important;
     left: auto !important;
     right: auto !important;
     bottom: auto !important;
     overflow: visible !important;
-    padding: 8px 8px 0px 8px !important;
+    padding: 4px 6px 2px 6px !important;
     min-height: auto !important;
-    z-index: 10;
+    z-index: 55 !important;
+    touch-action: pan-x pinch-zoom !important;
+  }
+
+  .reading-group-stage .interactive-passage-img {
+    max-height: 34vh !important;
+    max-height: 34dvh !important;
+    width: 100% !important;
+    object-fit: contain !important;
+    display: block !important;
+    margin: 0 auto !important;
+  }
+
+  .reading-group-stage .group-passages-wrap:has(.interactive-passage-container + .interactive-passage-container) .interactive-passage-img {
+    max-height: 18vh !important;
+    max-height: 18dvh !important;
   }
 
   /* Hide master translation accordion as requested */
@@ -3214,12 +3242,14 @@ html.no-animations *::after {
     display: none !important;
   }
 
-  /* Ultra-compact <Câu 1, Câu 2, ...> dock on mobile so it occupies minimal vertical space */
+  /* Ultra-compact <Câu 1, Câu 2, ...> dock on mobile so it occupies minimal vertical space and stays pinned */
   .passage-inline-sentence-dock {
     padding: 3px 6px !important;
     margin-top: 4px !important;
     gap: 4px !important;
     border-radius: 14px !important;
+    touch-action: pan-x !important;
+    overscroll-behavior-x: contain !important;
   }
 
   .passage-inline-sentence-dock .inline-sentence-btn,
@@ -3232,22 +3262,25 @@ html.no-animations *::after {
     border-radius: 10px !important;
   }
 
-  /* Bottom Questions Area: placed directly below passage dock in normal flow */
+  /* Bottom Questions Area: fills remaining viewport below pinned Câu 1, Câu 2 dock */
   .reading-group-stage .reading-questions-sheet {
+    flex: 1 1 0% !important;
+    min-height: 0 !important;
     position: relative !important;
     left: auto !important;
     right: auto !important;
     bottom: auto !important;
     height: auto !important;
     max-height: none !important;
+    overflow: hidden !important;
     background: transparent !important;
     border: none !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     transform: none !important;
-    padding: 4px 6px 0 6px !important;
+    padding: 4px 6px 2px 6px !important;
     margin-top: 2px !important;
-    z-index: 1 !important;
+    z-index: 10 !important;
     display: flex !important;
     flex-direction: column !important;
   }
@@ -3259,14 +3292,20 @@ html.no-animations *::after {
   }
 
   .reading-group-stage .reading-sheet-body {
+    flex: 1 1 0% !important;
+    min-height: 0 !important;
+    height: 100% !important;
     display: flex !important;
     flex-direction: column !important;
     padding: 0 !important;
-    overflow: visible !important;
+    overflow: hidden !important;
   }
 
   /* Horizontal swipe container for question cards on mobile */
   .reading-group-stage .group-subquestions-list {
+    flex: 1 1 0% !important;
+    min-height: 0 !important;
+    height: 100% !important;
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
@@ -3275,33 +3314,36 @@ html.no-animations *::after {
     scroll-snap-type: x mandatory !important;
     -webkit-overflow-scrolling: touch !important;
     gap: 10px !important;
-    padding: 2px 2px 8px 2px !important;
+    padding: 2px 2px 4px 2px !important;
     margin-top: 0 !important;
     scrollbar-width: none !important;
     touch-action: pan-x pan-y !important;
+    overscroll-behavior-x: contain !important;
   }
 
   .reading-group-stage .group-subquestions-list::-webkit-scrollbar {
     display: none !important;
   }
 
-  /* Question Card inside group on Mobile */
+  /* Question Card inside group on Mobile: Independent vertical scroll within remaining viewport */
   .reading-group-stage .group-subquestions-list .review-q-card {
     flex: 0 0 100% !important;
     min-width: 100% !important;
     max-width: 100% !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    min-height: 0 !important;
     scroll-snap-align: start !important;
     scroll-snap-stop: always !important;
     box-sizing: border-box !important;
-    max-height: 360px !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch !important;
-    overscroll-behavior-y: auto !important;
+    overscroll-behavior-y: contain !important;
     touch-action: pan-x pan-y !important;
     scrollbar-width: thin !important;
     margin: 0 !important;
-    padding: 10px 12px !important;
+    padding: 10px 12px 16px 12px !important;
     background: var(--bg-glass-card, rgba(15, 23, 42, 0.85)) !important;
     border: 1px solid var(--border-glass, rgba(255, 255, 255, 0.12)) !important;
     border-radius: var(--radius-md, 12px) !important;

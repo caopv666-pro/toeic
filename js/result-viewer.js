@@ -995,6 +995,16 @@ const ResultViewer = {
     if (typeof this.renderDetailedReview === 'function') {
       this.renderDetailedReview();
     }
+
+    // On mobile, when switching to Part 6 or Part 7, snap the active reading group right under the sticky Part bar
+    if ((targetPart === 'part6' || targetPart === 'part7') && typeof window !== 'undefined' && window.innerWidth <= 768 && typeof document !== 'undefined' && typeof document.querySelector === 'function') {
+      const activeCard = document.querySelector(`.reading-group-stage.mobile-active-group[data-part="${targetPart}"]`);
+      if (activeCard && typeof activeCard.getBoundingClientRect === 'function' && typeof window.scrollTo === 'function') {
+        const cardTop = activeCard.getBoundingClientRect().top + (window.pageYOffset || (document.documentElement ? document.documentElement.scrollTop : 0) || 0);
+        window.scrollTo({ top: Math.max(0, cardTop - 76), behavior: 'smooth' });
+      }
+    }
+
     return targetPart;
   },
 
@@ -1059,6 +1069,11 @@ const ResultViewer = {
     if (activeCard) {
       const subqList = activeCard.querySelector('.group-subquestions-list');
       if (subqList) subqList.scrollLeft = 0;
+      if (typeof activeCard.querySelectorAll === 'function') {
+        activeCard.querySelectorAll('.review-q-card').forEach(qCard => {
+          qCard.scrollTop = 0;
+        });
+      }
       const nav = activeCard.querySelector('.mobile-subquestions-nav');
       if (nav && typeof nav.querySelectorAll === 'function') {
         nav.querySelectorAll('.subq-nav-pill').forEach((p, idx) => {
@@ -1080,7 +1095,7 @@ const ResultViewer = {
     }
 
     if (scroll && activeCard) {
-      const navOffset = (typeof window !== 'undefined' && window.innerWidth <= 768) ? 65 : 90;
+      const navOffset = (typeof window !== 'undefined' && window.innerWidth <= 768) ? 76 : 90;
       const cardTop = activeCard.getBoundingClientRect().top + ((typeof window !== 'undefined' && window.pageYOffset) || (document.documentElement ? document.documentElement.scrollTop : 0) || 0);
       if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
         window.scrollTo({ top: Math.max(0, cardTop - navOffset), behavior: 'smooth' });
