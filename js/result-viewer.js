@@ -1532,6 +1532,21 @@ const ResultViewer = {
                           <div class="sentence-text-note" id="sentence_note_${gid}_${pIdx}"></div>
                         </div>
                       </div>
+
+                      ${Array.isArray(p.sentences) && p.sentences.length > 0 ? `
+                        <div class="passage-inline-sentence-dock" id="sentence_dock_${gid}_${pIdx}" role="toolbar" aria-label="Danh sách câu bài đọc">
+                          ${p.sentences.map((s, sIdx) => `
+                            <button type="button" class="lightbox-sentence-btn inline-sentence-btn"
+                                    id="btn_${gid}_${pIdx}_${sIdx}"
+                                    data-sidx="${sIdx}"
+                                    aria-pressed="false"
+                                    aria-label="Xem dịch và giải thích câu ${sIdx + 1}"
+                                    onclick="event.stopPropagation(); ResultViewer.handleSentenceBtnClick('${gid}', ${pIdx}, ${sIdx}, '')">
+                              Câu ${sIdx + 1}
+                            </button>
+                          `).join('')}
+                        </div>
+                      ` : ''}
                     </div>
                   `;
                 }).join('')}

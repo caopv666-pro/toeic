@@ -340,22 +340,54 @@ const UIRenderer = {
 
         ${passages.length > 0 ? `
           <div class="reading-stage-images passages-images-wrap">
-            ${passages.map(p => {
+            ${passages.map((p, pIdx) => {
               const pUrl = typeof p === 'string' ? p : (p && p.imageUrl ? p.imageUrl : '');
               const fullUrl = resolver(pUrl);
               const safeFullUrl = escaper(fullUrl);
               if (!fullUrl) return '';
+              const sentences = (p && typeof p === 'object' && Array.isArray(p.sentences)) ? p.sentences : [];
+              if (sentences.length > 0) {
+                if (!UIRenderer._passageSentencesMap) UIRenderer._passageSentencesMap = {};
+                UIRenderer._passageSentencesMap[`${gid}_${pIdx}`] = sentences;
+              }
               return `
-                <div class="q-image-container zoomable-image-wrap"
-                     role="button"
-                     tabindex="0"
-                     data-img-url="${safeFullUrl}"
-                     onclick="UIRenderer.openLightbox(this.getAttribute('data-img-url'))"
-                     onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();UIRenderer.openLightbox(this.getAttribute('data-img-url'));}"
-                     title="Nhấn để phóng to ảnh"
-                     aria-label="Phóng to hình ảnh bài đọc (Câu ${range[0]} - ${range[1]})"
-                     style="background:#ffffff; border-radius: 6px;">
-                  <img src="${safeFullUrl}" alt="Passage" loading="lazy" onerror="if(this.parentElement)this.parentElement.style.display='none';">
+                <div class="passage-block-item" id="p_block_${gid}_${pIdx}" style="margin-bottom: 16px;">
+                  <div class="q-image-container zoomable-image-wrap"
+                       role="button"
+                       tabindex="0"
+                       data-img-url="${safeFullUrl}"
+                       onclick="UIRenderer.openLightbox(this.getAttribute('data-img-url'))"
+                       onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();UIRenderer.openLightbox(this.getAttribute('data-img-url'));}"
+                       title="Nhấn để phóng to ảnh"
+                       aria-label="Phóng to hình ảnh bài đọc (Câu ${range[0]} - ${range[1]})"
+                       style="background:#ffffff; border-radius: 6px;">
+                    <img src="${safeFullUrl}" alt="Passage" loading="lazy" onerror="if(this.parentElement)this.parentElement.style.display='none';">
+                  </div>
+
+                  ${sentences.length > 0 ? `
+                    <div class="passage-inline-sentence-dock" id="sentence_dock_${gid}_${pIdx}" role="toolbar" aria-label="Danh sách câu bài đọc">
+                      ${sentences.map((s, sIdx) => `
+                        <button type="button" class="lightbox-sentence-btn inline-sentence-btn"
+                                id="btn_${gid}_${pIdx}_${sIdx}"
+                                data-sidx="${sIdx}"
+                                aria-pressed="false"
+                                aria-label="Xem dịch câu ${sIdx + 1}"
+                                onclick="event.stopPropagation(); UIRenderer.toggleSentenceDetail('${gid}', ${pIdx}, ${sIdx})">
+                          Câu ${sIdx + 1}
+                        </button>
+                      `).join('')}
+                    </div>
+
+                    <div class="sentence-lookup-card sentence-inline-popover animate-fade-in" id="sentence_card_${gid}_${pIdx}" style="display: none;" onclick="event.stopPropagation()">
+                      <div class="sentence-lookup-header">
+                        <span class="sentence-badge" id="sentence_badge_${gid}_${pIdx}">Câu 1</span>
+                        <button type="button" class="sentence-close-btn" onclick="UIRenderer.closeSentenceDetail('${gid}', ${pIdx})" aria-label="Đóng">&times;</button>
+                      </div>
+                      <div class="sentence-text-en" id="sentence_en_${gid}_${pIdx}"></div>
+                      <div class="sentence-text-vi" id="sentence_vi_${gid}_${pIdx}"></div>
+                      <div class="sentence-text-note" id="sentence_note_${gid}_${pIdx}"></div>
+                    </div>
+                  ` : ''}
                 </div>
               `;
             }).join('')}
@@ -709,7 +741,8 @@ const UIRenderer = {
           return;
         }
 
-        const imgHeight = imagesWrap.offsetHeight || 0;
+        const rawHeight = imagesWrap.offsetHeight || 0;
+        const imgHeight = Math.max(600, rawHeight);
         if (imgHeight <= 0) return;
 
         // Reset tạm thời để lấy đúng scrollHeight thực tế của nội dung câu hỏi
@@ -717,7 +750,7 @@ const UIRenderer = {
         const questionsHeight = questionsSheet.scrollHeight || 0;
 
         if (questionsHeight > imgHeight) {
-          // Vùng câu hỏi dài hơn vùng ảnh -> giới hạn bằng chiều cao ảnh, có scroll riêng
+          // Vùng câu hỏi dài hơn vùng ảnh -> giới hạn bằng chiều cao ảnh (tối thiểu 600px), có scroll riêng
           questionsSheet.style.maxHeight = `${imgHeight}px`;
           questionsSheet.style.overflowY = 'auto';
         } else {
@@ -758,6 +791,75 @@ const UIRenderer = {
       window.addEventListener('resize', () => {
         UIRenderer.syncReadingStageHeights();
       });
+    }
+  },
+
+  // ── Toggle Sentence Detail Popover Under Passage Image ──
+  toggleSentenceDetail(gid, pIdx, sIdx) {
+    if (typeof document === 'undefined') return;
+    const card = document.getElementById(`sentence_card_${gid}_${pIdx}`);
+    const btn = document.getElementById(`btn_${gid}_${pIdx}_${sIdx}`);
+    const isCurrentlyActive = btn && btn.classList.contains('active');
+    const isCardVisible = card && card.style.display !== 'none';
+
+    if (isCurrentlyActive && isCardVisible) {
+      this.closeSentenceDetail(gid, pIdx);
+      return;
+    }
+
+    const sentences = (this._passageSentencesMap && this._passageSentencesMap[`${gid}_${pIdx}`]) || [];
+    const s = sentences[sIdx];
+    if (!s || !card) return;
+
+    // Highlight nút câu tương ứng trong thanh dock
+    const dock = document.getElementById(`sentence_dock_${gid}_${pIdx}`);
+    if (dock) {
+      dock.querySelectorAll('.inline-sentence-btn').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+    }
+    if (btn) {
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+    }
+
+    // Hiển thị nội dung chi tiết câu
+    const badge = document.getElementById(`sentence_badge_${gid}_${pIdx}`);
+    const enEl = document.getElementById(`sentence_en_${gid}_${pIdx}`);
+    const viEl = document.getElementById(`sentence_vi_${gid}_${pIdx}`);
+    const noteEl = document.getElementById(`sentence_note_${gid}_${pIdx}`);
+
+    if (badge) badge.textContent = `Câu ${sIdx + 1}`;
+    if (enEl) enEl.textContent = s.text || '';
+    if (viEl) viEl.textContent = s.translation || '';
+    if (noteEl) {
+      noteEl.textContent = s.analysis || s.note || '';
+      noteEl.style.display = (s.analysis || s.note) ? 'block' : 'none';
+    }
+
+    card.style.display = 'block';
+
+    if (typeof this.syncReadingStageHeights === 'function') {
+      setTimeout(() => this.syncReadingStageHeights(), 50);
+    }
+  },
+
+  closeSentenceDetail(gid, pIdx) {
+    if (typeof document === 'undefined') return;
+    const card = document.getElementById(`sentence_card_${gid}_${pIdx}`);
+    if (card) card.style.display = 'none';
+
+    const dock = document.getElementById(`sentence_dock_${gid}_${pIdx}`);
+    if (dock) {
+      dock.querySelectorAll('.inline-sentence-btn').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+    }
+
+    if (typeof this.syncReadingStageHeights === 'function') {
+      setTimeout(() => this.syncReadingStageHeights(), 50);
     }
   }
 };

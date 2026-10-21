@@ -900,6 +900,54 @@
   box-shadow: 0 2px 10px rgba(79, 70, 229, 0.4);
 }
 
+/* Inline Sentence Dock dưới ảnh bài đọc */
+.passage-inline-sentence-dock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 8px 12px;
+  margin-top: 10px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-full);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+[data-theme="light"] .passage-inline-sentence-dock {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.passage-inline-sentence-dock::-webkit-scrollbar {
+  height: 4px;
+}
+.passage-inline-sentence-dock::-webkit-scrollbar-track {
+  background: transparent;
+}
+.passage-inline-sentence-dock::-webkit-scrollbar-thumb {
+  background: var(--border-glass);
+  border-radius: 4px;
+}
+
+.sentence-inline-popover {
+  margin-top: 10px;
+  background: var(--bg-glass-card);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  box-shadow: var(--shadow-md);
+}
+
+[data-theme="light"] .sentence-inline-popover {
+  background: #ffffff;
+  border-color: #e2e8f0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
 .lightbox-sentence-popover {
   position: absolute !important;
   left: 50% !important;
@@ -2960,6 +3008,7 @@ html.no-animations *::after {
   /* Left Column: Passage Images scroll naturally with main page scroll */
   .reading-group-stage .reading-stage-images {
     position: static !important;
+    min-height: 600px !important;
     max-height: none !important;
     overflow-y: visible !important;
     overflow-x: visible !important;
