@@ -2262,13 +2262,25 @@ const ResultViewer = {
           } catch (_) {}
         }
       } else {
-        // Dịch xuống dưới tọa độ câu một khoảng rõ ràng (10px), cho phép tràn xuống dưới ra ngoài ảnh
-        card.style.top = `calc(${Math.min(96, sy1Pct).toFixed(2)}% + 10px)`;
-        card.style.bottom = 'auto';
+        // Hiển thị bên trên tọa độ câu một khoảng rõ ràng (10px) để không che nội dung câu và bài đọc ở dưới
+        card.style.top = 'auto';
+        card.style.bottom = `calc(${Math.max(0, 100 - sy0Pct).toFixed(2)}% + 10px)`;
       }
 
       card.style.display = 'block';
       card.scrollTop = 0;
+
+      // Bảo đảm nếu đỉnh popup vượt quá đỉnh của container ảnh, căn sát đỉnh ảnh để không bị khuất
+      if (!prefix && card.parentElement && typeof card.getBoundingClientRect === 'function') {
+        try {
+          const cardRect = card.getBoundingClientRect();
+          const parentRect = card.parentElement.getBoundingClientRect();
+          if (cardRect.top < parentRect.top - 15) {
+            card.style.bottom = 'auto';
+            card.style.top = '0px';
+          }
+        } catch (_) {}
+      }
     }
   },
 
