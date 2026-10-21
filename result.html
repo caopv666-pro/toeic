@@ -22,6 +22,73 @@
       padding: 4px 18px !important;
     }
     /* Styling for Sticky Filter & Part Chips Bar in Result Page */
+    .result-hero-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      line-height: 1.25;
+    }
+    /* Question Card Header with Inline Audio Player */
+    .review-q-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      flex-wrap: nowrap;
+    }
+    .review-q-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .review-q-header .audio-player-box {
+      flex: 1;
+      max-width: 320px;
+      margin: 0 0 0 auto;
+      padding: 3px 10px;
+      min-height: 34px;
+      gap: 8px;
+      border-radius: var(--radius-full);
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      box-sizing: border-box;
+    }
+    [data-theme="light"] .review-q-header .audio-player-box {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+    .review-q-header .audio-play-btn {
+      width: 26px;
+      height: 26px;
+      min-width: 26px;
+      font-size: 0.75rem;
+      padding-left: 2px;
+    }
+    .review-q-header .audio-progress-wrap {
+      gap: 3px;
+      min-width: 0;
+    }
+    .review-q-header .audio-top-info {
+      gap: 4px;
+    }
+    .review-q-header .audio-label-text {
+      font-size: 0.72rem;
+      max-width: 120px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .review-q-header .audio-time-pill {
+      font-size: 0.7rem;
+      padding: 1px 4px;
+    }
+    .review-q-header .audio-track-bar {
+      height: 4px;
+    }
     .filter-tabs-bar {
       position: sticky;
       top: 48px;
@@ -203,6 +270,44 @@
       gap: 8px;
     }
     @media (max-width: 640px) {
+      #result-test-title,
+      .result-hero-title {
+        font-size: 1.25rem !important;
+        line-height: 1.3 !important;
+        margin-bottom: 6px !important;
+      }
+      .review-q-header {
+        flex-wrap: nowrap;
+        gap: 6px;
+        margin-bottom: 6px;
+        padding-bottom: 6px;
+      }
+      .review-q-title-wrap {
+        gap: 5px;
+        flex-shrink: 0;
+      }
+      .review-q-header .audio-player-box {
+        max-width: none;
+        padding: 2px 6px;
+        gap: 6px;
+        min-height: 28px;
+      }
+      .review-q-header .audio-label-text {
+        display: none;
+      }
+      .review-q-header .audio-play-btn {
+        width: 24px;
+        height: 24px;
+        min-width: 24px;
+        font-size: 0.7rem;
+      }
+      .review-q-header .audio-time-pill {
+        font-size: 0.68rem;
+        margin-left: auto;
+      }
+      .review-q-header .audio-track-bar {
+        height: 4px;
+      }
       .score-summary-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 8px;
@@ -311,7 +416,7 @@
     
     <!-- Result Hero Section -->
     <section class="result-hero animate-fade-in">
-      <h1 id="result-test-title" style="font-size: 2rem; margin-bottom: 8px;">EST 2022 — Test 01</h1>
+      <h1 id="result-test-title" class="result-hero-title">EST 2022 — Test 01</h1>
       <p id="result-time-spent" style="color: var(--text-secondary); font-size: 1rem; margin-bottom: 28px;">
         ⏱️ Thời gian làm bài: 0 phút
       </p>
@@ -367,7 +472,7 @@
         <h2 style="font-size: 1.5rem; display: flex; align-items: center; gap: 8px;">
           <span>📝</span> Chi Tiết Bài Làm & Đáp Án
         </h2>
-        <div class="review-toggle-all-btns">
+        <div class="review-toggle-all-btns" style="display: none;">
           <button type="button" class="btn btn-secondary btn-sm" onclick="ResultViewer.toggleAllExplanations(true)" aria-label="Mở tất cả phần giải thích chi tiết">
             🔽 Mở tất cả giải thích
           </button>
@@ -396,8 +501,8 @@
           </div>
         </div>
 
-        <!-- Status Filter Row -->
-        <div class="filter-row" style="padding-top: 6px; border-top: 1px dashed rgba(255,255,255,0.08);">
+        <!-- Status Filter Row (Hidden as per UI request) -->
+        <div class="filter-row" style="display: none; padding-top: 6px; border-top: 1px dashed rgba(255,255,255,0.08);">
           <span class="filter-row-label">Kết quả:</span>
           <div class="filter-tabs-group" id="status-filter-group">
             <button type="button" class="filter-tab-btn active" data-status="all" onclick="ResultViewer.setStatusFilter('all')" aria-pressed="true">

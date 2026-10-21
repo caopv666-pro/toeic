@@ -525,7 +525,7 @@ const ResultViewer = {
         date: new Date().toISOString(),
         bookName: currentBook,
         testId: clampedId,
-        testTitle: `${currentBook} — Test ${clampedId < 10 ? '0' : ''}${clampedId} (Chế độ xem đáp án & giải thích)`,
+        testTitle: `${currentBook} — Test ${clampedId < 10 ? '0' : ''}${clampedId}`,
         mode: 'review',
         partFilter: null,
         totalCorrect: 200,
@@ -580,7 +580,10 @@ const ResultViewer = {
     const partsConfig = (config && config.PARTS) ? config.PARTS : {};
 
     const titleEl = document.getElementById('result-test-title');
-    if (titleEl && r.testTitle) titleEl.textContent = r.testTitle;
+    if (titleEl && r.testTitle) {
+      const cleanTitle = r.testTitle.replace(/\s*\([Cc]hế độ xem[^)]*\)/g, '').trim();
+      titleEl.textContent = cleanTitle;
+    }
 
     const timeSpent = Number.isFinite(r.timeSpentSeconds) ? Math.max(0, Math.floor(r.timeSpentSeconds)) : 0;
     const timeEl = document.getElementById('result-time-spent');
@@ -1358,13 +1361,13 @@ const ResultViewer = {
         <div class="review-q-header">
           <div class="review-q-title-wrap">
             <span class="review-q-num">Câu ${qNum}</span>
-            <span class="review-part-tag">${partInfo?.name || 'Part'}</span>
             ${isCorrect 
               ? '<span class="status-badge status-correct">✅ Đúng</span>' 
               : (userChoice 
                   ? '<span class="status-badge status-wrong">❌ Sai</span>' 
                   : '<span class="status-badge status-empty">⚪ Chưa làm</span>')}
           </div>
+          ${audioUrl ? UIRenderer.renderAudioPlayer(playerId, audioUrl, `Nghe lại câu ${qNum}`, true) : ''}
         </div>
 
         <!-- Part 1: Photograph with direct click-to-zoom (No blinding background, no black zoom button) -->
@@ -1374,15 +1377,11 @@ const ResultViewer = {
           </div>
         ` : ''}
 
-        <!-- Audio Player (Part 1 - 2) -->
-        ${audioUrl ? UIRenderer.renderAudioPlayer(playerId, audioUrl, `Nghe lại câu ${qNum}`) : ''}
-
         <!-- Part 2: Spoken Question Script + Inline Question Translation -->
         ${(partKey === 'part2' && (cleanQuestionText || cleanQuestionTrans)) ? `
-          <div style="background: rgba(99, 102, 241, 0.12); border-left: 3px solid var(--accent-primary); padding: 8px 12px; border-radius: var(--radius-sm); margin: 8px 0 12px;">
-            <span style="font-size: 0.72rem; font-weight: 700; color: var(--accent-secondary); text-transform: uppercase;">🔊 Lời thoại câu hỏi:</span>
-            ${cleanQuestionText ? `<p style="font-size: 0.92rem; font-weight: 600; color: var(--text-primary); margin-top: 2px;">"${cleanQuestionText}"</p>` : ''}
-            ${cleanQuestionTrans ? `<p class="question-trans-inline" style="font-size: 0.86rem; color: var(--text-secondary); margin-top: 4px; font-style: italic;">${cleanQuestionTrans}</p>` : ''}
+          <div class="part2-script-box" style="background: rgba(99, 102, 241, 0.12); border-left: 3px solid var(--accent-primary); padding: 8px 12px; border-radius: var(--radius-sm); margin: 6px 0 10px;">
+            ${cleanQuestionText ? `<p style="font-size: 0.92rem; font-weight: 600; color: var(--text-primary); margin: 0 0 4px;">"${cleanQuestionText}"</p>` : ''}
+            ${cleanQuestionTrans ? `<p class="question-trans-inline" style="font-size: 0.86rem; color: var(--text-secondary); margin: 0; font-style: italic;">${cleanQuestionTrans}</p>` : ''}
           </div>
         ` : ''}
 

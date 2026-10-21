@@ -594,7 +594,14 @@
     font-size: 0.74rem;
   }
 
-  /* Action buttons on Result page */
+  /* Action buttons & Title on Result page */
+  #result-test-title,
+  .result-hero-title {
+    font-size: 1.25rem !important;
+    line-height: 1.3 !important;
+    margin-bottom: 6px !important;
+  }
+
   .result-hero .result-action-btns .btn {
     width: 100%;
     white-space: normal;
@@ -743,8 +750,42 @@
   }
 
   .review-q-header {
+    flex-wrap: nowrap;
+    gap: 6px;
     margin-bottom: 5px;
     padding-bottom: 4px;
+  }
+
+  .review-q-title-wrap {
+    gap: 5px;
+    flex-shrink: 0;
+  }
+
+  .review-q-header .audio-player-box {
+    max-width: none;
+    padding: 2px 6px;
+    gap: 6px;
+    min-height: 28px;
+  }
+
+  .review-q-header .audio-label-text {
+    display: none;
+  }
+
+  .review-q-header .audio-play-btn {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    font-size: 0.7rem;
+  }
+
+  .review-q-header .audio-time-pill {
+    font-size: 0.68rem;
+    margin-left: auto;
+  }
+
+  .review-q-header .audio-track-bar {
+    height: 4px;
   }
 
   .review-q-num {

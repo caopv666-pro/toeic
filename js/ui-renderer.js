@@ -425,9 +425,10 @@ const UIRenderer = {
   },
 
   // ── Custom Sleek Audio Player HTML ──
-  renderAudioPlayer(playerId, audioUrl, label = 'Phát âm thanh') {
+  renderAudioPlayer(playerId, audioUrl, label = 'Phát âm thanh', isCompact = false) {
+    const compactClass = isCompact ? ' audio-player-compact' : '';
     return `
-      <div class="audio-player-box" id="${playerId}">
+      <div class="audio-player-box${compactClass}" id="${playerId}">
         <audio preload="none"></audio>
         <button class="audio-play-btn" onclick="AudioController.togglePlay('${playerId}', '${audioUrl}')" title="${label}" aria-label="${label}" aria-pressed="false">
           ▶
