@@ -55,7 +55,8 @@
   transition: all var(--transition-fast);
 }
 
-.nav-link-btn:hover, .nav-link-btn.active {
+.nav-link-btn:hover,
+.nav-link-btn.active {
   color: var(--text-primary);
   background: var(--bg-elevated);
 }
@@ -594,7 +595,8 @@
   border-color: var(--border-focus);
 }
 
-.passage-master-translation, .passage-transcript-box {
+.passage-master-translation,
+.passage-transcript-box {
   margin: 8px 0 10px;
   background: rgba(0, 0, 0, 0.2);
   border-radius: var(--radius-sm);
@@ -603,7 +605,8 @@
   font-size: 0.84rem;
 }
 
-.passage-master-translation summary, .passage-transcript-box summary {
+.passage-master-translation summary,
+.passage-transcript-box summary {
   font-weight: 700;
   color: var(--accent-secondary);
   cursor: pointer;
@@ -651,7 +654,8 @@
 }
 
 /* Zoom button on images */
-.image-zoom-btn, .image-zoom-btn-pill {
+.image-zoom-btn,
+.image-zoom-btn-pill {
   position: absolute;
   top: 8px;
   right: 8px;
@@ -669,7 +673,8 @@
   transition: all var(--transition-fast);
 }
 
-.image-zoom-btn:hover, .image-zoom-btn-pill:hover {
+.image-zoom-btn:hover,
+.image-zoom-btn-pill:hover {
   background: var(--accent-primary);
   border-color: var(--accent-primary);
   transform: scale(1.05);
@@ -719,7 +724,8 @@
   -webkit-backdrop-filter: blur(10px);
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* Căn ở đầu để ảnh và popup thoáng đãng, dễ đọc */
+  justify-content: flex-start;
+  /* Căn ở đầu để ảnh và popup thoáng đãng, dễ đọc */
   padding: max(60px, calc(env(safe-area-inset-top, 16px) + 44px)) 12px max(88px, calc(env(safe-area-inset-bottom, 16px) + 68px)) 12px;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
@@ -1095,20 +1101,20 @@
 .palette-container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .palette-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  font-size: 0.82rem;
+  gap: 6px;
+  font-size: 0.74rem;
   text-align: center;
 }
 
 .palette-stat-box {
   background: var(--bg-tertiary);
-  padding: 8px;
+  padding: 5px 2px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-subtle);
 }
@@ -1116,27 +1122,32 @@
 .palette-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
-  max-height: 520px;
+  gap: 5px;
+  max-height: calc(100vh - 280px);
+  min-height: 240px;
   overflow-y: auto;
-  padding-right: 4px;
+  padding-right: 3px;
 }
 
 .palette-btn {
   width: 100%;
-  aspect-ratio: 1 / 1;
-  border-radius: var(--radius-md);
+  max-width: 36px;
+  height: 31px;
+  aspect-ratio: auto;
+  margin: 0 auto;
+  border-radius: var(--radius-sm);
   background: var(--bg-tertiary);
   border: 1px solid var(--border-glass);
   color: var(--text-secondary);
   font-family: var(--font-mono);
   font-weight: 600;
-  font-size: 0.88rem;
+  font-size: 0.76rem;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   transition: all var(--transition-fast);
+  padding: 0;
 }
 
 .palette-btn:hover {
@@ -1160,9 +1171,9 @@
 .palette-btn.flagged::after {
   content: '🚩';
   position: absolute;
-  top: -4px;
-  right: -4px;
-  font-size: 0.75rem;
+  top: -3px;
+  right: -3px;
+  font-size: 0.65rem;
 }
 
 .palette-btn.result-correct {
@@ -1533,6 +1544,7 @@
     opacity: 0;
     transform: translateY(-8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1743,10 +1755,10 @@
   background: transparent;
   text-shadow:
     -1px -1px 0 rgba(255, 255, 255, 0.96),
-     1px -1px 0 rgba(255, 255, 255, 0.96),
-    -1px  1px 0 rgba(255, 255, 255, 0.96),
-     1px  1px 0 rgba(255, 255, 255, 0.96),
-     0    0   3px #ffffff;
+    1px -1px 0 rgba(255, 255, 255, 0.96),
+    -1px 1px 0 rgba(255, 255, 255, 0.96),
+    1px 1px 0 rgba(255, 255, 255, 0.96),
+    0 0 3px #ffffff;
   transform: translate(1px, 2px);
   pointer-events: none;
   transition: color 0.15s ease, transform 0.15s ease;
@@ -2164,7 +2176,8 @@
   height: 6px;
   background: rgba(255, 255, 255, 0.15);
   border-radius: var(--radius-full);
-  cursor: default; /* ETS Exam: candidate cannot scrub audio */
+  cursor: default;
+  /* ETS Exam: candidate cannot scrub audio */
   position: relative;
   overflow: hidden;
   user-select: none;
@@ -2350,6 +2363,7 @@
     flex-direction: column;
     gap: 8px;
   }
+
   .submit-confirm-modal .modal-actions button {
     width: 100%;
   }
@@ -2364,6 +2378,7 @@
     opacity: 0;
     transform: scale(0.92);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -2374,11 +2389,13 @@
   .animate-scale-up {
     animation: none;
   }
+
   @keyframes modalScaleUp {
     from {
       opacity: 1;
       transform: none;
     }
+
     to {
       opacity: 1;
       transform: none;
@@ -2918,6 +2935,7 @@ html.no-animations *::after {
 
 /* Desktop PC Layout (min-width: 992px): 2-Column Split View (Ratio 6 Images : 4 Questions) */
 @media (min-width: 992px) {
+
   /* On Desktop PC, hide redundant mobile group navigation bars */
   .reading-group-nav-bar,
   .mobile-group-header-bar {
@@ -2927,7 +2945,7 @@ html.no-animations *::after {
   .reading-group-stage {
     display: grid !important;
     grid-template-columns: minmax(0, 6fr) minmax(0, 4fr) !important;
-    gap: 28px;
+    gap: 10px;
     align-items: start;
     padding: 22px 24px;
     margin-bottom: 28px;
@@ -3027,6 +3045,7 @@ html.no-animations *::after {
 
 /* Mobile Layout (max-width: 768px): 1 Group View + Scrollable Image + Swipeable Bottom Sheet */
 @media (max-width: 768px) {
+
   /* On Mobile, hide groups that are not active */
   .reading-group-stage:not(.mobile-active-group) {
     display: none !important;
@@ -3121,7 +3140,8 @@ html.no-animations *::after {
   /* Top Image Area: Scrollable behind the sheet */
   .reading-group-stage .reading-stage-images {
     position: absolute;
-    top: 44px; /* Sits cleanly below mobile-group-header-bar */
+    top: 44px;
+    /* Sits cleanly below mobile-group-header-bar */
     left: 0;
     right: 0;
     bottom: 0;
@@ -3149,7 +3169,8 @@ html.no-animations *::after {
     z-index: 30;
     display: flex;
     flex-direction: column;
-    transform: translateY(calc(100% - 105px)); /* Peek 105px shows handle + title cleanly */
+    transform: translateY(calc(100% - 105px));
+    /* Peek 105px shows handle + title cleanly */
     transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
     touch-action: pan-y;
   }
@@ -3267,4 +3288,3 @@ html.no-animations *::after {
 [data-theme="light"] .reading-sheet-pill {
   background: #cbd5e1;
 }
-

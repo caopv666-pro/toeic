@@ -97,21 +97,22 @@
 .exam-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
-  gap: 32px;
+  gap: 15px;
   align-items: start;
   padding: 24px 0 80px;
 }
 
 .exam-content-col {
-  min-width: 0; /* Prevents overflow */
+  min-width: 0;
+  /* Prevents overflow */
 }
 
 /* Sticky Palette Sidebar */
 .exam-sidebar-col {
   position: sticky;
   top: 90px;
-  width: clamp(280px, 23vw, 360px);
-  max-width: 360px;
+  width: clamp(220px, 19vw, 320px);
+  max-width: 320px;
   max-height: calc(100vh - 110px);
   display: flex;
   flex-direction: column;
@@ -120,21 +121,22 @@
   -webkit-overflow-scrolling: touch;
 }
 
-/* Large Desktop Exam Workspace (Screens > 1400px): Ratio 10 (Exam) : 3 (Palette) */
+/* Large Desktop Exam Workspace (Screens > 1400px): Palette width 19vw */
 @media (min-width: 1401px) {
+
   .container:has(.exam-layout),
   .container.exam-container {
-    max-width: min(96vw, 1800px);
+    max-width: min(99vw, 1800px);
   }
 
   .exam-layout {
-    grid-template-columns: minmax(0, 10fr) clamp(280px, 23vw, 360px);
-    gap: 32px;
+    grid-template-columns: minmax(0, 1fr) clamp(220px, 19vw, 320px);
+    gap: 15px;
   }
 
   .exam-sidebar-col {
-    width: clamp(280px, 23vw, 360px);
-    max-width: 360px;
+    width: clamp(220px, 19vw, 320px);
+    max-width: 320px;
     display: flex;
   }
 }
