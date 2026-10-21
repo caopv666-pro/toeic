@@ -394,6 +394,11 @@ const UIRenderer = {
                   </div>
                 `;
               }).join('')}
+              ${groupIndex < totalGroups - 1 ? `
+                <button type="button" class="btn-next-group-bottom" onclick="ExamEngine.navReadingGroup('${partKey}', 1)">
+                  Sang nhóm tiếp theo ➔
+                </button>
+              ` : ''}
             </div>
           </div>
         </div>
@@ -560,7 +565,7 @@ const UIRenderer = {
       modal.tabIndex = -1;
       modal.innerHTML = `
         <button class="lightbox-close-btn" type="button" onclick="UIRenderer.closeLightbox()" aria-label="Đóng phóng to">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <line x1="18" y1="6" x2="6" y2="18"></line>
             <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>

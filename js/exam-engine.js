@@ -772,6 +772,23 @@ const ExamEngine = {
       const handle = sheet.querySelector('.reading-sheet-handle');
       if (!handle) return;
 
+      // Tap anywhere on collapsed peek sheet to expand
+      sheet.addEventListener('click', (e) => {
+        if (!sheet.classList.contains('sheet-expanded')) {
+          sheet.classList.add('sheet-expanded');
+          const icon = sheet.querySelector('.reading-sheet-icon');
+          if (icon) icon.textContent = '▼';
+        }
+      });
+
+      // Tapping handle toggles
+      handle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isExpanded = sheet.classList.toggle('sheet-expanded');
+        const icon = sheet.querySelector('.reading-sheet-icon');
+        if (icon) icon.textContent = isExpanded ? '▼' : '▲';
+      });
+
       let startY = 0;
       let startX = 0;
       let isDragging = false;
@@ -791,11 +808,11 @@ const ExamEngine = {
         const diffX = Math.abs(currentX - startX);
         if (diffX > Math.abs(diffY)) return;
 
-        if (diffY < -35) {
+        if (diffY < -25) {
           sheet.classList.add('sheet-expanded');
           const icon = sheet.querySelector('.reading-sheet-icon');
           if (icon) icon.textContent = '▼';
-        } else if (diffY > 35) {
+        } else if (diffY > 25) {
           sheet.classList.remove('sheet-expanded');
           const icon = sheet.querySelector('.reading-sheet-icon');
           if (icon) icon.textContent = '▲';
