@@ -3109,7 +3109,7 @@ html.no-animations *::after {
   }
 }
 
-/* Mobile Layout (max-width: 768px): 1 Group View + Scrollable Image + Swipeable Bottom Sheet */
+/* Mobile Layout (max-width: 768px): 1 Group View + Scrollable Image + Horizontal Question Carousel */
 @media (max-width: 768px) {
 
   /* On Mobile, hide groups that are not active */
@@ -3120,16 +3120,21 @@ html.no-animations *::after {
   /* Active Reading Group Stage on Mobile */
   .reading-group-stage.mobile-active-group {
     display: flex !important;
-    flex-direction: column;
+    flex-direction: column !important;
     position: relative;
-    height: calc(100dvh - 110px);
-    max-height: calc(100dvh - 110px);
-    padding: 0;
-    margin: 0;
+    height: auto !important;
+    max-height: none !important;
+    padding: 0 0 16px 0 !important;
+    margin: 0 0 16px 0 !important;
     border: 1px solid var(--border-glass);
     border-radius: var(--radius-md, 12px);
-    overflow: hidden;
+    overflow: visible !important;
     background: var(--bg-secondary);
+  }
+
+  /* Hide redundant outer reading-group-nav-bar on mobile */
+  .reading-group-nav-bar {
+    display: none !important;
   }
 
   /* Navigation Bar inside active group card (Sticky at top) */
@@ -3137,16 +3142,23 @@ html.no-animations *::after {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 6px;
-    padding: 7px 10px;
+    gap: 8px;
+    padding: 8px 12px;
     background: var(--bg-glass-card, rgba(15, 23, 42, 0.94));
     border-bottom: 1px solid var(--border-glass, rgba(255, 255, 255, 0.12));
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     position: sticky;
-    top: 0;
+    top: 48px;
     z-index: 45;
     flex-shrink: 0;
+  }
+
+  .group-nav-range-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--accent-primary, #818cf8);
+    letter-spacing: -0.2px;
   }
 
   .btn-group-nav {
@@ -3173,25 +3185,6 @@ html.no-animations *::after {
     box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
   }
 
-  .group-nav-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    line-height: 1.25;
-  }
-
-  .group-nav-badge {
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--accent-primary, #818cf8);
-  }
-
-  .group-nav-range {
-    font-size: 0.72rem;
-    color: var(--text-muted, #94a3b8);
-  }
-
   /* Hide outer review navigation on mobile when viewing reading groups */
   .reading-part-nav,
   #review-questions-container:has(.reading-group-stage) .review-part-footer-nav {
@@ -3203,101 +3196,128 @@ html.no-animations *::after {
     display: none !important;
   }
 
-  /* Top Image Area: Scrollable behind the sheet */
+  /* Top Image Area */
   .reading-group-stage .reading-stage-images {
-    position: absolute;
-    top: 44px;
-    /* Sits cleanly below mobile-group-header-bar */
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow-y: auto;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 8px 8px 140px 8px;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    overflow: visible !important;
+    padding: 8px 8px 0px 8px !important;
+    min-height: auto !important;
     z-index: 10;
   }
 
-  /* Bottom Questions Sheet: Overlays Image with clear peek state */
+  /* Hide master translation accordion as requested */
+  .passage-master-translation {
+    display: none !important;
+  }
+
+  /* Bottom Questions Area: placed directly below passage dock in normal flow */
   .reading-group-stage .reading-questions-sheet {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0 !important;
-    height: 84%;
-    max-height: 84%;
-    background: var(--bg-glass-card, #1e293b);
-    border-top: 2.5px solid var(--accent-primary, #6366f1);
-    border-radius: 18px 18px 0 0;
-    box-shadow: 0 -10px 35px rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    z-index: 30;
-    display: flex;
-    flex-direction: column;
-    transform: translateY(calc(100% - 105px));
-    /* Peek 105px shows handle + title cleanly */
-    transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
-    touch-action: pan-y;
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    transform: none !important;
+    padding: 10px 8px 0 8px !important;
+    margin-top: 6px !important;
+    z-index: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
 
-  /* Expanded Sheet (Full Height View) */
-  .reading-group-stage .reading-questions-sheet.sheet-expanded {
-    transform: translateY(0%) !important;
-  }
-
-  /* Drag Handle of Sheet */
   .reading-sheet-handle {
-    width: 100%;
-    padding: 8px 10px 6px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    flex-shrink: 0;
-    user-select: none;
-    -webkit-user-select: none;
-    background: rgba(255, 255, 255, 0.03);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    display: none !important;
   }
 
-  .reading-sheet-pill {
-    width: 38px;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.45);
-    border-radius: 2px;
-    transition: background var(--transition-fast);
+  .reading-group-stage .reading-sheet-body {
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 0 !important;
+    overflow: visible !important;
   }
 
-  .reading-sheet-handle:hover .reading-sheet-pill {
-    background: var(--accent-primary, #6366f1);
-  }
-
-  .reading-sheet-title {
+  /* Mobile Sub-questions Pill Navigation */
+  .mobile-subquestions-nav {
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--accent-primary, #818cf8);
-    margin-top: 4px;
-  }
-
-  .reading-sheet-hint {
-    font-size: 0.68rem;
-    color: var(--text-muted, #94a3b8);
-    margin-top: 2px;
-  }
-
-  /* Scrollable questions inside sheet */
-  .reading-sheet-body {
-    flex: 1;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 8px 10px 24px 10px;
-    display: flex;
-    flex-direction: column;
     gap: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 6px 2px 10px 2px;
+    margin-bottom: 2px;
+    scrollbar-width: none;
+  }
+  .mobile-subquestions-nav::-webkit-scrollbar {
+    display: none;
+  }
+  .subq-nav-pill {
+    flex: 0 0 auto;
+    padding: 5px 12px;
+    border-radius: var(--radius-full, 9999px);
+    font-size: 0.78rem;
+    font-weight: 600;
+    border: 1px solid var(--border-glass, rgba(255, 255, 255, 0.15));
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-secondary, #cbd5e1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .subq-nav-pill.active {
+    background: var(--accent-primary, #6366f1);
+    border-color: var(--accent-primary, #6366f1);
+    color: #ffffff;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.35);
+  }
+  .subq-nav-pill.is-correct {
+    border-left: 3px solid var(--success, #10b981);
+  }
+  .subq-nav-pill.is-wrong {
+    border-left: 3px solid var(--danger, #ef4444);
+  }
+
+  /* Horizontal swipe container for question cards on mobile */
+  .reading-group-stage .group-subquestions-list {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 12px !important;
+    padding: 4px 2px 10px 2px !important;
+    margin-top: 0 !important;
+    scrollbar-width: thin;
+  }
+
+  /* Question Card inside group on Mobile */
+  .reading-group-stage .group-subquestions-list .review-q-card {
+    flex: 0 0 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    scroll-snap-align: start !important;
+    scroll-snap-stop: always !important;
+    box-sizing: border-box !important;
+    max-height: 480px !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+    margin: 0 !important;
+    padding: 12px !important;
+    background: var(--bg-glass-card, rgba(15, 23, 42, 0.85)) !important;
+    border: 1px solid var(--border-glass, rgba(255, 255, 255, 0.12)) !important;
+    border-radius: var(--radius-md, 12px) !important;
+    box-shadow: var(--shadow-sm, 0 2px 8px rgba(0, 0, 0, 0.2)) !important;
   }
 
   .btn-next-group-bottom {
@@ -3317,40 +3337,51 @@ html.no-animations *::after {
   }
 }
 
+/* Hide mobile subquestions navigation on PC */
+@media (min-width: 769px) {
+  .mobile-subquestions-nav {
+    display: none !important;
+  }
+}
+
 /* Light Mode Overrides */
 [data-theme="light"] .reading-group-nav-bar,
 [data-theme="light"] .mobile-group-header-bar {
   background: rgba(255, 255, 255, 0.96);
   border-color: rgba(203, 213, 225, 0.8);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-[data-theme="light"] .btn-group-nav {
-  background: #f1f5f9;
-  border-color: #cbd5e1;
-  color: #0f172a;
-}
-
-[data-theme="light"] .btn-group-next {
-  background: #6366f1;
-  color: #ffffff;
-  border-color: #6366f1;
-}
-
-[data-theme="light"] .group-nav-badge {
+[data-theme="light"] .group-nav-range-title {
   color: #4f46e5;
 }
 
-[data-theme="light"] .group-nav-range {
-  color: #64748b;
+[data-theme="light"] .btn-group-nav {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #334155;
 }
 
-[data-theme="light"] .reading-group-stage .reading-questions-sheet {
-  background: #ffffff;
-  border-top-color: #6366f1;
-  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.15);
+[data-theme="light"] .btn-group-next {
+  background: #4f46e5;
+  color: #ffffff;
+  border-color: #4f46e5;
 }
 
-[data-theme="light"] .reading-sheet-pill {
-  background: #cbd5e1;
+[data-theme="light"] .subq-nav-pill {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #475569;
+}
+
+[data-theme="light"] .subq-nav-pill.active {
+  background: #4f46e5;
+  border-color: #4f46e5;
+  color: #ffffff;
+}
+
+[data-theme="light"] .reading-group-stage .group-subquestions-list .review-q-card {
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06) !important;
 }

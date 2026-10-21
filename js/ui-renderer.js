@@ -326,8 +326,7 @@ const UIRenderer = {
             ‹ Trước
           </button>
           <div class="group-nav-info">
-            <span class="group-nav-badge">${partKey === 'part6' ? 'Part 6' : 'Part 7'} • Nhóm ${groupIndex + 1}/${totalGroups}</span>
-            <span class="group-nav-range">Câu ${range[0]} – ${range[1]}</span>
+            <span class="group-nav-range-title">Câu ${range[0]} – ${range[1]}</span>
           </div>
           <button type="button" class="btn-group-nav btn-group-next" onclick="ExamEngine.navReadingGroup('${partKey}', 1)" ${groupIndex === totalGroups - 1 ? 'disabled' : ''} aria-label="Nhóm tiếp theo">
             Tiếp ›

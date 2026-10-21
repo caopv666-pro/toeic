@@ -794,7 +794,7 @@ const ResultViewer = {
       qEl.classList.add('audit-target-highlight');
     }
 
-    // If inside a reading group (Part 6 or 7), activate its group on mobile and expand sheet
+    // If inside a reading group (Part 6 or 7), activate its group on mobile and scroll to sub-question
     if (typeof qEl.closest === 'function') {
       const groupBox = qEl.closest('.reading-group-stage');
       if (groupBox) {
@@ -803,11 +803,9 @@ const ResultViewer = {
         if (!isNaN(gIdx) && pKey) {
           this.activateReadingGroup(pKey, gIdx, false);
         }
-        const sheet = qEl.closest('.reading-questions-sheet');
-        if (sheet && typeof window !== 'undefined' && window.innerWidth <= 768) {
-          sheet.classList.add('sheet-expanded');
-          const icon = sheet.querySelector('.reading-sheet-icon');
-          if (icon) icon.textContent = '▼';
+        const gId = groupBox.getAttribute('data-group-id');
+        if (gId && typeof this.scrollToSubQuestion === 'function') {
+          this.scrollToSubQuestion(gId, parsedQ);
         }
       }
     }
@@ -1057,8 +1055,18 @@ const ResultViewer = {
       }
     }
 
-    // Refresh overlay badges of images inside the active card
+    // Refresh overlay badges of images and reset question slider inside the active card
     if (activeCard) {
+      const subqList = activeCard.querySelector('.group-subquestions-list');
+      if (subqList) subqList.scrollLeft = 0;
+      const nav = activeCard.querySelector('.mobile-subquestions-nav');
+      if (nav && typeof nav.querySelectorAll === 'function') {
+        nav.querySelectorAll('.subq-nav-pill').forEach((p, idx) => {
+          p.classList.toggle('active', idx === 0);
+          p.setAttribute('aria-selected', idx === 0 ? 'true' : 'false');
+        });
+      }
+
       const passageImgs = activeCard.querySelectorAll('img.interactive-passage-img');
       passageImgs.forEach(img => {
         const imgId = img.id || '';
@@ -1072,30 +1080,57 @@ const ResultViewer = {
     }
 
     if (scroll && activeCard) {
-      if (typeof window !== 'undefined' && window.innerWidth <= 768) {
-        const imgWrap = activeCard.querySelector('.reading-stage-images');
-        if (imgWrap) imgWrap.scrollTop = 0;
-        const sheet = activeCard.querySelector('.reading-questions-sheet');
-        if (sheet) {
-          sheet.classList.remove('sheet-expanded');
-          const icon = sheet.querySelector('.reading-sheet-icon');
-          if (icon) icon.textContent = '▲';
-        }
-        const navOffset = 65;
-        const cardTop = activeCard.getBoundingClientRect().top + ((typeof window !== 'undefined' && window.pageYOffset) || (document.documentElement ? document.documentElement.scrollTop : 0) || 0);
-        if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
-          window.scrollTo({ top: Math.max(0, cardTop - navOffset), behavior: 'smooth' });
-        }
+      const navOffset = (typeof window !== 'undefined' && window.innerWidth <= 768) ? 65 : 90;
+      const cardTop = activeCard.getBoundingClientRect().top + ((typeof window !== 'undefined' && window.pageYOffset) || (document.documentElement ? document.documentElement.scrollTop : 0) || 0);
+      if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+        window.scrollTo({ top: Math.max(0, cardTop - navOffset), behavior: 'smooth' });
+      }
+    }
+  },
+
+  scrollToSubQuestion(gid, qNum) {
+    if (typeof document === 'undefined') return;
+    const qEl = document.getElementById(`review_q_${qNum}`);
+    const listEl = document.getElementById(`subq_list_${gid}`);
+    if (qEl && listEl) {
+      const left = qEl.offsetLeft - listEl.offsetLeft;
+      if (typeof listEl.scrollTo === 'function') {
+        listEl.scrollTo({ left, behavior: 'smooth' });
       } else {
-        const headerOffset = 90;
-        const cardPos = activeCard.getBoundingClientRect().top;
-        const scrollY = (typeof window !== 'undefined' && typeof window.scrollY !== 'undefined')
-          ? window.scrollY
-          : ((typeof window !== 'undefined' && window.pageYOffset) || (document.documentElement ? document.documentElement.scrollTop : 0) || 0);
-        const offsetPos = Math.max(0, cardPos + scrollY - headerOffset);
-        if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
-          window.scrollTo({ top: offsetPos, behavior: 'smooth' });
-        }
+        listEl.scrollLeft = left;
+      }
+    }
+    const nav = document.getElementById(`subq_nav_${gid}`);
+    if (nav && typeof nav.querySelectorAll === 'function') {
+      nav.querySelectorAll('.subq-nav-pill').forEach(p => {
+        const isCurrent = p.id === `subq_pill_${gid}_${qNum}`;
+        p.classList.toggle('active', isCurrent);
+        p.setAttribute('aria-selected', isCurrent ? 'true' : 'false');
+      });
+    }
+  },
+
+  handleSubQuestionsScroll(gid) {
+    if (typeof document === 'undefined') return;
+    const listEl = document.getElementById(`subq_list_${gid}`);
+    if (!listEl) return;
+    const scrollLeft = listEl.scrollLeft;
+    const cardWidth = listEl.clientWidth || 300;
+    const activeSubIdx = Math.max(0, Math.round(scrollLeft / cardWidth));
+
+    const nav = document.getElementById(`subq_nav_${gid}`);
+    if (nav && typeof nav.querySelectorAll === 'function') {
+      const pills = Array.from(nav.querySelectorAll('.subq-nav-pill'));
+      pills.forEach((p, idx) => {
+        const isCurrent = (idx === activeSubIdx);
+        p.classList.toggle('active', isCurrent);
+        p.setAttribute('aria-selected', isCurrent ? 'true' : 'false');
+      });
+      const activePill = pills[activeSubIdx];
+      if (activePill && typeof activePill.scrollIntoView === 'function') {
+        try {
+          activePill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        } catch (_) {}
       }
     }
   },
@@ -1295,12 +1330,6 @@ const ResultViewer = {
 
     let html = '';
     const readingGroups = groupedItems.filter(item => item.type === 'group' && ['part6', 'part7'].includes(item.part));
-    if (readingGroups.length > 0) {
-      const firstRange = readingGroups[0].expectedRange || [0, 0];
-      const pKey = readingGroups[0].part || (firstRange[0] <= 146 ? 'part6' : 'part7');
-      html += UIRenderer.renderReadingGroupNav(pKey, readingGroups.length, firstRange, 0, 'ResultViewer');
-    }
-
     let readingGroupIdx = 0;
     groupedItems.forEach(item => {
       if (item.type === 'single') {
@@ -1489,8 +1518,7 @@ const ResultViewer = {
               ‹ Trước
             </button>
             <div class="group-nav-info">
-              <span class="group-nav-badge">${badgeLabel} • Nhóm ${groupIndex + 1}/${totalGroups}</span>
-              <span class="group-nav-range">Câu ${range[0]} – ${range[1]}</span>
+              <span class="group-nav-range-title">Câu ${range[0]} – ${range[1]}</span>
             </div>
             <button type="button" class="btn-group-nav btn-group-next" onclick="ResultViewer.navReadingGroup('${group.part}', 1)" ${groupIndex === totalGroups - 1 ? 'disabled' : ''} aria-label="Nhóm tiếp theo">
               Tiếp ›
@@ -1554,16 +1582,9 @@ const ResultViewer = {
               </div>
             ` : ''}
 
-            <!-- Reading (Part 6 & 7): Master Passage Translation Accordion -->
-            ${group.groupTranslation ? `
-              <details class="passage-master-translation" style="margin-top: 10px;">
-                <summary>📖 Dịch toàn bài</summary>
-                <div class="translation-box" style="margin-top: 6px; white-space: pre-line;">${group.groupTranslation}</div>
-              </details>
-            ` : ''}
           </div>
 
-          <!-- Right Column (Desktop) / Draggable Bottom Sheet (Mobile): Sub-questions -->
+          <!-- Right Column (Desktop) / Questions Section Underneath (Mobile): Sub-questions -->
           <div class="reading-questions-sheet" id="sheet_${gid}">
             <div class="reading-sheet-handle" onclick="ResultViewer.toggleReadingSheet('${gid}')" title="Vuốt lên/xuống hoặc nhấn để ẩn/hiện câu hỏi">
               <div class="reading-sheet-pill"></div>
@@ -1572,8 +1593,22 @@ const ResultViewer = {
                 <span>Câu hỏi & Lời giải ${range[0]} - ${range[1]}</span>
               </div>
             </div>
+
+            <!-- Mobile Subquestions Pill Navigation (e.g. [✓ Câu 139] [✓ Câu 140] ...) -->
+            <div class="mobile-subquestions-nav" id="subq_nav_${gid}" role="tablist" aria-label="Danh sách câu hỏi nhóm">
+              ${group.questions.map((q, qSubIdx) => `
+                <button type="button" class="subq-nav-pill ${qSubIdx === 0 ? 'active' : ''} ${q.isCorrect ? 'is-correct' : 'is-wrong'}"
+                        role="tab"
+                        aria-selected="${qSubIdx === 0 ? 'true' : 'false'}"
+                        id="subq_pill_${gid}_${q.questionNumber}"
+                        onclick="ResultViewer.scrollToSubQuestion('${gid}', ${q.questionNumber})">
+                  ${q.isCorrect ? '✓' : '✗'} Câu ${q.questionNumber}
+                </button>
+              `).join('')}
+            </div>
+
             <div class="reading-sheet-body">
-              <div class="group-subquestions-list">
+              <div class="group-subquestions-list" id="subq_list_${gid}" onscroll="ResultViewer.handleSubQuestionsScroll('${gid}')">
                 ${group.questions.map(q => this.renderSubQuestionItem(q)).join('')}
               </div>
               ${groupIndex < totalGroups - 1 ? `
@@ -1678,14 +1713,6 @@ const ResultViewer = {
               `;
             }).join('')}
           </div>
-        ` : ''}
-
-        <!-- Reading (Part 6 & 7): Master Passage Translation Accordion -->
-        ${isReading && group.groupTranslation ? `
-          <details class="passage-master-translation">
-            <summary>📖 Dịch toàn bài</summary>
-            <div class="translation-box" style="margin-top: 6px; white-space: pre-line;">${group.groupTranslation}</div>
-          </details>
         ` : ''}
 
         <!-- Sub-questions belonging to this group -->
