@@ -790,6 +790,24 @@ const ResultViewer = {
       qEl.classList.add('audit-target-highlight');
     }
 
+    // If inside a reading group (Part 6 or 7), activate its group on mobile and expand sheet
+    if (typeof qEl.closest === 'function') {
+      const groupBox = qEl.closest('.reading-group-stage');
+      if (groupBox) {
+        const pKey = groupBox.getAttribute('data-part');
+        const gIdx = parseInt(groupBox.getAttribute('data-group-index'), 10);
+        if (!isNaN(gIdx) && pKey) {
+          this.activateReadingGroup(pKey, gIdx, false);
+        }
+        const sheet = qEl.closest('.reading-questions-sheet');
+        if (sheet && typeof window !== 'undefined' && window.innerWidth <= 768) {
+          sheet.classList.add('sheet-expanded');
+          const icon = sheet.querySelector('.reading-sheet-icon');
+          if (icon) icon.textContent = '▼';
+        }
+      }
+    }
+
     // If qEl is the FIRST question of a group card with a cropped image above it (Part 3, 4, 6, 7),
     // scroll to the group card so the cropped image + question are both visible for auditing.
     let scrollTargetEl = qEl;
@@ -983,6 +1001,149 @@ const ResultViewer = {
     return this.setStatusFilter(filterType);
   },
 
+  // ── Reading Group Navigation & Gestures (Part 6 & Part 7 in Review Mode) ──
+  navReadingGroup(partKey, delta) {
+    if (typeof document === 'undefined') return;
+    const navBar = document.getElementById(`reading-nav-${partKey}`);
+    if (!navBar) return;
+    const currentIdx = parseInt(navBar.getAttribute('data-active-idx') || '0', 10);
+    const total = parseInt(navBar.getAttribute('data-total') || '1', 10);
+    const newIdx = currentIdx + delta;
+    if (newIdx >= 0 && newIdx < total) {
+      this.activateReadingGroup(partKey, newIdx, true);
+    }
+  },
+
+  activateReadingGroup(partKey, targetIdx, scroll = false) {
+    if (typeof document === 'undefined') return;
+    const stageCards = Array.from(document.querySelectorAll(`.reading-group-stage[data-part="${partKey}"]`));
+    if (stageCards.length === 0) return;
+
+    const safeIdx = Math.max(0, Math.min(stageCards.length - 1, targetIdx));
+    stageCards.forEach((card, idx) => {
+      if (idx === safeIdx) {
+        card.classList.add('mobile-active-group');
+      } else {
+        card.classList.remove('mobile-active-group');
+      }
+    });
+
+    const activeCard = stageCards[safeIdx];
+    const rangeAttr = activeCard ? activeCard.getAttribute('data-range') : '';
+    const rangeParts = rangeAttr ? rangeAttr.split('-') : [];
+
+    const navBar = document.getElementById(`reading-nav-${partKey}`);
+    if (navBar) {
+      navBar.setAttribute('data-active-idx', String(safeIdx));
+      const prevBtn = navBar.querySelector('.btn-group-prev');
+      const nextBtn = navBar.querySelector('.btn-group-next');
+      if (prevBtn) prevBtn.disabled = (safeIdx === 0);
+      if (nextBtn) nextBtn.disabled = (safeIdx >= stageCards.length - 1);
+
+      const partTitle = partKey === 'part6' ? 'Part 6' : 'Part 7';
+      const badge = document.getElementById(`group-nav-badge-${partKey}`);
+      if (badge) badge.textContent = `${partTitle} • Nhóm ${safeIdx + 1} / ${stageCards.length}`;
+
+      const rangeLabel = document.getElementById(`group-nav-range-${partKey}`);
+      if (rangeLabel && rangeParts.length === 2) {
+        rangeLabel.textContent = `Câu ${rangeParts[0]} – ${rangeParts[1]}`;
+      }
+    }
+
+    // Refresh overlay badges of images inside the active card
+    if (activeCard) {
+      const passageImgs = activeCard.querySelectorAll('img.interactive-passage-img');
+      passageImgs.forEach(img => {
+        const imgId = img.id || '';
+        const match = imgId.match(/^img_(.+)_(\d+)$/);
+        if (match) {
+          const gId = match[1];
+          const pIdx = parseInt(match[2], 10);
+          this.setupPassageOverlays(img, gId, pIdx);
+        }
+      });
+    }
+
+    if (scroll && activeCard) {
+      if (typeof window !== 'undefined' && window.innerWidth <= 768) {
+        const imgWrap = activeCard.querySelector('.reading-stage-images');
+        if (imgWrap) imgWrap.scrollTop = 0;
+        const sheet = activeCard.querySelector('.reading-questions-sheet');
+        if (sheet) {
+          sheet.classList.remove('sheet-expanded');
+          const icon = sheet.querySelector('.reading-sheet-icon');
+          if (icon) icon.textContent = '▲';
+        }
+      } else {
+        const headerOffset = 90;
+        const cardPos = activeCard.getBoundingClientRect().top;
+        const scrollY = (typeof window !== 'undefined' && typeof window.scrollY !== 'undefined')
+          ? window.scrollY
+          : ((typeof window !== 'undefined' && window.pageYOffset) || (document.documentElement ? document.documentElement.scrollTop : 0) || 0);
+        const offsetPos = Math.max(0, cardPos + scrollY - headerOffset);
+        if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+          window.scrollTo({ top: offsetPos, behavior: 'smooth' });
+        }
+      }
+    }
+  },
+
+  toggleReadingSheet(gid) {
+    if (typeof document === 'undefined') return;
+    const sheet = document.getElementById(`sheet_${gid}`);
+    if (!sheet) return;
+    const isExpanded = sheet.classList.toggle('sheet-expanded');
+    const icon = sheet.querySelector('.reading-sheet-icon');
+    if (icon) {
+      icon.textContent = isExpanded ? '▼' : '▲';
+    }
+  },
+
+  initReadingSheetGestures() {
+    if (typeof document === 'undefined') return;
+    const sheets = document.querySelectorAll('.reading-questions-sheet');
+    sheets.forEach(sheet => {
+      if (sheet._hasGestureAttached) return;
+      sheet._hasGestureAttached = true;
+      const handle = sheet.querySelector('.reading-sheet-handle');
+      if (!handle) return;
+
+      let startY = 0;
+      let startX = 0;
+      let isDragging = false;
+
+      handle.addEventListener('touchstart', (e) => {
+        if (!e.touches || e.touches.length === 0) return;
+        startY = e.touches[0].clientY;
+        startX = e.touches[0].clientX;
+        isDragging = true;
+      }, { passive: true });
+
+      handle.addEventListener('touchmove', (e) => {
+        if (!isDragging || !e.touches || e.touches.length === 0) return;
+        const currentY = e.touches[0].clientY;
+        const currentX = e.touches[0].clientX;
+        const diffY = currentY - startY;
+        const diffX = Math.abs(currentX - startX);
+        if (diffX > Math.abs(diffY)) return;
+
+        if (diffY < -35) {
+          sheet.classList.add('sheet-expanded');
+          const icon = sheet.querySelector('.reading-sheet-icon');
+          if (icon) icon.textContent = '▼';
+        } else if (diffY > 35) {
+          sheet.classList.remove('sheet-expanded');
+          const icon = sheet.querySelector('.reading-sheet-icon');
+          if (icon) icon.textContent = '▲';
+        }
+      }, { passive: true });
+
+      handle.addEventListener('touchend', () => {
+        isDragging = false;
+      }, { passive: true });
+    });
+  },
+
   // ── Render Detailed Review List (Grouped for Part 3, 4, 6, 7; Single for 1, 2, 5) ──
   renderDetailedReview() {
     if (typeof document === 'undefined') return;
@@ -1092,11 +1253,21 @@ const ResultViewer = {
     });
 
     let html = '';
+    const readingGroups = groupedItems.filter(item => item.type === 'group' && ['part6', 'part7'].includes(item.part));
+    if (readingGroups.length > 0) {
+      const firstRange = readingGroups[0].expectedRange || [0, 0];
+      const pKey = readingGroups[0].part || (firstRange[0] <= 146 ? 'part6' : 'part7');
+      html += UIRenderer.renderReadingGroupNav(pKey, readingGroups.length, firstRange, 0, 'ResultViewer');
+    }
+
+    let readingGroupIdx = 0;
     groupedItems.forEach(item => {
       if (item.type === 'single') {
         html += this.renderSingleQuestionReview(item.question);
       } else {
-        html += this.renderGroupQuestionReview(item);
+        const isReading = ['part6', 'part7'].includes(item.part);
+        const gIdx = isReading ? readingGroupIdx++ : 0;
+        html += this.renderGroupQuestionReview(item, gIdx, readingGroups.length);
       }
     });
 
@@ -1122,6 +1293,7 @@ const ResultViewer = {
     }
 
     container.innerHTML = html;
+    this.initReadingSheetGestures();
   },
 
   // ── Render Standalone Question Review (Part 1, Part 2, Part 5) ──
@@ -1246,7 +1418,7 @@ const ResultViewer = {
   },
 
   // ── Render Grouped Questions Review (Parts 3, 4, 6, 7) — 1 Image/Audio Block + Sub-questions underneath ──
-  renderGroupQuestionReview(group) {
+  renderGroupQuestionReview(group, groupIndex = 0, totalGroups = 1) {
     const config = this._getConfig();
     const isReading = ['part6', 'part7'].includes(group.part);
     const gid = group.groupId;
@@ -1255,6 +1427,85 @@ const ResultViewer = {
       : group.part === 'part7' ? 'Part 7'
       : group.part === 'part3' ? 'Part 3'
       : 'Part 4';
+    const isActiveOnMobile = (groupIndex === 0);
+
+    if (isReading) {
+      return `
+        <div class="group-review-card reading-group-stage is-reading-group animate-fade-in ${isActiveOnMobile ? 'mobile-active-group' : ''}"
+             id="group_review_${gid}"
+             data-group-id="${gid}"
+             data-group-index="${groupIndex}"
+             data-part="${group.part}"
+             data-range="${range[0]}-${range[1]}">
+          <!-- Group Header (Desktop PC) -->
+          <div class="group-review-header pc-only-header">
+            <span class="group-review-badge">
+              📖 ${badgeLabel} • Câu ${range[0]}–${range[1]}
+            </span>
+          </div>
+
+          <!-- Left Column (Desktop) / Scrollable Background (Mobile): Passage Images & Overlays -->
+          <div class="reading-stage-images passages-images-wrap">
+            ${group.groupPassages && group.groupPassages.length > 0 ? `
+              <div class="group-passages-wrap">
+                ${group.groupPassages.map((p, pIdx) => {
+                  const pUrl = typeof p === 'string' ? p : p.imageUrl;
+                  const fullUrl = (config && typeof config.resolveAssetUrl === 'function') ? config.resolveAssetUrl(pUrl) : (pUrl || '');
+                  return `
+                    <div class="interactive-passage-container" id="pass_wrap_${gid}_${pIdx}">
+                      <div class="passage-image-wrap" id="img_wrap_${gid}_${pIdx}">
+                        <button type="button" class="image-zoom-btn-icon" onclick="event.stopPropagation(); ResultViewer.openPassageLightbox('${gid}', ${pIdx}, '${fullUrl}')" title="Phóng to ảnh" aria-label="Phóng to ảnh">🔍</button>
+                        <img src="${fullUrl}" alt="Passage ${pIdx + 1}"
+                             class="interactive-passage-img"
+                             id="img_${gid}_${pIdx}"
+                             onload="ResultViewer.setupPassageOverlays(this, '${gid}', ${pIdx})"
+                             onclick="ResultViewer.handlePassageImageClick(event, this, '${gid}', ${pIdx})">
+                        <div class="passage-overlays-layer" id="overlays_${gid}_${pIdx}"></div>
+
+                        <!-- Floating Sentence Lookup Popover -->
+                        <div class="sentence-lookup-card sentence-floating-popover" id="sentence_card_${gid}_${pIdx}" style="display: none;" onclick="event.stopPropagation()">
+                          <div class="sentence-lookup-header">
+                            <span class="sentence-badge" id="sentence_badge_${gid}_${pIdx}">Câu 1</span>
+                            <button type="button" class="sentence-close-btn" onclick="ResultViewer.closeSentenceCard('${gid}', ${pIdx})">&times;</button>
+                          </div>
+                          <div class="sentence-text-en" id="sentence_en_${gid}_${pIdx}"></div>
+                          <div class="sentence-text-vi" id="sentence_vi_${gid}_${pIdx}"></div>
+                          <div class="sentence-text-note" id="sentence_note_${gid}_${pIdx}"></div>
+                        </div>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            ` : ''}
+
+            <!-- Reading (Part 6 & 7): Master Passage Translation Accordion -->
+            ${group.groupTranslation ? `
+              <details class="passage-master-translation" style="margin-top: 10px;">
+                <summary>📖 Dịch toàn bài</summary>
+                <div class="translation-box" style="margin-top: 6px; white-space: pre-line;">${group.groupTranslation}</div>
+              </details>
+            ` : ''}
+          </div>
+
+          <!-- Right Column (Desktop) / Draggable Bottom Sheet (Mobile): Sub-questions -->
+          <div class="reading-questions-sheet" id="sheet_${gid}">
+            <div class="reading-sheet-handle" onclick="ResultViewer.toggleReadingSheet('${gid}')" title="Vuốt lên/xuống hoặc nhấn để ẩn/hiện câu hỏi">
+              <div class="reading-sheet-pill"></div>
+              <div class="reading-sheet-title">
+                <span class="reading-sheet-icon">▲</span>
+                <span>Câu hỏi & Lời giải ${range[0]} - ${range[1]}</span>
+              </div>
+            </div>
+            <div class="reading-sheet-body">
+              <div class="group-subquestions-list">
+                ${group.questions.map(q => this.renderSubQuestionItem(q)).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
 
     return `
       <div class="group-review-card animate-fade-in" id="group_review_${gid}">

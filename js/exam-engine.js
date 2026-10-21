@@ -605,6 +605,10 @@ const ExamEngine = {
       });
     }
 
+    if (['part6', 'part7'].includes(targetPart)) {
+      this.activateReadingGroup(targetPart, 0, false);
+    }
+
     if (shouldScrollTop && typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
       const prefersReduced = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
@@ -628,6 +632,22 @@ const ExamEngine = {
 
     const el = document.getElementById(`q_item_${num}`);
     if (el) {
+      // If question belongs to Part 6 or Part 7 reading group, activate its group
+      const groupBox = el.closest ? el.closest('.reading-group-stage') : null;
+      if (groupBox) {
+        const pKey = groupBox.getAttribute('data-part');
+        const gIdx = parseInt(groupBox.getAttribute('data-group-index'), 10);
+        if (!isNaN(gIdx) && pKey) {
+          this.activateReadingGroup(pKey, gIdx, false);
+        }
+        const sheet = el.closest ? el.closest('.reading-questions-sheet') : null;
+        if (sheet && typeof window !== 'undefined' && window.innerWidth <= 768) {
+          sheet.classList.add('sheet-expanded');
+          const icon = sheet.querySelector('.reading-sheet-icon');
+          if (icon) icon.textContent = '▼';
+        }
+      }
+
       const headerOffset = 90;
       const elPos = el.getBoundingClientRect().top;
       const scrollY = (typeof window !== 'undefined' && typeof window.scrollY !== 'undefined')
@@ -657,6 +677,135 @@ const ExamEngine = {
 
     this.updatePaletteUI();
     return false;
+  },
+
+  // ── Reading Group Navigation & Gestures (Part 6 & Part 7) ──
+  navReadingGroup(partKey, delta) {
+    if (typeof document === 'undefined') return;
+    const navBar = document.getElementById(`reading-nav-${partKey}`);
+    if (!navBar) return;
+    const currentIdx = parseInt(navBar.getAttribute('data-active-idx') || '0', 10);
+    const total = parseInt(navBar.getAttribute('data-total') || '1', 10);
+    const newIdx = currentIdx + delta;
+    if (newIdx >= 0 && newIdx < total) {
+      this.activateReadingGroup(partKey, newIdx, true);
+    }
+  },
+
+  activateReadingGroup(partKey, targetIdx, scroll = false) {
+    if (typeof document === 'undefined') return;
+    const stageCards = Array.from(document.querySelectorAll(`.reading-group-stage[data-part="${partKey}"]`));
+    if (stageCards.length === 0) return;
+
+    const safeIdx = Math.max(0, Math.min(stageCards.length - 1, targetIdx));
+    stageCards.forEach((card, idx) => {
+      if (idx === safeIdx) {
+        card.classList.add('mobile-active-group');
+      } else {
+        card.classList.remove('mobile-active-group');
+      }
+    });
+
+    const activeCard = stageCards[safeIdx];
+    const rangeAttr = activeCard ? activeCard.getAttribute('data-range') : '';
+    const rangeParts = rangeAttr ? rangeAttr.split('-') : [];
+
+    const navBar = document.getElementById(`reading-nav-${partKey}`);
+    if (navBar) {
+      navBar.setAttribute('data-active-idx', String(safeIdx));
+      const prevBtn = navBar.querySelector('.btn-group-prev');
+      const nextBtn = navBar.querySelector('.btn-group-next');
+      if (prevBtn) prevBtn.disabled = (safeIdx === 0);
+      if (nextBtn) nextBtn.disabled = (safeIdx >= stageCards.length - 1);
+
+      const partTitle = partKey === 'part6' ? 'Part 6' : 'Part 7';
+      const badge = document.getElementById(`group-nav-badge-${partKey}`);
+      if (badge) badge.textContent = `${partTitle} • Nhóm ${safeIdx + 1} / ${stageCards.length}`;
+
+      const rangeLabel = document.getElementById(`group-nav-range-${partKey}`);
+      if (rangeLabel && rangeParts.length === 2) {
+        rangeLabel.textContent = `Câu ${rangeParts[0]} – ${rangeParts[1]}`;
+      }
+    }
+
+    if (scroll && activeCard) {
+      if (typeof window !== 'undefined' && window.innerWidth <= 768) {
+        const imgWrap = activeCard.querySelector('.reading-stage-images');
+        if (imgWrap) imgWrap.scrollTop = 0;
+        const sheet = activeCard.querySelector('.reading-questions-sheet');
+        if (sheet) {
+          sheet.classList.remove('sheet-expanded');
+          const icon = sheet.querySelector('.reading-sheet-icon');
+          if (icon) icon.textContent = '▲';
+        }
+      } else {
+        const headerOffset = 90;
+        const cardPos = activeCard.getBoundingClientRect().top;
+        const scrollY = (typeof window !== 'undefined' && typeof window.scrollY !== 'undefined')
+          ? window.scrollY
+          : ((typeof window !== 'undefined' && window.pageYOffset) || (document.documentElement ? document.documentElement.scrollTop : 0) || 0);
+        const offsetPos = Math.max(0, cardPos + scrollY - headerOffset);
+        if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+          window.scrollTo({ top: offsetPos, behavior: 'smooth' });
+        }
+      }
+    }
+  },
+
+  toggleReadingSheet(gid) {
+    if (typeof document === 'undefined') return;
+    const sheet = document.getElementById(`sheet_${gid}`);
+    if (!sheet) return;
+    const isExpanded = sheet.classList.toggle('sheet-expanded');
+    const icon = sheet.querySelector('.reading-sheet-icon');
+    if (icon) {
+      icon.textContent = isExpanded ? '▼' : '▲';
+    }
+  },
+
+  initReadingSheetGestures() {
+    if (typeof document === 'undefined') return;
+    const sheets = document.querySelectorAll('.reading-questions-sheet');
+    sheets.forEach(sheet => {
+      if (sheet._hasGestureAttached) return;
+      sheet._hasGestureAttached = true;
+      const handle = sheet.querySelector('.reading-sheet-handle');
+      if (!handle) return;
+
+      let startY = 0;
+      let startX = 0;
+      let isDragging = false;
+
+      handle.addEventListener('touchstart', (e) => {
+        if (!e.touches || e.touches.length === 0) return;
+        startY = e.touches[0].clientY;
+        startX = e.touches[0].clientX;
+        isDragging = true;
+      }, { passive: true });
+
+      handle.addEventListener('touchmove', (e) => {
+        if (!isDragging || !e.touches || e.touches.length === 0) return;
+        const currentY = e.touches[0].clientY;
+        const currentX = e.touches[0].clientX;
+        const diffY = currentY - startY;
+        const diffX = Math.abs(currentX - startX);
+        if (diffX > Math.abs(diffY)) return;
+
+        if (diffY < -35) {
+          sheet.classList.add('sheet-expanded');
+          const icon = sheet.querySelector('.reading-sheet-icon');
+          if (icon) icon.textContent = '▼';
+        } else if (diffY > 35) {
+          sheet.classList.remove('sheet-expanded');
+          const icon = sheet.querySelector('.reading-sheet-icon');
+          if (icon) icon.textContent = '▲';
+        }
+      }, { passive: true });
+
+      handle.addEventListener('touchend', () => {
+        isDragging = false;
+      }, { passive: true });
+    });
   },
 
   updatePaletteUI() {
@@ -895,8 +1044,13 @@ const ExamEngine = {
     if (shouldRenderPart('part6')) {
       html += `<div class="exam-part-section" id="exam-part-section-part6" data-part="part6" style="display: ${isFull && activePart !== 'part6' ? 'none' : 'block'};">`;
       html += renderPartDivider('Part 6', 'Text Completion', 'Câu 131 – 146');
-      getPartGroups(rc.part6).forEach(g => {
-        html += UIRenderer.renderReadingGroup(g, 'part6', this.userAnswers, this.flaggedQuestions);
+      const p6Groups = getPartGroups(rc.part6);
+      if (p6Groups.length > 0) {
+        const firstRange = Array.isArray(p6Groups[0].expectedRange) ? p6Groups[0].expectedRange : [131, 134];
+        html += UIRenderer.renderReadingGroupNav('part6', p6Groups.length, firstRange, 0, 'ExamEngine');
+      }
+      p6Groups.forEach((g, gIdx) => {
+        html += UIRenderer.renderReadingGroup(g, 'part6', this.userAnswers, this.flaggedQuestions, gIdx, p6Groups.length);
       });
       html += renderPartFooterNav(5);
       html += `</div>`;
@@ -906,14 +1060,20 @@ const ExamEngine = {
     if (shouldRenderPart('part7')) {
       html += `<div class="exam-part-section" id="exam-part-section-part7" data-part="part7" style="display: ${isFull && activePart !== 'part7' ? 'none' : 'block'};">`;
       html += renderPartDivider('Part 7', 'Reading Comprehension', 'Câu 147 – 200');
-      getPartGroups(rc.part7).forEach(g => {
-        html += UIRenderer.renderReadingGroup(g, 'part7', this.userAnswers, this.flaggedQuestions);
+      const p7Groups = getPartGroups(rc.part7);
+      if (p7Groups.length > 0) {
+        const firstRange = Array.isArray(p7Groups[0].expectedRange) ? p7Groups[0].expectedRange : [147, 148];
+        html += UIRenderer.renderReadingGroupNav('part7', p7Groups.length, firstRange, 0, 'ExamEngine');
+      }
+      p7Groups.forEach((g, gIdx) => {
+        html += UIRenderer.renderReadingGroup(g, 'part7', this.userAnswers, this.flaggedQuestions, gIdx, p7Groups.length);
       });
       html += renderPartFooterNav(6);
       html += `</div>`;
     }
 
     container.innerHTML = html;
+    this.initReadingSheetGestures();
     if (isFullListening) {
       this.initMasterAudio();
     }

@@ -752,26 +752,42 @@
 
 .lightbox-close-btn {
   position: fixed;
-  top: max(16px, env(safe-area-inset-top, 16px));
-  right: max(16px, env(safe-area-inset-right, 16px));
-  width: 44px;
-  height: 44px;
-  background: rgba(255, 255, 255, 0.2);
+  top: max(12px, env(safe-area-inset-top, 12px));
+  right: max(12px, env(safe-area-inset-right, 12px));
+  width: 32px;
+  height: 32px;
+  background: rgba(15, 23, 42, 0.72);
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.32);
   border-radius: var(--radius-full);
-  font-size: 1.8rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   z-index: 1010;
   transition: all var(--transition-fast);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0;
+  line-height: 1;
 }
 
 .lightbox-close-btn:hover {
-  background: var(--danger);
-  transform: scale(1.1);
+  background: var(--danger, #ef4444);
+  border-color: var(--danger, #ef4444);
+  transform: scale(1.08);
+}
+
+.lightbox-close-btn:active {
+  transform: scale(0.95);
+}
+
+.lightbox-close-btn svg {
+  display: block;
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
 }
 
 /* ── Lightbox Bottom Sentence Dock & Controls ── */
@@ -2739,3 +2755,346 @@ html.no-animations *::after {
   box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.18);
   border-radius: var(--radius-md, 12px);
 }
+
+/* ══════════════════════════════════════════════════════════════
+   READING GROUP STAGE (PART 6 & PART 7 MODERN DESKTOP & MOBILE)
+   ══════════════════════════════════════════════════════════════ */
+
+/* Reading Group Navigation Bar (Sticky at Top) */
+.reading-group-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  background: var(--bg-glass-card, rgba(30, 41, 59, 0.88));
+  border: 1px solid var(--border-glass, rgba(255, 255, 255, 0.12));
+  border-radius: var(--radius-lg, 14px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: sticky;
+  top: calc(var(--navbar-height, 60px) + 6px);
+  z-index: 45;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.btn-group-nav {
+  padding: 6px 14px;
+  border-radius: var(--radius-full, 9999px);
+  font-size: 0.84rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  border: 1px solid var(--border-glass, rgba(255, 255, 255, 0.2));
+  background: var(--bg-tertiary, rgba(255, 255, 255, 0.08));
+  color: var(--text-primary, #ffffff);
+  transition: all var(--transition-fast, 0.15s ease);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.btn-group-nav:hover:not(:disabled) {
+  background: var(--accent-primary, #6366f1);
+  color: #ffffff;
+  border-color: var(--accent-primary, #6366f1);
+  transform: translateY(-1px);
+}
+
+.btn-group-nav:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn-group-next {
+  background: var(--accent-primary, #6366f1);
+  color: #ffffff;
+  border-color: var(--accent-primary, #6366f1);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+}
+
+.group-nav-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  line-height: 1.25;
+}
+
+.group-nav-badge {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--accent-primary, #818cf8);
+}
+
+.group-nav-range {
+  font-size: 0.74rem;
+  color: var(--text-muted, #94a3b8);
+}
+
+/* Reading Stage Base (Default / Desktop) */
+.reading-group-stage {
+  position: relative;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+  transition: border-color var(--transition-fast);
+}
+
+.reading-stage-images {
+  position: relative;
+  max-width: 100%;
+}
+
+.reading-stage-images img,
+.interactive-passage-img {
+  max-width: 520px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  margin: 0 auto;
+  display: block;
+}
+
+.interactive-passage-container {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* Desktop PC Layout (min-width: 992px): 2-Column Split View */
+@media (min-width: 992px) {
+  .reading-group-stage {
+    display: grid !important;
+    grid-template-columns: minmax(360px, 520px) minmax(380px, 1fr) !important;
+    gap: 24px;
+    align-items: start;
+    padding: 18px 20px;
+  }
+
+  .reading-group-stage .passage-header,
+  .reading-group-stage .group-review-header {
+    grid-column: 1 / -1;
+    margin-bottom: 4px;
+  }
+
+  /* Left Column: Sticky Passage Image(s) */
+  .reading-group-stage .reading-stage-images {
+    position: sticky;
+    top: calc(var(--navbar-height, 66px) + 16px);
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Right Column: Questions & Explanations */
+  .reading-group-stage .reading-questions-sheet {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .reading-group-stage .reading-sheet-handle {
+    display: none !important;
+  }
+
+  .reading-group-stage .reading-sheet-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow: visible;
+    padding: 0;
+  }
+
+  /* Compact Options 2-Column Grid on Desktop PC */
+  .part5-item .options-group,
+  .reading-group-stage .options-group,
+  .reading-group-stage .review-options-group {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .reading-group-stage .option-btn {
+    padding: 8px 12px;
+    font-size: 0.88rem;
+  }
+
+  .reading-group-stage .review-opt-card {
+    padding: 8px 10px;
+    font-size: 0.84rem;
+  }
+
+  .reading-group-stage .review-q-card {
+    padding: 12px 14px;
+    margin-bottom: 0;
+  }
+}
+
+/* Mobile Layout (max-width: 768px): 1 Group View + Scrollable Image + Swipeable Bottom Sheet */
+@media (max-width: 768px) {
+  /* On Mobile, hide groups that are not active */
+  .reading-group-stage:not(.mobile-active-group) {
+    display: none !important;
+  }
+
+  /* Active Reading Group Stage on Mobile */
+  .reading-group-stage.mobile-active-group {
+    display: flex !important;
+    flex-direction: column;
+    position: relative;
+    height: calc(100dvh - 130px);
+    max-height: calc(100dvh - 130px);
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--bg-secondary);
+  }
+
+  /* Hide redundant PC header on mobile */
+  .reading-group-stage .pc-only-header {
+    display: none !important;
+  }
+
+  /* Top Image Area: Scrollable behind the sheet */
+  .reading-group-stage .reading-stage-images {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 8px 10px 170px 10px;
+    z-index: 10;
+  }
+
+  /* Bottom Questions Sheet: Overlays Image */
+  .reading-group-stage .reading-questions-sheet {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 85%;
+    max-height: 85%;
+    background: var(--bg-glass-card, #1e293b);
+    border-top: 3px solid var(--accent-primary, #6366f1);
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    z-index: 30;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(calc(100% - 150px)); /* Default peek height */
+    transition: transform 0.32s cubic-bezier(0.2, 0.9, 0.3, 1);
+    touch-action: pan-y;
+  }
+
+  /* Sheet in exam mode leaves room for mobile-bar */
+  #exam-main-layout .reading-group-stage .reading-questions-sheet {
+    bottom: calc(56px + env(safe-area-inset-bottom, 0px));
+  }
+
+  #detailed-review-section .reading-group-stage .reading-questions-sheet {
+    bottom: 0;
+  }
+
+  /* Expanded Sheet (Full Height View) */
+  .reading-group-stage .reading-questions-sheet.sheet-expanded {
+    transform: translateY(0%) !important;
+  }
+
+  /* Drag Handle of Sheet */
+  .reading-sheet-handle {
+    width: 100%;
+    padding: 10px 0 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    user-select: none;
+    -webkit-user-select: none;
+    background: transparent;
+  }
+
+  .reading-sheet-pill {
+    width: 44px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.45);
+    border-radius: 4px;
+    transition: background var(--transition-fast);
+  }
+
+  .reading-sheet-handle:hover .reading-sheet-pill {
+    background: var(--accent-primary, #6366f1);
+  }
+
+  .reading-sheet-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--accent-primary, #818cf8);
+    margin-top: 4px;
+  }
+
+  .reading-sheet-icon {
+    font-size: 0.7rem;
+    transition: transform 0.25s ease;
+  }
+
+  /* Scrollable questions inside sheet */
+  .reading-sheet-body {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 6px 12px 30px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* Light Mode Overrides */
+[data-theme="light"] .reading-group-nav-bar {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .btn-group-nav {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+[data-theme="light"] .btn-group-next {
+  background: #6366f1;
+  color: #ffffff;
+  border-color: #6366f1;
+}
+
+[data-theme="light"] .reading-group-stage .reading-questions-sheet {
+  background: #ffffff;
+  border-top-color: #6366f1;
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="light"] .reading-sheet-pill {
+  background: #cbd5e1;
+}
+

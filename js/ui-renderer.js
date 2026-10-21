@@ -239,7 +239,7 @@ const UIRenderer = {
     const normalizedAns = typeof userAns === 'string' ? userAns.trim().toUpperCase() : '';
 
     return `
-      <div class="question-item animate-fade-in" id="q_item_${qNum}" data-qnum="${qNum}">
+      <div class="question-item part5-item animate-fade-in" id="q_item_${qNum}" data-qnum="${qNum}">
         <div class="question-header">
           <span class="q-number-badge">Câu ${qNum}</span>
           <button class="flag-btn ${flagged ? 'flagged' : ''}"
@@ -268,25 +268,64 @@ const UIRenderer = {
     `;
   },
 
+  // ── Render Group Navigation Bar for Part 6 & Part 7 (Desktop & Mobile) ──
+  renderReadingGroupNav(partKey, totalGroups, firstRange, activeIndex = 0, engineName = 'ExamEngine') {
+    const partTitle = partKey === 'part6' ? 'Part 6' : 'Part 7';
+    const total = Math.max(1, parseInt(totalGroups, 10) || 1);
+    const curr = Math.max(0, Math.min(total - 1, parseInt(activeIndex, 10) || 0));
+    const rStart = firstRange ? firstRange[0] : '';
+    const rEnd = firstRange ? firstRange[1] : '';
+    const rangeText = (rStart && rEnd) ? `Câu ${rStart} – ${rEnd}` : '';
+
+    return `
+      <div class="reading-group-nav-bar" id="reading-nav-${partKey}" data-part="${partKey}" data-active-idx="${curr}" data-total="${total}">
+        <button class="btn-group-nav btn-group-prev"
+                type="button"
+                onclick="${engineName}.navReadingGroup('${partKey}', -1)"
+                ${curr === 0 ? 'disabled' : ''}
+                aria-label="Nhóm câu hỏi trước">
+          ‹ Nhóm trước
+        </button>
+        <div class="group-nav-info">
+          <span class="group-nav-badge" id="group-nav-badge-${partKey}">${partTitle} • Nhóm ${curr + 1} / ${total}</span>
+          <span class="group-nav-range" id="group-nav-range-${partKey}">${rangeText}</span>
+        </div>
+        <button class="btn-group-nav btn-group-next"
+                type="button"
+                onclick="${engineName}.navReadingGroup('${partKey}', 1)"
+                ${curr >= total - 1 ? 'disabled' : ''}
+                aria-label="Nhóm câu hỏi tiếp theo">
+          Nhóm tiếp ›
+        </button>
+      </div>
+    `;
+  },
+
   // ── Render Part 6 & Part 7 Group (Reading Passages) ──
-  renderReadingGroup(group, partKey, userAnswers, flaggedSet) {
+  renderReadingGroup(group, partKey, userAnswers, flaggedSet, groupIndex = 0, totalGroups = 1) {
     if (!group || typeof group !== 'object' || Array.isArray(group)) return '';
     const range = Array.isArray(group.expectedRange) ? group.expectedRange : [0, 0];
-    const gid = group.groupId || 'group_0';
+    const gid = group.groupId || `group_${groupIndex}`;
     const passages = Array.isArray(group.passages) ? group.passages : [];
     const questions = Array.isArray(group.questions) ? group.questions : [];
 
     const resolver = (this && typeof this.resolveUrl === 'function') ? this.resolveUrl.bind(this) : UIRenderer.resolveUrl;
     const escaper = (this && typeof this.escapeHtml === 'function') ? this.escapeHtml.bind(this) : UIRenderer.escapeHtml;
+    const isActiveOnMobile = (groupIndex === 0);
 
     return `
-      <div class="passages-card animate-fade-in" id="group_box_${gid}">
-        <div class="passage-header">
+      <div class="passages-card reading-group-stage ${isActiveOnMobile ? 'mobile-active-group' : ''} animate-fade-in"
+           id="group_box_${gid}"
+           data-group-id="${gid}"
+           data-group-index="${groupIndex}"
+           data-part="${partKey}"
+           data-range="${range[0]}-${range[1]}">
+        <div class="passage-header pc-only-header">
           📖 ${partKey === 'part6' ? 'Part 6: Text Completion' : 'Part 7: Reading Comprehension'} (Câu ${range[0]} - ${range[1]})
         </div>
 
         ${passages.length > 0 ? `
-          <div class="passages-images-wrap" style="margin-bottom: 14px;">
+          <div class="reading-stage-images passages-images-wrap">
             ${passages.map(p => {
               const pUrl = typeof p === 'string' ? p : (p && p.imageUrl ? p.imageUrl : '');
               const fullUrl = resolver(pUrl);
@@ -301,51 +340,62 @@ const UIRenderer = {
                      onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();UIRenderer.openLightbox(this.getAttribute('data-img-url'));}"
                      title="Nhấn để phóng to ảnh"
                      aria-label="Phóng to hình ảnh bài đọc (Câu ${range[0]} - ${range[1]})"
-                     style="background:#ffffff; border-radius: 6px; margin-bottom: 8px;">
+                     style="background:#ffffff; border-radius: 6px;">
                   <img src="${safeFullUrl}" alt="Passage" loading="lazy" onerror="if(this.parentElement)this.parentElement.style.display='none';">
                 </div>
               `;
             }).join('')}
           </div>
-        ` : ''}
+        ` : '<div class="reading-stage-images"></div>'}
 
-        <div class="group-questions-list" style="display: flex; flex-direction: column; gap: 8px;">
-          ${questions.map(q => {
-            if (!q || typeof q !== 'object' || Array.isArray(q)) return '';
-            const qNum = parseInt(q.questionNumber, 10);
-            if (isNaN(qNum) || qNum <= 0) return '';
+        <div class="reading-questions-sheet" id="sheet_${gid}">
+          <div class="reading-sheet-handle" onclick="ExamEngine.toggleReadingSheet('${gid}')" title="Vuốt lên/xuống hoặc nhấn để ẩn/hiện câu hỏi">
+            <div class="reading-sheet-pill"></div>
+            <div class="reading-sheet-title">
+              <span class="reading-sheet-icon">▲</span>
+              <span>Câu hỏi ${range[0]} - ${range[1]}</span>
+            </div>
+          </div>
+          <div class="reading-sheet-body">
+            <div class="group-questions-list" style="display: flex; flex-direction: column; gap: 8px;">
+              ${questions.map(q => {
+                if (!q || typeof q !== 'object' || Array.isArray(q)) return '';
+                const qNum = parseInt(q.questionNumber, 10);
+                if (isNaN(qNum) || qNum <= 0) return '';
 
-            const rawAns = (userAnswers && typeof userAnswers === 'object') ? userAnswers[qNum] : '';
-            const userAns = typeof rawAns === 'string' ? rawAns.trim().toUpperCase() : '';
-            const isFlagged = Boolean(flaggedSet && typeof flaggedSet.has === 'function' ? flaggedSet.has(qNum) : false);
+                const rawAns = (userAnswers && typeof userAnswers === 'object') ? userAnswers[qNum] : '';
+                const userAns = typeof rawAns === 'string' ? rawAns.trim().toUpperCase() : '';
+                const isFlagged = Boolean(flaggedSet && typeof flaggedSet.has === 'function' ? flaggedSet.has(qNum) : false);
 
-            return `
-              <div class="question-item" id="q_item_${qNum}" data-qnum="${qNum}" style="background: var(--bg-tertiary); margin-bottom: 0;">
-                <div class="question-header">
-                  <span class="q-number-badge">Câu ${qNum}</span>
-                  <button class="flag-btn ${isFlagged ? 'flagged' : ''}"
-                          onclick="ExamEngine.toggleFlag(${qNum})"
-                          title="${isFlagged ? 'Bỏ gắn cờ' : 'Gắn cờ xem lại'}"
-                          aria-label="${isFlagged ? 'Bỏ gắn cờ câu ' + qNum : 'Gắn cờ xem lại câu ' + qNum}"
-                          aria-pressed="${isFlagged ? 'true' : 'false'}">
-                    ${isFlagged ? '🚩' : '🏳️'}
-                  </button>
-                </div>
-                ${q.questionText ? `<p class="question-text">${escaper(q.questionText)}</p>` : ''}
-                <div class="options-group" role="group" aria-label="Phương án trả lời câu ${qNum}">
-                  ${['A', 'B', 'C', 'D'].map(opt => `
-                    <button class="option-btn${userAns === opt ? ' selected' : ''}"
-                            onclick="ExamEngine.selectAnswer(${qNum}, '${opt}')"
-                            aria-label="Câu ${qNum} chọn đáp án ${opt}"
-                            aria-pressed="${userAns === opt ? 'true' : 'false'}">
-                      <span class="option-letter">${opt}</span>
-                      <span class="option-text">${escaper(q.options?.[opt] || '')}</span>
-                    </button>
-                  `).join('')}
-                </div>
-              </div>
-            `;
-          }).join('')}
+                return `
+                  <div class="question-item" id="q_item_${qNum}" data-qnum="${qNum}" style="background: var(--bg-tertiary); margin-bottom: 0;">
+                    <div class="question-header">
+                      <span class="q-number-badge">Câu ${qNum}</span>
+                      <button class="flag-btn ${isFlagged ? 'flagged' : ''}"
+                              onclick="ExamEngine.toggleFlag(${qNum})"
+                              title="${isFlagged ? 'Bỏ gắn cờ' : 'Gắn cờ xem lại'}"
+                              aria-label="${isFlagged ? 'Bỏ gắn cờ câu ' + qNum : 'Gắn cờ xem lại câu ' + qNum}"
+                              aria-pressed="${isFlagged ? 'true' : 'false'}">
+                        ${isFlagged ? '🚩' : '🏳️'}
+                      </button>
+                    </div>
+                    ${q.questionText ? `<p class="question-text">${escaper(q.questionText)}</p>` : ''}
+                    <div class="options-group" role="group" aria-label="Phương án trả lời câu ${qNum}">
+                      ${['A', 'B', 'C', 'D'].map(opt => `
+                        <button class="option-btn${userAns === opt ? ' selected' : ''}"
+                                onclick="ExamEngine.selectAnswer(${qNum}, '${opt}')"
+                                aria-label="Câu ${qNum} chọn đáp án ${opt}"
+                                aria-pressed="${userAns === opt ? 'true' : 'false'}">
+                          <span class="option-letter">${opt}</span>
+                          <span class="option-text">${escaper(q.options?.[opt] || '')}</span>
+                        </button>
+                      `).join('')}
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
         </div>
       </div>
     `;
@@ -509,7 +559,12 @@ const UIRenderer = {
       modal.setAttribute('aria-label', 'Phóng to hình ảnh');
       modal.tabIndex = -1;
       modal.innerHTML = `
-        <button class="lightbox-close-btn" type="button" onclick="UIRenderer.closeLightbox()" aria-label="Đóng phóng to">&times;</button>
+        <button class="lightbox-close-btn" type="button" onclick="UIRenderer.closeLightbox()" aria-label="Đóng phóng to">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
         <div class="lightbox-img-container" onclick="event.stopPropagation()">
           <img id="lightbox-modal-img" src="" alt="Zoomed view">
         </div>
