@@ -262,6 +262,7 @@ const ResultViewer = {
     } else if (isDirectReview && typeof this.showDetailedReviewSection === 'function') {
       this.showDetailedReviewSection();
     }
+    this.bindGlobalClickOutside();
     return true;
   },
 
@@ -2194,14 +2195,14 @@ const ResultViewer = {
     const s = passage.sentences[sIdx];
 
     const layer = document.getElementById(`overlays_${prefix}${gid}_${pIdx}`);
-    if (layer) {
+    if (layer && typeof layer.querySelectorAll === 'function') {
       layer.querySelectorAll('.sentence-overlay-box').forEach(b => b.classList.remove('active'));
       layer.querySelectorAll(`.sentence-box-${prefix}${gid}-${pIdx}-${sIdx}`).forEach(b => b.classList.add('active'));
     }
 
     // Đồng bộ trạng thái active của nút câu trong thanh dock (nếu đang ở màn hình zoom Lightbox)
     const dock = document.getElementById(`sentence_dock_${prefix}${gid}_${pIdx}`);
-    if (dock) {
+    if (dock && typeof dock.querySelectorAll === 'function') {
       dock.querySelectorAll('.lightbox-sentence-btn').forEach(b => {
         b.classList.remove('active');
         b.setAttribute('aria-pressed', 'false');
@@ -2233,17 +2234,23 @@ const ResultViewer = {
         note.style.display = s.analysis ? 'block' : 'none';
       }
 
-      // Nâng z-index của khung chứa ảnh đang mở popup để khi popup thoát ra ngoài ảnh không bị các phần tử khác đè lên
+      // Nâng z-index của khung chứa ảnh đang mở popup để khi popup hiển thị không bị các phần tử khác che đè
       if (!prefix && typeof document !== 'undefined') {
         document.querySelectorAll('.interactive-passage-container').forEach(el => {
           el.style.zIndex = '';
         });
         const passWrap = document.getElementById(`pass_wrap_${gid}_${pIdx}`);
-        if (passWrap) passWrap.style.zIndex = '60';
-        card.style.zIndex = '70';
+        if (passWrap) passWrap.style.zIndex = '90';
+        card.style.zIndex = '95';
+        this.bindGlobalClickOutside();
       }
 
-      // Định vị popup cách tọa độ câu một khoảng vừa phải
+      // Định vị popup thông minh:
+      // - Nếu câu nằm sát đỉnh bài đọc (sy0Pct < 25%, ví dụ Câu 1, Câu 2):
+      //   Khoảng trống phía trên không đủ và có thể đè lên thanh Part Filter dính ở đỉnh trang.
+      //   Vì vậy đặt popup ở PHÍA DƯỚI câu (cách câu 8px), giúp popup nằm gọn trong khung đọc, nhìn rõ câu đang chọn và KHÔNG BAO GIỜ đè thanh filter!
+      // - Nếu câu nằm từ 25% trở xuống (ví dụ Câu 4, Câu 5, Câu 10...):
+      //   Khoảng trống phía trên dồi dào -> Đặt popup ở PHÍA TRÊN câu (cách đỉnh câu 8px) để không che nội dung bài đọc phía dưới.
       const firstR = s.regions && s.regions[0];
       const refH = passage.imageHeight || 1000;
       const sy1Pct = firstR
@@ -2263,25 +2270,34 @@ const ResultViewer = {
           } catch (_) {}
         }
       } else {
-        // Cho phép popup hoàn toàn thoát ra ngoài khung ảnh, hiển thị bên trên tọa độ câu (cách 12px) để không che nội dung bài đọc
-        card.style.top = 'auto';
-        card.style.bottom = `calc(${Math.max(0, 100 - sy0Pct).toFixed(2)}% + 12px)`;
+        if (sy0Pct < 25) {
+          card.style.top = `calc(${Math.min(95, sy1Pct).toFixed(2)}% + 8px)`;
+          card.style.bottom = 'auto';
+        } else {
+          card.style.top = 'auto';
+          card.style.bottom = `calc(${Math.max(0, 100 - sy0Pct).toFixed(2)}% + 8px)`;
+        }
       }
 
       card.style.display = 'block';
       card.scrollTop = 0;
 
-      // Đảm bảo khi popup thoát lên trên khung ảnh, nếu đỉnh popup vượt quá mép trên màn hình thì tự động cuộn nhẹ để nhìn thấy trọn vẹn popup
+      // Đảm bảo khi popup hiển thị, nếu đỉnh popup bị che bởi navbar + thanh sticky Part Filter (chiều cao ~100px) thì cuộn nhẹ để nhìn thấy trọn vẹn popup
       if (!prefix && typeof window !== 'undefined' && typeof card.getBoundingClientRect === 'function') {
         setTimeout(() => {
           try {
             const cardRect = card.getBoundingClientRect();
-            const safeTop = 75;
-            if (cardRect.top < safeTop) {
-              window.scrollBy({ top: cardRect.top - safeTop - 15, behavior: 'smooth' });
+            const navbar = document.querySelector('.navbar') || document.querySelector('.app-navbar');
+            const filterBar = document.querySelector('.filter-tabs-bar');
+            let headerH = 110;
+            if (navbar && typeof navbar.getBoundingClientRect === 'function') {
+              headerH = Math.max(headerH, (navbar.getBoundingClientRect().bottom || 48) + (filterBar ? (filterBar.getBoundingClientRect().height || 50) : 50));
+            }
+            if (cardRect.top < headerH + 10) {
+              window.scrollBy({ top: cardRect.top - headerH - 16, behavior: 'smooth' });
             }
           } catch (_) {}
-        }, 20);
+        }, 30);
       }
     }
   },
@@ -2296,17 +2312,55 @@ const ResultViewer = {
     }
 
     const layer = document.getElementById(`overlays_${prefix}${gid}_${pIdx}`);
-    if (layer) {
+    if (layer && typeof layer.querySelectorAll === 'function') {
       layer.querySelectorAll('.sentence-overlay-box').forEach(b => b.classList.remove('active'));
     }
 
     const dock = document.getElementById(`sentence_dock_${prefix}${gid}_${pIdx}`);
-    if (dock) {
+    if (dock && typeof dock.querySelectorAll === 'function') {
       dock.querySelectorAll('.lightbox-sentence-btn').forEach(b => {
         b.classList.remove('active');
         b.setAttribute('aria-pressed', 'false');
       });
     }
+  },
+
+  closeAllSentenceCards() {
+    if (typeof document === 'undefined') return;
+    document.querySelectorAll('.sentence-lookup-card').forEach(c => {
+      c.style.display = 'none';
+    });
+    document.querySelectorAll('.interactive-passage-container').forEach(el => {
+      el.style.zIndex = '';
+    });
+    document.querySelectorAll('.sentence-overlay-box.active').forEach(b => {
+      b.classList.remove('active');
+    });
+    document.querySelectorAll('.lightbox-sentence-btn.active').forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-pressed', 'false');
+    });
+  },
+
+  bindGlobalClickOutside() {
+    if (this._clickOutsideBound || typeof document === 'undefined') return;
+    this._clickOutsideBound = true;
+    document.addEventListener('click', (e) => {
+      const openCards = document.querySelectorAll('.sentence-lookup-card:not([style*="display: none"])');
+      if (!openCards || openCards.length === 0) return;
+
+      const targetEl = (typeof Element !== 'undefined' && e.target instanceof Element) ? e.target : (e.target && e.target.parentElement) || e.target;
+      if (!targetEl) return;
+
+      if (targetEl.closest && targetEl.closest('.sentence-lookup-card')) {
+        return;
+      }
+      if (targetEl.closest && (targetEl.closest('.lightbox-sentence-btn') || targetEl.closest('.sentence-overlay-box'))) {
+        return;
+      }
+
+      this.closeAllSentenceCards();
+    });
   },
 
   openPassageLightbox(gid, pIdx, url) {

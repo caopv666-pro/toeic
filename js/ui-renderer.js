@@ -786,7 +786,7 @@ const UIRenderer = {
       }
     });
 
-    if (typeof window !== 'undefined' && !UIRenderer._resizeBound) {
+    if (typeof window !== 'undefined' && typeof window.addEventListener === 'function' && !UIRenderer._resizeBound) {
       UIRenderer._resizeBound = true;
       window.addEventListener('resize', () => {
         UIRenderer.syncReadingStageHeights();
@@ -839,6 +839,7 @@ const UIRenderer = {
     }
 
     card.style.display = 'block';
+    this.bindGlobalClickOutside();
 
     if (typeof this.syncReadingStageHeights === 'function') {
       setTimeout(() => this.syncReadingStageHeights(), 50);
@@ -861,6 +862,41 @@ const UIRenderer = {
     if (typeof this.syncReadingStageHeights === 'function') {
       setTimeout(() => this.syncReadingStageHeights(), 50);
     }
+  },
+
+  closeAllSentenceDetails() {
+    if (typeof document === 'undefined') return;
+    document.querySelectorAll('.sentence-lookup-card').forEach(c => {
+      c.style.display = 'none';
+    });
+    document.querySelectorAll('.inline-sentence-btn.active, .lightbox-sentence-btn.active').forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-pressed', 'false');
+    });
+    if (typeof this.syncReadingStageHeights === 'function') {
+      setTimeout(() => this.syncReadingStageHeights(), 50);
+    }
+  },
+
+  bindGlobalClickOutside() {
+    if (this._clickOutsideBound || typeof document === 'undefined') return;
+    this._clickOutsideBound = true;
+    document.addEventListener('click', (e) => {
+      const openCards = document.querySelectorAll('.sentence-lookup-card:not([style*="display: none"])');
+      if (!openCards || openCards.length === 0) return;
+
+      const targetEl = (typeof Element !== 'undefined' && e.target instanceof Element) ? e.target : (e.target && e.target.parentElement) || e.target;
+      if (!targetEl) return;
+
+      if (targetEl.closest && targetEl.closest('.sentence-lookup-card')) {
+        return;
+      }
+      if (targetEl.closest && (targetEl.closest('.inline-sentence-btn') || targetEl.closest('.lightbox-sentence-btn') || targetEl.closest('.sentence-overlay-box'))) {
+        return;
+      }
+
+      this.closeAllSentenceDetails();
+    });
   }
 };
 
