@@ -1,0 +1,13 @@
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  X-Robots-Tag: noai, noimageai
+
+/data/vault/*.bin
+  Cache-Control: public, max-age=31536000, immutable
+  X-Robots-Tag: noindex, noarchive, nosnippet, noai
+
+/uploads/*
+  Cache-Control: public, max-age=604800
+  X-Robots-Tag: noimageindex, noai

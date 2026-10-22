@@ -1,8 +1,4 @@
-// ==========================================================================
-// TOEIC MASTER — exam-engine.js
-// Exam Lifecycle: Timer, State Management, Submission, Auto-Save
-// ==========================================================================
-
+/* Protected by TOEIC Master DataShield v2 */
 const PART_TIMES_SECONDS = {
   part1: 6 * 60,    // 6 mins (6 photos)
   part2: 12 * 60,   // 12 mins (25 questions)
@@ -12,7 +8,6 @@ const PART_TIMES_SECONDS = {
   part6: 12 * 60,   // 12 mins (16 questions)
   part7: 55 * 60    // 55 mins (54 questions)
 };
-
 const ExamEngine = {
   testId: 1,
   mode: 'full', // 'full' or 'part'
@@ -27,14 +22,11 @@ const ExamEngine = {
   startTime: null,
   currentQNum: null,
   _isSubmitting: false,
-
   PART_TIMES_SECONDS,
-
   parseQueryParams(searchOrParams) {
     let rawTest = '1';
     let rawMode = 'full';
     let rawPart = null;
-
     if (typeof searchOrParams === 'string') {
       const qs = searchOrParams.startsWith('?') ? searchOrParams.substring(1) : searchOrParams;
       const params = new URLSearchParams(qs);
@@ -50,8 +42,6 @@ const ExamEngine = {
       rawMode = searchOrParams.mode || 'full';
       rawPart = searchOrParams.part || null;
     }
-
-    // 1. Boundary Clamping for testId (1 to 10)
     let testId = 1;
     if (typeof rawTest === 'number') {
       testId = Math.floor(rawTest);
@@ -61,12 +51,8 @@ const ExamEngine = {
     }
     if (isNaN(testId) || testId < 1) testId = 1;
     if (testId > 10) testId = 10;
-
-    // 2. Whitelist validation for mode
     const normalizedMode = (typeof rawMode === 'string') ? rawMode.trim().toLowerCase() : 'full';
     const mode = (normalizedMode === 'part') ? 'part' : 'full';
-
-    // 3. Validation for partFilter
     let partFilter = null;
     if (mode === 'part') {
       const validParts = (typeof AppConfig !== 'undefined' && AppConfig.PARTS)
@@ -75,20 +61,15 @@ const ExamEngine = {
       const p = (typeof rawPart === 'string') ? rawPart.trim().toLowerCase() : '';
       partFilter = validParts.includes(p) ? p : 'part1';
     }
-
     return { testId, mode, partFilter };
   },
-
   async init(customParams = null) {
     this._isSubmitting = false;
-    // 1. Parse URL Parameters with validation & clamping
     const searchSource = customParams || (typeof window !== 'undefined' && window.location ? window.location.search : '');
     const parsed = this.parseQueryParams(searchSource);
     this.testId = parsed.testId;
     this.mode = parsed.mode;
     this.partFilter = parsed.partFilter;
-
-    // 2. Set default timer based on mode
     const partTimes = this.PART_TIMES_SECONDS || PART_TIMES_SECONDS;
     if (this.mode === 'full') {
       this.timeRemaining = 120 * 60; // 120 mins
@@ -98,8 +79,6 @@ const ExamEngine = {
       this.timeRemaining = 20 * 60;
     }
     this.initialTime = this.timeRemaining;
-
-    // Update Header title badge with Part name if in part mode
     if (typeof document !== 'undefined') {
       const titleBadge = document.getElementById('exam-header-title');
       if (titleBadge) {
@@ -113,37 +92,32 @@ const ExamEngine = {
         }
       }
     }
-
-    // 3. Load database
     try {
       this.showLoading(true);
-      const dbUrl = (typeof AppConfig !== 'undefined' && typeof AppConfig.getDatabaseUrl === 'function')
-        ? AppConfig.getDatabaseUrl()
-        : 'data/database_compiled.json';
-      const res = await fetch(dbUrl);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const db = await res.json();
-      
+      let db = null;
+      if (typeof AppConfig !== 'undefined' && typeof AppConfig.fetchTestShard === 'function') {
+        db = await AppConfig.fetchTestShard(undefined, this.testId, 'exam');
+      }
+      if (!db) {
+        const dbUrl = (typeof AppConfig !== 'undefined' && typeof AppConfig.getDatabaseUrl === 'function')
+          ? AppConfig.getDatabaseUrl()
+          : 'data/database_compiled.json';
+        const res = await fetch(dbUrl);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        db = await res.json();
+      }
       const tests = db.tests || (Array.isArray(db) ? db : [db]);
       const currentTest = tests.find(t => t.testId === this.testId || t.id === this.testId) || tests[0];
       if (!currentTest) throw new Error('Không tìm thấy dữ liệu đề thi');
       this.testData = currentTest;
       this.testId = currentTest.testId || currentTest.id || this.testId;
-
-      // 4. Index all questions
       this.indexQuestions(currentTest);
-
-      // 5. Check if we have an active session to restore
       this.restoreActiveSession();
       if (this._isSubmitting) {
         this.showLoading(false);
         return true;
       }
-
-      // 6. Render UI
       this.renderExamPage();
-
-      // 7. Start timer
       this.startTimer();
       this.showLoading(false);
       return true;
@@ -154,16 +128,12 @@ const ExamEngine = {
       return false;
     }
   },
-
-  // Index questions for O(1) lookup
   indexQuestions(test) {
     this.allQuestionsMap = {};
     const lc = test.listening || {};
     const rc = test.reading || {};
     const getPartQuestions = (p) => Array.isArray(p) ? p : (Array.isArray(p?.questions) ? p.questions : []);
     const getPartGroups = (p) => Array.isArray(p) ? p : (Array.isArray(p?.groups) ? p.groups : []);
-
-    // Part 1 & 2
     getPartQuestions(lc.part1).forEach(q => {
       q.part = 'part1';
       q.groupId = 'p1_q' + q.questionNumber;
@@ -176,8 +146,6 @@ const ExamEngine = {
       q.expectedRange = [q.questionNumber, q.questionNumber];
       this.allQuestionsMap[q.questionNumber] = q;
     });
-
-    // Part 3 & 4
     getPartGroups(lc.part3).forEach((g, gIdx) => {
       const gid = g.groupId || `p3_g${gIdx + 1}`;
       const range = g.expectedRange || [g.questions?.[0]?.questionNumber, g.questions?.[g.questions.length - 1]?.questionNumber];
@@ -210,8 +178,6 @@ const ExamEngine = {
         this.allQuestionsMap[q.questionNumber] = q;
       });
     });
-
-    // Part 5
     const p5List = getPartQuestions(rc.part5).length > 0 ? getPartQuestions(rc.part5) : getPartQuestions(lc.part5);
     p5List.forEach(q => {
       q.part = 'part5';
@@ -219,8 +185,6 @@ const ExamEngine = {
       q.expectedRange = [q.questionNumber, q.questionNumber];
       this.allQuestionsMap[q.questionNumber] = q;
     });
-
-    // Part 6 & 7
     getPartGroups(rc.part6).forEach((g, gIdx) => {
       const gid = g.groupId || `p6_g${gIdx + 1}`;
       const range = g.expectedRange || [g.questions?.[0]?.questionNumber, g.questions?.[g.questions.length - 1]?.questionNumber];
@@ -250,8 +214,6 @@ const ExamEngine = {
       });
     });
   },
-
-  // Get active question numbers array according to mode & partFilter
   getActiveQuestionNumbers() {
     const partsConfig = (typeof AppConfig !== 'undefined' && AppConfig.PARTS) ? AppConfig.PARTS : {};
     if (this.mode === 'part' && this.partFilter && partsConfig[this.partFilter]) {
@@ -265,20 +227,16 @@ const ExamEngine = {
     const all = Object.keys(this.allQuestionsMap).map(Number).sort((a, b) => a - b);
     return all.length > 0 ? all : Array.from({ length: 200 }, (_, idx) => idx + 1);
   },
-
   getTotalQuestionsCount() {
     return this.getActiveQuestionNumbers().length;
   },
-
   restoreActiveSession() {
     const storage = (typeof StorageService !== 'undefined')
       ? StorageService
       : (typeof window !== 'undefined' && window.StorageService ? window.StorageService : (typeof global !== 'undefined' ? global.StorageService : null));
     if (!storage || typeof storage.getActiveSession !== 'function') return false;
-
     const saved = storage.getActiveSession();
     if (!saved || typeof saved !== 'object') return false;
-
     const currentBook = (typeof AppConfig !== 'undefined' && typeof AppConfig.getSelectedBook === 'function')
       ? AppConfig.getSelectedBook()
       : 'EST 2022';
@@ -286,11 +244,9 @@ const ExamEngine = {
     const isTestMatch = Number(saved.testId) === Number(this.testId);
     const isModeMatch = String(saved.mode || 'full').trim().toLowerCase() === String(this.mode || 'full').trim().toLowerCase();
     const isPartMatch = (saved.partFilter ? String(saved.partFilter).trim().toLowerCase() : null) === (this.partFilter ? String(this.partFilter).trim().toLowerCase() : null);
-
     if (isBookMatch && isTestMatch && isModeMatch && isPartMatch) {
       const lastUpdated = Number(saved.lastUpdated) || 0;
       if (lastUpdated > 0 && Date.now() - lastUpdated < 24 * 3600 * 1000) {
-        // Whitelist and sanitize userAnswers
         const rawAnswers = (saved.userAnswers && typeof saved.userAnswers === 'object' && !Array.isArray(saved.userAnswers)) ? saved.userAnswers : {};
         const cleanAnswers = {};
         Object.keys(rawAnswers).forEach(k => {
@@ -301,19 +257,14 @@ const ExamEngine = {
           }
         });
         this.userAnswers = cleanAnswers;
-
-        // Normalize flaggedQuestions Set to strictly integer values
         this.flaggedQuestions = new Set(
           (Array.isArray(saved.flaggedQuestions) ? saved.flaggedQuestions : [])
             .map(n => parseInt(n, 10))
             .filter(n => Number.isInteger(n) && n > 0)
         );
-
         if (Number.isFinite(saved.initialTime) && saved.initialTime > 0) {
           this.initialTime = Math.floor(saved.initialTime);
         }
-
-        // DOM element synchronization if question elements already rendered
         if (typeof document !== 'undefined') {
           Object.keys(cleanAnswers).forEach(numStr => {
             const num = parseInt(numStr, 10);
@@ -331,7 +282,6 @@ const ExamEngine = {
               });
             }
           });
-
           this.flaggedQuestions.forEach(num => {
             const qItem = document.getElementById(`q_item_${num}`);
             if (qItem) {
@@ -346,12 +296,10 @@ const ExamEngine = {
             }
           });
         }
-
         if (saved.timeRemaining !== undefined && Number.isFinite(saved.timeRemaining)) {
           const rem = Math.floor(saved.timeRemaining);
           const elapsed = Math.max(0, Math.floor((Date.now() - lastUpdated) / 1000));
           const currentRemaining = Math.max(0, rem - elapsed);
-
           if (currentRemaining <= 0) {
             this.timeRemaining = 0;
             if (typeof this.updatePaletteUI === 'function') {
@@ -363,7 +311,6 @@ const ExamEngine = {
             this.timeRemaining = currentRemaining;
           }
         }
-
         if (typeof this.updatePaletteUI === 'function') {
           try { this.updatePaletteUI(); } catch (_) {}
         }
@@ -372,17 +319,14 @@ const ExamEngine = {
     }
     return false;
   },
-
   saveCurrentProgress() {
     const storage = (typeof StorageService !== 'undefined')
       ? StorageService
       : (typeof window !== 'undefined' && window.StorageService ? window.StorageService : (typeof global !== 'undefined' ? global.StorageService : null));
     if (!storage || typeof storage.saveActiveSession !== 'function') return false;
-
     const currentBook = (typeof AppConfig !== 'undefined' && typeof AppConfig.getSelectedBook === 'function')
       ? AppConfig.getSelectedBook()
       : 'EST 2022';
-
     try {
       storage.saveActiveSession({
         bookName: currentBook,
@@ -400,16 +344,13 @@ const ExamEngine = {
       return false;
     }
   },
-
   startTimer() {
     this.startTime = Date.now();
     const sec = Number.isFinite(this.timeRemaining) ? Math.max(0, Math.floor(this.timeRemaining)) : 0;
     this.timeRemaining = sec;
     this._timerTargetEndTime = Date.now() + sec * 1000;
     this.updateTimerDisplay();
-
     this.stopTimer();
-
     if (this.timeRemaining <= 0) {
       this.closeSubmitModal();
       this.closeMobileDrawer();
@@ -422,13 +363,11 @@ const ExamEngine = {
       this.submitExam(true);
       return;
     }
-
     this.timerInterval = setInterval(() => {
       const now = Date.now();
       const remaining = Math.max(0, Math.round((this._timerTargetEndTime - now) / 1000));
       this.timeRemaining = remaining;
       this.updateTimerDisplay();
-
       if (this.timeRemaining % 5 === 0) {
         this.saveCurrentProgress(); // Auto-save every 5s
       }
@@ -446,7 +385,6 @@ const ExamEngine = {
       }
     }, 1000);
   },
-
   stopTimer() {
     if (this.timerInterval) {
       clearInterval(this.timerInterval);
@@ -454,14 +392,12 @@ const ExamEngine = {
     }
     return true;
   },
-
   updateTimerDisplay() {
     if (typeof document === 'undefined' || typeof document.querySelectorAll !== 'function') return;
     const sec = Number.isFinite(this.timeRemaining) ? Math.max(0, Math.floor(this.timeRemaining)) : 0;
     const m = Math.floor(sec / 60);
     const s = sec % 60;
     const timeStr = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
-
     const timerEls = document.querySelectorAll('.exam-timer-val');
     timerEls.forEach(el => {
       el.textContent = timeStr;
@@ -474,27 +410,21 @@ const ExamEngine = {
       }
     });
   },
-
   selectAnswer(qNum, optLetter) {
     if (this._isSubmitting) return false;
     const num = parseInt(qNum, 10);
     if (isNaN(num) || num <= 0) return false;
-
     const opt = (typeof optLetter === 'string') ? optLetter.trim().toUpperCase() : '';
     if (!['A', 'B', 'C', 'D'].includes(opt)) return false;
-
     if (!this.userAnswers || typeof this.userAnswers !== 'object' || Array.isArray(this.userAnswers)) {
       this.userAnswers = {};
     }
-
     if (this.userAnswers[num] === opt) {
       delete this.userAnswers[num];
     } else {
       this.userAnswers[num] = opt;
     }
     this.currentQNum = num;
-
-    // Update question options UI & ARIA attributes
     if (typeof document !== 'undefined') {
       const qItem = document.getElementById(`q_item_${num}`);
       if (qItem) {
@@ -509,31 +439,25 @@ const ExamEngine = {
         });
       }
     }
-
-    // Update Palette UI
     this.updatePaletteUI();
     try {
       this.saveCurrentProgress();
     } catch (saveErr) {
       console.warn('Failed to save progress in selectAnswer:', saveErr);
     }
-
     return {
       qNum: num,
       answer: this.userAnswers[num] || null,
       selected: Boolean(this.userAnswers[num])
     };
   },
-
   toggleFlag(qNum) {
     if (this._isSubmitting) return false;
     const num = parseInt(qNum, 10);
     if (isNaN(num) || num <= 0) return false;
-
     if (!this.flaggedQuestions || typeof this.flaggedQuestions.has !== 'function') {
       this.flaggedQuestions = new Set(Array.isArray(this.flaggedQuestions) ? this.flaggedQuestions : []);
     }
-
     let isFlagged = false;
     if (this.flaggedQuestions.has(num)) {
       this.flaggedQuestions.delete(num);
@@ -543,8 +467,6 @@ const ExamEngine = {
       isFlagged = true;
     }
     this.currentQNum = num;
-
-    // Update question flag button & ARIA attributes
     if (typeof document !== 'undefined') {
       const qItem = document.getElementById(`q_item_${num}`);
       if (qItem) {
@@ -558,7 +480,6 @@ const ExamEngine = {
         }
       }
     }
-
     this.updatePaletteUI();
     try {
       this.saveCurrentProgress();
@@ -567,7 +488,6 @@ const ExamEngine = {
     }
     return isFlagged;
   },
-
   getPartKeyByQuestionNum(qNum) {
     const n = parseInt(qNum, 10) || 1;
     if (n <= 6) return 'part1';
@@ -578,13 +498,11 @@ const ExamEngine = {
     if (n <= 146) return 'part6';
     return 'part7';
   },
-
   switchExamPart(partKey, shouldScrollTop = true) {
     const validParts = ['part1', 'part2', 'part3', 'part4', 'part5', 'part6', 'part7'];
     const targetPart = validParts.includes(partKey) ? partKey : 'part1';
     this.activeExamPart = targetPart;
     if (typeof document === 'undefined') return targetPart;
-
     if (typeof document.querySelectorAll === 'function') {
       document.querySelectorAll('.exam-part-section').forEach(sec => {
         const secPart = (sec.dataset && sec.dataset.part) || (sec.getAttribute && sec.getAttribute('data-part'));
@@ -604,35 +522,29 @@ const ExamEngine = {
         }
       });
     }
-
     if (['part6', 'part7'].includes(targetPart)) {
       this.activateReadingGroup(targetPart, 0, false);
     }
-
     if (shouldScrollTop && typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
       const prefersReduced = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
     }
     return targetPart;
   },
-
   scrollToQuestion(qNum) {
     if (this._isSubmitting) return false;
     const num = parseInt(qNum, 10);
     if (isNaN(num) || num <= 0) return false;
     this.currentQNum = num;
     if (typeof document === 'undefined') return true;
-
     if (this.mode === 'full') {
       const targetPart = this.getPartKeyByQuestionNum(num);
       if (this.activeExamPart !== targetPart) {
         this.switchExamPart(targetPart, false);
       }
     }
-
     const el = document.getElementById(`q_item_${num}`);
     if (el) {
-      // If question belongs to Part 6 or Part 7 reading group, activate its group
       const groupBox = el.closest ? el.closest('.reading-group-stage') : null;
       if (groupBox) {
         const pKey = groupBox.getAttribute('data-part');
@@ -647,39 +559,29 @@ const ExamEngine = {
           if (icon) icon.textContent = '▼';
         }
       }
-
       const headerOffset = 90;
       const elPos = el.getBoundingClientRect().top;
       const scrollY = (typeof window !== 'undefined' && typeof window.scrollY !== 'undefined')
         ? window.scrollY
         : ((typeof window !== 'undefined' && window.pageYOffset) || (document.documentElement ? document.documentElement.scrollTop : 0) || 0);
       const offsetPos = Math.max(0, elPos + scrollY - headerOffset);
-
       const prefersReducedMotion = typeof window !== 'undefined' && typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
         window.scrollTo({ top: offsetPos, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
       }
-
-      // Highlight active question
       document.querySelectorAll('.question-item.active').forEach(i => i.classList.remove('active'));
       el.classList.add('active');
-
-      // Accessibility focus management
       el.setAttribute('tabindex', '-1');
       if (typeof el.focus === 'function') {
         try { el.focus({ preventScroll: true }); } catch (_) { el.focus(); }
       }
-
       this.updatePaletteUI();
       this.closeMobileDrawer();
       return true;
     }
-
     this.updatePaletteUI();
     return false;
   },
-
-  // ── Reading Group Navigation & Gestures (Part 6 & Part 7) ──
   navReadingGroup(partKey, delta) {
     if (typeof document === 'undefined') return;
     const stageCards = Array.from(document.querySelectorAll(`.reading-group-stage[data-part="${partKey}"]`));
@@ -694,12 +596,10 @@ const ExamEngine = {
       this.activateReadingGroup(partKey, newIdx, true);
     }
   },
-
   activateReadingGroup(partKey, targetIdx, scroll = false) {
     if (typeof document === 'undefined') return;
     const stageCards = Array.from(document.querySelectorAll(`.reading-group-stage[data-part="${partKey}"]`));
     if (stageCards.length === 0) return;
-
     const safeIdx = Math.max(0, Math.min(stageCards.length - 1, targetIdx));
     stageCards.forEach((card, idx) => {
       if (idx === safeIdx) {
@@ -708,11 +608,9 @@ const ExamEngine = {
         card.classList.remove('mobile-active-group');
       }
     });
-
     const activeCard = stageCards[safeIdx];
     const rangeAttr = activeCard ? activeCard.getAttribute('data-range') : '';
     const rangeParts = rangeAttr ? rangeAttr.split('-') : [];
-
     const navBar = document.getElementById(`reading-nav-${partKey}`);
     if (navBar) {
       navBar.setAttribute('data-active-idx', String(safeIdx));
@@ -720,17 +618,14 @@ const ExamEngine = {
       const nextBtn = navBar.querySelector('.btn-group-next');
       if (prevBtn) prevBtn.disabled = (safeIdx === 0);
       if (nextBtn) nextBtn.disabled = (safeIdx >= stageCards.length - 1);
-
       const partTitle = partKey === 'part6' ? 'Part 6' : 'Part 7';
       const badge = document.getElementById(`group-nav-badge-${partKey}`);
       if (badge) badge.textContent = `${partTitle} • Nhóm ${safeIdx + 1} / ${stageCards.length}`;
-
       const rangeLabel = document.getElementById(`group-nav-range-${partKey}`);
       if (rangeLabel && rangeParts.length === 2) {
         rangeLabel.textContent = `Câu ${rangeParts[0]} – ${rangeParts[1]}`;
       }
     }
-
     if (scroll && activeCard) {
       if (typeof window !== 'undefined' && window.innerWidth <= 768) {
         const imgWrap = activeCard.querySelector('.reading-stage-images');
@@ -759,7 +654,6 @@ const ExamEngine = {
       }
     }
   },
-
   toggleReadingSheet(gid) {
     if (typeof document === 'undefined') return;
     const sheet = document.getElementById(`sheet_${gid}`);
@@ -770,7 +664,6 @@ const ExamEngine = {
       icon.textContent = isExpanded ? '▼' : '▲';
     }
   },
-
   initReadingSheetGestures() {
     if (typeof document === 'undefined') return;
     const sheets = document.querySelectorAll('.reading-questions-sheet');
@@ -779,8 +672,6 @@ const ExamEngine = {
       sheet._hasGestureAttached = true;
       const handle = sheet.querySelector('.reading-sheet-handle');
       if (!handle) return;
-
-      // Tap anywhere on collapsed peek sheet to expand
       sheet.addEventListener('click', (e) => {
         if (!sheet.classList.contains('sheet-expanded')) {
           sheet.classList.add('sheet-expanded');
@@ -788,26 +679,21 @@ const ExamEngine = {
           if (icon) icon.textContent = '▼';
         }
       });
-
-      // Tapping handle toggles
       handle.addEventListener('click', (e) => {
         e.stopPropagation();
         const isExpanded = sheet.classList.toggle('sheet-expanded');
         const icon = sheet.querySelector('.reading-sheet-icon');
         if (icon) icon.textContent = isExpanded ? '▼' : '▲';
       });
-
       let startY = 0;
       let startX = 0;
       let isDragging = false;
-
       handle.addEventListener('touchstart', (e) => {
         if (!e.touches || e.touches.length === 0) return;
         startY = e.touches[0].clientY;
         startX = e.touches[0].clientX;
         isDragging = true;
       }, { passive: true });
-
       handle.addEventListener('touchmove', (e) => {
         if (!isDragging || !e.touches || e.touches.length === 0) return;
         const currentY = e.touches[0].clientY;
@@ -815,7 +701,6 @@ const ExamEngine = {
         const diffY = currentY - startY;
         const diffX = Math.abs(currentX - startX);
         if (diffX > Math.abs(diffY)) return;
-
         if (diffY < -25) {
           sheet.classList.add('sheet-expanded');
           const icon = sheet.querySelector('.reading-sheet-icon');
@@ -826,13 +711,11 @@ const ExamEngine = {
           if (icon) icon.textContent = '▲';
         }
       }, { passive: true });
-
       handle.addEventListener('touchend', () => {
         isDragging = false;
       }, { passive: true });
     });
   },
-
   updatePaletteUI() {
     if (typeof document === 'undefined') return;
     const paletteContainers = document.querySelectorAll('.palette-container-wrapper');
@@ -848,48 +731,36 @@ const ExamEngine = {
     };
     const flaggedCount = qList.filter(qNum => hasFlag(qNum)).length;
     const remainingCount = Math.max(0, totalCount - answeredCount);
-
     paletteContainers.forEach(container => {
       if (!container || typeof container.querySelector !== 'function') return;
       const grid = container.querySelector('.palette-grid');
       const existingBtns = grid ? grid.querySelectorAll('.palette-btn') : null;
-
-      // Fast-path: If palette grid already exists with matching button count, update in-place
-      // This preserves keyboard focus (Tab navigation) and scroll position without DOM thrashing
       if (grid && existingBtns && existingBtns.length === totalCount) {
-        // Update stat counters
         const statBoxes = container.querySelectorAll('.palette-stat-box span');
         if (statBoxes.length >= 3) {
           statBoxes[0].textContent = answeredCount;
           statBoxes[1].textContent = remainingCount;
           statBoxes[2].textContent = flaggedCount;
         }
-
-        // Update each button state in-place
         existingBtns.forEach(btn => {
           const qNum = parseInt(btn.getAttribute('data-qnum') || btn.textContent.trim(), 10);
           if (isNaN(qNum)) return;
-
           const rawAns = this.userAnswers[qNum];
           const userAns = rawAns ? String(rawAns).trim().toUpperCase() : '';
           const isAnswered = Boolean(userAns);
           const isFlagged = hasFlag(qNum);
           const isCurrent = Number.isInteger(this.currentQNum) && qNum === this.currentQNum;
-
           btn.classList.toggle('answered', isAnswered);
           btn.classList.toggle('flagged', isFlagged);
           btn.classList.toggle('current', isCurrent);
-
           if (isCurrent) {
             btn.setAttribute('aria-current', 'true');
           } else {
             btn.removeAttribute('aria-current');
           }
-
           const escaper = (typeof UIRenderer !== 'undefined' && typeof UIRenderer.escapeHtml === 'function')
             ? UIRenderer.escapeHtml
             : (s) => String(s);
-
           const safeAns = escaper(userAns);
           const statusText = isAnswered ? `Đã chọn ${safeAns}` : 'Chưa làm';
           const flagText = isFlagged ? ', Đang gắn cờ' : '';
@@ -898,7 +769,6 @@ const ExamEngine = {
           btn.setAttribute('aria-label', `Câu ${qNum}: ${statusText}${flagText}${currentText}`);
         });
       } else {
-        // Full render fallback (first load or filter changed)
         const prevScrollTop = grid ? grid.scrollTop : 0;
         const renderer = (typeof UIRenderer !== 'undefined')
           ? UIRenderer
@@ -912,23 +782,18 @@ const ExamEngine = {
         }
       }
     });
-
-    // Update sidebar & mobile bottom bar badges
     const badgeEl = document.getElementById('mobile-answered-badge');
     if (badgeEl) {
       badgeEl.textContent = `${answeredCount}/${totalCount}`;
     }
-
     const sidebarBadge = document.getElementById('sidebar-total-badge');
     if (sidebarBadge) {
       sidebarBadge.textContent = `${totalCount} câu`;
     }
   },
-
   renderExamPage() {
     const container = document.getElementById('exam-questions-list');
     if (!container) return;
-
     let html = '';
     const lc = this.testData.listening || {};
     const rc = this.testData.reading || {};
@@ -938,15 +803,12 @@ const ExamEngine = {
       this.activeExamPart = this.currentQNum ? this.getPartKeyByQuestionNum(this.currentQNum) : 'part1';
     }
     const activePart = isFull ? (this.activeExamPart || 'part1') : this.partFilter;
-
     const getPartQuestions = (p) => Array.isArray(p) ? p : (Array.isArray(p?.questions) ? p.questions : []);
     const getPartGroups = (p) => Array.isArray(p) ? p : (Array.isArray(p?.groups) ? p.groups : []);
-
     const shouldRenderPart = (partKey) => {
       if (this.mode === 'full') return true;
       return this.partFilter === partKey;
     };
-
     const PART_META = [
       { key: 'part1', num: 1, badge: 'Part 1', name: 'Photographs', range: 'Câu 1 – 6' },
       { key: 'part2', num: 2, badge: 'Part 2', name: 'Question-Response', range: 'Câu 7 – 31' },
@@ -956,7 +818,6 @@ const ExamEngine = {
       { key: 'part6', num: 6, badge: 'Part 6', name: 'Text Completion', range: 'Câu 131 – 146' },
       { key: 'part7', num: 7, badge: 'Part 7', name: 'Reading Comprehension', range: 'Câu 147 – 200' }
     ];
-
     const renderPartDivider = (badge, name, range) => `
       <div class="part-section-divider">
         <span class="part-badge">${badge}</span>
@@ -964,7 +825,6 @@ const ExamEngine = {
         <span class="part-range">${range}</span>
       </div>
     `;
-
     const renderPartFooterNav = (partIdx) => {
       if (!isFull) return '';
       const prevMeta = partIdx > 0 ? PART_META[partIdx - 1] : null;
@@ -988,15 +848,11 @@ const ExamEngine = {
         </div>
       `;
     };
-
-    // Master Continuous Audio in Header is for Full Exam Mode only
-    // In Part Practice mode, individual questions/groups have their own audio players
     const isFullListening = this.mode === 'full';
     const headerPlayer = document.getElementById('master-lc-card');
     if (headerPlayer) {
       headerPlayer.style.display = isFullListening ? 'flex' : 'none';
     }
-
     if (isFull) {
       html += `
         <div class="exam-part-stepper-bar" role="navigation" aria-label="Chọn phần thi Part 1 đến Part 7" style="position: sticky; top: var(--navbar-height, 66px); z-index: 80; display: flex; flex-wrap: nowrap; gap: 6px; overflow-x: auto; padding: 8px 10px; margin-bottom: 14px; background: var(--bg-glass); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--border-glass); border-radius: var(--radius-lg);">
@@ -1008,8 +864,6 @@ const ExamEngine = {
         </div>
       `;
     }
-
-    // Part 1
     if (shouldRenderPart('part1')) {
       html += `<div class="exam-part-section" id="exam-part-section-part1" data-part="part1" style="display: ${isFull && activePart !== 'part1' ? 'none' : 'block'};">`;
       html += renderPartDivider('Part 1', 'Photographs', 'Câu 1 – 6');
@@ -1019,8 +873,6 @@ const ExamEngine = {
       html += renderPartFooterNav(0);
       html += `</div>`;
     }
-
-    // Part 2
     if (shouldRenderPart('part2')) {
       html += `<div class="exam-part-section" id="exam-part-section-part2" data-part="part2" style="display: ${isFull && activePart !== 'part2' ? 'none' : 'block'};">`;
       html += renderPartDivider('Part 2', 'Question-Response', 'Câu 7 – 31');
@@ -1030,8 +882,6 @@ const ExamEngine = {
       html += renderPartFooterNav(1);
       html += `</div>`;
     }
-
-    // Part 3
     if (shouldRenderPart('part3')) {
       html += `<div class="exam-part-section" id="exam-part-section-part3" data-part="part3" style="display: ${isFull && activePart !== 'part3' ? 'none' : 'block'};">`;
       html += renderPartDivider('Part 3', 'Conversations', 'Câu 32 – 70');
@@ -1041,8 +891,6 @@ const ExamEngine = {
       html += renderPartFooterNav(2);
       html += `</div>`;
     }
-
-    // Part 4
     if (shouldRenderPart('part4')) {
       html += `<div class="exam-part-section" id="exam-part-section-part4" data-part="part4" style="display: ${isFull && activePart !== 'part4' ? 'none' : 'block'};">`;
       html += renderPartDivider('Part 4', 'Short Talks', 'Câu 71 – 100');
@@ -1052,8 +900,6 @@ const ExamEngine = {
       html += renderPartFooterNav(3);
       html += `</div>`;
     }
-
-    // Part 5
     if (shouldRenderPart('part5')) {
       html += `<div class="exam-part-section" id="exam-part-section-part5" data-part="part5" style="display: ${isFull && activePart !== 'part5' ? 'none' : 'block'};">`;
       html += renderPartDivider('Part 5', 'Incomplete Sentences', 'Câu 101 – 130');
@@ -1064,8 +910,6 @@ const ExamEngine = {
       html += renderPartFooterNav(4);
       html += `</div>`;
     }
-
-    // Part 6
     if (shouldRenderPart('part6')) {
       html += `<div class="exam-part-section" id="exam-part-section-part6" data-part="part6" style="display: ${isFull && activePart !== 'part6' ? 'none' : 'block'};">`;
       html += renderPartDivider('Part 6', 'Text Completion', 'Câu 131 – 146');
@@ -1080,8 +924,6 @@ const ExamEngine = {
       html += renderPartFooterNav(5);
       html += `</div>`;
     }
-
-    // Part 7
     if (shouldRenderPart('part7')) {
       html += `<div class="exam-part-section" id="exam-part-section-part7" data-part="part7" style="display: ${isFull && activePart !== 'part7' ? 'none' : 'block'};">`;
       html += renderPartDivider('Part 7', 'Reading Comprehension', 'Câu 147 – 200');
@@ -1096,7 +938,6 @@ const ExamEngine = {
       html += renderPartFooterNav(6);
       html += `</div>`;
     }
-
     container.innerHTML = html;
     this.initReadingSheetGestures();
     if (typeof UIRenderer !== 'undefined' && typeof UIRenderer.syncReadingStageHeights === 'function') {
@@ -1107,8 +948,6 @@ const ExamEngine = {
     }
     this.updatePaletteUI();
   },
-
-  // ── Master LC Audio Controls (Full Exam Mode) ──
   initMasterAudio() {
     const audioEl = document.getElementById('master-audio-element');
     if (!audioEl) return;
@@ -1116,12 +955,10 @@ const ExamEngine = {
       ? AppConfig.getFullLcAudioUrl(this.testId)
       : `audio/TEST_${this.testId}.mp3`;
     audioEl.src = url;
-
     const fillEl = document.getElementById('master-audio-fill');
     const curEl = document.getElementById('master-audio-cur');
     const durEl = document.getElementById('master-audio-dur');
     const playBtn = document.getElementById('master-play-btn');
-
     audioEl.ontimeupdate = () => {
       if (!audioEl.duration) return;
       const pct = (audioEl.currentTime / audioEl.duration) * 100;
@@ -1132,14 +969,12 @@ const ExamEngine = {
         durEl.dataset.set = '1';
       }
     };
-
     audioEl.onloadedmetadata = () => {
       if (durEl) {
         durEl.textContent = AudioController.formatTime(audioEl.duration);
         durEl.dataset.set = '1';
       }
     };
-
     audioEl.onplay = () => {
       if (playBtn) {
         playBtn.innerHTML = '⏸';
@@ -1147,7 +982,6 @@ const ExamEngine = {
         if (typeof playBtn.setAttribute === 'function') playBtn.setAttribute('aria-pressed', 'true');
       }
     };
-
     audioEl.onpause = () => {
       if (playBtn) {
         playBtn.innerHTML = '▶';
@@ -1155,7 +989,6 @@ const ExamEngine = {
         if (typeof playBtn.setAttribute === 'function') playBtn.setAttribute('aria-pressed', 'false');
       }
     };
-
     audioEl.onended = () => {
       if (playBtn) {
         playBtn.innerHTML = '▶';
@@ -1164,7 +997,6 @@ const ExamEngine = {
       }
     };
   },
-
   toggleMasterAudio() {
     const audioEl = document.getElementById('master-audio-element');
     if (!audioEl) return;
@@ -1175,11 +1007,9 @@ const ExamEngine = {
       audioEl.pause();
     }
   },
-
   seekMasterAudio(event) {
     return;
   },
-
   stopMasterAudio() {
     if (typeof document === 'undefined') return false;
     const audioEl = document.getElementById('master-audio-element');
@@ -1194,8 +1024,6 @@ const ExamEngine = {
     }
     return false;
   },
-
-  // ── Modal & Drawer Handlers ──
   openMobileDrawer() {
     if (typeof document === 'undefined') return false;
     const drawer = (typeof document.getElementById === 'function') ? document.getElementById('mobile-drawer') : null;
@@ -1207,7 +1035,6 @@ const ExamEngine = {
     if (trigger && typeof trigger.setAttribute === 'function') trigger.setAttribute('aria-expanded', 'true');
     return true;
   },
-
   closeMobileDrawer() {
     if (typeof document === 'undefined') return false;
     const drawer = (typeof document.getElementById === 'function') ? document.getElementById('mobile-drawer') : null;
@@ -1219,8 +1046,6 @@ const ExamEngine = {
     if (trigger && typeof trigger.setAttribute === 'function') trigger.setAttribute('aria-expanded', 'false');
     return true;
   },
-
-  // ── Exam Submission & Scoring ──
   confirmSubmit() {
     if (this._isSubmitting) return false;
     if (typeof document === 'undefined') return false;
@@ -1229,7 +1054,6 @@ const ExamEngine = {
     const userAnswers = (this.userAnswers && typeof this.userAnswers === 'object') ? this.userAnswers : {};
     const answered = qList.filter(qNum => Boolean(userAnswers[qNum])).length;
     const unanswered = Math.max(0, total - answered);
-
     const modalEl = document.getElementById('submit-confirm-modal');
     if (!modalEl) {
       if (typeof window !== 'undefined' && typeof window.confirm === 'function' && window.confirm(`Bạn đã hoàn thành ${answered}/${total} câu hỏi. Bạn có chắc chắn muốn nộp bài không?`)) {
@@ -1237,31 +1061,23 @@ const ExamEngine = {
       }
       return true;
     }
-
-    // Save previous active focus
     if (document.activeElement) {
       this._lastFocusedElementModal = document.activeElement;
     }
-
-    // Lock background scroll
     if (document.body && document.body.style) {
       this._prevBodyOverflowModal = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
     }
-
     const doneEl = document.getElementById('modal-stat-done');
     const leftEl = document.getElementById('modal-stat-left');
     const warningEl = document.getElementById('modal-warning-text');
     const btn = document.getElementById('btn-modal-confirm-submit');
-
     if (btn) {
       btn.disabled = false;
       btn.textContent = 'Xác nhận nộp bài';
     }
-
     if (doneEl) doneEl.textContent = `${answered}`;
     if (leftEl) leftEl.textContent = `${unanswered}`;
-
     if (warningEl) {
       if (unanswered > 0) {
         warningEl.innerHTML = `Bạn vẫn còn <strong style="color: #ef4444;">${unanswered} câu chưa trả lời</strong>.<br>Bạn có chắc chắn muốn kết thúc bài làm và xem kết quả ngay không?`;
@@ -1269,21 +1085,15 @@ const ExamEngine = {
         warningEl.innerHTML = `🎉 Tuyệt vời! Bạn đã hoàn thành toàn bộ <strong style="color: #10b981;">${total}/${total}</strong> câu hỏi.<br>Bạn có muốn nộp bài để xem điểm chi tiết ngay bây giờ?`;
       }
     }
-
     modalEl.style.display = 'flex';
-
-    // Focus cancel button or modal for accessibility
     const cancelBtn = modalEl.querySelector('.btn-secondary');
     if (cancelBtn && typeof cancelBtn.focus === 'function') {
       try { cancelBtn.focus(); } catch (_) {}
     }
-
-    // Escape key listener & Focus Trap (WCAG 2.1 AA)
     if (this._modalKeyDownHandler) {
       document.removeEventListener('keydown', this._modalKeyDownHandler);
       this._modalKeyDownHandler = null;
     }
-
     const focusableSelectors = 'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
     this._modalKeyDownHandler = (e) => {
       if (!e) return;
@@ -1311,38 +1121,28 @@ const ExamEngine = {
       }
     };
     document.addEventListener('keydown', this._modalKeyDownHandler);
-
     return true;
   },
-
   closeSubmitModal() {
     if (typeof document === 'undefined') return false;
     const modalEl = document.getElementById('submit-confirm-modal');
     if (modalEl) {
       modalEl.style.display = 'none';
-
-      // Restore background scroll
       if (document.body && document.body.style) {
         document.body.style.overflow = (typeof this._prevBodyOverflowModal === 'string') ? this._prevBodyOverflowModal : '';
       }
-
-      // Restore trigger focus
       if (this._lastFocusedElementModal && typeof this._lastFocusedElementModal.focus === 'function') {
         try { this._lastFocusedElementModal.focus(); } catch (_) {}
       }
       this._lastFocusedElementModal = null;
-
-      // Remove modal keydown listener
       if (this._modalKeyDownHandler) {
         document.removeEventListener('keydown', this._modalKeyDownHandler);
         this._modalKeyDownHandler = null;
       }
-
       return true;
     }
     return false;
   },
-
   executeSubmit() {
     if (this._isSubmitting) return false;
     if (typeof document !== 'undefined') {
@@ -1355,11 +1155,9 @@ const ExamEngine = {
     this.closeSubmitModal();
     return this.submitExam(false);
   },
-
   submitExam(isAuto = false) {
     if (this._isSubmitting) return false;
     this._isSubmitting = true;
-
     this.stopTimer();
     this.closeSubmitModal();
     this.closeMobileDrawer();
@@ -1370,17 +1168,14 @@ const ExamEngine = {
     if (typeof AudioController !== 'undefined' && typeof AudioController.stopCurrent === 'function') {
       try { AudioController.stopCurrent(); } catch (_) {}
     }
-
     const isPartMode = this.mode === 'part';
     const activeQNums = this.getActiveQuestionNumbers();
     const detailedQuestions = [];
     let totalCorrect = 0;
     let totalAnswered = 0;
-
     let correctCountLC = 0;
     let correctCountRC = 0;
     const partStats = {};
-
     const defaultParts = {
       part1: { name: 'Part 1: Photographs', count: 6, section: 'listening' },
       part2: { name: 'Part 2: Question-Response', count: 25, section: 'listening' },
@@ -1394,7 +1189,6 @@ const ExamEngine = {
     Object.keys(partsConfig).forEach(k => {
       partStats[k] = { correct: 0, total: partsConfig[k]?.count || 0, answered: 0 };
     });
-
     activeQNums.forEach(qNum => {
       let qObj = (this.allQuestionsMap && typeof this.allQuestionsMap === 'object') ? this.allQuestionsMap[qNum] : null;
       if (!qObj) {
@@ -1413,34 +1207,33 @@ const ExamEngine = {
           isFirstInGroup: true
         };
       }
-
       const rawAns = (this.userAnswers && typeof this.userAnswers === 'object') ? this.userAnswers[qNum] : '';
       const userChoice = rawAns ? String(rawAns).trim().toUpperCase() : '';
-      const correctChoice = (qObj && qObj.correctAnswer) ? String(qObj.correctAnswer).trim().toUpperCase() : '';
+      const rawCorrectAns = (qObj && qObj.correctAnswer)
+        ? qObj.correctAnswer
+        : ((qObj && qObj._ak && typeof AppConfig !== 'undefined' && typeof AppConfig.decodeAnswerToken === 'function')
+            ? AppConfig.decodeAnswerToken(qObj._ak, qNum, this.testId)
+            : '');
+      const correctChoice = rawCorrectAns ? String(rawCorrectAns).trim().toUpperCase() : '';
       const isCorrect = Boolean(userChoice && correctChoice && (userChoice === correctChoice));
-
       const partInfo = (typeof AppConfig !== 'undefined' && typeof AppConfig.getPartByQuestionNum === 'function')
         ? AppConfig.getPartByQuestionNum(qNum)
         : (partsConfig[qObj.part] ? { ...partsConfig[qObj.part], key: qObj.part } : null);
       const pKey = partInfo ? partInfo.key : (qObj.part || (qNum <= 6 ? 'part1' : qNum <= 31 ? 'part2' : qNum <= 70 ? 'part3' : qNum <= 100 ? 'part4' : qNum <= 130 ? 'part5' : qNum <= 146 ? 'part6' : 'part7'));
       const section = partInfo?.section || (qNum <= 100 ? 'listening' : 'reading');
-
       if (!partStats[pKey]) {
         partStats[pKey] = { correct: 0, total: partsConfig[pKey]?.count || 0, answered: 0 };
       }
-
       if (userChoice) {
         totalAnswered++;
         partStats[pKey].answered++;
       }
-
       if (isCorrect) {
         totalCorrect++;
         partStats[pKey].correct++;
         if (section === 'listening') correctCountLC++;
         if (section === 'reading') correctCountRC++;
       }
-
       let rawAudio = qObj.audioUrl || qObj.groupAudioUrl || '';
       if (rawAudio && /TEST_\d+\.mp3|Test\d+\.mp3/i.test(rawAudio)) {
         const b = this.bookName || 'EST 2022';
@@ -1451,7 +1244,6 @@ const ExamEngine = {
           rawAudio = `uploads/${b}/LC/audio/cut/test${tid}/q${qNum}.mp3`;
         }
       }
-
       detailedQuestions.push({
         questionNumber: qNum,
         part: pKey,
@@ -1476,24 +1268,20 @@ const ExamEngine = {
         isFirstInGroup: Boolean(qObj.isFirstInGroup)
       });
     });
-
     const totalQuestions = activeQNums.length;
     const initT = (typeof this.initialTime === 'number' && Number.isFinite(this.initialTime)) ? Math.floor(Math.max(0, this.initialTime)) : 120 * 60;
     const remT = (typeof this.timeRemaining === 'number' && Number.isFinite(this.timeRemaining)) ? Math.floor(Math.max(0, this.timeRemaining)) : 0;
     const timeSpentSeconds = Math.max(0, initT - remT);
     const accuracyRate = totalQuestions > 0 ? Math.round((totalCorrect / totalQuestions) * 100) : 0;
-
     let scaledLC = 0;
     let scaledRC = 0;
     let totalScore = 0;
-
     const calcLC = (typeof AppConfig !== 'undefined' && typeof AppConfig.calculateListeningScore === 'function')
       ? AppConfig.calculateListeningScore.bind(AppConfig)
       : (c) => Math.min(495, Math.max(5, Math.round((c * 4.95) / 5) * 5));
     const calcRC = (typeof AppConfig !== 'undefined' && typeof AppConfig.calculateReadingScore === 'function')
       ? AppConfig.calculateReadingScore.bind(AppConfig)
       : (c) => Math.min(495, Math.max(5, Math.round((c * 4.95) / 5) * 5));
-
     if (!isPartMode) {
       scaledLC = calcLC(correctCountLC);
       scaledRC = calcRC(correctCountRC);
@@ -1510,7 +1298,6 @@ const ExamEngine = {
         totalScore = scaledRC;
       }
     }
-
     const currentBook = (typeof AppConfig !== 'undefined' && typeof AppConfig.getSelectedBook === 'function')
       ? AppConfig.getSelectedBook()
       : 'EST 2022';
@@ -1520,10 +1307,8 @@ const ExamEngine = {
     const testTitle = isPartMode
       ? `${currentBook} — Test ${testNumStr} (${partInfo?.name || (typeof this.partFilter === 'string' ? this.partFilter.toUpperCase() : 'PART')})`
       : `${currentBook} — Test ${testNumStr}`;
-
     const resultId = 'result_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
     const resultDate = new Date().toISOString();
-
     const resultPayload = {
       id: resultId,
       date: resultDate,
@@ -1548,11 +1333,9 @@ const ExamEngine = {
       detailedQuestions,
       timeSpentSeconds
     };
-
     const storage = (typeof StorageService !== 'undefined')
       ? StorageService
       : (typeof window !== 'undefined' && window.StorageService ? window.StorageService : (typeof global !== 'undefined' ? global.StorageService : null));
-
     if (storage) {
       if (typeof storage.setCurrentResult === 'function') {
         try { storage.setCurrentResult(resultPayload); } catch (_) {}
@@ -1572,7 +1355,6 @@ const ExamEngine = {
         try { storage.clearActiveSession(); } catch (_) {}
       }
     }
-
     if (typeof window !== 'undefined' && window.location) {
       try {
         window.location.href = 'result.html';
@@ -1582,12 +1364,10 @@ const ExamEngine = {
     }
     return resultPayload;
   },
-
   showLoading(isLoading) {
     const el = document.getElementById('exam-loading-state');
     if (el) el.style.display = isLoading ? 'flex' : 'none';
   },
-
   showError(msg) {
     const el = document.getElementById('exam-error-state');
     if (el) {
@@ -1596,13 +1376,10 @@ const ExamEngine = {
     }
   }
 };
-
 ExamEngine.PART_TIMES_SECONDS = PART_TIMES_SECONDS;
-
 if (typeof window !== 'undefined') {
   window.ExamEngine = ExamEngine;
 }
-
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = ExamEngine;
 }
