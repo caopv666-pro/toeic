@@ -1617,17 +1617,17 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 14px;
+  padding: 7px 12px;
   background: rgba(255, 255, 255, 0.03);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .exp-icon {
-  font-size: 1.05rem;
+  font-size: 0.95rem;
 }
 
 .exp-title {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.3px;
   text-transform: uppercase;
@@ -1645,14 +1645,20 @@
   color: #f59e0b;
 }
 
+.exp-tips-card .exp-title {
+  color: #fbbf24;
+}
+
 .exp-card-content {
-  padding: 12px 14px;
-  font-size: 0.88rem;
-  line-height: 1.6;
+  padding: 10px 12px;
+  font-size: 0.78rem;
+  line-height: 1.42;
   color: var(--text-primary);
 }
 
 .exp-text-prose {
+  font-size: inherit;
+  line-height: inherit;
   white-space: pre-line;
 }
 
@@ -1954,6 +1960,59 @@
 .analysis-phrase {
   color: var(--text-primary);
   font-weight: 600;
+}
+
+.analysis-phrase-clickable {
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.analysis-phrase-clickable:hover {
+  color: var(--accent-primary);
+}
+
+.phrase-tts-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  padding: 0;
+  margin: 0 2px 0 5px;
+  vertical-align: -3px;
+  border-radius: var(--radius-full, 9999px);
+  background: rgba(99, 102, 241, 0.14);
+  border: 1px solid rgba(99, 102, 241, 0.32);
+  color: #818cf8;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  line-height: 1;
+}
+
+.phrase-tts-btn:hover {
+  background: var(--accent-primary, #6366f1);
+  border-color: var(--accent-primary, #6366f1);
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+.phrase-tts-btn:active {
+  transform: scale(0.94);
+}
+
+.phrase-tts-btn.speaking {
+  background: var(--accent-primary, #6366f1);
+  border-color: var(--accent-primary, #6366f1);
+  color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.28);
+}
+
+.phrase-tts-btn .tts-speaker-icon {
+  display: block;
+  width: 11px;
+  height: 11px;
+  pointer-events: none;
 }
 
 .analysis-meaning {
@@ -2572,11 +2631,19 @@
   color: #d97706;
 }
 
+[data-theme="light"] .exp-tips-card .exp-title {
+  color: #b45309;
+}
+
 [data-theme="light"] .exp-card-content {
   color: #1e293b;
 }
 
 [data-theme="light"] .exp-analysis-text {
+  color: #1e293b;
+}
+
+[data-theme="light"] .exp-tips-card .exp-analysis-text {
   color: #92400e;
 }
 
@@ -2768,6 +2835,23 @@
 [data-theme="light"] .analysis-phrase {
   color: #0f172a;
   font-weight: 700;
+}
+
+[data-theme="light"] .analysis-phrase-clickable:hover {
+  color: #4f46e5;
+}
+
+[data-theme="light"] .phrase-tts-btn {
+  background: #eef2ff;
+  border-color: #c7d2fe;
+  color: #4f46e5;
+}
+
+[data-theme="light"] .phrase-tts-btn:hover,
+[data-theme="light"] .phrase-tts-btn.speaking {
+  background: #4f46e5;
+  border-color: #4f46e5;
+  color: #ffffff;
 }
 
 [data-theme="light"] .analysis-meaning {

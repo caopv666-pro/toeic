@@ -717,8 +717,13 @@ const UIRenderer = {
     if (enEl) enEl.textContent = s.text || '';
     if (viEl) viEl.textContent = s.translation || '';
     if (noteEl) {
-      noteEl.textContent = s.analysis || s.note || '';
-      noteEl.style.display = (s.analysis || s.note) ? 'block' : 'none';
+      const rawNote = s.analysis || s.note || '';
+      if (rawNote && typeof ResultViewer !== 'undefined' && typeof ResultViewer.formatSentenceAnalysis === 'function') {
+        noteEl.innerHTML = ResultViewer.formatSentenceAnalysis(rawNote);
+      } else {
+        noteEl.textContent = rawNote;
+      }
+      noteEl.style.display = rawNote ? 'block' : 'none';
     }
     card.style.display = 'block';
     this.bindGlobalClickOutside();

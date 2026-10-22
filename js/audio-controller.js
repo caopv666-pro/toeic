@@ -2,6 +2,9 @@
 const AudioController = {
   activeAudio: null,
   activePlayerId: null,
+  _activeTtsBtn: null,
+  _activeTtsAudio: null,
+  _ttsTimer: null,
   _initialized: false,
   init() {
     if (typeof window === 'undefined' || typeof window.addEventListener !== 'function') {
@@ -65,7 +68,126 @@ const AudioController = {
       this.activePlayerId = null;
       stoppedAny = true;
     }
+    if (this._activeTtsBtn || this._activeTtsAudio) {
+      this.stopSpeech();
+      stoppedAny = true;
+    }
     return stoppedAny;
+  },
+  stopSpeech() {
+    if (this._ttsTimer) {
+      clearTimeout(this._ttsTimer);
+      this._ttsTimer = null;
+    }
+    if (typeof window !== 'undefined' && window.speechSynthesis && typeof window.speechSynthesis.cancel === 'function') {
+      try {
+        window.speechSynthesis.cancel();
+      } catch (_) {}
+    }
+    if (this._activeTtsAudio) {
+      try {
+        this._activeTtsAudio.pause();
+        this._activeTtsAudio.currentTime = 0;
+      } catch (_) {}
+      this._activeTtsAudio = null;
+    }
+    if (this._activeTtsBtn) {
+      try {
+        if (this._activeTtsBtn.classList) this._activeTtsBtn.classList.remove('speaking');
+        if (typeof this._activeTtsBtn.setAttribute === 'function') {
+          this._activeTtsBtn.setAttribute('aria-pressed', 'false');
+        }
+      } catch (_) {}
+      this._activeTtsBtn = null;
+    }
+    if (typeof document !== 'undefined' && typeof document.querySelectorAll === 'function') {
+      try {
+        document.querySelectorAll('.phrase-tts-btn.speaking').forEach(b => {
+          b.classList.remove('speaking');
+          b.setAttribute('aria-pressed', 'false');
+        });
+      } catch (_) {}
+    }
+    return true;
+  },
+  speakText(text, btnEl = null) {
+    if (!text || typeof text !== 'string') return false;
+    const cleanText = text.trim();
+    if (!cleanText) return false;
+    if (btnEl && this._activeTtsBtn === btnEl && btnEl.classList && btnEl.classList.contains('speaking')) {
+      this.stopSpeech();
+      return true;
+    }
+    this.stopCurrent();
+    this.stopSpeech();
+    const markBtnState = (speaking) => {
+      if (!btnEl) return;
+      try {
+        if (btnEl.classList) btnEl.classList.toggle('speaking', Boolean(speaking));
+        if (typeof btnEl.setAttribute === 'function') {
+          btnEl.setAttribute('aria-pressed', speaking ? 'true' : 'false');
+        }
+      } catch (_) {}
+    };
+    const finishSpeech = () => {
+      if (this._ttsTimer) {
+        clearTimeout(this._ttsTimer);
+        this._ttsTimer = null;
+      }
+      markBtnState(false);
+      if (this._activeTtsBtn === btnEl) {
+        this._activeTtsBtn = null;
+      }
+    };
+    if (typeof window !== 'undefined' && window.speechSynthesis && typeof window.SpeechSynthesisUtterance === 'function') {
+      try {
+        this._activeTtsBtn = btnEl;
+        markBtnState(true);
+        const utterance = new window.SpeechSynthesisUtterance(cleanText);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.94;
+        utterance.pitch = 1.0;
+        if (typeof window.speechSynthesis.getVoices === 'function') {
+          const voices = window.speechSynthesis.getVoices() || [];
+          const enVoices = voices.filter(v => v && v.lang && /^en([-_]|$)/i.test(v.lang));
+          if (enVoices.length > 0) {
+            const preferred =
+              enVoices.find(v => /Google US English|Samantha|Microsoft Aria|Microsoft Jenny|Microsoft Guy|Alex|Daniel/i.test(v.name || '')) ||
+              enVoices.find(v => /^en[-_]US$/i.test(v.lang)) ||
+              enVoices[0];
+            if (preferred) utterance.voice = preferred;
+          }
+        }
+        utterance.onend = finishSpeech;
+        utterance.onerror = finishSpeech;
+        const estMs = Math.max(2500, Math.min(12000, cleanText.length * 110 + 1200));
+        this._ttsTimer = setTimeout(finishSpeech, estMs);
+        window.speechSynthesis.speak(utterance);
+        return true;
+      } catch (err) {
+        console.warn('Web Speech API error, falling back to audio TTS:', err);
+        finishSpeech();
+      }
+    }
+    if (typeof Audio !== 'undefined') {
+      try {
+        this._activeTtsBtn = btnEl;
+        markBtnState(true);
+        const ttsUrl = `https://translate.googleapis.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(cleanText)}&tl=en&client=tw-ob`;
+        const ttsAudio = new Audio(ttsUrl);
+        this._activeTtsAudio = ttsAudio;
+        ttsAudio.onended = finishSpeech;
+        ttsAudio.onerror = finishSpeech;
+        const playPromise = ttsAudio.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(() => finishSpeech());
+        }
+        return true;
+      } catch (_) {
+        finishSpeech();
+      }
+    }
+    return false;
   },
   togglePlay(playerId, audioUrl) {
     if (typeof document === 'undefined') return false;
@@ -243,6 +365,9 @@ const AudioController = {
     }
   }
 };
+if (typeof window !== 'undefined') {
+  window.AudioController = AudioController;
+}
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = AudioController;
 }

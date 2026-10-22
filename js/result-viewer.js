@@ -1608,9 +1608,62 @@ const ResultViewer = {
       </div>
     `;
   },
+  speakPhrase(text, btnEl = null) {
+    if (!text || typeof text !== 'string') return false;
+    const audioCtrl = (typeof AudioController !== 'undefined')
+      ? AudioController
+      : (typeof window !== 'undefined' && window.AudioController ? window.AudioController : null);
+    if (audioCtrl && typeof audioCtrl.speakText === 'function') {
+      return audioCtrl.speakText(text, btnEl);
+    }
+    if (typeof window !== 'undefined' && window.speechSynthesis && typeof window.SpeechSynthesisUtterance === 'function') {
+      try {
+        window.speechSynthesis.cancel();
+        const u = new window.SpeechSynthesisUtterance(text.trim());
+        u.lang = 'en-US';
+        u.rate = 0.94;
+        window.speechSynthesis.speak(u);
+        return true;
+      } catch (_) {}
+    }
+    return false;
+  },
+  extractSpeakableEnglish(rawPhrase) {
+    if (!rawPhrase || typeof rawPhrase !== 'string') return '';
+    const trimmed = rawPhrase.trim();
+    if (!trimmed) return '';
+    if (/^(?:S\s*\+|To\s*\+\s*V|N1\s*\+|A,\s*B)/i.test(trimmed)) return '';
+    const viRegex = /[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]/i;
+    let cleaned = trimmed
+      .replace(/\([^)]*\)/g, ' ')
+      .replace(/\[[^\]]*\]/g, ' ')
+      .trim();
+    if (!cleaned) return '';
+    const words = cleaned.split(/\s+/).filter(Boolean);
+    if (words.length === 0) return '';
+    if (viRegex.test(words[0])) return '';
+    cleaned = cleaned
+      .replace(/\b(?:V-ing|V_ing|V-ed|V_ed|V-inf|V_inf|to-V|To-V|N\/V-ing|sth|sb)\b/gi, ' ')
+      .replace(/(?:^|\s)\+\s*\b(?:S|V|O|N|C|Adj|Adv)\b/g, ' ')
+      .replace(/\b(?:S|V|O|N|C)\b\s*\+/g, ' ')
+      .replace(/\+/g, ' ');
+    const enTokens = cleaned
+      .split(/\s+/)
+      .filter(tok => tok && !viRegex.test(tok));
+    const result = enTokens.join(' ')
+      .replace(/\s*=\s*/g, ', ')
+      .replace(/\s*\/\s*/g, ', ')
+      .replace(/^[,.\-–—:;'"`]+|[,.\-–—:;'"`]+$/g, '')
+      .replace(/\s{2,}/g, ' ')
+      .trim();
+    if (!/[a-zA-Z]{2,}/.test(result)) return '';
+    if (/^(?:A,\s*B(?:,\s*and\s*C)?|is,\s*are)$/i.test(result)) return '';
+    return result;
+  },
   formatSentenceAnalysis(rawText) {
     if (!rawText || typeof rawText !== 'string') return '';
     const esc = (str) => this.escapeHtml(str);
+    const viRegex = /[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]/i;
     const normalized = rawText
       .replace(/([^\n])[ \t]+\*[ \t]+/g, '$1\n* ')
       .replace(/\r\n/g, '\n');
@@ -1624,31 +1677,74 @@ const ResultViewer = {
         inList = false;
       }
     };
+    const renderSpeakerBtn = (ttsText) => {
+      if (!ttsText) return '';
+      const safeTts = esc(ttsText);
+      return `<button type="button" class="phrase-tts-btn" data-tts="${safeTts}" onclick="event.stopPropagation(); ResultViewer.speakPhrase(this.getAttribute('data-tts'), this)" title="Phát âm: ${safeTts}" aria-label="Phát âm ${safeTts}" aria-pressed="false"><svg class="tts-speaker-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg></button>`;
+    };
     const formatPhraseItem = (itemText) => {
+      const qaMatch = itemText.match(/^(Q:\s*["']([^"']+)["']\s*(?:->|➔|=>)\s*A:\s*["']([^"']+)["'])\s*(.*)$/i);
+      if (qaMatch) {
+        const qaPhrase = qaMatch[1].trim();
+        const qaSpeech = `${qaMatch[2].trim()} ${qaMatch[3].trim()}`;
+        const qaMeaning = qaMatch[4].trim();
+        return `<li class="analysis-list-item"><strong class="analysis-phrase analysis-phrase-clickable" onclick="if(this.nextElementSibling&&this.nextElementSibling.classList.contains('phrase-tts-btn'))this.nextElementSibling.click()">${esc(qaPhrase)}</strong>${renderSpeakerBtn(qaSpeech)}${qaMeaning ? ` <span class="analysis-meaning">${esc(qaMeaning)}</span>` : ''}</li>`;
+      }
+      if (/^\[Trong bài/i.test(itemText) && /(?:➔|->)/.test(itemText)) {
+        const quoted = [];
+        const qRegex = /["']([^"']{2,})["']/g;
+        let qm;
+        while ((qm = qRegex.exec(itemText)) !== null) {
+          if (!viRegex.test(qm[1])) quoted.push(qm[1].trim());
+        }
+        const tts = quoted.join('. ');
+        return `<li class="analysis-list-item"><span class="analysis-meaning">${esc(itemText)}</span>${renderSpeakerBtn(tts)}</li>`;
+      }
       const eqIdx = itemText.indexOf(' = ');
       const colIdx = itemText.indexOf(': ');
       let splitIdx = -1;
       let sepLen = 2;
-      if (eqIdx !== -1 && (colIdx === -1 || eqIdx < colIdx)) {
+      if (eqIdx !== -1 && colIdx !== -1) {
+        if (eqIdx < colIdx) {
+          const between = itemText.slice(eqIdx + 3, colIdx);
+          if (!viRegex.test(between)) {
+            splitIdx = colIdx;
+            sepLen = 2;
+          } else {
+            splitIdx = eqIdx;
+            sepLen = 3;
+          }
+        } else {
+          splitIdx = colIdx;
+          sepLen = 2;
+        }
+      } else if (eqIdx !== -1) {
         splitIdx = eqIdx;
         sepLen = 3;
       } else if (colIdx !== -1) {
         splitIdx = colIdx;
         sepLen = 2;
       }
-      if (splitIdx > 0 && splitIdx < 120) {
+      if (splitIdx > 0 && splitIdx < 140) {
         const phrase = itemText.slice(0, splitIdx).trim();
         const meaning = itemText.slice(splitIdx + sepLen).trim();
-        return `<li class="analysis-list-item"><strong class="analysis-phrase">${esc(phrase)}</strong>: <span class="analysis-meaning">${esc(meaning)}</span></li>`;
+        const ttsText = this.extractSpeakableEnglish(phrase);
+        const clickAttr = ttsText
+          ? ` class="analysis-phrase analysis-phrase-clickable" onclick="if(this.nextElementSibling&&this.nextElementSibling.classList.contains('phrase-tts-btn'))this.nextElementSibling.click()"`
+          : ` class="analysis-phrase"`;
+        return `<li class="analysis-list-item"><strong${clickAttr}>${esc(phrase)}</strong>${renderSpeakerBtn(ttsText)}: <span class="analysis-meaning">${esc(meaning)}</span></li>`;
       }
       return `<li class="analysis-list-item"><span class="analysis-meaning">${esc(itemText)}</span></li>`;
     };
     rawLines.forEach(line => {
-      const bulletMatch = line.match(/^(?:[*•\-+]|\d+[.)])\s+(.*)$/);
-      const isHeader = !bulletMatch && /^(Phân tích|Cấu trúc|Từ vựng|Ngữ pháp|Ghi chú\s*:?$)/i.test(line) && line.endsWith(':');
-      if (isHeader) {
+      const isSectionHeader = line.endsWith(':') && !line.includes(': ') && !line.includes(' = ') &&
+        (/^(?:📌\s*|🎯\s*|\d+[.)]\s*)?(?:Phân tích|Cấu trúc|Từ vựng|Ngữ pháp|Ghi chú|Bản chất|Các mẫu|Ví dụ)/i.test(line));
+      const bulletMatch = !isSectionHeader ? line.match(/^(?:[*•\-+]|\d+[.)])\s+(.*)$/) : null;
+      if (isSectionHeader) {
         closeList();
-        html += `<div class="analysis-section-title">📌 ${esc(line)}</div>`;
+        const cleanHeader = line.replace(/^(?:📌|🎯)\s*/, '');
+        const icon = line.startsWith('🎯') ? '🎯' : '📌';
+        html += `<div class="analysis-section-title">${icon} ${esc(cleanHeader)}</div>`;
       } else if (bulletMatch) {
         if (!inList) {
           html += '<ul class="analysis-list">';
@@ -1673,6 +1769,13 @@ const ResultViewer = {
     });
     closeList();
     return html;
+  },
+  formatTipsText(rawTips) {
+    if (!rawTips || typeof rawTips !== 'string') return '';
+    return rawTips
+      .replace(/([^\n])[ \t]+\*[ \t]+/g, '$1\n• ')
+      .replace(/^\*[ \t]+/gm, '• ')
+      .trim();
   },
   renderExplanationContent(q, hasExplanation) {
     const hasExp = Boolean(q && q.explanation);
@@ -1718,7 +1821,7 @@ const ResultViewer = {
             <span class="exp-title">Mẹo làm bài & Bẫy thường gặp</span>
           </div>
           <div class="exp-card-content">
-            <div class="exp-text-prose exp-analysis-text" style="white-space: pre-line;">${q.tips}</div>
+            <div class="exp-text-prose exp-analysis-text" style="white-space: pre-line;">${this.formatTipsText(q.tips)}</div>
           </div>
         </div>
       ` : ''}
