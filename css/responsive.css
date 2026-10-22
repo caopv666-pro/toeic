@@ -329,9 +329,9 @@
 
   /* Requirement 1: Make images full-width on mobile */
   .question-item .q-image-container,
-  .passages-card .q-image-container,
+  .passages-card:not(.reading-group-stage) .q-image-container,
   .group-review-card .q-image-container,
-  .interactive-passage-container {
+  .interactive-passage-container:not(.reading-group-stage .interactive-passage-container) {
     margin-left: -10px;
     margin-right: -10px;
     width: calc(100% + 20px);
@@ -500,7 +500,7 @@
     padding: 6px 8px;
   }
 
-  .interactive-passage-container {
+  .interactive-passage-container:not(.reading-group-stage .interactive-passage-container) {
     padding: 3px 4px;
     margin-left: -4px;
     margin-right: -4px;

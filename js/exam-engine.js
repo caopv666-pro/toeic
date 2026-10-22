@@ -629,7 +629,10 @@ const ExamEngine = {
     if (scroll && activeCard) {
       if (typeof window !== 'undefined' && window.innerWidth <= 768) {
         const imgWrap = activeCard.querySelector('.reading-stage-images');
-        if (imgWrap) imgWrap.scrollTop = 0;
+        if (imgWrap) {
+          imgWrap.scrollTop = 0;
+          imgWrap.scrollLeft = 0;
+        }
         const sheet = activeCard.querySelector('.reading-questions-sheet');
         if (sheet) {
           sheet.classList.remove('sheet-expanded');

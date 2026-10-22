@@ -948,7 +948,9 @@ const ResultViewer = {
       }
     }
     if (activeCard) {
-      const subqList = activeCard.querySelector('.group-subquestions-list');
+      const passagesWrap = typeof activeCard.querySelector === 'function' ? activeCard.querySelector('.group-passages-wrap') : null;
+      if (passagesWrap) passagesWrap.scrollLeft = 0;
+      const subqList = typeof activeCard.querySelector === 'function' ? activeCard.querySelector('.group-subquestions-list') : null;
       if (subqList) subqList.scrollLeft = 0;
       if (typeof activeCard.querySelectorAll === 'function') {
         activeCard.querySelectorAll('.review-q-card').forEach(qCard => {
@@ -1381,13 +1383,15 @@ const ResultViewer = {
             <!-- Left Column (Desktop) / Pinned Image & Sentence Dock (Mobile) -->
             <div class="reading-stage-images passages-images-wrap">
               ${group.groupPassages && group.groupPassages.length > 0 ? `
-                <div class="group-passages-wrap">
+                <div class="group-passages-wrap" id="passages_wrap_${gid}">
                   ${group.groupPassages.map((p, pIdx) => {
                     const pUrl = typeof p === 'string' ? p : p.imageUrl;
                     const fullUrl = (config && typeof config.resolveAssetUrl === 'function') ? config.resolveAssetUrl(pUrl) : (pUrl || '');
+                    const totalPassages = group.groupPassages.length;
                     return `
                       <div class="interactive-passage-container" id="pass_wrap_${gid}_${pIdx}">
                         <div class="passage-image-wrap" id="img_wrap_${gid}_${pIdx}">
+                          ${totalPassages > 1 ? `<span class="passage-slide-indicator" aria-label="Ảnh ${pIdx + 1} trên ${totalPassages}">${pIdx + 1}/${totalPassages} ↔</span>` : ''}
                           <button type="button" class="image-zoom-btn-icon" onclick="event.stopPropagation(); ResultViewer.openPassageLightbox('${gid}', ${pIdx}, '${fullUrl}')" title="Phóng to ảnh" aria-label="Phóng to ảnh">🔍</button>
                           <img src="${fullUrl}" alt="Passage ${pIdx + 1}"
                                class="interactive-passage-img"
@@ -2013,18 +2017,31 @@ const ResultViewer = {
       if (prefix === 'lb_') {
         card.style.top = 'calc(100% + 10px)';
         card.style.bottom = 'auto';
+        card.style.maxHeight = '';
         if (typeof card.scrollIntoView === 'function') {
           try {
             card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           } catch (_) {}
         }
       } else {
-        if (sy0Pct < 25) {
+        const isMobileView = (typeof window !== 'undefined' && window.innerWidth <= 768);
+        const splitThreshold = isMobileView ? 50 : 25;
+        if (sy0Pct < splitThreshold) {
           card.style.top = `calc(${Math.min(95, sy1Pct).toFixed(2)}% + 8px)`;
           card.style.bottom = 'auto';
+          if (isMobileView) {
+            card.style.maxHeight = `calc(${Math.max(46, 98 - sy1Pct).toFixed(0)}% + 18px)`;
+          } else {
+            card.style.maxHeight = '';
+          }
         } else {
           card.style.top = 'auto';
           card.style.bottom = `calc(${Math.max(0, 100 - sy0Pct).toFixed(2)}% + 8px)`;
+          if (isMobileView) {
+            card.style.maxHeight = `calc(${Math.max(46, sy0Pct - 2).toFixed(0)}% - 10px)`;
+          } else {
+            card.style.maxHeight = '';
+          }
         }
       }
       card.style.display = 'block';

@@ -313,6 +313,7 @@ const UIRenderer = {
                        title="Nhấn để phóng to ảnh"
                        aria-label="Phóng to hình ảnh bài đọc (Câu ${range[0]} - ${range[1]})"
                        style="background:#ffffff; border-radius: 6px;">
+                    ${passages.length > 1 ? `<span class="passage-slide-indicator" style="right: 6px;" aria-label="Ảnh ${pIdx + 1} trên ${passages.length}">${pIdx + 1}/${passages.length} ↔</span>` : ''}
                     <img src="${safeFullUrl}" alt="Passage" loading="lazy" onerror="if(this.parentElement)this.parentElement.style.display='none';">
                   </div>
                   ${sentences.length > 0 ? `
