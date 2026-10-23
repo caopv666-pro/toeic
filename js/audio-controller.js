@@ -6,10 +6,82 @@ const AudioController = {
   _activeTtsAudio: null,
   _ttsTimer: null,
   _initialized: false,
+  SPEED_KEY: 'toeic_audio_playback_rate',
+  SPEED_LEVELS: [0.75, 0.9, 1.0, 1.15, 1.25, 1.5, 1.75, 2.0],
+  playbackRate: 1.0,
+  getPlaybackRate() {
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        const raw = window.localStorage.getItem(this.SPEED_KEY);
+        if (raw) {
+          const parsed = parseFloat(raw);
+          if (!isNaN(parsed) && parsed >= 0.5 && parsed <= 2.5) {
+            this.playbackRate = parsed;
+            return parsed;
+          }
+        }
+      }
+    } catch (_) {}
+    return this.playbackRate || 1.0;
+  },
+  formatSpeedLabel(rate) {
+    const r = Number(rate) || 1.0;
+    return Number.isInteger(r) ? `${r.toFixed(1)}x` : `${r}x`;
+  },
+  setPlaybackRate(rate) {
+    let parsed = parseFloat(rate);
+    if (isNaN(parsed) || parsed < 0.5 || parsed > 2.5) parsed = 1.0;
+    const targetRate = Number(parsed.toFixed(2));
+    this.playbackRate = targetRate;
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        window.localStorage.setItem(this.SPEED_KEY, String(targetRate));
+      }
+    } catch (_) {}
+    try {
+      if (this.activeAudio) {
+        this.activeAudio.playbackRate = targetRate;
+        this.activeAudio.defaultPlaybackRate = targetRate;
+      }
+      if (typeof document !== 'undefined' && typeof document.querySelectorAll === 'function') {
+        document.querySelectorAll('audio').forEach(a => {
+          try {
+            a.playbackRate = targetRate;
+            a.defaultPlaybackRate = targetRate;
+          } catch (_) {}
+        });
+        const speedText = this.formatSpeedLabel(targetRate);
+        const globalLbl = document.getElementById('global-speed-label');
+        if (globalLbl) globalLbl.textContent = speedText;
+        document.querySelectorAll('.audio-speed-label').forEach(el => {
+          el.textContent = speedText;
+        });
+        document.querySelectorAll('.speed-preset-btn').forEach(btn => {
+          const r = parseFloat(btn.getAttribute('data-speed'));
+          const isMatch = Math.abs(r - targetRate) < 0.01;
+          if (btn.classList) btn.classList.toggle('active', isMatch);
+          if (typeof btn.setAttribute === 'function') {
+            btn.setAttribute('aria-pressed', isMatch ? 'true' : 'false');
+          }
+        });
+      }
+    } catch (_) {}
+    return targetRate;
+  },
+  cyclePlaybackRate() {
+    const current = this.getPlaybackRate();
+    const levels = this.SPEED_LEVELS || [0.75, 0.9, 1.0, 1.15, 1.25, 1.5];
+    const idx = levels.findIndex(r => Math.abs(r - current) < 0.01);
+    const nextRate = levels[(idx + 1) % levels.length];
+    return this.setPlaybackRate(nextRate);
+  },
   init() {
     if (typeof window === 'undefined' || typeof window.addEventListener !== 'function') {
       return false;
     }
+    try {
+      this.setPlaybackRate(this.getPlaybackRate());
+    } catch (_) {}
     if (this._initialized) {
       return true;
     }
@@ -228,6 +300,11 @@ const AudioController = {
           } catch (_) {}
         }
         this.updatePlayBtnUI(playerId, true);
+        try {
+          const curRate = this.getPlaybackRate();
+          this.activeAudio.playbackRate = curRate;
+          this.activeAudio.defaultPlaybackRate = curRate;
+        } catch (_) {}
         const playPromise = this.activeAudio.play();
         if (playPromise !== undefined && typeof playPromise.then === 'function') {
           playPromise.catch(err => {
@@ -258,6 +335,11 @@ const AudioController = {
       totalDisplay.textContent = this.formatTime(audioEl.duration);
     }
     this.updatePlayBtnUI(playerId, true);
+    try {
+      const curRate = this.getPlaybackRate();
+      audioEl.playbackRate = curRate;
+      audioEl.defaultPlaybackRate = curRate;
+    } catch (_) {}
     const playPromise = audioEl.play();
     if (playPromise !== undefined && typeof playPromise.then === 'function') {
       playPromise.catch(err => {
@@ -275,6 +357,11 @@ const AudioController = {
       }
     };
     audioEl.onloadedmetadata = () => {
+      try {
+        const curRate = this.getPlaybackRate();
+        audioEl.playbackRate = curRate;
+        audioEl.defaultPlaybackRate = curRate;
+      } catch (_) {}
       if (totalDisplay && audioEl.duration) {
         totalDisplay.textContent = this.formatTime(audioEl.duration);
       }
@@ -339,6 +426,63 @@ const AudioController = {
       return true;
     } catch (err) {
       console.warn('Failed to seek audio:', err);
+      return false;
+    }
+  },
+  seekRelative(playerId, deltaSeconds, audioUrl = '') {
+    if (typeof document === 'undefined') return false;
+    if (!playerId || typeof playerId !== 'string') return false;
+    const delta = Number(deltaSeconds);
+    if (isNaN(delta) || !Number.isFinite(delta)) return false;
+    const playerWrap = document.getElementById(playerId);
+    if (!playerWrap) return false;
+    const audioEl = playerWrap.querySelector('audio');
+    if (!audioEl) return false;
+    if ((!audioEl.src || (typeof window !== 'undefined' && audioEl.src === window.location.href)) && audioUrl) {
+      let targetUrl = audioUrl;
+      if (/TEST_\d+\.mp3|Test\d+\.mp3/i.test(targetUrl) && !playerId.includes('master')) {
+        const book = (typeof AppConfig !== 'undefined' && typeof AppConfig.getSelectedBook === 'function')
+          ? AppConfig.getSelectedBook()
+          : 'EST 2022';
+        const testMatch = targetUrl.match(/TEST_(\d+)/i) || targetUrl.match(/Test(\d+)/i) || ((typeof window !== 'undefined' && window.location && window.location.search) ? window.location.search.match(/test=(\d+)/i) : null);
+        const testNum = testMatch ? parseInt(testMatch[1], 10) : 1;
+        const qMatch = playerId.match(/(\d+)/);
+        if (playerId.includes('group')) {
+          const gidMatch = playerId.replace(/^review_player_|^audio_/, '');
+          targetUrl = `uploads/${book}/LC/audio/cut/test${testNum}/${gidMatch}.mp3`;
+        } else if (qMatch) {
+          targetUrl = `uploads/${book}/LC/audio/cut/test${testNum}/q${qMatch[1]}.mp3`;
+        }
+      }
+      const resolved = (typeof AppConfig !== 'undefined' && typeof AppConfig.resolveAssetUrl === 'function')
+        ? AppConfig.resolveAssetUrl(targetUrl)
+        : targetUrl;
+      audioEl.src = resolved;
+    }
+    try {
+      const curTime = (typeof audioEl.currentTime === 'number' && Number.isFinite(audioEl.currentTime))
+        ? audioEl.currentTime
+        : 0;
+      const hasDuration = typeof audioEl.duration === 'number' && Number.isFinite(audioEl.duration) && audioEl.duration > 0;
+      const newTime = hasDuration
+        ? Math.max(0, Math.min(audioEl.duration, curTime + delta))
+        : Math.max(0, curTime + delta);
+      audioEl.currentTime = newTime;
+      const fillBar = playerWrap.querySelector('.audio-fill-bar');
+      const timeDisplay = playerWrap.querySelector('.audio-current-time');
+      const totalDisplay = playerWrap.querySelector('.audio-total-time');
+      if (fillBar && hasDuration) {
+        fillBar.style.width = `${(newTime / audioEl.duration) * 100}%`;
+      }
+      if (timeDisplay) {
+        timeDisplay.textContent = this.formatTime(newTime);
+      }
+      if (totalDisplay && hasDuration && (!totalDisplay.textContent || totalDisplay.textContent === '--:--' || totalDisplay.textContent === '00:00')) {
+        totalDisplay.textContent = this.formatTime(audioEl.duration);
+      }
+      return true;
+    } catch (err) {
+      console.warn('Failed to seek relative audio:', err);
       return false;
     }
   },

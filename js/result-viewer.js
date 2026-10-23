@@ -1472,32 +1472,13 @@ const ResultViewer = {
             }).join('')}
           </div>
         ` : ''}
-        <!-- Listening (Part 3 & 4): Transcript & Translation Accordion -->
-        ${(!isReading && group.groupTranscript) ? `
+        <!-- Listening (Part 3 & 4): Interactive Transcript & Per-Turn Popup -->
+        ${(!isReading && (group.groupTranscript || (Array.isArray(group.groupSentences) && group.groupSentences.length > 0))) ? `
           <details class="passage-transcript-box">
-            <summary>📜 Lời thoại & Dịch</summary>
-            <div style="margin-top: 10px; font-size: 0.86rem; line-height: 1.55; color: var(--text-primary);">
-              ${this.formatDialogue(group.groupTranscript)}
+            <summary>📜 Lời thoại & Dịch <span class="transcript-hint-badge">(Nhấn icon 📖 sau mỗi lượt thoại để xem dịch & phân tích)</span></summary>
+            <div class="interactive-dialogue-list" style="margin-top: 10px; font-size: 0.86rem; line-height: 1.55; color: var(--text-primary);">
+              ${this.renderInteractiveTranscript(group)}
             </div>
-            ${group.groupTranslation ? `
-              <div style="margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--border-glass);">
-                <strong style="color: var(--accent-secondary); font-size: 0.82rem; display: block; margin-bottom: 6px;">🌐 Bản dịch tiếng Việt:</strong>
-                <div>${this.formatDialogue(group.groupTranslation)}</div>
-              </div>
-            ` : ''}
-            ${(Array.isArray(group.groupSentences) && group.groupSentences.some(s => s && s.analysis)) ? `
-              <div style="margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--border-glass);">
-                <strong style="color: var(--accent-secondary); font-size: 0.82rem; display: block; margin-bottom: 6px;">📚 Phân tích từ vựng & cấu trúc từng lượt thoại:</strong>
-                <div style="display: flex; flex-direction: column; gap: 8px;">
-                  ${group.groupSentences.map((s, sIdx) => s && s.analysis ? `
-                    <div style="background: rgba(255, 255, 255, 0.03); padding: 8px 10px; border-radius: var(--radius-sm); border-left: 2px solid var(--accent-primary);">
-                      <div style="font-weight: 600; font-size: 0.84rem; color: var(--text-primary); margin-bottom: 4px;">${s.speaker ? `[${s.speaker}] ` : `Câu ${sIdx + 1}: `}${s.text || ''}</div>
-                      <div class="analysis-formatted-wrap">${this.formatSentenceAnalysis(s.analysis)}</div>
-                    </div>
-                  ` : '').join('')}
-                </div>
-              </div>
-            ` : ''}
           </details>
         ` : ''}
         <!-- Reading (Part 6 & 7): 1 Passage Image Container with Interactive Sentence Translation -->
@@ -1660,10 +1641,44 @@ const ResultViewer = {
     if (/^(?:A,\s*B(?:,\s*and\s*C)?|is,\s*are)$/i.test(result)) return '';
     return result;
   },
-  formatSentenceAnalysis(rawText) {
+  formatSentenceAnalysis(rawText, qContext = null) {
     if (!rawText || typeof rawText !== 'string') return '';
     const esc = (str) => this.escapeHtml(str);
     const viRegex = /[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]/i;
+    const phraseDict = [];
+    const collectDictFromText = (txt) => {
+      if (!txt || typeof txt !== 'string') return;
+      txt.split('\n').forEach(l => {
+        const m = l.trim().match(/^(?:[*•\-+]|\d+[.)])\s+([^:=]+?)\s*(?:=|:)\s*(.+)$/);
+        if (m && /[a-zA-Z]{2,}/.test(m[1]) && viRegex.test(m[2])) {
+          const cleanKey = m[1].replace(/\([^)]*\)/g, '').replace(/\[[^\]]*\]/g, '').trim().toLowerCase();
+          const cleanVal = m[2].replace(/\s*\((?:Chủ ngữ|Động từ|Cụm|Mệnh đề|Trạng từ|Liên từ|Tân ngữ)[^)]*\)/gi, '').replace(/\.$/, '').trim();
+          if (cleanKey.length >= 3 && cleanVal) {
+            phraseDict.push({ key: cleanKey, val: cleanVal });
+          }
+        }
+      });
+    };
+    collectDictFromText(rawText);
+    if (qContext) {
+      const grp = (qContext.groupId && this.groupsMap && this.groupsMap[qContext.groupId]) || null;
+      const gSents = (grp && Array.isArray(grp.groupSentences) && grp.groupSentences.length > 0)
+        ? grp.groupSentences
+        : (Array.isArray(qContext.groupSentences) ? qContext.groupSentences : []);
+      gSents.forEach(s => {
+        if (s && s.analysis) collectDictFromText(s.analysis);
+      });
+    }
+    const findPhraseMeaning = (enQuote) => {
+      if (!enQuote) return '';
+      const norm = enQuote.replace(/^\.+|\.+$/g, '').trim().toLowerCase();
+      if (norm.length < 3) return '';
+      const exact = phraseDict.find(d => d.key === norm);
+      if (exact) return exact.val;
+      const partial = phraseDict.find(d => (norm.length >= 4 && d.key.includes(norm)) || (d.key.length >= 4 && norm.includes(d.key)));
+      if (partial) return partial.val;
+      return '';
+    };
     const normalized = rawText
       .replace(/([^\n])[ \t]+\*[ \t]+/g, '$1\n* ')
       .replace(/\r\n/g, '\n');
@@ -1698,7 +1713,37 @@ const ResultViewer = {
           if (!viRegex.test(qm[1])) quoted.push(qm[1].trim());
         }
         const tts = quoted.join('. ');
-        return `<li class="analysis-list-item"><span class="analysis-meaning">${esc(itemText)}</span>${renderSpeakerBtn(tts)}</li>`;
+        let enrichedText = itemText;
+        const arrowSplit = itemText.split(/\s*(?:➔|->)\s*/);
+        if (arrowSplit.length === 2) {
+          let leftPart = arrowSplit[0].trim();
+          let rightPart = arrowSplit[1].trim();
+          const leftStripped = leftPart.replace(/^\[Trong bài[^\]]*\]/i, '');
+          if (!viRegex.test(leftStripped)) {
+            const leftQuotes = [];
+            const lqReg = /["']([^"']{2,})["']/g;
+            let lm;
+            while ((lm = lqReg.exec(leftPart)) !== null) {
+              const mVal = findPhraseMeaning(lm[1]);
+              if (mVal && !leftQuotes.includes(mVal)) leftQuotes.push(mVal);
+            }
+            if (leftQuotes.length > 0) {
+              leftPart += ` (${leftQuotes.slice(0, 2).join('; ')})`;
+            }
+          }
+          const rightStripped = rightPart.replace(/^\[Trong đáp án\]/i, '');
+          if (!viRegex.test(rightStripped) && qContext) {
+            const cKey = qContext.correctChoice || qContext.correctAnswer;
+            const optVi = (cKey && qContext.optionsTranslation && qContext.optionsTranslation[cKey])
+              ? String(qContext.optionsTranslation[cKey]).replace(/\.$/, '').trim()
+              : '';
+            if (optVi) {
+              rightPart = rightPart.replace(/\.$/, '') + ` (${optVi})`;
+            }
+          }
+          enrichedText = `${leftPart} ➔ ${rightPart}`;
+        }
+        return `<li class="analysis-list-item"><span class="analysis-meaning">${esc(enrichedText)}</span>${renderSpeakerBtn(tts)}</li>`;
       }
       const eqIdx = itemText.indexOf(' = ');
       const colIdx = itemText.indexOf(': ');
@@ -1733,6 +1778,29 @@ const ResultViewer = {
           ? ` class="analysis-phrase analysis-phrase-clickable" onclick="if(this.nextElementSibling&&this.nextElementSibling.classList.contains('phrase-tts-btn'))this.nextElementSibling.click()"`
           : ` class="analysis-phrase"`;
         return `<li class="analysis-list-item"><strong${clickAttr}>${esc(phrase)}</strong>${renderSpeakerBtn(ttsText)}: <span class="analysis-meaning">${esc(meaning)}</span></li>`;
+      }
+      if (itemText.includes('(') && itemText.includes(')') && viRegex.test(itemText)) {
+        const segments = itemText.replace(/\.$/, '').split(/\s+\/\s+/);
+        const parsedSegments = [];
+        let allValid = true;
+        for (const seg of segments) {
+          const pm = seg.trim().match(/^([^(]+?)\s*\(([^)]+)\)\??$/);
+          if (pm && /[a-zA-Z]{2,}/.test(pm[1]) && viRegex.test(pm[2])) {
+            parsedSegments.push({ phrase: pm[1].trim(), meaning: pm[2].trim() });
+          } else {
+            allValid = false;
+            break;
+          }
+        }
+        if (allValid && parsedSegments.length > 0) {
+          return parsedSegments.map(({ phrase, meaning }) => {
+            const ttsText = this.extractSpeakableEnglish(phrase);
+            const clickAttr = ttsText
+              ? ` class="analysis-phrase analysis-phrase-clickable" onclick="if(this.nextElementSibling&&this.nextElementSibling.classList.contains('phrase-tts-btn'))this.nextElementSibling.click()"`
+              : ` class="analysis-phrase"`;
+            return `<li class="analysis-list-item"><strong${clickAttr}>${esc(phrase)}</strong>${renderSpeakerBtn(ttsText)}: <span class="analysis-meaning">${esc(meaning)}</span></li>`;
+          }).join('');
+        }
       }
       return `<li class="analysis-list-item"><span class="analysis-meaning">${esc(itemText)}</span></li>`;
     };
@@ -1809,7 +1877,7 @@ const ResultViewer = {
             <span class="exp-title">Phân tích từ vựng & Cấu trúc ngữ pháp</span>
           </div>
           <div class="exp-card-content">
-            <div class="exp-text-prose exp-analysis-text">${this.formatSentenceAnalysis(q.analysis)}</div>
+            <div class="exp-text-prose exp-analysis-text">${this.formatSentenceAnalysis(q.analysis, q)}</div>
           </div>
         </div>
       ` : ''}
@@ -2194,12 +2262,20 @@ const ResultViewer = {
     document.querySelectorAll('.interactive-passage-container').forEach(el => {
       el.style.zIndex = '';
     });
+    document.querySelectorAll('.dialogue-line-wrap').forEach(el => {
+      el.style.zIndex = '';
+      if (el.classList) el.classList.remove('active-turn');
+    });
     document.querySelectorAll('.sentence-overlay-box.active').forEach(b => {
       b.classList.remove('active');
     });
     document.querySelectorAll('.lightbox-sentence-btn.active').forEach(b => {
       b.classList.remove('active');
       b.setAttribute('aria-pressed', 'false');
+    });
+    document.querySelectorAll('.dialogue-turn-analysis-btn.active').forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-expanded', 'false');
     });
   },
   bindGlobalClickOutside() {
@@ -2213,7 +2289,7 @@ const ResultViewer = {
       if (targetEl.closest && targetEl.closest('.sentence-lookup-card')) {
         return;
       }
-      if (targetEl.closest && (targetEl.closest('.lightbox-sentence-btn') || targetEl.closest('.sentence-overlay-box'))) {
+      if (targetEl.closest && (targetEl.closest('.lightbox-sentence-btn') || targetEl.closest('.sentence-overlay-box') || targetEl.closest('.dialogue-turn-analysis-btn'))) {
         return;
       }
       this.closeAllSentenceCards();
@@ -2828,6 +2904,148 @@ const ResultViewer = {
       console.warn('Rehydrate explanations skipped:', e);
       return false;
     }
+  },
+  getGroupDialogueTurns(group) {
+    if (!group) return [];
+    if (Array.isArray(group.groupSentences) && group.groupSentences.length > 0) {
+      return group.groupSentences.filter(Boolean);
+    }
+    const rawLines = String(group.groupTranscript || '').split('\n').map(l => l.trim()).filter(Boolean);
+    const transLines = String(group.groupTranslation || '').split('\n').map(l => l.trim()).filter(Boolean);
+    return rawLines.map((line, idx) => {
+      const m = line.match(/^(?:\[((?:Man|Woman|Male|Female|Speaker|Narrator|Người đàn ông|Người phụ nữ)(?:\s+\d+)?)\]:?\s*|((?:Man|Woman|Male|Female|Speaker|Narrator|Người đàn ông|Người phụ nữ)(?:\s+\d+)?):\s*)(.*)$/i);
+      const spk = m ? (m[1] || m[2] || '') : '';
+      const txt = m ? m[3] : line;
+      let tr = transLines[idx] || '';
+      const tm = tr.match(/^(?:\[[^\]]+\]:?\s*|[^:]{1,20}:\s*)(.*)$/);
+      if (tm && spk) tr = tm[1];
+      return {
+        speaker: spk,
+        text: txt,
+        translation: tr,
+        analysis: ''
+      };
+    });
+  },
+  renderInteractiveTranscript(group) {
+    if (!group) return '';
+    const gid = group.groupId || 'group';
+    const isPart4 = String(group.part || '').toLowerCase() === 'part4';
+    const turns = this.getGroupDialogueTurns(group);
+    if (!turns || turns.length === 0) {
+      return this.formatDialogue(group.groupTranscript || '');
+    }
+    const esc = (str) => this.escapeHtml(str || '');
+    return turns.map((s, sIdx) => {
+      const rawText = String(s.text || '').trim();
+      const m = rawText.match(/^(?:\[((?:Man|Woman|Male|Female|Speaker|Narrator|Người đàn ông|Người phụ nữ)(?:\s+\d+)?)\]:?\s*|((?:Man|Woman|Male|Female|Speaker|Narrator|Người đàn ông|Người phụ nữ)(?:\s+\d+)?):\s*)(.*)$/i);
+      const spk = (s.speaker && String(s.speaker).trim()) || (m ? (m[1] || m[2] || '') : '');
+      const cleanText = m ? m[3].trim() : rawText;
+      const cleanTrans = String(s.translation || '').replace(/^(?:\[[^\]]+\]:?\s*)/, '').trim();
+      let badgeHtml = '';
+      let popupBadgeText = `Câu ${sIdx + 1} / ${turns.length}`;
+      if (spk && !isPart4) {
+        const spkLower = spk.toLowerCase();
+        const isWoman = spkLower.includes('woman') || spkLower.includes('female') || spkLower.includes('phụ nữ');
+        const isMan = !isWoman && (spkLower.includes('man') || spkLower.includes('male') || spkLower.includes('đàn ông'));
+        const badgeClass = isMan ? 'speaker-badge-man' : 'speaker-badge-woman';
+        const icon = isMan ? '👨' : '👩';
+        badgeHtml = `<span class="speaker-badge ${badgeClass}">${icon} ${esc(spk)}</span>`;
+        popupBadgeText = `${icon} ${esc(spk)} • Lượt ${sIdx + 1}/${turns.length}`;
+      } else {
+        badgeHtml = `<span class="speaker-badge speaker-badge-turn">🎙️ Câu ${sIdx + 1}</span>`;
+        popupBadgeText = `🎙️ Câu ${sIdx + 1} / ${turns.length}`;
+      }
+      const safeTts = esc(cleanText);
+      const analysisHtml = s.analysis
+        ? this.formatSentenceAnalysis(s.analysis)
+        : `<div class="analysis-note-line">💡 Đang cập nhật phân tích từ vựng & cấu trúc cho lượt thoại này.</div>`;
+      return `
+        <div class="dialogue-line-wrap" id="dlg_wrap_${gid}_${sIdx}">
+          <div class="dialogue-line interactive-dialogue-line" onclick="ResultViewer.toggleDialogueTurnPopup('${gid}', ${sIdx}, event)">
+            ${badgeHtml}
+            <span class="dialogue-content">
+              ${esc(cleanText)}
+              <button type="button"
+                      class="dialogue-turn-analysis-btn"
+                      id="dlg_btn_${gid}_${sIdx}"
+                      onclick="event.stopPropagation(); ResultViewer.toggleDialogueTurnPopup('${gid}', ${sIdx}, event)"
+                      title="Xem bản dịch & phân tích từ vựng, cấu trúc lượt thoại này"
+                      aria-label="Xem dịch và phân tích lượt thoại ${sIdx + 1}"
+                      aria-expanded="false">
+                <span class="dlg-btn-icon">📖</span>
+              </button>
+            </span>
+          </div>
+          <div class="sentence-lookup-card dialogue-turn-popover" id="dlg_popup_${gid}_${sIdx}" style="display: none;" onclick="event.stopPropagation()">
+            <div class="sentence-lookup-header">
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span class="sentence-badge" id="dlg_badge_${gid}_${sIdx}">${popupBadgeText}</span>
+                ${safeTts ? `<button type="button" class="phrase-tts-btn" data-tts="${safeTts}" onclick="event.stopPropagation(); ResultViewer.speakPhrase(this.getAttribute('data-tts'), this)" title="Nghe phát âm câu này" aria-label="Nghe phát âm câu này" aria-pressed="false"><svg class="tts-speaker-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg></button>` : ''}
+              </div>
+              <button type="button" class="sentence-close-btn" onclick="event.stopPropagation(); ResultViewer.closeDialogueTurnPopup('${gid}', ${sIdx})" aria-label="Đóng bảng phân tích">&times;</button>
+            </div>
+            <div class="sentence-text-en">${esc(cleanText)}</div>
+            <div class="sentence-text-vi">🌐 ${esc(cleanTrans || 'Chưa có bản dịch cho câu này')}</div>
+            <div class="sentence-text-note" style="display: block;">${analysisHtml}</div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  },
+  toggleDialogueTurnPopup(gid, sIdx, event) {
+    if (event && typeof event.stopPropagation === 'function') {
+      event.stopPropagation();
+    }
+    if (typeof document === 'undefined') return false;
+    const popup = document.getElementById(`dlg_popup_${gid}_${sIdx}`);
+    const btn = document.getElementById(`dlg_btn_${gid}_${sIdx}`);
+    const wrap = document.getElementById(`dlg_wrap_${gid}_${sIdx}`);
+    if (!popup) return false;
+    const isCurrentlyOpen = popup.style.display === 'block';
+    this.closeAllSentenceCards();
+    if (isCurrentlyOpen) {
+      return false;
+    }
+    popup.style.display = 'block';
+    popup.scrollTop = 0;
+    if (btn) {
+      if (btn.classList) btn.classList.add('active');
+      if (typeof btn.setAttribute === 'function') btn.setAttribute('aria-expanded', 'true');
+    }
+    if (wrap) {
+      wrap.style.zIndex = '95';
+      if (wrap.classList) wrap.classList.add('active-turn');
+    }
+    this.bindGlobalClickOutside();
+    if (typeof window !== 'undefined' && typeof popup.getBoundingClientRect === 'function') {
+      setTimeout(() => {
+        try {
+          const rect = popup.getBoundingClientRect();
+          const vh = window.innerHeight || 800;
+          if (rect.bottom > vh - 16) {
+            window.scrollBy({ top: Math.min(rect.top - 120, rect.bottom - vh + 24), behavior: 'smooth' });
+          }
+        } catch (_) {}
+      }, 25);
+    }
+    return true;
+  },
+  closeDialogueTurnPopup(gid, sIdx) {
+    if (typeof document === 'undefined') return false;
+    const popup = document.getElementById(`dlg_popup_${gid}_${sIdx}`);
+    const btn = document.getElementById(`dlg_btn_${gid}_${sIdx}`);
+    const wrap = document.getElementById(`dlg_wrap_${gid}_${sIdx}`);
+    if (popup) popup.style.display = 'none';
+    if (btn) {
+      if (btn.classList) btn.classList.remove('active');
+      if (typeof btn.setAttribute === 'function') btn.setAttribute('aria-expanded', 'false');
+    }
+    if (wrap) {
+      wrap.style.zIndex = '';
+      if (wrap.classList) wrap.classList.remove('active-turn');
+    }
+    return true;
   },
   formatDialogue(text) {
     if (!text) return '';

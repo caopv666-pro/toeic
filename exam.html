@@ -47,6 +47,28 @@
     </div>
 
     <div class="nav-links">
+      <div class="header-ctrl-dropdown" id="header-zoom-ctrl">
+        <button type="button" class="nav-icon-ctrl-btn" id="zoom-menu-btn" onclick="StorageService.toggleHeaderPopover('zoom-popover-menu', event)" aria-label="Điều chỉnh cỡ chữ và thu phóng toàn trang" title="Chỉnh cỡ chữ / Thu phóng toàn trang">
+          <span>🔤</span>
+          <span id="zoom-level-label">100%</span>
+        </button>
+        <div class="header-ctrl-popover" id="zoom-popover-menu" style="display: none;" onclick="event.stopPropagation()">
+          <div class="popover-ctrl-title">🔤 Cỡ chữ / Zoom toàn trang</div>
+          <div class="zoom-stepper-row">
+            <button type="button" class="zoom-step-btn" onclick="StorageService.stepPageZoom(-10)" title="Thu nhỏ (-10%)" aria-label="Thu nhỏ 10%">➖</button>
+            <span class="zoom-current-val" id="zoom-popover-val">100%</span>
+            <button type="button" class="zoom-step-btn" onclick="StorageService.stepPageZoom(10)" title="Phóng to (+10%)" aria-label="Phóng to 10%">➕</button>
+          </div>
+          <div class="ctrl-preset-grid">
+            <button type="button" class="zoom-preset-btn" data-zoom="85" onclick="StorageService.setPageZoom(85)">85%</button>
+            <button type="button" class="zoom-preset-btn" data-zoom="90" onclick="StorageService.setPageZoom(90)">90%</button>
+            <button type="button" class="zoom-preset-btn active" data-zoom="100" onclick="StorageService.setPageZoom(100)">100%</button>
+            <button type="button" class="zoom-preset-btn" data-zoom="110" onclick="StorageService.setPageZoom(110)">110%</button>
+            <button type="button" class="zoom-preset-btn" data-zoom="120" onclick="StorageService.setPageZoom(120)">120%</button>
+            <button type="button" class="zoom-preset-btn" data-zoom="130" onclick="StorageService.setPageZoom(130)">130%</button>
+          </div>
+        </div>
+      </div>
       <button class="theme-toggle-btn" id="theme-btn" type="button" onclick="toggleTheme()" aria-label="Đổi giao diện Sáng / Tối" title="Đổi giao diện Sáng / Tối">
         🌓
       </button>

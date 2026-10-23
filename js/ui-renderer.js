@@ -408,9 +408,13 @@ const UIRenderer = {
     return `
       <div class="audio-player-box${compactClass}" id="${playerId}">
         <audio preload="none"></audio>
-        <button class="audio-play-btn" onclick="AudioController.togglePlay('${playerId}', '${audioUrl}')" title="${label}" aria-label="${label}" aria-pressed="false">
-          ▶
-        </button>
+        <div class="audio-transport-controls">
+          <button type="button" class="audio-seek-btn audio-rewind-btn" onclick="AudioController.seekRelative('${playerId}', -5, '${audioUrl}')" title="Lùi 5 giây (-5s)" aria-label="Lùi 5 giây">⏪ -5s</button>
+          <button type="button" class="audio-play-btn" onclick="AudioController.togglePlay('${playerId}', '${audioUrl}')" title="${label}" aria-label="${label}" aria-pressed="false">
+            ▶
+          </button>
+          <button type="button" class="audio-seek-btn audio-forward-btn" onclick="AudioController.seekRelative('${playerId}', 5, '${audioUrl}')" title="Tua 5 giây (+5s)" aria-label="Tua 5 giây">+5s ⏩</button>
+        </div>
         <div class="audio-progress-wrap">
           <div class="audio-top-info">
             <span class="audio-label-text">🎧 ${label}</span>

@@ -31,6 +31,9 @@ const StorageService = {
   LATEST_RESULT_KEY: 'toeic_latest_result',
   THEME_KEY: 'toeic_theme_preference',
   DEFAULT_THEME: 'dark',
+  ZOOM_KEY: 'toeic_page_zoom_preference',
+  DEFAULT_ZOOM: 100,
+  ZOOM_LEVELS: [80, 90, 100, 110, 120, 130, 140],
   _getStorage() {
     return getSafeLocalStorage();
   },
@@ -533,6 +536,8 @@ const StorageService = {
     return targetTheme;
   },
   initTheme() {
+    try { this.initPageZoom(); } catch (_) {}
+    try { this.bindHeaderPopoversClose(); } catch (_) {}
     const saved = this.getTheme();
     return this.setTheme(saved);
   },
@@ -540,8 +545,111 @@ const StorageService = {
     const current = this.getTheme();
     const next = current === 'dark' ? 'light' : 'dark';
     return this.setTheme(next);
+  },
+  _currentZoom: 100,
+  getPageZoom() {
+    try {
+      const storage = this._getStorage();
+      if (!storage) return this._currentZoom || this.DEFAULT_ZOOM || 100;
+      const raw = storage.getItem(this.ZOOM_KEY);
+      if (!raw) return this._currentZoom || this.DEFAULT_ZOOM || 100;
+      const num = parseInt(String(raw).trim(), 10);
+      if (!isNaN(num) && num >= 70 && num <= 160) {
+        this._currentZoom = num;
+        return num;
+      }
+      try { storage.removeItem(this.ZOOM_KEY); } catch (_) {}
+      return this.DEFAULT_ZOOM || 100;
+    } catch (e) {
+      return this._currentZoom || this.DEFAULT_ZOOM || 100;
+    }
+  },
+  setPageZoom(zoomPct) {
+    let parsed = parseInt(zoomPct, 10);
+    if (isNaN(parsed)) parsed = this.DEFAULT_ZOOM || 100;
+    const targetZoom = Math.min(160, Math.max(70, Math.round(parsed / 5) * 5));
+    this._currentZoom = targetZoom;
+    try {
+      const storage = this._getStorage();
+      if (storage) {
+        storage.setItem(this.ZOOM_KEY, String(targetZoom));
+      }
+    } catch (_) {}
+    try {
+      if (typeof document !== 'undefined' && document.documentElement) {
+        document.documentElement.setAttribute('data-zoom', String(targetZoom));
+        if (document.documentElement.style) {
+          document.documentElement.style.zoom = targetZoom === 100 ? '' : `${targetZoom}%`;
+          if (typeof document.documentElement.style.setProperty === 'function') {
+            document.documentElement.style.setProperty('--app-zoom', String(targetZoom / 100));
+          }
+        }
+      }
+      if (typeof document !== 'undefined' && typeof document.getElementById === 'function') {
+        const lbl = document.getElementById('zoom-level-label');
+        if (lbl) lbl.textContent = `${targetZoom}%`;
+        const popVal = document.getElementById('zoom-popover-val');
+        if (popVal) popVal.textContent = `${targetZoom}%`;
+      }
+      if (typeof document !== 'undefined' && typeof document.querySelectorAll === 'function') {
+        document.querySelectorAll('.zoom-preset-btn').forEach(btn => {
+          const z = parseInt(btn.getAttribute('data-zoom'), 10);
+          if (btn.classList) btn.classList.toggle('active', z === targetZoom);
+          if (typeof btn.setAttribute === 'function') {
+            btn.setAttribute('aria-pressed', z === targetZoom ? 'true' : 'false');
+          }
+        });
+      }
+    } catch (_) {}
+    return targetZoom;
+  },
+  stepPageZoom(delta = 10) {
+    const current = this.getPageZoom();
+    return this.setPageZoom(current + (Number(delta) || 0));
+  },
+  initPageZoom() {
+    const saved = this.getPageZoom();
+    return this.setPageZoom(saved);
+  },
+  toggleHeaderPopover(menuId, event) {
+    if (event && typeof event.stopPropagation === 'function') {
+      event.stopPropagation();
+    }
+    if (typeof document === 'undefined' || !menuId) return false;
+    const menu = document.getElementById(menuId);
+    if (!menu) return false;
+    const isOpen = menu.style && menu.style.display === 'block';
+    this.closeHeaderPopovers();
+    if (!isOpen && menu.style) {
+      menu.style.display = 'block';
+      this.bindHeaderPopoversClose();
+      return true;
+    }
+    return false;
+  },
+  closeHeaderPopovers() {
+    if (typeof document === 'undefined' || typeof document.querySelectorAll !== 'function') return;
+    try {
+      document.querySelectorAll('.header-ctrl-popover').forEach(p => {
+        if (p && p.style) p.style.display = 'none';
+      });
+    } catch (_) {}
+  },
+  bindHeaderPopoversClose() {
+    if (this._headerPopoverBound || typeof document === 'undefined' || typeof document.addEventListener !== 'function') return;
+    this._headerPopoverBound = true;
+    document.addEventListener('click', (e) => {
+      const target = e && e.target;
+      if (target && typeof target.closest === 'function' && target.closest('.header-ctrl-dropdown')) {
+        return;
+      }
+      this.closeHeaderPopovers();
+    });
   }
 };
+if (typeof window !== 'undefined') {
+  window.StorageService = StorageService;
+}
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = StorageService;
 }
