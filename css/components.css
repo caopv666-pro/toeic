@@ -635,6 +635,9 @@
   margin-right: 8px;
   letter-spacing: 0.3px;
   vertical-align: middle;
+  white-space: nowrap;
+  flex-shrink: 0;
+  line-height: 1.35;
 }
 
 .speaker-badge-man {
@@ -3875,13 +3878,13 @@ html.no-animations *::after {
 }
 
 .interactive-dialogue-line {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  padding: 6px 8px;
+  display: block;
+  padding: 5px 8px;
+  margin-bottom: 0;
   border-radius: var(--radius-sm, 8px);
   border: 1px solid transparent;
   cursor: pointer;
+  line-height: 1.55;
   transition: background 0.16s ease, border-color 0.16s ease;
 }
 

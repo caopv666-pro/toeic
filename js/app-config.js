@@ -1,7 +1,7 @@
 /* Protected by TOEIC Master DataShield v2 */
 const AppConfig = {
   API_BASE_URL: '',
-  ASSET_VERSION: '20261023_ux4fix',
+  ASSET_VERSION: '20261024v2',
   SHARD_SALT: 'TM_V2_SALT_9821',
   BOOK_NAME: 'EST 2022',
   BOOKS: {

@@ -2907,8 +2907,34 @@ const ResultViewer = {
   },
   getGroupDialogueTurns(group) {
     if (!group) return [];
+    const isPart4 = String(group.part || '').toLowerCase() === 'part4';
     if (Array.isArray(group.groupSentences) && group.groupSentences.length > 0) {
-      return group.groupSentences.filter(Boolean);
+      const validSents = group.groupSentences.filter(Boolean);
+      const tLines = String(group.groupTranscript || '').split('\n').map(l => l.trim()).filter(Boolean);
+      if (!isPart4 && tLines.length > 0 && validSents.length > tLines.length) {
+        const merged = [];
+        validSents.forEach(s => {
+          const spk = String(s.speaker || '').trim();
+          const prev = merged.length > 0 ? merged[merged.length - 1] : null;
+          if (prev && spk && String(prev.speaker || '').trim().toLowerCase() === spk.toLowerCase()) {
+            const nextTxt = String(s.text || '').trim();
+            const nextTrans = String(s.translation || '').replace(/^(?:\[[^\]]+\]:?\s*)/, '').trim();
+            const nextAnalysis = String(s.analysis || '').trim();
+            if (nextTxt) prev.text = `${String(prev.text || '').trim()} ${nextTxt}`.trim();
+            if (nextTrans) prev.translation = `${String(prev.translation || '').trim()} ${nextTrans}`.trim();
+            if (nextAnalysis) prev.analysis = prev.analysis ? `${prev.analysis}\n${nextAnalysis}` : nextAnalysis;
+          } else {
+            merged.push({
+              speaker: spk,
+              text: String(s.text || '').trim(),
+              translation: String(s.translation || '').trim(),
+              analysis: String(s.analysis || '').trim()
+            });
+          }
+        });
+        return merged;
+      }
+      return validSents;
     }
     const rawLines = String(group.groupTranscript || '').split('\n').map(l => l.trim()).filter(Boolean);
     const transLines = String(group.groupTranslation || '').split('\n').map(l => l.trim()).filter(Boolean);
@@ -2944,14 +2970,19 @@ const ResultViewer = {
       const cleanTrans = String(s.translation || '').replace(/^(?:\[[^\]]+\]:?\s*)/, '').trim();
       let badgeHtml = '';
       let popupBadgeText = `Câu ${sIdx + 1} / ${turns.length}`;
-      if (spk && !isPart4) {
+      if (spk) {
         const spkLower = spk.toLowerCase();
         const isWoman = spkLower.includes('woman') || spkLower.includes('female') || spkLower.includes('phụ nữ');
         const isMan = !isWoman && (spkLower.includes('man') || spkLower.includes('male') || spkLower.includes('đàn ông'));
-        const badgeClass = isMan ? 'speaker-badge-man' : 'speaker-badge-woman';
-        const icon = isMan ? '👨' : '👩';
-        badgeHtml = `<span class="speaker-badge ${badgeClass}">${icon} ${esc(spk)}</span>`;
-        popupBadgeText = `${icon} ${esc(spk)} • Lượt ${sIdx + 1}/${turns.length}`;
+        if (isWoman || isMan) {
+          const badgeClass = isMan ? 'speaker-badge-man' : 'speaker-badge-woman';
+          const icon = isMan ? '👨' : '👩';
+          badgeHtml = `<span class="speaker-badge ${badgeClass}">${icon} ${esc(spk)}</span>`;
+          popupBadgeText = `${icon} ${esc(spk)} • ${isPart4 ? `Đoạn ${sIdx + 1}/${turns.length}` : `Lượt ${sIdx + 1}/${turns.length}`}`;
+        } else {
+          badgeHtml = `<span class="speaker-badge speaker-badge-turn">🎙️ ${esc(spk)}</span>`;
+          popupBadgeText = `🎙️ ${esc(spk)} • Đoạn ${sIdx + 1}/${turns.length}`;
+        }
       } else {
         badgeHtml = `<span class="speaker-badge speaker-badge-turn">🎙️ Câu ${sIdx + 1}</span>`;
         popupBadgeText = `🎙️ Câu ${sIdx + 1} / ${turns.length}`;
@@ -2962,21 +2993,7 @@ const ResultViewer = {
         : `<div class="analysis-note-line">💡 Đang cập nhật phân tích từ vựng & cấu trúc cho lượt thoại này.</div>`;
       return `
         <div class="dialogue-line-wrap" id="dlg_wrap_${gid}_${sIdx}">
-          <div class="dialogue-line interactive-dialogue-line" onclick="ResultViewer.toggleDialogueTurnPopup('${gid}', ${sIdx}, event)">
-            ${badgeHtml}
-            <span class="dialogue-content">
-              ${esc(cleanText)}
-              <button type="button"
-                      class="dialogue-turn-analysis-btn"
-                      id="dlg_btn_${gid}_${sIdx}"
-                      onclick="event.stopPropagation(); ResultViewer.toggleDialogueTurnPopup('${gid}', ${sIdx}, event)"
-                      title="Xem bản dịch & phân tích từ vựng, cấu trúc lượt thoại này"
-                      aria-label="Xem dịch và phân tích lượt thoại ${sIdx + 1}"
-                      aria-expanded="false">
-                <span class="dlg-btn-icon">📖</span>
-              </button>
-            </span>
-          </div>
+          <div class="dialogue-line interactive-dialogue-line" onclick="ResultViewer.toggleDialogueTurnPopup('${gid}', ${sIdx}, event)">${badgeHtml}<span class="dialogue-content">${esc(cleanText)} <button type="button" class="dialogue-turn-analysis-btn" id="dlg_btn_${gid}_${sIdx}" onclick="event.stopPropagation(); ResultViewer.toggleDialogueTurnPopup('${gid}', ${sIdx}, event)" title="Xem bản dịch & phân tích từ vựng, cấu trúc lượt thoại này" aria-label="Xem dịch và phân tích lượt thoại ${sIdx + 1}" aria-expanded="false"><span class="dlg-btn-icon">📖</span></button></span></div>
           <div class="sentence-lookup-card dialogue-turn-popover" id="dlg_popup_${gid}_${sIdx}" style="display: none;" onclick="event.stopPropagation()">
             <div class="sentence-lookup-header">
               <div style="display: flex; align-items: center; gap: 6px;">
