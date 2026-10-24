@@ -1760,8 +1760,14 @@ const ResultViewer = {
             sepLen = 3;
           }
         } else {
-          splitIdx = colIdx;
-          sepLen = 2;
+          const between = itemText.slice(colIdx + 2, eqIdx);
+          if (!viRegex.test(between)) {
+            splitIdx = eqIdx;
+            sepLen = 3;
+          } else {
+            splitIdx = colIdx;
+            sepLen = 2;
+          }
         }
       } else if (eqIdx !== -1) {
         splitIdx = eqIdx;
@@ -1770,7 +1776,7 @@ const ResultViewer = {
         splitIdx = colIdx;
         sepLen = 2;
       }
-      if (splitIdx > 0 && splitIdx < 140) {
+      if (splitIdx > 0 && splitIdx < 240) {
         const phrase = itemText.slice(0, splitIdx).trim();
         const meaning = itemText.slice(splitIdx + sepLen).trim();
         const ttsText = this.extractSpeakableEnglish(phrase);
