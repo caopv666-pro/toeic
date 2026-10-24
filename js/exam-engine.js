@@ -602,7 +602,7 @@ const ExamEngine = {
     this.updatePaletteUI();
     return false;
   },
-  navReadingGroup(partKey, delta) {
+  navReadingGroup(partKey, delta, swipeDir = null) {
     if (typeof document === 'undefined') return;
     const stageCards = Array.from(document.querySelectorAll(`.reading-group-stage[data-part="${partKey}"]`));
     if (stageCards.length === 0) return;
@@ -612,11 +612,23 @@ const ExamEngine = {
       currentIdx = navBar ? parseInt(navBar.getAttribute('data-active-idx') || '0', 10) : 0;
     }
     const newIdx = currentIdx + delta;
+    const dir = swipeDir || (delta > 0 ? 'next' : 'prev');
     if (newIdx >= 0 && newIdx < stageCards.length) {
-      this.activateReadingGroup(partKey, newIdx, true);
+      this.activateReadingGroup(partKey, newIdx, true, dir);
+    } else if (this.mode === 'full') {
+      if (partKey === 'part6' && newIdx >= stageCards.length) {
+        this.switchExamPart('part7', false);
+        this.activateReadingGroup('part7', 0, true, 'next');
+      } else if (partKey === 'part7' && newIdx < 0) {
+        this.switchExamPart('part6', false);
+        const p6Cards = document.querySelectorAll('.reading-group-stage[data-part="part6"]');
+        if (p6Cards && p6Cards.length > 0) {
+          this.activateReadingGroup('part6', p6Cards.length - 1, true, 'prev');
+        }
+      }
     }
   },
-  activateReadingGroup(partKey, targetIdx, scroll = false) {
+  activateReadingGroup(partKey, targetIdx, scroll = false, swipeDir = null) {
     if (typeof document === 'undefined') return;
     const stageCards = Array.from(document.querySelectorAll(`.reading-group-stage[data-part="${partKey}"]`));
     if (stageCards.length === 0) return;
@@ -650,10 +662,34 @@ const ExamEngine = {
       const subqList = typeof activeCard.querySelector === 'function'
         ? activeCard.querySelector('.group-subquestions-list, .group-questions-list')
         : null;
-      if (subqList) subqList.scrollLeft = 0;
+      if (subqList) {
+        if (swipeDir === 'prev') {
+          subqList.scrollLeft = subqList.scrollWidth || 9999;
+          if (typeof requestAnimationFrame === 'function') {
+            requestAnimationFrame(() => {
+              subqList.scrollLeft = subqList.scrollWidth || 9999;
+            });
+          }
+        } else {
+          subqList.scrollLeft = 0;
+        }
+      }
       if (typeof activeCard.querySelectorAll === 'function') {
         activeCard.querySelectorAll('.question-item').forEach(qCard => {
           qCard.scrollTop = 0;
+        });
+      }
+      if ((swipeDir === 'next' || swipeDir === 'prev') && typeof activeCard.querySelectorAll === 'function') {
+        const animClass = swipeDir === 'next' ? 'reading-group-enter-next' : 'reading-group-enter-prev';
+        const targets = activeCard.querySelectorAll('.reading-stage-images, .reading-questions-sheet');
+        targets.forEach(t => {
+          if (!t.classList) return;
+          t.classList.remove('reading-group-enter-next', 'reading-group-enter-prev');
+          void t.offsetWidth;
+          t.classList.add(animClass);
+          setTimeout(() => {
+            if (t.classList) t.classList.remove(animClass);
+          }, 280);
         });
       }
     }
@@ -670,7 +706,7 @@ const ExamEngine = {
           const icon = sheet.querySelector('.reading-sheet-icon');
           if (icon) icon.textContent = '▲';
         }
-        const navOffset = 65;
+        const navOffset = 78;
         const cardTop = activeCard.getBoundingClientRect().top + ((typeof window !== 'undefined' && window.pageYOffset) || (document.documentElement ? document.documentElement.scrollTop : 0) || 0);
         if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
           window.scrollTo({ top: Math.max(0, cardTop - navOffset), behavior: 'smooth' });
@@ -699,7 +735,126 @@ const ExamEngine = {
     }
   },
   initReadingSheetGestures() {
-    if (typeof document === 'undefined') return;
+    if (typeof document === 'undefined' || typeof document.querySelectorAll !== 'function') return;
+    const resizers = document.querySelectorAll('.reading-pane-resizer');
+    resizers.forEach(resizer => {
+      if (resizer._hasResizerAttached) return;
+      resizer._hasResizerAttached = true;
+      let startY = 0;
+      let startH = 0;
+      let isResizing = false;
+      let stageCard = null;
+      let imgStage = null;
+      const beginResize = (clientY) => {
+        stageCard = resizer.closest ? resizer.closest('.reading-group-stage') : null;
+        if (!stageCard) return;
+        imgStage = stageCard.querySelector('.reading-stage-images');
+        if (!imgStage) return;
+        startY = clientY;
+        const rect = imgStage.getBoundingClientRect ? imgStage.getBoundingClientRect() : { height: 220 };
+        startH = rect.height || 220;
+        isResizing = true;
+        resizer.classList.add('is-resizing');
+      };
+      const moveResize = (clientY) => {
+        if (!isResizing || !stageCard || !imgStage) return;
+        const deltaY = clientY - startY;
+        const vh = (typeof window !== 'undefined' && window.innerHeight) ? window.innerHeight : 700;
+        const minH = 72;
+        const maxH = Math.max(180, Math.floor(vh * 0.68));
+        const newH = Math.max(minH, Math.min(maxH, Math.round(startH + deltaY)));
+        stageCard.style.setProperty('--reading-img-h', `${newH}px`);
+        stageCard.style.setProperty('--reading-img-max-h', `${newH}px`);
+      };
+      const endResize = () => {
+        if (!isResizing) return;
+        isResizing = false;
+        resizer.classList.remove('is-resizing');
+      };
+      resizer.addEventListener('touchstart', (e) => {
+        if (!e.touches || e.touches.length === 0) return;
+        beginResize(e.touches[0].clientY);
+      }, { passive: true });
+      resizer.addEventListener('touchmove', (e) => {
+        if (!isResizing || !e.touches || e.touches.length === 0) return;
+        if (e.cancelable) e.preventDefault();
+        moveResize(e.touches[0].clientY);
+      }, { passive: false });
+      resizer.addEventListener('touchend', endResize, { passive: true });
+      resizer.addEventListener('touchcancel', endResize, { passive: true });
+      resizer.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        beginResize(e.clientY);
+        const onMouseMove = (ev) => moveResize(ev.clientY);
+        const onMouseUp = () => {
+          endResize();
+          document.removeEventListener('mousemove', onMouseMove);
+          document.removeEventListener('mouseup', onMouseUp);
+        };
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+      });
+    });
+    const qLists = document.querySelectorAll('.reading-group-stage .group-subquestions-list, .reading-group-stage .group-questions-list');
+    qLists.forEach(listEl => {
+      if (listEl._hasEdgeSwipeAttached) return;
+      listEl._hasEdgeSwipeAttached = true;
+      let startX = 0;
+      let startY = 0;
+      let atFirstQ = false;
+      let atLastQ = false;
+      let lastDx = 0;
+      let lastDy = 0;
+      listEl.addEventListener('touchstart', (e) => {
+        if (!e.touches || e.touches.length !== 1) return;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        const sl = listEl.scrollLeft || 0;
+        const maxSl = Math.max(0, (listEl.scrollWidth || 0) - (listEl.clientWidth || 0));
+        atFirstQ = (sl <= 10);
+        atLastQ = (sl >= maxSl - 10);
+        lastDx = 0;
+        lastDy = 0;
+        listEl.style.transition = 'none';
+      }, { passive: true });
+      listEl.addEventListener('touchmove', (e) => {
+        if (!e.touches || e.touches.length !== 1) return;
+        const dx = e.touches[0].clientX - startX;
+        const dy = e.touches[0].clientY - startY;
+        lastDx = dx;
+        lastDy = dy;
+        if (Math.abs(dx) > Math.abs(dy) * 1.15 && Math.abs(dx) > 10) {
+          const sl = listEl.scrollLeft || 0;
+          const maxSl = Math.max(0, (listEl.scrollWidth || 0) - (listEl.clientWidth || 0));
+          if (atFirstQ && dx > 0 && sl <= 10) {
+            const pull = Math.min(52, dx * 0.38);
+            listEl.style.transform = `translateX(${pull}px)`;
+          } else if (atLastQ && dx < 0 && sl >= maxSl - 10) {
+            const pull = Math.max(-52, dx * 0.38);
+            listEl.style.transform = `translateX(${pull}px)`;
+          }
+        }
+      }, { passive: true });
+      const finishEdgeSwipe = () => {
+        listEl.style.transition = 'transform 0.2s cubic-bezier(0.22, 1, 0.36, 1)';
+        listEl.style.transform = '';
+        if (Math.abs(lastDx) > Math.abs(lastDy) * 1.15 && Math.abs(lastDx) >= 46) {
+          const stageCard = listEl.closest ? listEl.closest('.reading-group-stage') : null;
+          const partKey = stageCard ? stageCard.getAttribute('data-part') : null;
+          const sl = listEl.scrollLeft || 0;
+          const maxSl = Math.max(0, (listEl.scrollWidth || 0) - (listEl.clientWidth || 0));
+          if (partKey && atFirstQ && lastDx >= 46 && sl <= 12) {
+            this.navReadingGroup(partKey, -1, 'prev');
+          } else if (partKey && atLastQ && lastDx <= -46 && sl >= maxSl - 12) {
+            this.navReadingGroup(partKey, 1, 'next');
+          }
+        }
+        lastDx = 0;
+        lastDy = 0;
+      };
+      listEl.addEventListener('touchend', finishEdgeSwipe, { passive: true });
+      listEl.addEventListener('touchcancel', finishEdgeSwipe, { passive: true });
+    });
     const sheets = document.querySelectorAll('.reading-questions-sheet');
     sheets.forEach(sheet => {
       if (sheet._hasGestureAttached) return;
@@ -911,7 +1066,7 @@ const ExamEngine = {
     }
     if (isFull) {
       html += `
-        <div class="exam-part-stepper-bar" role="navigation" aria-label="Chọn phần thi Part 1 đến Part 7" style="position: sticky; top: var(--navbar-height, 66px); z-index: 80; display: flex; flex-wrap: nowrap; gap: 6px; overflow-x: auto; padding: 8px 10px; margin-bottom: 14px; background: var(--bg-glass); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--border-glass); border-radius: var(--radius-lg);">
+        <div class="exam-part-stepper-bar" role="navigation" aria-label="Chọn phần thi Part 1 đến Part 7" style="position: sticky; top: var(--navbar-height, 66px); z-index: 80; display: flex; flex-wrap: nowrap; gap: 6px; overflow-x: auto; padding: 6px 10px; margin-bottom: 8px; background: var(--bg-glass); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--border-glass); border-radius: var(--radius-lg);">
           ${PART_META.map(m => `
             <button type="button" class="filter-pill-btn exam-part-chip${activePart === m.key ? ' active' : ''}" data-part="${m.key}" onclick="ExamEngine.switchExamPart('${m.key}', true)" aria-pressed="${activePart === m.key ? 'true' : 'false'}" style="flex: 1 1 0; min-width: 58px; padding: 6px 8px; font-size: 0.8rem; font-weight: 700; text-align: center; white-space: nowrap;">
               ${m.badge}

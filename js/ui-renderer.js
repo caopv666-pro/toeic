@@ -345,6 +345,13 @@ const UIRenderer = {
               }).join('')}
             </div>
           ` : '<div class="reading-stage-images"></div>'}
+          <div class="reading-pane-resizer" data-resizer-gid="${gid}" role="separator" aria-orientation="horizontal" aria-label="Chạm và kéo lên hoặc xuống để thay đổi chiều cao khung ảnh" title="Chạm và kéo lên/xuống để thay đổi chiều cao khung ảnh">
+            <button type="button" class="reading-resizer-btn" tabindex="-1" aria-hidden="true">
+              <span class="resizer-grip-bar"></span>
+              <span class="resizer-grip-icon">⇅</span>
+              <span class="resizer-grip-bar"></span>
+            </button>
+          </div>
         </div>
         <div class="reading-questions-sheet" id="sheet_${gid}">
           <div class="reading-sheet-handle" onclick="ExamEngine.toggleReadingSheet('${gid}')" title="Vuốt lên/xuống hoặc nhấn để ẩn/hiện câu hỏi">
@@ -356,7 +363,7 @@ const UIRenderer = {
           </div>
           <div class="reading-sheet-body">
             <div class="group-questions-list group-subquestions-list" id="subq_list_${gid}">
-              ${questions.map(q => {
+              ${questions.map((q, qIdx) => {
                 if (!q || typeof q !== 'object' || Array.isArray(q)) return '';
                 const qNum = parseInt(q.questionNumber, 10);
                 if (isNaN(qNum) || qNum <= 0) return '';
@@ -367,13 +374,16 @@ const UIRenderer = {
                   <div class="question-item" id="q_item_${qNum}" data-qnum="${qNum}" style="background: var(--bg-tertiary); margin-bottom: 0;">
                     <div class="question-header">
                       <span class="q-number-badge">Câu ${qNum}</span>
-                      <button class="flag-btn ${isFlagged ? 'flagged' : ''}"
-                              onclick="ExamEngine.toggleFlag(${qNum})"
-                              title="${isFlagged ? 'Bỏ gắn cờ' : 'Gắn cờ xem lại'}"
-                              aria-label="${isFlagged ? 'Bỏ gắn cờ câu ' + qNum : 'Gắn cờ xem lại câu ' + qNum}"
-                              aria-pressed="${isFlagged ? 'true' : 'false'}">
-                        ${isFlagged ? '🚩' : '🏳️'}
-                      </button>
+                      <div class="q-header-right-actions" style="display: inline-flex; align-items: center; gap: 6px; margin-left: auto;">
+                        ${questions.length > 1 ? `<span class="question-slide-indicator" aria-label="Câu ${qIdx + 1} trên ${questions.length}">${qIdx + 1}/${questions.length} ↔</span>` : ''}
+                        <button class="flag-btn ${isFlagged ? 'flagged' : ''}"
+                                onclick="ExamEngine.toggleFlag(${qNum})"
+                                title="${isFlagged ? 'Bỏ gắn cờ' : 'Gắn cờ xem lại'}"
+                                aria-label="${isFlagged ? 'Bỏ gắn cờ câu ' + qNum : 'Gắn cờ xem lại câu ' + qNum}"
+                                aria-pressed="${isFlagged ? 'true' : 'false'}">
+                          ${isFlagged ? '🚩' : '🏳️'}
+                        </button>
+                      </div>
                     </div>
                     ${q.questionText ? `<p class="question-text">${escaper(q.questionText)}</p>` : ''}
                     <div class="options-group" role="group" aria-label="Phương án trả lời câu ${qNum}">

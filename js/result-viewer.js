@@ -903,7 +903,7 @@ const ResultViewer = {
   setFilter(filterType) {
     return this.setStatusFilter(filterType);
   },
-  navReadingGroup(partKey, delta) {
+  navReadingGroup(partKey, delta, swipeDir = null) {
     if (typeof document === 'undefined') return;
     const stageCards = Array.from(document.querySelectorAll(`.reading-group-stage[data-part="${partKey}"]`));
     if (stageCards.length === 0) return;
@@ -913,11 +913,23 @@ const ResultViewer = {
       currentIdx = navBar ? parseInt(navBar.getAttribute('data-active-idx') || '0', 10) : 0;
     }
     const newIdx = currentIdx + delta;
+    const dir = swipeDir || (delta > 0 ? 'next' : 'prev');
     if (newIdx >= 0 && newIdx < stageCards.length) {
-      this.activateReadingGroup(partKey, newIdx, true);
+      this.activateReadingGroup(partKey, newIdx, true, dir);
+    } else if (!this.resultData || this.resultData.mode !== 'part') {
+      if (partKey === 'part6' && newIdx >= stageCards.length) {
+        this.setPartFilter('part7');
+        this.activateReadingGroup('part7', 0, true, 'next');
+      } else if (partKey === 'part7' && newIdx < 0) {
+        this.setPartFilter('part6');
+        const p6Cards = document.querySelectorAll('.reading-group-stage[data-part="part6"]');
+        if (p6Cards && p6Cards.length > 0) {
+          this.activateReadingGroup('part6', p6Cards.length - 1, true, 'prev');
+        }
+      }
     }
   },
-  activateReadingGroup(partKey, targetIdx, scroll = false) {
+  activateReadingGroup(partKey, targetIdx, scroll = false, swipeDir = null) {
     if (typeof document === 'undefined') return;
     const stageCards = Array.from(document.querySelectorAll(`.reading-group-stage[data-part="${partKey}"]`));
     if (stageCards.length === 0) return;
@@ -951,7 +963,18 @@ const ResultViewer = {
       const passagesWrap = typeof activeCard.querySelector === 'function' ? activeCard.querySelector('.group-passages-wrap') : null;
       if (passagesWrap) passagesWrap.scrollLeft = 0;
       const subqList = typeof activeCard.querySelector === 'function' ? activeCard.querySelector('.group-subquestions-list') : null;
-      if (subqList) subqList.scrollLeft = 0;
+      if (subqList) {
+        if (swipeDir === 'prev') {
+          subqList.scrollLeft = subqList.scrollWidth || 9999;
+          if (typeof requestAnimationFrame === 'function') {
+            requestAnimationFrame(() => {
+              subqList.scrollLeft = subqList.scrollWidth || 9999;
+            });
+          }
+        } else {
+          subqList.scrollLeft = 0;
+        }
+      }
       if (typeof activeCard.querySelectorAll === 'function') {
         activeCard.querySelectorAll('.review-q-card').forEach(qCard => {
           qCard.scrollTop = 0;
@@ -962,6 +985,19 @@ const ResultViewer = {
         nav.querySelectorAll('.subq-nav-pill').forEach((p, idx) => {
           p.classList.toggle('active', idx === 0);
           p.setAttribute('aria-selected', idx === 0 ? 'true' : 'false');
+        });
+      }
+      if ((swipeDir === 'next' || swipeDir === 'prev') && typeof activeCard.querySelectorAll === 'function') {
+        const animClass = swipeDir === 'next' ? 'reading-group-enter-next' : 'reading-group-enter-prev';
+        const targets = activeCard.querySelectorAll('.reading-stage-images, .reading-questions-sheet');
+        targets.forEach(t => {
+          if (!t.classList) return;
+          t.classList.remove('reading-group-enter-next', 'reading-group-enter-prev');
+          void t.offsetWidth;
+          t.classList.add(animClass);
+          setTimeout(() => {
+            if (t.classList) t.classList.remove(animClass);
+          }, 280);
         });
       }
       const passageImgs = activeCard.querySelectorAll('img.interactive-passage-img');
@@ -1038,7 +1074,126 @@ const ResultViewer = {
     }
   },
   initReadingSheetGestures() {
-    if (typeof document === 'undefined') return;
+    if (typeof document === 'undefined' || typeof document.querySelectorAll !== 'function') return;
+    const resizers = document.querySelectorAll('.reading-pane-resizer');
+    resizers.forEach(resizer => {
+      if (resizer._hasResizerAttached) return;
+      resizer._hasResizerAttached = true;
+      let startY = 0;
+      let startH = 0;
+      let isResizing = false;
+      let stageCard = null;
+      let imgStage = null;
+      const beginResize = (clientY) => {
+        stageCard = resizer.closest ? resizer.closest('.reading-group-stage') : null;
+        if (!stageCard) return;
+        imgStage = stageCard.querySelector('.reading-stage-images');
+        if (!imgStage) return;
+        startY = clientY;
+        const rect = imgStage.getBoundingClientRect ? imgStage.getBoundingClientRect() : { height: 220 };
+        startH = rect.height || 220;
+        isResizing = true;
+        resizer.classList.add('is-resizing');
+      };
+      const moveResize = (clientY) => {
+        if (!isResizing || !stageCard || !imgStage) return;
+        const deltaY = clientY - startY;
+        const vh = (typeof window !== 'undefined' && window.innerHeight) ? window.innerHeight : 700;
+        const minH = 72;
+        const maxH = Math.max(180, Math.floor(vh * 0.68));
+        const newH = Math.max(minH, Math.min(maxH, Math.round(startH + deltaY)));
+        stageCard.style.setProperty('--reading-img-h', `${newH}px`);
+        stageCard.style.setProperty('--reading-img-max-h', `${newH}px`);
+      };
+      const endResize = () => {
+        if (!isResizing) return;
+        isResizing = false;
+        resizer.classList.remove('is-resizing');
+      };
+      resizer.addEventListener('touchstart', (e) => {
+        if (!e.touches || e.touches.length === 0) return;
+        beginResize(e.touches[0].clientY);
+      }, { passive: true });
+      resizer.addEventListener('touchmove', (e) => {
+        if (!isResizing || !e.touches || e.touches.length === 0) return;
+        if (e.cancelable) e.preventDefault();
+        moveResize(e.touches[0].clientY);
+      }, { passive: false });
+      resizer.addEventListener('touchend', endResize, { passive: true });
+      resizer.addEventListener('touchcancel', endResize, { passive: true });
+      resizer.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        beginResize(e.clientY);
+        const onMouseMove = (ev) => moveResize(ev.clientY);
+        const onMouseUp = () => {
+          endResize();
+          document.removeEventListener('mousemove', onMouseMove);
+          document.removeEventListener('mouseup', onMouseUp);
+        };
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+      });
+    });
+    const qLists = document.querySelectorAll('.reading-group-stage .group-subquestions-list');
+    qLists.forEach(listEl => {
+      if (listEl._hasEdgeSwipeAttached) return;
+      listEl._hasEdgeSwipeAttached = true;
+      let startX = 0;
+      let startY = 0;
+      let atFirstQ = false;
+      let atLastQ = false;
+      let lastDx = 0;
+      let lastDy = 0;
+      listEl.addEventListener('touchstart', (e) => {
+        if (!e.touches || e.touches.length !== 1) return;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        const sl = listEl.scrollLeft || 0;
+        const maxSl = Math.max(0, (listEl.scrollWidth || 0) - (listEl.clientWidth || 0));
+        atFirstQ = (sl <= 10);
+        atLastQ = (sl >= maxSl - 10);
+        lastDx = 0;
+        lastDy = 0;
+        listEl.style.transition = 'none';
+      }, { passive: true });
+      listEl.addEventListener('touchmove', (e) => {
+        if (!e.touches || e.touches.length !== 1) return;
+        const dx = e.touches[0].clientX - startX;
+        const dy = e.touches[0].clientY - startY;
+        lastDx = dx;
+        lastDy = dy;
+        if (Math.abs(dx) > Math.abs(dy) * 1.15 && Math.abs(dx) > 10) {
+          const sl = listEl.scrollLeft || 0;
+          const maxSl = Math.max(0, (listEl.scrollWidth || 0) - (listEl.clientWidth || 0));
+          if (atFirstQ && dx > 0 && sl <= 10) {
+            const pull = Math.min(52, dx * 0.38);
+            listEl.style.transform = `translateX(${pull}px)`;
+          } else if (atLastQ && dx < 0 && sl >= maxSl - 10) {
+            const pull = Math.max(-52, dx * 0.38);
+            listEl.style.transform = `translateX(${pull}px)`;
+          }
+        }
+      }, { passive: true });
+      const finishEdgeSwipe = () => {
+        listEl.style.transition = 'transform 0.2s cubic-bezier(0.22, 1, 0.36, 1)';
+        listEl.style.transform = '';
+        if (Math.abs(lastDx) > Math.abs(lastDy) * 1.15 && Math.abs(lastDx) >= 46) {
+          const stageCard = listEl.closest ? listEl.closest('.reading-group-stage') : null;
+          const partKey = stageCard ? stageCard.getAttribute('data-part') : null;
+          const sl = listEl.scrollLeft || 0;
+          const maxSl = Math.max(0, (listEl.scrollWidth || 0) - (listEl.clientWidth || 0));
+          if (partKey && atFirstQ && lastDx >= 46 && sl <= 12) {
+            this.navReadingGroup(partKey, -1, 'prev');
+          } else if (partKey && atLastQ && lastDx <= -46 && sl >= maxSl - 12) {
+            this.navReadingGroup(partKey, 1, 'next');
+          }
+        }
+        lastDx = 0;
+        lastDy = 0;
+      };
+      listEl.addEventListener('touchend', finishEdgeSwipe, { passive: true });
+      listEl.addEventListener('touchcancel', finishEdgeSwipe, { passive: true });
+    });
     const sheets = document.querySelectorAll('.reading-questions-sheet');
     sheets.forEach(sheet => {
       if (sheet._hasGestureAttached) return;
@@ -1430,6 +1585,13 @@ const ResultViewer = {
                 </div>
               ` : ''}
             </div>
+            <div class="reading-pane-resizer" data-resizer-gid="${gid}" role="separator" aria-orientation="horizontal" aria-label="Chạm và kéo lên hoặc xuống để thay đổi chiều cao khung ảnh" title="Chạm và kéo lên/xuống để thay đổi chiều cao khung ảnh">
+              <button type="button" class="reading-resizer-btn" tabindex="-1" aria-hidden="true">
+                <span class="resizer-grip-bar"></span>
+                <span class="resizer-grip-icon">⇅</span>
+                <span class="resizer-grip-bar"></span>
+              </button>
+            </div>
           </div>
           <!-- Right Column (Desktop) / Questions Section Underneath (Mobile): Sub-questions -->
           <div class="reading-questions-sheet" id="sheet_${gid}">
@@ -1442,7 +1604,7 @@ const ResultViewer = {
             </div>
             <div class="reading-sheet-body">
               <div class="group-subquestions-list" id="subq_list_${gid}">
-                ${group.questions.map(q => this.renderSubQuestionItem(q)).join('')}
+                ${group.questions.map((q, qIdx) => this.renderSubQuestionItem(q, qIdx, group.questions.length)).join('')}
               </div>
             </div>
           </div>
@@ -1520,7 +1682,7 @@ const ResultViewer = {
       </div>
     `;
   },
-  renderSubQuestionItem(q) {
+  renderSubQuestionItem(q, qIdx = 0, totalInGroup = 1) {
     const qNum = q.questionNumber;
     const userChoice = q.userChoice;
     const correctChoice = q.correctChoice;
@@ -1540,6 +1702,7 @@ const ResultViewer = {
                   ? '<span class="status-badge status-wrong">❌ Sai</span>' 
                   : '<span class="status-badge status-empty">⚪ Chưa làm</span>')}
           </div>
+          ${totalInGroup > 1 ? `<span class="question-slide-indicator" aria-label="Câu ${qIdx + 1} trên ${totalInGroup}">${qIdx + 1}/${totalInGroup} ↔</span>` : ''}
         </div>
         ${(cleanQText || showTrans) ? `
           <div class="question-text-block" style="margin: 6px 0 8px;">

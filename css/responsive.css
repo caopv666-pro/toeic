@@ -351,10 +351,15 @@
   }
 
   /* Requirement 3: Compact question cards and smaller font size */
+  .exam-layout {
+    padding-top: 2px !important;
+  }
+
   .exam-part-stepper-bar {
-    padding: 5px 8px !important;
+    top: var(--navbar-height, 46px) !important;
+    padding: 4px 6px !important;
     gap: 4px !important;
-    margin-bottom: 10px !important;
+    margin-bottom: 2px !important;
   }
 
   .exam-part-stepper-bar .exam-part-chip {
