@@ -3,308 +3,349 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Học Ngữ Pháp TOEIC Theo Mục Tiêu 450+ ➔ 850+ — TOEIC Master</title>
-  <meta name="description" content="Chuyên đề ngữ pháp TOEIC theo mục tiêu điểm 450+, 550+, 650+, 750+, 850+: công thức cô đọng, mẹo giải nhanh 5 giây, bẫy ETS và bài tập thực hành trích từ đề thi thật.">
+  <title>Ngữ Pháp TOEIC 450+ ➔ 850+ — TOEIC Master</title>
+  <meta name="description" content="Học ngữ pháp TOEIC tinh gọn theo từng mục tiêu điểm 450+, 550+, 650+, 750+, 850+: công thức cốt lõi, mẹo giải nhanh 5 giây và bài tập ETS thực chiến.">
 
-  <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="css/base.css?v=20261024v9">
-  <link rel="stylesheet" href="css/layout.css?v=20261024v9">
-  <link rel="stylesheet" href="css/components.css?v=20261024v9">
-  <link rel="stylesheet" href="css/responsive.css?v=20261024v9">
+  <link rel="stylesheet" href="css/base.css?v=20261024v10">
+  <link rel="stylesheet" href="css/layout.css?v=20261024v10">
+  <link rel="stylesheet" href="css/components.css?v=20261024v10">
+  <link rel="stylesheet" href="css/responsive.css?v=20261024v10">
   <style>
-    .study-hero {
-      padding: 20px 0 12px;
+    /* ── Ultra-Minimalist Top Filter & Control Bar (Synced with index.html & vocab.html) ── */
+    .study-top-section {
+      padding: 16px 0 10px;
       text-align: center;
+      max-width: 860px;
+      margin: 0 auto;
     }
-    .study-page-title {
-      font-size: 1.7rem;
-      font-weight: 800;
-      margin: 0 0 6px;
-      letter-spacing: -0.4px;
-    }
-    .study-page-subtitle {
-      font-size: 0.92rem;
-      color: var(--text-secondary);
-      max-width: 680px;
-      margin: 0 auto 16px;
-    }
-    .band-overview-card {
-      background: var(--bg-glass-card);
-      border: 1px solid var(--border-glass);
-      border-radius: var(--radius-lg);
-      padding: 16px 20px;
-      margin-bottom: 16px;
-      text-align: left;
-    }
-    .band-overview-top {
+    .band-chip-row {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      margin: 0 auto 12px;
+      max-width: 540px;
+    }
+    .band-chip-btn {
+      flex: 1 1 0;
+      padding: 7px 6px;
+      border-radius: var(--radius-full);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-glass);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1px;
+      min-width: 0;
+    }
+    .band-chip-btn:hover {
+      background: var(--bg-glass-hover);
+      color: var(--text-primary);
+    }
+    .band-chip-btn.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+      box-shadow: 0 2px 10px var(--accent-primary-glow);
+    }
+    .band-chip-label {
+      font-size: 0.84rem;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+    .band-chip-sub {
+      font-size: 0.66rem;
+      font-weight: 600;
+      opacity: 0.85;
+    }
+
+    /* Topic Pills Row */
+    .topic-pills-wrap {
+      display: flex;
+      justify-content: center;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 6px;
       margin-bottom: 12px;
     }
-    .band-overview-title {
-      font-size: 1.15rem;
-      font-weight: 800;
-      margin: 0 0 4px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .band-overview-desc {
-      font-size: 0.86rem;
-      color: var(--text-secondary);
-      margin: 0;
-    }
-    .backup-actions-row {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .study-progress-bar-wrap {
-      width: 100%;
-      height: 8px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 999px;
-      overflow: hidden;
-      margin-bottom: 8px;
-    }
-    .study-progress-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--accent-primary), var(--success));
-      border-radius: 999px;
-      transition: width 0.3s ease;
-    }
-    .study-progress-stats {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
+    .topic-pill-btn {
+      padding: 6px 13px;
       font-size: 0.8rem;
-      color: var(--text-secondary);
-    }
-    .topic-tabs-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-    .topic-select-card {
-      padding: 13px 15px;
-      border-radius: var(--radius-md);
+      font-weight: 600;
+      border-radius: var(--radius-full);
       background: var(--bg-secondary);
       border: 1px solid var(--border-glass);
-      color: var(--text-primary);
+      color: var(--text-secondary);
       cursor: pointer;
-      text-align: left;
-      transition: all 0.18s ease;
-      display: flex;
-      flex-direction: column;
+      transition: all var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
       gap: 6px;
     }
-    .topic-select-card:hover {
+    .topic-pill-btn:hover {
       background: var(--bg-glass-hover);
+      color: var(--text-primary);
+    }
+    .topic-pill-btn.active {
+      background: rgba(99, 102, 241, 0.18);
+      color: #ffffff;
       border-color: var(--accent-primary);
     }
-    .topic-select-card.active {
-      background: rgba(99, 102, 241, 0.16);
-      border-color: var(--accent-primary);
-      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.22);
-    }
-    .topic-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 8px;
-    }
-    .topic-card-title {
-      font-size: 0.96rem;
-      font-weight: 700;
-      line-height: 1.35;
-    }
-    .topic-card-meta {
-      font-size: 0.78rem;
-      color: var(--text-secondary);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .freq-pill {
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      background: rgba(6, 182, 212, 0.16);
-      color: #38bdf8;
-      border: 1px solid rgba(56, 189, 248, 0.35);
-      white-space: nowrap;
+    .topic-done-dot {
+      color: var(--success);
+      font-weight: 800;
     }
 
-    /* ── Grammar Sections ── */
-    .grammar-section-card {
-      background: var(--bg-glass-card);
+    /* Slim Status & Backup Bar */
+    .slim-status-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 8px 14px;
+      border-radius: var(--radius-md);
+      background: var(--bg-secondary);
       border: 1px solid var(--border-glass);
-      border-radius: var(--radius-lg);
-      padding: 20px;
-      margin-bottom: 18px;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
     }
-    .grammar-section-heading {
-      font-size: 1.15rem;
-      font-weight: 800;
-      margin: 0 0 12px;
+    .slim-progress-left {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
+      flex: 1 1 240px;
+      min-width: 0;
     }
-    .formula-cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    .slim-bar-track {
+      flex: 1;
+      max-width: 140px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+    }
+    .slim-bar-fill {
+      height: 100%;
+      background: var(--success);
+      border-radius: 999px;
+      transition: width 0.25s ease;
+    }
+    .slim-actions-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .slim-link-btn {
+      padding: 4px 9px;
+      border-radius: var(--radius-sm);
+      background: transparent;
+      border: 1px solid var(--border-glass);
+      color: var(--text-secondary);
+      font-size: 0.74rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .slim-link-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--accent-primary);
+      background: rgba(99, 102, 241, 0.1);
+    }
+
+    /* ── Minimalist Theory View ── */
+    .grammar-content-wrap {
+      max-width: 860px;
+      margin: 0 auto 48px;
+    }
+    .topic-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       gap: 12px;
-    }
-    .formula-box {
-      background: rgba(255, 255, 255, 0.03);
+      flex-wrap: wrap;
+      padding: 14px 16px;
+      background: var(--bg-glass-card);
       border: 1px solid var(--border-glass);
       border-radius: var(--radius-md);
-      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .topic-main-title {
+      font-size: 1.12rem;
+      font-weight: 800;
+      margin: 0 0 3px;
+      color: var(--text-primary);
+    }
+    .topic-summary-text {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      margin: 0;
+      line-height: 1.45;
+    }
+    .theory-grid-2col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .clean-theory-card {
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
       display: flex;
       flex-direction: column;
       gap: 8px;
     }
-    .formula-name {
-      font-size: 0.96rem;
+    .card-sec-label {
+      font-size: 0.72rem;
       font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent-secondary);
+    }
+    .formula-title {
+      font-size: 0.94rem;
+      font-weight: 700;
       color: var(--text-primary);
     }
-    .formula-code {
+    .formula-block {
       font-family: var(--font-mono);
-      font-size: 0.85rem;
-      font-weight: 700;
+      font-size: 0.82rem;
+      font-weight: 600;
       padding: 8px 10px;
-      border-radius: 8px;
-      background: rgba(99, 102, 241, 0.14);
-      border: 1px solid rgba(99, 102, 241, 0.35);
+      border-radius: 6px;
+      background: rgba(99, 102, 241, 0.12);
+      border-left: 3px solid var(--accent-primary);
       color: #a5b4fc;
+      white-space: pre-line;
       line-height: 1.45;
     }
-    .formula-usage {
-      font-size: 0.85rem;
+    .formula-note {
+      font-size: 0.82rem;
       color: var(--text-secondary);
       line-height: 1.45;
     }
-    .formula-example {
-      font-size: 0.84rem;
+    .formula-ex {
+      font-size: 0.8rem;
+      color: var(--text-muted);
       padding-top: 6px;
-      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      line-height: 1.4;
+    }
+    .signal-item {
+      padding: 9px 12px;
+      border-radius: var(--radius-sm);
+      background: rgba(16, 185, 129, 0.07);
+      border-left: 3px solid var(--success);
+      font-size: 0.83rem;
       line-height: 1.45;
     }
-    .signal-row {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-      gap: 12px;
-      padding: 12px 14px;
-      border-radius: var(--radius-md);
-      background: rgba(16, 185, 129, 0.08);
-      border: 1px solid rgba(16, 185, 129, 0.28);
-      margin-bottom: 10px;
-      font-size: 0.88rem;
-      align-items: center;
+    .trap-item {
+      padding: 9px 12px;
+      border-radius: var(--radius-sm);
+      background: rgba(245, 158, 11, 0.08);
+      border-left: 3px solid var(--warning);
+      font-size: 0.83rem;
+      line-height: 1.45;
     }
-    .trap-row {
-      padding: 12px 14px;
-      border-radius: var(--radius-md);
-      background: rgba(245, 158, 11, 0.09);
-      border: 1px solid rgba(245, 158, 11, 0.32);
-      margin-bottom: 10px;
-      font-size: 0.88rem;
-      line-height: 1.5;
-    }
-    .study-quiz-card {
+
+    /* ── Minimalist Practice Questions View ── */
+    .quiz-item-card {
       background: var(--bg-glass-card);
       border: 1px solid var(--border-glass);
-      border-radius: var(--radius-lg);
-      padding: 18px;
-      margin-bottom: 14px;
-    }
-    .study-quiz-opt {
-      width: 100%;
-      text-align: left;
-      padding: 10px 14px;
       border-radius: var(--radius-md);
+      padding: 15px 16px;
+      margin-bottom: 10px;
+    }
+    .quiz-q-text {
+      font-size: 0.96rem;
+      font-weight: 700;
+      line-height: 1.5;
+      margin: 6px 0 12px;
+    }
+    .quiz-opts-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .quiz-opt-btn {
+      text-align: left;
+      padding: 9px 12px;
+      border-radius: var(--radius-sm);
       background: var(--bg-secondary);
       border: 1px solid var(--border-glass);
       color: var(--text-primary);
-      font-size: 0.92rem;
+      font-size: 0.86rem;
       font-weight: 600;
       cursor: pointer;
-      margin-bottom: 8px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       transition: all 0.15s ease;
     }
-    .study-quiz-opt:hover {
+    .quiz-opt-btn:hover {
       border-color: var(--accent-primary);
-      background: var(--bg-glass-hover);
     }
-    .study-quiz-opt.correct-choice {
-      background: rgba(16, 185, 129, 0.2);
+    .quiz-opt-btn.is-correct {
+      background: rgba(16, 185, 129, 0.18);
       border-color: var(--success);
-      color: #34d399;
+      color: var(--success);
     }
-    .study-quiz-opt.wrong-choice {
-      background: rgba(239, 68, 68, 0.2);
+    .quiz-opt-btn.is-wrong {
+      background: rgba(239, 68, 68, 0.18);
       border-color: var(--danger);
-      color: #f87171;
+      color: var(--danger);
     }
-    .explanation-box {
+    .quiz-explain-box {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
       background: rgba(99, 102, 241, 0.08);
       border-left: 3px solid var(--accent-primary);
-      padding: 10px 12px;
-      border-radius: 6px;
-      font-size: 0.86rem;
-      line-height: 1.5;
-      margin-top: 10px;
+      font-size: 0.82rem;
+      line-height: 1.45;
     }
 
     @media (max-width: 640px) {
-      .signal-row {
+      .quiz-opts-grid {
         grid-template-columns: 1fr;
-        gap: 6px;
+      }
+      .band-chip-label {
+        font-size: 0.78rem;
       }
     }
 
-    [data-theme="light"] .band-overview-card,
-    [data-theme="light"] .grammar-section-card,
-    [data-theme="light"] .study-quiz-card {
-      background: #ffffff;
-      border-color: #cbd5e1;
-      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
-    }
-    [data-theme="light"] .topic-select-card,
-    [data-theme="light"] .study-quiz-opt {
+    [data-theme="light"] .band-chip-btn,
+    [data-theme="light"] .topic-pill-btn,
+    [data-theme="light"] .slim-status-strip,
+    [data-theme="light"] .topic-header-bar,
+    [data-theme="light"] .clean-theory-card,
+    [data-theme="light"] .quiz-item-card,
+    [data-theme="light"] .quiz-opt-btn {
       background: #ffffff;
       border-color: #cbd5e1;
       color: #1e293b;
     }
-    [data-theme="light"] .formula-box {
-      background: #f8fafc;
-      border-color: #cbd5e1;
+    [data-theme="light"] .band-chip-btn.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
     }
-    [data-theme="light"] .formula-code {
-      background: #e0e7ff;
-      border-color: #a5b4fc;
+    [data-theme="light"] .topic-pill-btn.active {
+      background: #eef2ff;
+      color: #312e81;
+      border-color: #6366f1;
+    }
+    [data-theme="light"] .formula-block {
+      background: #eef2ff;
       color: #312e81;
     }
-    [data-theme="light"] .freq-pill {
-      background: #e0f2fe;
-      color: #0369a1;
-      border-color: #7dd3fc;
+    [data-theme="light"] .formula-ex {
+      border-top-color: #f1f5f9;
     }
   </style>
 </head>
@@ -382,37 +423,40 @@
   </nav>
 
   <!-- Main Workspace -->
-  <main class="container" style="padding-bottom: 64px;">
-    <section class="study-hero">
-      <h1 class="study-page-title">📐 Ngữ Pháp TOEIC Theo Mục Tiêu Điểm</h1>
-      <p class="study-page-subtitle">Công thức đóng khung, mẹo nhận diện nhanh 5 giây không cần dịch cả câu, các bẫy ETS kinh điển và bài tập trích trực tiếp từ 4 bộ đề ETS.</p>
+  <main class="container">
+    <section class="study-top-section">
+      <!-- 1. Compact Score Band Selector Row -->
+      <div class="band-chip-row" id="grammar-band-selector" role="tablist" aria-label="Chọn mục tiêu điểm ngữ pháp"></div>
 
-      <!-- 5 Score Band Selector Pills -->
-      <div class="band-selector-grid" id="grammar-band-selector" role="tablist" aria-label="Chọn mục tiêu điểm ngữ pháp"></div>
+      <!-- 2. 2-Tab View Switcher (Theory vs Practice) -->
+      <div class="mode-tabs" role="tablist" aria-label="Chọn chế độ học ngữ pháp" style="margin-bottom: 12px;">
+        <button type="button" class="mode-tab-btn active" id="gmode-theory" onclick="switchGrammarTab('theory')" aria-pressed="true">
+          📖 Lý thuyết &amp; Mẹo 5s
+        </button>
+        <button type="button" class="mode-tab-btn" id="gmode-practice" onclick="switchGrammarTab('practice')" aria-pressed="false">
+          ✍️ Bài tập ETS
+        </button>
+      </div>
 
-      <!-- Band Progress & Backup Banner -->
-      <div class="band-overview-card" id="grammar-band-overview"></div>
+      <!-- 3. Compact Topic Pills -->
+      <div class="topic-pills-wrap" id="grammar-topic-tabs" role="group" aria-label="Chọn chuyên đề ngữ pháp"></div>
 
-      <!-- Hidden File Input for Backup JSON Import -->
+      <!-- 4. Slim Progress & Backup Strip -->
+      <div class="slim-status-strip" id="grammar-band-overview"></div>
       <input type="file" id="study-backup-file-input" accept=".json,application/json" style="display: none;" onchange="handleImportStudyBackup(event)">
     </section>
 
-    <!-- Grammar Topic Cards within Selected Band -->
-    <section aria-label="Danh sách chuyên đề ngữ pháp">
-      <div class="topic-tabs-row" id="grammar-topic-tabs"></div>
-    </section>
-
-    <!-- Active Grammar Topic Workspace -->
-    <section id="grammar-workspace-container" aria-live="polite"></section>
+    <!-- Active Grammar Content -->
+    <section class="grammar-content-wrap" id="grammar-workspace-container" aria-live="polite"></section>
   </main>
 
-  <!-- Scripts -->
-  <script src="js/app-config.js?v=20261024v9"></script>
-  <script src="js/storage-service.js?v=20261024v9"></script>
-  <script src="js/study-data.js?v=20261024v9"></script>
+  <script src="js/app-config.js?v=20261024v10"></script>
+  <script src="js/storage-service.js?v=20261024v10"></script>
+  <script src="js/study-data.js?v=20261024v10"></script>
   <script>
     let currentBand = '450';
     let currentTopicId = '';
+    let currentGrammarTab = 'theory'; // 'theory' | 'practice'
     let practiceAnswers = {};
 
     function getSafeStorage() {
@@ -503,6 +547,19 @@
       return currentTopicId;
     }
 
+    function switchGrammarTab(tab) {
+      currentGrammarTab = tab === 'practice' ? 'practice' : 'theory';
+      ['theory', 'practice'].forEach(t => {
+        const btn = typeof document !== 'undefined' ? document.getElementById(`gmode-${t}`) : null;
+        if (btn) {
+          if (btn.classList) btn.classList.toggle('active', t === currentGrammarTab);
+          if (typeof btn.setAttribute === 'function') btn.setAttribute('aria-pressed', t === currentGrammarTab ? 'true' : 'false');
+        }
+      });
+      renderGrammarWorkspace();
+      return currentGrammarTab;
+    }
+
     function renderGrammarBandSelector() {
       const wrap = typeof document !== 'undefined' ? document.getElementById('grammar-band-selector') : null;
       if (!wrap) return;
@@ -512,9 +569,9 @@
         const stats = computeGrammarBandStats(b.id);
         const isActive = String(b.id) === String(currentBand);
         return `
-          <button type="button" class="band-pill-btn ${isActive ? 'active' : ''}" data-band="${b.id}" onclick="selectGrammarBand('${b.id}')" aria-pressed="${isActive ? 'true' : 'false'}">
-            <span class="band-pill-score">🎯 ${b.label}</span>
-            <span class="band-pill-progress">${stats.completedCount}/${stats.totalTopics} bài (${stats.pct}%)</span>
+          <button type="button" class="band-chip-btn ${isActive ? 'active' : ''}" data-band="${b.id}" onclick="selectGrammarBand('${b.id}')" aria-pressed="${isActive ? 'true' : 'false'}">
+            <span class="band-chip-label">${b.label}</span>
+            <span class="band-chip-sub">${stats.completedCount}/${stats.totalTopics} bài</span>
           </button>
         `;
       }).join('');
@@ -523,39 +580,25 @@
     function renderGrammarBandOverview() {
       const wrap = typeof document !== 'undefined' ? document.getElementById('grammar-band-overview') : null;
       if (!wrap) return;
-      const data = getStudyData();
-      const bandMeta = (data.bands || []).find(b => String(b.id) === String(currentBand)) || {
-        id: currentBand,
-        label: `${currentBand}+`,
-        name: `Mục tiêu ${currentBand}+`,
-        shortDesc: ''
-      };
       const stats = computeGrammarBandStats(currentBand);
+      const topic = getCurrentGrammarTopic();
+      const qCount = (topic && topic.practiceQuestions ? topic.practiceQuestions.length : 10);
+      const pracBtn = typeof document !== 'undefined' ? document.getElementById('gmode-practice') : null;
+      if (pracBtn) {
+        pracBtn.textContent = `✍️ Bài tập ETS (${qCount}c)`;
+      }
 
       wrap.innerHTML = `
-        <div class="band-overview-top">
-          <div>
-            <h2 class="band-overview-title">
-              <span>📐 ${bandMeta.name}</span>
-              <span class="test-best-badge">RC mục tiêu: ${bandMeta.targetReading || ''}</span>
-            </h2>
-            <p class="band-overview-desc">${bandMeta.shortDesc}</p>
+        <div class="slim-progress-left">
+          <strong>Mốc ${currentBand}+:</strong>
+          <div class="slim-bar-track" role="progressbar" aria-valuenow="${stats.pct}" aria-valuemin="0" aria-valuemax="100">
+            <div class="slim-bar-fill" style="width:${stats.pct}%;"></div>
           </div>
-          <div class="backup-actions-row">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="exportStudyBackup()" title="Tải file JSON sao lưu tiến độ học tập">
-              ⬇️ Xuất Backup
-            </button>
-            <button type="button" class="btn btn-secondary btn-sm" onclick="triggerImportStudyBackup()" title="Khôi phục tiến độ học từ file JSON">
-              ⬆️ Nhập Backup
-            </button>
-          </div>
+          <span>Hoàn thành <strong>${stats.completedCount}/${stats.totalTopics}</strong> chuyên đề • Đúng <strong>${stats.bestCorrectSum}/${stats.totalQuestions}</strong> câu ETS</span>
         </div>
-        <div class="study-progress-bar-wrap" role="progressbar" aria-valuenow="${stats.pct}" aria-valuemin="0" aria-valuemax="100">
-          <div class="study-progress-bar-fill" style="width: ${stats.pct}%;"></div>
-        </div>
-        <div class="study-progress-stats">
-          <span>✅ Chuyên đề hoàn thành: <strong>${stats.completedCount}/${stats.totalTopics} (${stats.pct}%)</strong></span>
-          <span>🎯 Bài tập ETS đã giải đúng: <strong>${stats.bestCorrectSum}/${stats.totalQuestions} câu</strong></span>
+        <div class="slim-actions-right">
+          <button type="button" class="slim-link-btn" onclick="exportStudyBackup()" title="Xuất file JSON sao lưu tiến độ">⬇️ Sao lưu</button>
+          <button type="button" class="slim-link-btn" onclick="triggerImportStudyBackup()" title="Khôi phục tiến độ từ file JSON">⬆️ Khôi phục</button>
         </div>
       `;
     }
@@ -567,24 +610,17 @@
       const storage = getSafeStorage();
       const prog = storage && typeof storage.getStudyProgress === 'function'
         ? storage.getStudyProgress()
-        : { grammarCompleted: {}, grammarQuizBest: {} };
+        : { grammarCompleted: {} };
 
       wrap.innerHTML = topics.map(t => {
         const isActive = t.id === currentTopicId;
         const isDone = Boolean(prog.grammarCompleted && prog.grammarCompleted[t.id]);
-        const best = prog.grammarQuizBest && prog.grammarQuizBest[t.id];
-        const qCount = (t.practiceQuestions || []).length;
+        const shortTitle = t.title.split('(')[0].trim();
 
         return `
-          <button type="button" class="topic-select-card ${isActive ? 'active' : ''}" onclick="selectGrammarTopic('${t.id}')" aria-pressed="${isActive ? 'true' : 'false'}">
-            <div class="topic-card-header">
-              <span class="topic-card-title">${t.icon || '📐'} ${t.title}</span>
-              ${isDone ? '<span class="test-best-badge">✓ Đã nắm vững</span>' : ''}
-            </div>
-            <div class="topic-card-meta">
-              <span class="freq-pill">🔥 ${t.frequencyBadge || 'Trọng tâm Part 5 & 6'}</span>
-              <strong>${best ? `Bài tập: ${best.correct}/${qCount}` : `${qCount} câu ETS thực chiến`}</strong>
-            </div>
+          <button type="button" class="topic-pill-btn ${isActive ? 'active' : ''}" onclick="selectGrammarTopic('${t.id}')" aria-pressed="${isActive ? 'true' : 'false'}">
+            <span>${t.icon || ''} ${shortTitle}</span>
+            ${isDone ? '<span class="topic-done-dot">✓</span>' : ''}
           </button>
         `;
       }).join('');
@@ -595,14 +631,14 @@
       if (!container) return;
       const topic = getCurrentGrammarTopic();
       if (!topic) {
-        container.innerHTML = '<p>Đang tải chuyên đề ngữ pháp...</p>';
+        container.innerHTML = '';
         return;
       }
 
       const storage = getSafeStorage();
       const prog = storage && typeof storage.getStudyProgress === 'function'
         ? storage.getStudyProgress()
-        : { grammarCompleted: {}, grammarQuizBest: {} };
+        : { grammarCompleted: {} };
       const isCompleted = Boolean(prog.grammarCompleted && prog.grammarCompleted[topic.id]);
       const questions = topic.practiceQuestions || [];
 
@@ -616,94 +652,97 @@
         }
       });
 
-      container.innerHTML = `
-        <!-- Topic Header & Summary -->
-        <div class="grammar-section-card">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:10px;">
-            <div>
-              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;">
-                <span class="freq-pill">🔥 ${topic.frequencyBadge || ''}</span>
-                <span class="fc-pos-badge" style="padding:3px 10px;border-radius:999px;font-size:0.75rem;background:rgba(99,102,241,0.18);color:#a5b4fc;">Mục tiêu ${topic.band}+</span>
-              </div>
-              <h2 style="font-size:1.35rem;font-weight:800;margin:0;">${topic.icon || '📐'} ${topic.title}</h2>
-            </div>
-            <button type="button" class="btn ${isCompleted ? 'btn-success' : 'btn-secondary'} btn-sm" onclick="handleToggleGrammarCompleted('${topic.id}')">
-              ${isCompleted ? '✅ Đã hoàn thành chuyên đề' : '☑️ Đánh dấu Đã học xong'}
+      const headerHtml = `
+        <div class="topic-header-bar">
+          <div style="flex:1;min-width:220px;">
+            <h1 class="topic-main-title">${topic.icon || '📐'} ${topic.title}</h1>
+            <p class="topic-summary-text">${topic.summary}</p>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <span class="test-best-badge">${topic.frequencyBadge || ''}</span>
+            <button type="button" class="slim-link-btn" onclick="handleToggleGrammarCompleted('${topic.id}')" style="${isCompleted ? 'border-color:var(--success);color:var(--success);' : ''}">
+              ${isCompleted ? '✓ Đã hoàn thành' : 'Đánh dấu xong'}
             </button>
           </div>
-          <p style="font-size:0.93rem;color:var(--text-secondary);line-height:1.55;margin:0;">${topic.summary}</p>
         </div>
+      `;
 
-        <!-- 1. Formulas & Core Theory -->
-        <div class="grammar-section-card">
-          <h3 class="grammar-section-heading">📌 1. Công Thức Cốt Lõi &amp; Cấu Trúc Chuẩn</h3>
-          <div class="formula-cards-grid">
+      if (currentGrammarTab === 'theory') {
+        container.innerHTML = `
+          ${headerHtml}
+
+          <div class="theory-grid-2col">
             ${(topic.formulas || []).map(f => `
-              <div class="formula-box">
-                <div class="formula-name">${f.name}</div>
-                <div class="formula-code">${f.structure}</div>
-                <div class="formula-usage">${f.usage}</div>
-                <div class="formula-example">
-                  <div><strong>Ví dụ ETS:</strong> "${f.exampleEn}"</div>
-                  <div style="color:var(--text-secondary);margin-top:2px;">→ ${f.exampleVi}</div>
+              <div class="clean-theory-card">
+                <div class="card-sec-label">Công thức cốt lõi</div>
+                <div class="formula-title">${f.name}</div>
+                <div class="formula-block">${f.structure}</div>
+                <div class="formula-note">${f.usage}</div>
+                <div class="formula-ex">
+                  <strong style="color:var(--text-secondary);">"${f.exampleEn}"</strong><br>
+                  → ${f.exampleVi}
                 </div>
               </div>
             `).join('')}
           </div>
-        </div>
 
-        <!-- 2. 5-Second Fast Signals & ETS Traps -->
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:16px;margin-bottom:18px;">
-          <div class="grammar-section-card" style="margin-bottom:0;">
-            <h3 class="grammar-section-heading">⚡ 2. Dấu Hiệu Giải Nhanh 5 Giây</h3>
-            ${(topic.fastSignals || []).map(s => `
-              <div class="signal-row">
-                <div><strong>🔍 Khi thấy:</strong> ${s.signal}</div>
-                <div style="color:#34d399;font-weight:700;">➔ ${s.action}</div>
-              </div>
-            `).join('')}
-          </div>
-
-          <div class="grammar-section-card" style="margin-bottom:0;">
-            <h3 class="grammar-section-heading">⚠️ 3. Bẫy ETS Thường Gặp Nhất</h3>
-            ${(topic.etsTraps || []).map(t => `
-              <div class="trap-row">
-                <div style="color:#fbbf24;font-weight:700;margin-bottom:4px;">🪤 Bẫy: ${t.trap}</div>
-                <div><strong>💡 Cách hóa giải:</strong> ${t.fix}</div>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-
-        <!-- 4. Real ETS Practice Questions -->
-        <div class="grammar-section-card">
-          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px;">
-            <div>
-              <h3 class="grammar-section-heading" style="margin-bottom:2px;">🎯 4. Bài Tập Thực Chiến Trích Từ Đề ETS (${questions.length} câu)</h3>
-              <div style="font-size:0.84rem;color:var(--text-secondary);">
-                Đã làm: <strong>${answeredCount}/${questions.length}</strong> • Đúng: <strong style="color:var(--success);">${correctCount}/${questions.length}</strong> (Đạt ≥ 60% tự động hoàn thành chuyên đề)
-              </div>
+          <div class="theory-grid-2col">
+            <div class="clean-theory-card">
+              <div class="card-sec-label" style="color:var(--success);">⚡ Dấu hiệu giải nhanh 5 giây</div>
+              ${(topic.fastSignals || []).map(s => `
+                <div class="signal-item">
+                  <div><strong>Khi thấy:</strong> ${s.signal}</div>
+                  <div style="color:var(--success);font-weight:700;margin-top:2px;">➔ ${s.action}</div>
+                </div>
+              `).join('')}
             </div>
-            <button type="button" class="btn btn-secondary btn-sm" onclick="resetGrammarPractice()">🔄 Làm lại bài tập</button>
+
+            <div class="clean-theory-card">
+              <div class="card-sec-label" style="color:#fbbf24;">⚠️ Bẫy ETS cần tránh</div>
+              ${(topic.etsTraps || []).map(t => `
+                <div class="trap-item">
+                  <div style="font-weight:700;color:#fbbf24;">${t.trap}</div>
+                  <div style="margin-top:3px;color:var(--text-secondary);"><strong>Cách xử lý:</strong> ${t.fix}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <div style="text-align:center;margin-top:16px;">
+            <button type="button" class="btn btn-primary btn-sm" onclick="switchGrammarTab('practice')">
+              Luyện tập ${questions.length} câu hỏi ETS của chuyên đề này ➔
+            </button>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          ${headerHtml}
+
+          <div class="slim-status-strip" style="margin-bottom:10px;">
+            <span>Đã làm <strong>${answeredCount}/${questions.length}</strong> câu • Đúng <strong style="color:var(--success);">${correctCount}/${questions.length}</strong> (Đạt ≥ 60% tự động hoàn thành)</span>
+            <div style="display:flex;gap:6px;">
+              <button type="button" class="slim-link-btn" onclick="switchGrammarTab('theory')">📖 Xem lại công thức</button>
+              <button type="button" class="slim-link-btn" onclick="resetGrammarPractice()">🔄 Làm lại</button>
+            </div>
           </div>
 
           ${questions.map((q, idx) => {
             const userChoice = practiceAnswers[q.id] || null;
             const letters = ['A', 'B', 'C', 'D'];
             return `
-              <div class="study-quiz-card" id="gquiz-card-${q.id}">
-                <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;">
-                  <span class="freq-pill">Câu ${idx + 1} / ${questions.length}</span>
-                  <span style="font-size:0.76rem;color:var(--text-muted);font-weight:600;">📚 Nguồn: ${q.source}</span>
+              <div class="quiz-item-card">
+                <div style="display:flex;justify-content:space-between;font-size:0.74rem;color:var(--text-muted);">
+                  <strong>Câu ${idx + 1}/${questions.length}</strong>
+                  <span>${q.source}</span>
                 </div>
-                <p style="font-size:1.02rem;font-weight:700;line-height:1.55;margin-bottom:14px;">${q.questionText}</p>
-                <div>
+                <div class="quiz-q-text">${q.questionText}</div>
+                <div class="quiz-opts-grid">
                   ${letters.map(letter => {
                     const optText = q.options && q.options[letter] ? q.options[letter] : '';
-                    let cls = 'study-quiz-opt';
+                    let cls = 'quiz-opt-btn';
                     if (userChoice) {
-                      if (letter === q.correctAnswer) cls += ' correct-choice';
-                      else if (letter === userChoice && userChoice !== q.correctAnswer) cls += ' wrong-choice';
+                      if (letter === q.correctAnswer) cls += ' is-correct';
+                      else if (letter === userChoice) cls += ' is-wrong';
                     }
                     return `
                       <button type="button" class="${cls}" onclick="answerGrammarQuestion('${q.id}', '${letter}')">
@@ -714,26 +753,25 @@
                   }).join('')}
                 </div>
                 ${userChoice ? `
-                  <div class="explanation-box">
-                    <div style="font-weight:800;color:${userChoice === q.correctAnswer ? '#34d399' : '#f87171'};margin-bottom:4px;">
-                      ${userChoice === q.correctAnswer ? '✓ Chính xác!' : `✕ Chưa đúng! Đáp án đúng là (${q.correctAnswer}) ${q.options[q.correctAnswer] || ''}.`}
+                  <div class="quiz-explain-box">
+                    <div style="font-weight:700;color:${userChoice === q.correctAnswer ? 'var(--success)' : 'var(--danger)'};margin-bottom:3px;">
+                      ${userChoice === q.correctAnswer ? '✓ Chính xác!' : `✕ Đáp án đúng: (${q.correctAnswer}) ${q.options[q.correctAnswer] || ''}`}
                     </div>
-                    ${q.questionTranslation ? `<div style="margin-bottom:4px;"><strong>📖 Dịch câu:</strong> ${q.questionTranslation}</div>` : ''}
-                    ${q.explanation ? `<div style="margin-bottom:4px;"><strong>💡 Giải thích:</strong> ${q.explanation}</div>` : ''}
-                    ${q.analysis ? `<div style="color:var(--text-secondary);white-space:pre-line;margin-top:6px;padding-top:6px;border-top:1px dashed rgba(255,255,255,0.12);">${q.analysis}</div>` : ''}
+                    ${q.questionTranslation ? `<div><strong>Dịch:</strong> ${q.questionTranslation}</div>` : ''}
+                    ${q.explanation ? `<div style="color:var(--text-secondary);margin-top:2px;">${q.explanation}</div>` : ''}
                   </div>
                 ` : ''}
               </div>
             `;
           }).join('')}
-        </div>
-      `;
+        `;
+      }
     }
 
     function renderAllGrammar() {
       renderGrammarBandSelector();
-      renderGrammarBandOverview();
       renderGrammarTopicTabs();
+      renderGrammarBandOverview();
       renderGrammarWorkspace();
     }
 
@@ -775,8 +813,7 @@
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        const dateTag = new Date().toISOString().slice(0, 10);
-        a.download = `toeic_study_backup_${dateTag}.json`;
+        a.download = `toeic_study_backup_${new Date().toISOString().slice(0, 10)}.json`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -800,7 +837,7 @@
         if (storage && typeof storage.importStudyProgressJSON === 'function') {
           const res = storage.importStudyProgressJSON(content);
           if (res && res.ok) {
-            if (typeof alert === 'function') alert('✅ Đã khôi phục tiến độ học Từ vựng & Ngữ pháp thành công!');
+            if (typeof alert === 'function') alert('✅ Khôi phục tiến độ thành công!');
             loadSavedAnswersForTopic(currentTopicId);
             renderAllGrammar();
           } else if (typeof alert === 'function') {
@@ -814,9 +851,7 @@
     if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') {
       document.addEventListener('DOMContentLoaded', () => {
         const storage = getSafeStorage();
-        if (storage && typeof storage.initTheme === 'function') {
-          storage.initTheme();
-        }
+        if (storage && typeof storage.initTheme === 'function') storage.initTheme();
         let initialBand = '450';
         if (storage && typeof storage.getStudyProgress === 'function') {
           initialBand = storage.getStudyProgress().lastBand || '450';
@@ -824,6 +859,7 @@
         try {
           const params = new URLSearchParams(window.location.search);
           if (params.get('band')) initialBand = params.get('band');
+          if (params.get('tab')) switchGrammarTab(params.get('tab'));
         } catch (_) {}
         selectGrammarBand(initialBand);
       });
@@ -832,6 +868,7 @@
     if (typeof window !== 'undefined') {
       window.selectGrammarBand = selectGrammarBand;
       window.selectGrammarTopic = selectGrammarTopic;
+      window.switchGrammarTab = switchGrammarTab;
       window.answerGrammarQuestion = answerGrammarQuestion;
       window.resetGrammarPractice = resetGrammarPractice;
       window.handleToggleGrammarCompleted = handleToggleGrammarCompleted;
@@ -845,6 +882,7 @@
       module.exports = {
         selectGrammarBand,
         selectGrammarTopic,
+        switchGrammarTab,
         answerGrammarQuestion,
         resetGrammarPractice,
         handleToggleGrammarCompleted,
