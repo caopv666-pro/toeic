@@ -520,7 +520,15 @@ const ExamEngine = {
         if (typeof btn.setAttribute === 'function') {
           btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
         }
+        if (isActive && typeof btn.scrollIntoView === 'function') {
+          try {
+            btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          } catch (_) {}
+        }
       });
+    }
+    if (typeof UIRenderer !== 'undefined' && UIRenderer && typeof UIRenderer.switchPalettePart === 'function') {
+      UIRenderer.switchPalettePart(targetPart, false);
     }
     if (['part6', 'part7'].includes(targetPart)) {
       this.activateReadingGroup(targetPart, 0, false);
@@ -537,11 +545,14 @@ const ExamEngine = {
     if (isNaN(num) || num <= 0) return false;
     this.currentQNum = num;
     if (typeof document === 'undefined') return true;
+    const targetPart = this.getPartKeyByQuestionNum(num);
     if (this.mode === 'full') {
-      const targetPart = this.getPartKeyByQuestionNum(num);
       if (this.activeExamPart !== targetPart) {
         this.switchExamPart(targetPart, false);
       }
+    }
+    if (typeof UIRenderer !== 'undefined' && UIRenderer && typeof UIRenderer.switchPalettePart === 'function') {
+      UIRenderer.switchPalettePart(targetPart, false);
     }
     const el = document.getElementById(`q_item_${num}`);
     if (el) {
@@ -551,6 +562,15 @@ const ExamEngine = {
         const gIdx = parseInt(groupBox.getAttribute('data-group-index'), 10);
         if (!isNaN(gIdx) && pKey) {
           this.activateReadingGroup(pKey, gIdx, false);
+        }
+        const listEl = el.closest ? el.closest('.group-subquestions-list, .group-questions-list') : null;
+        if (listEl) {
+          const left = (el.offsetLeft || 0) - (listEl.offsetLeft || 0);
+          if (typeof listEl.scrollTo === 'function') {
+            listEl.scrollTo({ left, behavior: 'smooth' });
+          } else {
+            listEl.scrollLeft = left;
+          }
         }
         const sheet = el.closest ? el.closest('.reading-questions-sheet') : null;
         if (sheet && typeof window !== 'undefined' && window.innerWidth <= 768) {
@@ -624,6 +644,17 @@ const ExamEngine = {
       const rangeLabel = document.getElementById(`group-nav-range-${partKey}`);
       if (rangeLabel && rangeParts.length === 2) {
         rangeLabel.textContent = `Câu ${rangeParts[0]} – ${rangeParts[1]}`;
+      }
+    }
+    if (activeCard) {
+      const subqList = typeof activeCard.querySelector === 'function'
+        ? activeCard.querySelector('.group-subquestions-list, .group-questions-list')
+        : null;
+      if (subqList) subqList.scrollLeft = 0;
+      if (typeof activeCard.querySelectorAll === 'function') {
+        activeCard.querySelectorAll('.question-item').forEach(qCard => {
+          qCard.scrollTop = 0;
+        });
       }
     }
     if (scroll && activeCard) {
@@ -771,6 +802,28 @@ const ExamEngine = {
           btn.title = `Câu ${qNum} ${isAnswered ? `(Đã chọn ${userAns})` : '(Chưa làm)'}${isFlagged ? ' [Đã đánh dấu]' : ''}`;
           btn.setAttribute('aria-label', `Câu ${qNum}: ${statusText}${flagText}${currentText}`);
         });
+        const PART_RANGES = [
+          { key: 'part1', min: 1, max: 6 },
+          { key: 'part2', min: 7, max: 31 },
+          { key: 'part3', min: 32, max: 70 },
+          { key: 'part4', min: 71, max: 100 },
+          { key: 'part5', min: 101, max: 130 },
+          { key: 'part6', min: 131, max: 146 },
+          { key: 'part7', min: 147, max: 999 }
+        ];
+        if (typeof container.querySelectorAll === 'function') {
+          PART_RANGES.forEach(pr => {
+            const pQs = qList.filter(q => q >= pr.min && q <= pr.max);
+            if (pQs.length === 0) return;
+            const pAns = pQs.filter(q => Boolean(this.userAnswers[q])).length;
+            container.querySelectorAll(`[data-palette-tab-count="${pr.key}"]`).forEach(el => {
+              el.textContent = `${pAns}/${pQs.length}`;
+            });
+            container.querySelectorAll(`[data-palette-part-meta="${pr.key}"]`).forEach(el => {
+              el.textContent = `Câu ${pQs[0]}–${pQs[pQs.length - 1]} (${pAns}/${pQs.length})`;
+            });
+          });
+        }
       } else {
         const prevScrollTop = grid ? grid.scrollTop : 0;
         const renderer = (typeof UIRenderer !== 'undefined')

@@ -7,12 +7,13 @@
   <meta name="description" content="Nền tảng thi thử TOEIC trực tuyến chuẩn format ETS 2022, audio cắt từng câu, chấm điểm 990 tự động và lời giải chi tiết.">
   
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="css/base.css?v=20261024v2">
-  <link rel="stylesheet" href="css/layout.css?v=20261024v2">
-  <link rel="stylesheet" href="css/components.css?v=20261024v2">
-  <link rel="stylesheet" href="css/responsive.css?v=20261024v2">
+  <link rel="stylesheet" href="css/base.css?v=20261024v3">
+  <link rel="stylesheet" href="css/layout.css?v=20261024v3">
+  <link rel="stylesheet" href="css/components.css?v=20261024v3">
+  <link rel="stylesheet" href="css/responsive.css?v=20261024v3">
   <style>
-    .part-filter-btn {
+    .part-filter-btn,
+    .book-filter-btn {
       padding: 6px 12px;
       font-size: 0.82rem;
       font-weight: 600;
@@ -24,11 +25,13 @@
       transition: all var(--transition-fast);
       white-space: nowrap;
     }
-    .part-filter-btn:hover {
+    .part-filter-btn:hover,
+    .book-filter-btn:hover {
       background: var(--bg-glass-hover);
       color: var(--text-primary);
     }
-    .part-filter-btn.active {
+    .part-filter-btn.active,
+    .book-filter-btn.active {
       background: var(--accent-primary);
       color: #ffffff;
       border-color: var(--accent-primary);
@@ -46,7 +49,7 @@
       margin-left: auto;
       margin-right: auto;
     }
-    .book-chip-row .part-filter-btn {
+    .book-chip-row .book-filter-btn {
       flex: 1 1 0;
       padding: 7px 6px;
       font-size: 0.82rem;
@@ -135,16 +138,19 @@
         font-size: 0.75rem;
       }
     }
-    [data-theme="light"] .part-filter-btn {
+    [data-theme="light"] .part-filter-btn,
+    [data-theme="light"] .book-filter-btn {
       background: #ffffff;
       border-color: #cbd5e1;
       color: #475569;
     }
-    [data-theme="light"] .part-filter-btn:hover {
+    [data-theme="light"] .part-filter-btn:hover,
+    [data-theme="light"] .book-filter-btn:hover {
       background: #f1f5f9;
       color: #0f172a;
     }
-    [data-theme="light"] .part-filter-btn.active {
+    [data-theme="light"] .part-filter-btn.active,
+    [data-theme="light"] .book-filter-btn.active {
       background: var(--accent-primary);
       color: #ffffff;
       border-color: var(--accent-primary);
@@ -157,7 +163,6 @@
   <nav class="app-navbar">
     <div class="nav-brand">
       <span>🎯 TOEIC Master</span>
-      <span class="brand-badge" id="nav-book-badge">ETS 2022</span>
     </div>
     <div class="nav-links">
       <div class="header-ctrl-dropdown" id="header-zoom-ctrl">
@@ -182,7 +187,6 @@
           </div>
         </div>
       </div>
-      <a href="index.html" class="nav-link-btn active">Trang chủ</a>
       <a href="history.html" class="nav-link-btn">Lịch sử thi</a>
       <button class="theme-toggle-btn" id="theme-btn" type="button" onclick="toggleTheme()" aria-label="Đổi giao diện Sáng / Tối" title="Đổi giao diện Sáng / Tối">
         🌓
@@ -212,10 +216,10 @@
 
       <!-- Book Selector Pills (1 Single Compact Row: ETS 2022 / ETS 2023 / ETS 2024 / ETS 2026) -->
       <div id="book-selector-wrap" class="book-chip-row" role="group" aria-label="Chọn bộ đề thi">
-        <button class="part-filter-btn active" id="book-btn-2022" data-book="EST 2022" type="button" onclick="selectBook('EST 2022')" aria-pressed="true">ETS 2022</button>
-        <button class="part-filter-btn" id="book-btn-2023" data-book="EST 2023" type="button" onclick="selectBook('EST 2023')" aria-pressed="false">ETS 2023</button>
-        <button class="part-filter-btn" id="book-btn-2024" data-book="EST 2024" type="button" onclick="selectBook('EST 2024')" aria-pressed="false">ETS 2024</button>
-        <button class="part-filter-btn" id="book-btn-2026" data-book="EST 2026" type="button" onclick="selectBook('EST 2026')" aria-pressed="false">ETS 2026</button>
+        <button class="book-filter-btn active" id="book-btn-2022" data-book="EST 2022" type="button" onclick="selectBook('EST 2022')" aria-pressed="true">ETS 2022</button>
+        <button class="book-filter-btn" id="book-btn-2023" data-book="EST 2023" type="button" onclick="selectBook('EST 2023')" aria-pressed="false">ETS 2023</button>
+        <button class="book-filter-btn" id="book-btn-2024" data-book="EST 2024" type="button" onclick="selectBook('EST 2024')" aria-pressed="false">ETS 2024</button>
+        <button class="book-filter-btn" id="book-btn-2026" data-book="EST 2026" type="button" onclick="selectBook('EST 2026')" aria-pressed="false">ETS 2026</button>
       </div>
 
       <!-- Mode Selector Tabs -->
@@ -242,10 +246,6 @@
 
     <!-- Tests 1 - 10 Grid (2 Tests per row) -->
     <section>
-      <div style="display: none;">
-        <h2 id="book-section-heading">ETS 2022</h2>
-      </div>
-
       <div class="tests-grid tests-grid-2col" id="tests-card-grid">
         <!-- Rendered dynamically by script -->
       </div>
@@ -254,8 +254,8 @@
   </main>
 
   <!-- Scripts -->
-  <script src="js/app-config.js?v=20261024v2"></script>
-  <script src="js/storage-service.js?v=20261024v2"></script>
+  <script src="js/app-config.js?v=20261024v3"></script>
+  <script src="js/storage-service.js?v=20261024v3"></script>
   <script>
     let currentMode = 'full';
     let selectedPart = 'part1';

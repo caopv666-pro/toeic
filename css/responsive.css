@@ -460,7 +460,8 @@
     font-size: 0.85rem;
   }
 
-  .palette-grid {
+  .palette-grid,
+  .palette-part-items {
     grid-template-columns: repeat(6, 1fr);
     gap: 6px;
   }
@@ -586,7 +587,8 @@
     font-size: 0.85rem;
   }
 
-  .palette-grid {
+  .palette-grid,
+  .palette-part-items {
     grid-template-columns: repeat(5, 1fr);
     gap: 6px;
   }
@@ -954,7 +956,8 @@
     justify-content: center;
   }
 
-  .palette-grid {
+  .palette-grid,
+  .palette-part-items {
     grid-template-columns: repeat(4, 1fr);
     gap: 5px;
   }

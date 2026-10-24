@@ -2285,7 +2285,7 @@ const ResultViewer = {
     });
   },
   bindGlobalClickOutside() {
-    if (this._clickOutsideBound || typeof document === 'undefined') return;
+    if (this._clickOutsideBound || typeof document === 'undefined' || typeof document.addEventListener !== 'function') return;
     this._clickOutsideBound = true;
     document.addEventListener('click', (e) => {
       const openCards = document.querySelectorAll('.sentence-lookup-card:not([style*="display: none"])');
@@ -3008,7 +3008,6 @@ const ResultViewer = {
               </div>
               <button type="button" class="sentence-close-btn" onclick="event.stopPropagation(); ResultViewer.closeDialogueTurnPopup('${gid}', ${sIdx})" aria-label="Đóng bảng phân tích">&times;</button>
             </div>
-            <div class="sentence-text-en">${esc(cleanText)}</div>
             <div class="sentence-text-vi">🌐 ${esc(cleanTrans || 'Chưa có bản dịch cho câu này')}</div>
             <div class="sentence-text-note" style="display: block;">${analysisHtml}</div>
           </div>

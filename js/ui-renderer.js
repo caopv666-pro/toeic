@@ -275,75 +275,77 @@ const UIRenderer = {
            data-group-index="${groupIndex}"
            data-part="${partKey}"
            data-range="${range[0]}-${range[1]}">
-        <!-- Mobile Top Group Navigation Bar -->
-        <div class="mobile-group-header-bar">
-          <button type="button" class="btn-group-nav btn-group-prev" onclick="ExamEngine.navReadingGroup('${partKey}', -1)" ${groupIndex === 0 ? 'disabled' : ''} aria-label="Nhóm trước">
-            ‹ Trước
-          </button>
-          <div class="group-nav-info">
-            <span class="group-nav-range-title">Câu ${range[0]} – ${range[1]}</span>
+        <div class="reading-group-pinned-top">
+          <!-- Mobile Top Group Navigation Bar -->
+          <div class="mobile-group-header-bar">
+            <button type="button" class="btn-group-nav btn-group-prev" onclick="ExamEngine.navReadingGroup('${partKey}', -1)" ${groupIndex === 0 ? 'disabled' : ''} aria-label="Nhóm trước">
+              ‹ Trước
+            </button>
+            <div class="group-nav-info">
+              <span class="group-nav-range-title">Câu ${range[0]} – ${range[1]}</span>
+            </div>
+            <button type="button" class="btn-group-nav btn-group-next" onclick="ExamEngine.navReadingGroup('${partKey}', 1)" ${groupIndex === totalGroups - 1 ? 'disabled' : ''} aria-label="Nhóm tiếp theo">
+              Tiếp ›
+            </button>
           </div>
-          <button type="button" class="btn-group-nav btn-group-next" onclick="ExamEngine.navReadingGroup('${partKey}', 1)" ${groupIndex === totalGroups - 1 ? 'disabled' : ''} aria-label="Nhóm tiếp theo">
-            Tiếp ›
-          </button>
-        </div>
-        <div class="passage-header pc-only-header">
-          📖 ${partKey === 'part6' ? 'Part 6: Text Completion' : 'Part 7: Reading Comprehension'} (Câu ${range[0]} - ${range[1]})
-        </div>
-        ${passages.length > 0 ? `
-          <div class="reading-stage-images passages-images-wrap">
-            ${passages.map((p, pIdx) => {
-              const pUrl = typeof p === 'string' ? p : (p && p.imageUrl ? p.imageUrl : '');
-              const fullUrl = resolver(pUrl);
-              const safeFullUrl = escaper(fullUrl);
-              if (!fullUrl) return '';
-              const sentences = (p && typeof p === 'object' && Array.isArray(p.sentences)) ? p.sentences : [];
-              if (sentences.length > 0) {
-                if (!UIRenderer._passageSentencesMap) UIRenderer._passageSentencesMap = {};
-                UIRenderer._passageSentencesMap[`${gid}_${pIdx}`] = sentences;
-              }
-              return `
-                <div class="passage-block-item" id="p_block_${gid}_${pIdx}" style="margin-bottom: 16px;">
-                  <div class="q-image-container zoomable-image-wrap"
-                       role="button"
-                       tabindex="0"
-                       data-img-url="${safeFullUrl}"
-                       onclick="UIRenderer.openLightbox(this.getAttribute('data-img-url'))"
-                       onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();UIRenderer.openLightbox(this.getAttribute('data-img-url'));}"
-                       title="Nhấn để phóng to ảnh"
-                       aria-label="Phóng to hình ảnh bài đọc (Câu ${range[0]} - ${range[1]})"
-                       style="background:#ffffff; border-radius: 6px;">
-                    ${passages.length > 1 ? `<span class="passage-slide-indicator" style="right: 6px;" aria-label="Ảnh ${pIdx + 1} trên ${passages.length}">${pIdx + 1}/${passages.length} ↔</span>` : ''}
-                    <img src="${safeFullUrl}" alt="Passage" loading="lazy" onerror="if(this.parentElement)this.parentElement.style.display='none';">
-                  </div>
-                  ${sentences.length > 0 ? `
-                    <div class="passage-inline-sentence-dock" id="sentence_dock_${gid}_${pIdx}" role="toolbar" aria-label="Danh sách câu bài đọc">
-                      ${sentences.map((s, sIdx) => `
-                        <button type="button" class="lightbox-sentence-btn inline-sentence-btn"
-                                id="btn_${gid}_${pIdx}_${sIdx}"
-                                data-sidx="${sIdx}"
-                                aria-pressed="false"
-                                aria-label="Xem dịch câu ${sIdx + 1}"
-                                onclick="event.stopPropagation(); UIRenderer.toggleSentenceDetail('${gid}', ${pIdx}, ${sIdx})">
-                          Câu ${sIdx + 1}
-                        </button>
-                      `).join('')}
+          <div class="passage-header pc-only-header">
+            📖 ${partKey === 'part6' ? 'Part 6: Text Completion' : 'Part 7: Reading Comprehension'} (Câu ${range[0]} - ${range[1]})
+          </div>
+          ${passages.length > 0 ? `
+            <div class="reading-stage-images passages-images-wrap">
+              ${passages.map((p, pIdx) => {
+                const pUrl = typeof p === 'string' ? p : (p && p.imageUrl ? p.imageUrl : '');
+                const fullUrl = resolver(pUrl);
+                const safeFullUrl = escaper(fullUrl);
+                if (!fullUrl) return '';
+                const sentences = (p && typeof p === 'object' && Array.isArray(p.sentences)) ? p.sentences : [];
+                if (sentences.length > 0) {
+                  if (!UIRenderer._passageSentencesMap) UIRenderer._passageSentencesMap = {};
+                  UIRenderer._passageSentencesMap[`${gid}_${pIdx}`] = sentences;
+                }
+                return `
+                  <div class="passage-block-item" id="p_block_${gid}_${pIdx}" style="margin-bottom: 16px;">
+                    <div class="q-image-container zoomable-image-wrap"
+                         role="button"
+                         tabindex="0"
+                         data-img-url="${safeFullUrl}"
+                         onclick="UIRenderer.openLightbox(this.getAttribute('data-img-url'))"
+                         onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();UIRenderer.openLightbox(this.getAttribute('data-img-url'));}"
+                         title="Nhấn để phóng to ảnh"
+                         aria-label="Phóng to hình ảnh bài đọc (Câu ${range[0]} - ${range[1]})"
+                         style="background:#ffffff; border-radius: 6px;">
+                      ${passages.length > 1 ? `<span class="passage-slide-indicator" style="right: 6px;" aria-label="Ảnh ${pIdx + 1} trên ${passages.length}">${pIdx + 1}/${passages.length} ↔</span>` : ''}
+                      <img src="${safeFullUrl}" alt="Passage" loading="lazy" onerror="if(this.parentElement)this.parentElement.style.display='none';">
                     </div>
-                    <div class="sentence-lookup-card sentence-inline-popover animate-fade-in" id="sentence_card_${gid}_${pIdx}" style="display: none;" onclick="event.stopPropagation()">
-                      <div class="sentence-lookup-header">
-                        <span class="sentence-badge" id="sentence_badge_${gid}_${pIdx}">Câu 1</span>
-                        <button type="button" class="sentence-close-btn" onclick="UIRenderer.closeSentenceDetail('${gid}', ${pIdx})" aria-label="Đóng">&times;</button>
+                    ${sentences.length > 0 ? `
+                      <div class="passage-inline-sentence-dock" id="sentence_dock_${gid}_${pIdx}" role="toolbar" aria-label="Danh sách câu bài đọc">
+                        ${sentences.map((s, sIdx) => `
+                          <button type="button" class="lightbox-sentence-btn inline-sentence-btn"
+                                  id="btn_${gid}_${pIdx}_${sIdx}"
+                                  data-sidx="${sIdx}"
+                                  aria-pressed="false"
+                                  aria-label="Xem dịch câu ${sIdx + 1}"
+                                  onclick="event.stopPropagation(); UIRenderer.toggleSentenceDetail('${gid}', ${pIdx}, ${sIdx})">
+                            Câu ${sIdx + 1}
+                          </button>
+                        `).join('')}
                       </div>
-                      <div class="sentence-text-en" id="sentence_en_${gid}_${pIdx}"></div>
-                      <div class="sentence-text-vi" id="sentence_vi_${gid}_${pIdx}"></div>
-                      <div class="sentence-text-note" id="sentence_note_${gid}_${pIdx}"></div>
-                    </div>
-                  ` : ''}
-                </div>
-              `;
-            }).join('')}
-          </div>
-        ` : '<div class="reading-stage-images"></div>'}
+                      <div class="sentence-lookup-card sentence-inline-popover animate-fade-in" id="sentence_card_${gid}_${pIdx}" style="display: none;" onclick="event.stopPropagation()">
+                        <div class="sentence-lookup-header">
+                          <span class="sentence-badge" id="sentence_badge_${gid}_${pIdx}">Câu 1</span>
+                          <button type="button" class="sentence-close-btn" onclick="UIRenderer.closeSentenceDetail('${gid}', ${pIdx})" aria-label="Đóng">&times;</button>
+                        </div>
+                        <div class="sentence-text-en" id="sentence_en_${gid}_${pIdx}"></div>
+                        <div class="sentence-text-vi" id="sentence_vi_${gid}_${pIdx}"></div>
+                        <div class="sentence-text-note" id="sentence_note_${gid}_${pIdx}"></div>
+                      </div>
+                    ` : ''}
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          ` : '<div class="reading-stage-images"></div>'}
+        </div>
         <div class="reading-questions-sheet" id="sheet_${gid}">
           <div class="reading-sheet-handle" onclick="ExamEngine.toggleReadingSheet('${gid}')" title="Vuốt lên/xuống hoặc nhấn để ẩn/hiện câu hỏi">
             <div class="reading-sheet-pill"></div>
@@ -353,7 +355,7 @@ const UIRenderer = {
             </div>
           </div>
           <div class="reading-sheet-body">
-            <div class="group-questions-list" style="display: flex; flex-direction: column; gap: 8px;">
+            <div class="group-questions-list group-subquestions-list" id="subq_list_${gid}">
               ${questions.map(q => {
                 if (!q || typeof q !== 'object' || Array.isArray(q)) return '';
                 const qNum = parseInt(q.questionNumber, 10);
@@ -388,16 +390,16 @@ const UIRenderer = {
                   </div>
                 `;
               }).join('')}
-              ${groupIndex < totalGroups - 1 ? `
-                <button type="button" class="btn-next-group-bottom" onclick="ExamEngine.navReadingGroup('${partKey}', 1)">
-                  Sang nhóm tiếp theo ➔
-                </button>
-              ` : (partKey === 'part6' ? `
-                <button type="button" class="btn-next-group-bottom" onclick="ExamEngine.switchExamPart('part7', true)">
-                  Chuyển sang Part 7 ➔
-                </button>
-              ` : '')}
             </div>
+            ${groupIndex < totalGroups - 1 ? `
+              <button type="button" class="btn-next-group-bottom" onclick="ExamEngine.navReadingGroup('${partKey}', 1)">
+                Sang nhóm tiếp theo ➔
+              </button>
+            ` : (partKey === 'part6' ? `
+              <button type="button" class="btn-next-group-bottom" onclick="ExamEngine.switchExamPart('part7', true)">
+                Chuyển sang Part 7 ➔
+              </button>
+            ` : '')}
           </div>
         </div>
       </div>
@@ -428,6 +430,33 @@ const UIRenderer = {
         </div>
       </div>
     `;
+  },
+  switchPalettePart(partKey, syncExamPart = true) {
+    if (!partKey || typeof partKey !== 'string') return;
+    const cleanKey = partKey.trim().toLowerCase();
+    this._activePalettePart = cleanKey;
+    if (typeof document !== 'undefined' && typeof document.querySelectorAll === 'function') {
+      document.querySelectorAll('.palette-part-tab').forEach(tab => {
+        const tPart = (tab.dataset && tab.dataset.palettePart) || (tab.getAttribute && tab.getAttribute('data-palette-part'));
+        const isActive = (tPart === cleanKey);
+        if (tab.classList && typeof tab.classList.toggle === 'function') {
+          tab.classList.toggle('active', isActive);
+        }
+        if (typeof tab.setAttribute === 'function') {
+          tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        }
+      });
+      document.querySelectorAll('.palette-part-section').forEach(sec => {
+        const sPart = (sec.dataset && sec.dataset.paletteSection) || (sec.getAttribute && sec.getAttribute('data-palette-section'));
+        const isActive = (sPart === cleanKey);
+        if (sec.classList && typeof sec.classList.toggle === 'function') {
+          sec.classList.toggle('active', isActive);
+        }
+      });
+    }
+    if (syncExamPart && typeof ExamEngine !== 'undefined' && ExamEngine && ExamEngine.mode === 'full' && ExamEngine.activeExamPart !== cleanKey && typeof ExamEngine.switchExamPart === 'function') {
+      ExamEngine.switchExamPart(cleanKey, false);
+    }
   },
   renderPalette(questionListOrCount, userAnswers, flaggedSet, currentQNum = null) {
     let questionNumbers = [];
@@ -488,8 +517,19 @@ const UIRenderer = {
     const flaggedCount = questionNumbers.filter(qNum => hasFlag(qNum)).length;
     const remainingCount = Math.max(0, totalQuestions - answeredCount);
     const curr = (currentQNum !== null && currentQNum !== undefined) ? parseInt(currentQNum, 10) : null;
-    let gridHtml = '';
-    for (const qNum of questionNumbers) {
+    const PART_DEFS = [
+      { key: 'part1', short: 'P1', badge: 'Part 1', name: 'Photographs', min: 1, max: 6 },
+      { key: 'part2', short: 'P2', badge: 'Part 2', name: 'Question-Response', min: 7, max: 31 },
+      { key: 'part3', short: 'P3', badge: 'Part 3', name: 'Conversations', min: 32, max: 70 },
+      { key: 'part4', short: 'P4', badge: 'Part 4', name: 'Short Talks', min: 71, max: 100 },
+      { key: 'part5', short: 'P5', badge: 'Part 5', name: 'Incomplete Sentences', min: 101, max: 130 },
+      { key: 'part6', short: 'P6', badge: 'Part 6', name: 'Text Completion', min: 131, max: 146 },
+      { key: 'part7', short: 'P7', badge: 'Part 7', name: 'Reading Comprehension', min: 147, max: 999 }
+    ];
+    const getPartMetaForQ = (qNum) => {
+      return PART_DEFS.find(p => qNum >= p.min && qNum <= p.max) || PART_DEFS[PART_DEFS.length - 1];
+    };
+    const renderBtn = (qNum) => {
       const userAns = getAnswer(qNum);
       const isAnswered = Boolean(userAns);
       const isFlagged = hasFlag(qNum);
@@ -500,7 +540,7 @@ const UIRenderer = {
       const titleText = escaper(`Câu ${qNum} ${isAnswered ? `(Đã chọn ${userAns})` : '(Chưa làm)'}${isFlagged ? ' [Đã đánh dấu]' : ''}`);
       const ariaLabel = escaper(`Câu ${qNum}: ${statusText}${flagText}${currentText}`);
       const btnClasses = ['palette-btn', isAnswered && 'answered', isFlagged && 'flagged', isCurrent && 'current'].filter(Boolean).join(' ');
-      gridHtml += `
+      return `
         <button type="button"
                 class="${btnClasses}"
                 id="palette_btn_${qNum}"
@@ -511,6 +551,62 @@ const UIRenderer = {
           ${qNum}
         </button>
       `;
+    };
+    const partGroups = PART_DEFS.map(def => {
+      const qs = questionNumbers.filter(q => q >= def.min && q <= def.max);
+      return { ...def, questions: qs };
+    }).filter(g => g.questions.length > 0);
+    let activePartKey = partGroups.length > 0 ? partGroups[0].key : 'part1';
+    if (Number.isInteger(curr) && curr > 0) {
+      const currPart = getPartMetaForQ(curr).key;
+      if (partGroups.some(g => g.key === currPart)) activePartKey = currPart;
+    } else if (typeof ExamEngine !== 'undefined' && ExamEngine && ExamEngine.activeExamPart && partGroups.some(g => g.key === ExamEngine.activeExamPart)) {
+      activePartKey = ExamEngine.activeExamPart;
+    } else if (this._activePalettePart && partGroups.some(g => g.key === this._activePalettePart)) {
+      activePartKey = this._activePalettePart;
+    }
+    this._activePalettePart = activePartKey;
+    let partTabsHtml = '';
+    let gridHtml = '';
+    if (partGroups.length > 1) {
+      partTabsHtml = `
+        <div class="palette-part-tabs" role="tablist" aria-label="Chọn nhóm câu hỏi từ Part 1 đến Part 7">
+          ${partGroups.map(pg => {
+            const isTabActive = pg.key === activePartKey;
+            const pAns = pg.questions.filter(q => Boolean(getAnswer(q))).length;
+            return `
+              <button type="button"
+                      role="tab"
+                      class="palette-part-tab${isTabActive ? ' active' : ''}"
+                      data-palette-part="${pg.key}"
+                      aria-selected="${isTabActive ? 'true' : 'false'}"
+                      onclick="UIRenderer.switchPalettePart('${pg.key}')"
+                      title="${pg.badge}: ${pg.name} (Câu ${pg.questions[0]}–${pg.questions[pg.questions.length - 1]})">
+                <span class="palette-tab-label">${pg.badge}</span>
+                <span class="palette-tab-count" data-palette-tab-count="${pg.key}">${pAns}/${pg.questions.length}</span>
+              </button>
+            `;
+          }).join('')}
+        </div>
+      `;
+      gridHtml = partGroups.map(pg => {
+        const isSecActive = pg.key === activePartKey;
+        const pAns = pg.questions.filter(q => Boolean(getAnswer(q))).length;
+        const rangeStr = `${pg.questions[0]}–${pg.questions[pg.questions.length - 1]}`;
+        return `
+          <div class="palette-part-section${isSecActive ? ' active' : ''}" data-palette-section="${pg.key}">
+            <div class="palette-part-header">
+              <span class="palette-part-badge">${pg.badge} • ${pg.name}</span>
+              <span class="palette-part-meta" data-palette-part-meta="${pg.key}">Câu ${rangeStr} (${pAns}/${pg.questions.length})</span>
+            </div>
+            <div class="palette-part-items">
+              ${pg.questions.map(qNum => renderBtn(qNum)).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+    } else {
+      gridHtml = questionNumbers.map(qNum => renderBtn(qNum)).join('');
     }
     return `
       <div class="palette-container" role="navigation" aria-label="Bảng điều hướng câu hỏi thi">
@@ -528,7 +624,8 @@ const UIRenderer = {
             <p style="color: var(--text-muted); font-size: 0.75rem;">Đánh dấu</p>
           </div>
         </div>
-        <div class="palette-grid" role="group" aria-label="Danh sách câu hỏi">
+        ${partTabsHtml}
+        <div class="palette-grid${partGroups.length > 1 ? ' is-grouped-palette' : ''}" role="group" aria-label="Danh sách câu hỏi">
           ${gridHtml}
         </div>
       </div>
