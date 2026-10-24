@@ -27,6 +27,8 @@
   font-size: 1.35rem;
   font-weight: 800;
   color: var(--text-primary);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .brand-badge {
