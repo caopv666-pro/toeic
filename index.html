@@ -201,14 +201,41 @@
           </div>
         </div>
       </div>
-      <a href="history.html" class="nav-link-btn">Lịch sử thi</a>
       <button class="fullscreen-toggle-btn" id="fullscreen-btn" type="button" onclick="StorageService.toggleFullscreen()" aria-label="Bật chế độ toàn màn hình" aria-pressed="false" title="Bật / Tắt chế độ toàn màn hình">
         <svg class="fs-icon-enter" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
         <svg class="fs-icon-exit" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/></svg>
       </button>
-      <button class="theme-toggle-btn" id="theme-btn" type="button" onclick="toggleTheme()" aria-label="Đổi giao diện Sáng / Tối" title="Đổi giao diện Sáng / Tối">
-        🌓
-      </button>
+      <div class="header-ctrl-dropdown" id="header-main-menu-ctrl">
+        <button type="button" class="nav-menu-trigger-btn" id="main-menu-btn" onclick="StorageService.toggleHeaderPopover('main-menu-popover', event)" aria-label="Mở menu điều hướng và cài đặt" title="Menu chức năng">
+          <span aria-hidden="true">☰</span>
+        </button>
+        <div class="header-ctrl-popover main-menu-popover" id="main-menu-popover" style="display: none;" onclick="event.stopPropagation()">
+          <div class="popover-ctrl-title">🧭 Menu Học Tập &amp; Cài Đặt</div>
+          <div class="main-menu-list">
+            <a href="index.html" class="main-menu-item active">
+              <span class="main-menu-item-left"><span>📝</span><span>Luyện đề ETS</span></span>
+            </a>
+            <a href="vocab.html" class="main-menu-item">
+              <span class="main-menu-item-left"><span>📚</span><span>Học Từ Vựng</span></span>
+              <span class="main-menu-badge">450+ ➔ 850+</span>
+            </a>
+            <a href="grammar.html" class="main-menu-item">
+              <span class="main-menu-item-left"><span>📐</span><span>Học Ngữ Pháp</span></span>
+              <span class="main-menu-badge">450+ ➔ 850+</span>
+            </a>
+            <a href="history.html" class="main-menu-item nav-link-btn">
+              <span class="main-menu-item-left"><span>📊</span><span>Lịch sử thi</span></span>
+            </a>
+            <div class="main-menu-divider"></div>
+            <div class="main-menu-theme-row">
+              <span class="main-menu-theme-label"><span>🎨</span><span>Giao diện Sáng / Tối</span></span>
+              <button class="theme-toggle-btn" id="theme-btn" type="button" onclick="toggleTheme()" aria-label="Đổi giao diện Sáng / Tối" title="Đổi giao diện Sáng / Tối">
+                🌓
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </nav>
 

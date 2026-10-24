@@ -34,6 +34,7 @@ const StorageService = {
   ZOOM_KEY: 'toeic_page_zoom_preference',
   DEFAULT_ZOOM: 100,
   ZOOM_LEVELS: [80, 90, 100, 110, 120, 130, 140],
+  STUDY_PROGRESS_KEY: 'toeic_study_progress_v1',
   _getStorage() {
     return getSafeLocalStorage();
   },
@@ -750,6 +751,210 @@ const StorageService = {
     setTimeout(() => {
       if (toast.parentNode) toast.parentNode.removeChild(toast);
     }, 4200);
+  },
+  _getDefaultStudyProgress() {
+    return {
+      version: '1.0.0',
+      lastBand: '450',
+      vocabStatus: {},       // { [wordId]: 'mastered' | 'learning' }
+      vocabStarred: {},      // { [wordId]: true }
+      vocabQuizBest: {},     // { [topicId]: { correct, total, updatedAt } }
+      grammarCompleted: {},  // { [topicId]: true }
+      grammarQuizBest: {},   // { [topicId]: { correct, total, answers, updatedAt } }
+      updatedAt: new Date().toISOString()
+    };
+  },
+  _sanitizePlainObject(obj) {
+    const clean = {};
+    if (!obj || typeof obj !== 'object' || Array.isArray(obj)) return clean;
+    for (const k of Object.keys(obj)) {
+      if (k === '__proto__' || k === 'constructor' || k === 'prototype') continue;
+      clean[k] = obj[k];
+    }
+    return clean;
+  },
+  getStudyProgress() {
+    const def = this._getDefaultStudyProgress();
+    try {
+      const storage = this._getStorage();
+      if (!storage) return def;
+      const raw = storage.getItem(this.STUDY_PROGRESS_KEY);
+      if (!raw) return def;
+      const parsed = JSON.parse(raw);
+      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return def;
+      const validBands = ['450', '550', '650', '750', '850'];
+      const bandStr = String(parsed.lastBand || '450').replace('+', '').trim();
+      return {
+        version: '1.0.0',
+        lastBand: validBands.includes(bandStr) ? bandStr : '450',
+        vocabStatus: this._sanitizePlainObject(parsed.vocabStatus),
+        vocabStarred: this._sanitizePlainObject(parsed.vocabStarred),
+        vocabQuizBest: this._sanitizePlainObject(parsed.vocabQuizBest),
+        grammarCompleted: this._sanitizePlainObject(parsed.grammarCompleted),
+        grammarQuizBest: this._sanitizePlainObject(parsed.grammarQuizBest),
+        updatedAt: typeof parsed.updatedAt === 'string' ? parsed.updatedAt : def.updatedAt
+      };
+    } catch (_) {
+      return def;
+    }
+  },
+  saveStudyProgress(progressObj) {
+    if (!progressObj || typeof progressObj !== 'object' || Array.isArray(progressObj)) return false;
+    try {
+      const storage = this._getStorage();
+      if (!storage) return false;
+      const current = this.getStudyProgress();
+      const validBands = ['450', '550', '650', '750', '850'];
+      const rawBand = String(progressObj.lastBand || current.lastBand || '450').replace('+', '').trim();
+      const merged = {
+        version: '1.0.0',
+        lastBand: validBands.includes(rawBand) ? rawBand : current.lastBand,
+        vocabStatus: this._sanitizePlainObject(progressObj.vocabStatus || current.vocabStatus),
+        vocabStarred: this._sanitizePlainObject(progressObj.vocabStarred || current.vocabStarred),
+        vocabQuizBest: this._sanitizePlainObject(progressObj.vocabQuizBest || current.vocabQuizBest),
+        grammarCompleted: this._sanitizePlainObject(progressObj.grammarCompleted || current.grammarCompleted),
+        grammarQuizBest: this._sanitizePlainObject(progressObj.grammarQuizBest || current.grammarQuizBest),
+        updatedAt: new Date().toISOString()
+      };
+      storage.setItem(this.STUDY_PROGRESS_KEY, JSON.stringify(merged));
+      return true;
+    } catch (_) {
+      return false;
+    }
+  },
+  setStudyBand(bandId) {
+    const validBands = ['450', '550', '650', '750', '850'];
+    const clean = String(bandId || '450').replace('+', '').trim();
+    const safeBand = validBands.includes(clean) ? clean : '450';
+    const prog = this.getStudyProgress();
+    prog.lastBand = safeBand;
+    this.saveStudyProgress(prog);
+    return safeBand;
+  },
+  setVocabWordStatus(wordId, status) {
+    if (!wordId || typeof wordId !== 'string') return null;
+    const key = wordId.trim();
+    if (!key || key === '__proto__' || key === 'constructor' || key === 'prototype') return null;
+    const prog = this.getStudyProgress();
+    if (status === 'mastered' || status === 'learning') {
+      prog.vocabStatus[key] = status;
+    } else {
+      delete prog.vocabStatus[key];
+    }
+    this.saveStudyProgress(prog);
+    return prog.vocabStatus[key] || 'unseen';
+  },
+  toggleVocabStar(wordId) {
+    if (!wordId || typeof wordId !== 'string') return false;
+    const key = wordId.trim();
+    if (!key || key === '__proto__' || key === 'constructor' || key === 'prototype') return false;
+    const prog = this.getStudyProgress();
+    if (prog.vocabStarred[key]) {
+      delete prog.vocabStarred[key];
+    } else {
+      prog.vocabStarred[key] = true;
+    }
+    this.saveStudyProgress(prog);
+    return Boolean(prog.vocabStarred[key]);
+  },
+  saveVocabQuizScore(topicId, correct, total) {
+    if (!topicId || typeof topicId !== 'string') return null;
+    const key = topicId.trim();
+    if (!key || key === '__proto__' || key === 'constructor' || key === 'prototype') return null;
+    const c = Math.max(0, parseInt(correct, 10) || 0);
+    const t = Math.max(1, parseInt(total, 10) || 1);
+    const prog = this.getStudyProgress();
+    const prev = prog.vocabQuizBest[key];
+    const bestCorrect = (prev && typeof prev.correct === 'number') ? Math.max(prev.correct, c) : c;
+    prog.vocabQuizBest[key] = {
+      correct: bestCorrect,
+      lastCorrect: c,
+      total: t,
+      updatedAt: new Date().toISOString()
+    };
+    this.saveStudyProgress(prog);
+    return prog.vocabQuizBest[key];
+  },
+  toggleGrammarTopicCompleted(topicId, forceState) {
+    if (!topicId || typeof topicId !== 'string') return false;
+    const key = topicId.trim();
+    if (!key || key === '__proto__' || key === 'constructor' || key === 'prototype') return false;
+    const prog = this.getStudyProgress();
+    const nextState = typeof forceState === 'boolean' ? forceState : !prog.grammarCompleted[key];
+    if (nextState) {
+      prog.grammarCompleted[key] = true;
+    } else {
+      delete prog.grammarCompleted[key];
+    }
+    this.saveStudyProgress(prog);
+    return Boolean(prog.grammarCompleted[key]);
+  },
+  saveGrammarPracticeScore(topicId, correct, total, userAnswers = {}) {
+    if (!topicId || typeof topicId !== 'string') return null;
+    const key = topicId.trim();
+    if (!key || key === '__proto__' || key === 'constructor' || key === 'prototype') return null;
+    const c = Math.max(0, parseInt(correct, 10) || 0);
+    const t = Math.max(1, parseInt(total, 10) || 1);
+    const prog = this.getStudyProgress();
+    const prev = prog.grammarQuizBest[key];
+    const bestCorrect = (prev && typeof prev.correct === 'number') ? Math.max(prev.correct, c) : c;
+    prog.grammarQuizBest[key] = {
+      correct: bestCorrect,
+      lastCorrect: c,
+      total: t,
+      answers: this._sanitizePlainObject(userAnswers),
+      updatedAt: new Date().toISOString()
+    };
+    if (c >= Math.ceil(t * 0.6)) {
+      prog.grammarCompleted[key] = true;
+    }
+    this.saveStudyProgress(prog);
+    return prog.grammarQuizBest[key];
+  },
+  exportStudyProgressJSON() {
+    const progress = this.getStudyProgress();
+    const payload = {
+      app: 'TOEIC Master Study Backup',
+      backupVersion: '1.0.0',
+      exportedAt: new Date().toISOString(),
+      studyProgress: progress
+    };
+    return JSON.stringify(payload, null, 2);
+  },
+  importStudyProgressJSON(rawInput) {
+    try {
+      const parsed = typeof rawInput === 'string' ? JSON.parse(rawInput) : rawInput;
+      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+        return { ok: false, error: 'Dữ liệu JSON không hợp lệ.' };
+      }
+      const source = (parsed.studyProgress && typeof parsed.studyProgress === 'object')
+        ? parsed.studyProgress
+        : parsed;
+      if (
+        !source.vocabStatus &&
+        !source.vocabStarred &&
+        !source.vocabQuizBest &&
+        !source.grammarCompleted &&
+        !source.grammarQuizBest
+      ) {
+        return { ok: false, error: 'File backup không chứa dữ liệu tiến độ Từ vựng / Ngữ pháp.' };
+      }
+      const current = this.getStudyProgress();
+      const merged = {
+        version: '1.0.0',
+        lastBand: source.lastBand || current.lastBand || '450',
+        vocabStatus: { ...current.vocabStatus, ...this._sanitizePlainObject(source.vocabStatus) },
+        vocabStarred: { ...current.vocabStarred, ...this._sanitizePlainObject(source.vocabStarred) },
+        vocabQuizBest: { ...current.vocabQuizBest, ...this._sanitizePlainObject(source.vocabQuizBest) },
+        grammarCompleted: { ...current.grammarCompleted, ...this._sanitizePlainObject(source.grammarCompleted) },
+        grammarQuizBest: { ...current.grammarQuizBest, ...this._sanitizePlainObject(source.grammarQuizBest) },
+        updatedAt: new Date().toISOString()
+      };
+      const saved = this.saveStudyProgress(merged);
+      return { ok: saved, progress: this.getStudyProgress() };
+    } catch (err) {
+      return { ok: false, error: 'Không thể đọc file JSON: ' + (err && err.message ? err.message : 'Lỗi cú pháp') };
+    }
   }
 };
 if (typeof window !== 'undefined') {

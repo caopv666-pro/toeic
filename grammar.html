@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Học Ngữ Pháp TOEIC Theo Mục Tiêu 450+ ➔ 850+ — TOEIC Master</title>
+  <meta name="description" content="Chuyên đề ngữ pháp TOEIC theo mục tiêu điểm 450+, 550+, 650+, 750+, 850+: công thức cô đọng, mẹo giải nhanh 5 giây, bẫy ETS và bài tập thực hành trích từ đề thi thật.">
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/base.css?v=20261024v9">
+  <link rel="stylesheet" href="css/layout.css?v=20261024v9">
+  <link rel="stylesheet" href="css/components.css?v=20261024v9">
+  <link rel="stylesheet" href="css/responsive.css?v=20261024v9">
+  <style>
+    .study-hero {
+      padding: 20px 0 12px;
+      text-align: center;
+    }
+    .study-page-title {
+      font-size: 1.7rem;
+      font-weight: 800;
+      margin: 0 0 6px;
+      letter-spacing: -0.4px;
+    }
+    .study-page-subtitle {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      max-width: 680px;
+      margin: 0 auto 16px;
+    }
+    .band-overview-card {
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+    .band-overview-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .band-overview-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin: 0 0 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .band-overview-desc {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+    .backup-actions-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .study-progress-bar-wrap {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .study-progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-primary), var(--success));
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+    .study-progress-stats {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    .topic-tabs-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .topic-select-card {
+      padding: 13px 15px;
+      border-radius: var(--radius-md);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-glass);
+      color: var(--text-primary);
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.18s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .topic-select-card:hover {
+      background: var(--bg-glass-hover);
+      border-color: var(--accent-primary);
+    }
+    .topic-select-card.active {
+      background: rgba(99, 102, 241, 0.16);
+      border-color: var(--accent-primary);
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.22);
+    }
+    .topic-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .topic-card-title {
+      font-size: 0.96rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+    .topic-card-meta {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .freq-pill {
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: rgba(6, 182, 212, 0.16);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      white-space: nowrap;
+    }
+
+    /* ── Grammar Sections ── */
+    .grammar-section-card {
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+    .grammar-section-heading {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin: 0 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .formula-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+      gap: 12px;
+    }
+    .formula-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .formula-name {
+      font-size: 0.96rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+    .formula-code {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 8px 10px;
+      border-radius: 8px;
+      background: rgba(99, 102, 241, 0.14);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      color: #a5b4fc;
+      line-height: 1.45;
+    }
+    .formula-usage {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+    .formula-example {
+      font-size: 0.84rem;
+      padding-top: 6px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      line-height: 1.45;
+    }
+    .signal-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.28);
+      margin-bottom: 10px;
+      font-size: 0.88rem;
+      align-items: center;
+    }
+    .trap-row {
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      background: rgba(245, 158, 11, 0.09);
+      border: 1px solid rgba(245, 158, 11, 0.32);
+      margin-bottom: 10px;
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+    .study-quiz-card {
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+    .study-quiz-opt {
+      width: 100%;
+      text-align: left;
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-glass);
+      color: var(--text-primary);
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.15s ease;
+    }
+    .study-quiz-opt:hover {
+      border-color: var(--accent-primary);
+      background: var(--bg-glass-hover);
+    }
+    .study-quiz-opt.correct-choice {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: var(--success);
+      color: #34d399;
+    }
+    .study-quiz-opt.wrong-choice {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: var(--danger);
+      color: #f87171;
+    }
+    .explanation-box {
+      background: rgba(99, 102, 241, 0.08);
+      border-left: 3px solid var(--accent-primary);
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 0.86rem;
+      line-height: 1.5;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 640px) {
+      .signal-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+    }
+
+    [data-theme="light"] .band-overview-card,
+    [data-theme="light"] .grammar-section-card,
+    [data-theme="light"] .study-quiz-card {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+    }
+    [data-theme="light"] .topic-select-card,
+    [data-theme="light"] .study-quiz-opt {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      color: #1e293b;
+    }
+    [data-theme="light"] .formula-box {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+    [data-theme="light"] .formula-code {
+      background: #e0e7ff;
+      border-color: #a5b4fc;
+      color: #312e81;
+    }
+    [data-theme="light"] .freq-pill {
+      background: #e0f2fe;
+      color: #0369a1;
+      border-color: #7dd3fc;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <nav class="app-navbar">
+    <div class="nav-brand">
+      <a href="index.html" style="color: inherit; display: flex; align-items: center; gap: 8px; text-decoration: none;">
+        <span>🎯 TOEIC Master</span>
+      </a>
+      <span class="brand-badge">Ngữ Pháp</span>
+    </div>
+    <div class="nav-links">
+      <div class="header-ctrl-dropdown" id="header-zoom-ctrl">
+        <button type="button" class="nav-icon-ctrl-btn" id="zoom-menu-btn" onclick="StorageService.toggleHeaderPopover('zoom-popover-menu', event)" aria-label="Điều chỉnh cỡ chữ và thu phóng toàn trang" title="Chỉnh cỡ chữ / Thu phóng toàn trang">
+          <span>🔤</span>
+          <span id="zoom-level-label">100%</span>
+        </button>
+        <div class="header-ctrl-popover" id="zoom-popover-menu" style="display: none;" onclick="event.stopPropagation()">
+          <div class="popover-ctrl-title">🔤 Cỡ chữ / Zoom toàn trang</div>
+          <div class="zoom-stepper-row">
+            <button type="button" class="zoom-step-btn" onclick="StorageService.stepPageZoom(-10)" title="Thu nhỏ (-10%)" aria-label="Thu nhỏ 10%">➖</button>
+            <span class="zoom-current-val" id="zoom-popover-val">100%</span>
+            <button type="button" class="zoom-step-btn" onclick="StorageService.stepPageZoom(10)" title="Phóng to (+10%)" aria-label="Phóng to 10%">➕</button>
+          </div>
+          <div class="ctrl-preset-grid">
+            <button type="button" class="zoom-preset-btn" data-zoom="85" onclick="StorageService.setPageZoom(85)">85%</button>
+            <button type="button" class="zoom-preset-btn" data-zoom="90" onclick="StorageService.setPageZoom(90)">90%</button>
+            <button type="button" class="zoom-preset-btn active" data-zoom="100" onclick="StorageService.setPageZoom(100)">100%</button>
+            <button type="button" class="zoom-preset-btn" data-zoom="110" onclick="StorageService.setPageZoom(110)">110%</button>
+            <button type="button" class="zoom-preset-btn" data-zoom="120" onclick="StorageService.setPageZoom(120)">120%</button>
+            <button type="button" class="zoom-preset-btn" data-zoom="130" onclick="StorageService.setPageZoom(130)">130%</button>
+          </div>
+        </div>
+      </div>
+
+      <button class="fullscreen-toggle-btn" id="fullscreen-btn" type="button" onclick="StorageService.toggleFullscreen()" aria-label="Bật chế độ toàn màn hình" aria-pressed="false" title="Bật / Tắt chế độ toàn màn hình">
+        <svg class="fs-icon-enter" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+        <svg class="fs-icon-exit" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/></svg>
+      </button>
+
+      <div class="header-ctrl-dropdown" id="header-main-menu-ctrl">
+        <button type="button" class="nav-menu-trigger-btn" id="main-menu-btn" onclick="StorageService.toggleHeaderPopover('main-menu-popover', event)" aria-label="Mở menu điều hướng và cài đặt" title="Menu chức năng">
+          <span aria-hidden="true">☰</span>
+        </button>
+        <div class="header-ctrl-popover main-menu-popover" id="main-menu-popover" style="display: none;" onclick="event.stopPropagation()">
+          <div class="popover-ctrl-title">🧭 Menu Học Tập &amp; Cài Đặt</div>
+          <div class="main-menu-list">
+            <a href="index.html" class="main-menu-item">
+              <span class="main-menu-item-left"><span>📝</span><span>Luyện đề ETS</span></span>
+            </a>
+            <a href="vocab.html" class="main-menu-item">
+              <span class="main-menu-item-left"><span>📚</span><span>Học Từ Vựng</span></span>
+              <span class="main-menu-badge">450+ ➔ 850+</span>
+            </a>
+            <a href="grammar.html" class="main-menu-item active">
+              <span class="main-menu-item-left"><span>📐</span><span>Học Ngữ Pháp</span></span>
+              <span class="main-menu-badge">450+ ➔ 850+</span>
+            </a>
+            <a href="history.html" class="main-menu-item nav-link-btn">
+              <span class="main-menu-item-left"><span>📊</span><span>Lịch sử thi</span></span>
+            </a>
+            <div class="main-menu-divider"></div>
+            <div class="main-menu-theme-row">
+              <span class="main-menu-theme-label"><span>🎨</span><span>Giao diện Sáng / Tối</span></span>
+              <button class="theme-toggle-btn" id="theme-btn" type="button" onclick="toggleTheme()" aria-label="Đổi giao diện Sáng / Tối" title="Đổi giao diện Sáng / Tối">
+                🌓
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Workspace -->
+  <main class="container" style="padding-bottom: 64px;">
+    <section class="study-hero">
+      <h1 class="study-page-title">📐 Ngữ Pháp TOEIC Theo Mục Tiêu Điểm</h1>
+      <p class="study-page-subtitle">Công thức đóng khung, mẹo nhận diện nhanh 5 giây không cần dịch cả câu, các bẫy ETS kinh điển và bài tập trích trực tiếp từ 4 bộ đề ETS.</p>
+
+      <!-- 5 Score Band Selector Pills -->
+      <div class="band-selector-grid" id="grammar-band-selector" role="tablist" aria-label="Chọn mục tiêu điểm ngữ pháp"></div>
+
+      <!-- Band Progress & Backup Banner -->
+      <div class="band-overview-card" id="grammar-band-overview"></div>
+
+      <!-- Hidden File Input for Backup JSON Import -->
+      <input type="file" id="study-backup-file-input" accept=".json,application/json" style="display: none;" onchange="handleImportStudyBackup(event)">
+    </section>
+
+    <!-- Grammar Topic Cards within Selected Band -->
+    <section aria-label="Danh sách chuyên đề ngữ pháp">
+      <div class="topic-tabs-row" id="grammar-topic-tabs"></div>
+    </section>
+
+    <!-- Active Grammar Topic Workspace -->
+    <section id="grammar-workspace-container" aria-live="polite"></section>
+  </main>
+
+  <!-- Scripts -->
+  <script src="js/app-config.js?v=20261024v9"></script>
+  <script src="js/storage-service.js?v=20261024v9"></script>
+  <script src="js/study-data.js?v=20261024v9"></script>
+  <script>
+    let currentBand = '450';
+    let currentTopicId = '';
+    let practiceAnswers = {};
+
+    function getSafeStorage() {
+      return (typeof StorageService !== 'undefined')
+        ? StorageService
+        : (typeof window !== 'undefined' && window.StorageService ? window.StorageService : null);
+    }
+
+    function getStudyData() {
+      if (typeof StudyData !== 'undefined' && StudyData) return StudyData;
+      if (typeof window !== 'undefined' && window.StudyData) return window.StudyData;
+      return { bands: [], vocabTopics: [], grammarTopics: [] };
+    }
+
+    function toggleTheme() {
+      const storage = getSafeStorage();
+      if (storage && typeof storage.toggleTheme === 'function') {
+        storage.toggleTheme();
+      }
+    }
+
+    function getGrammarTopicsForBand(bandId) {
+      const data = getStudyData();
+      return (data.grammarTopics || []).filter(t => String(t.band) === String(bandId));
+    }
+
+    function getCurrentGrammarTopic() {
+      const topics = getGrammarTopicsForBand(currentBand);
+      return topics.find(t => t.id === currentTopicId) || topics[0] || null;
+    }
+
+    function computeGrammarBandStats(bandId) {
+      const storage = getSafeStorage();
+      const prog = storage && typeof storage.getStudyProgress === 'function'
+        ? storage.getStudyProgress()
+        : { grammarCompleted: {}, grammarQuizBest: {} };
+      const topics = getGrammarTopicsForBand(bandId);
+      const totalTopics = topics.length;
+      let completedCount = 0;
+      let totalQuestions = 0;
+      let bestCorrectSum = 0;
+
+      topics.forEach(t => {
+        if (prog.grammarCompleted && prog.grammarCompleted[t.id]) completedCount++;
+        const qLen = (t.practiceQuestions || []).length;
+        totalQuestions += qLen;
+        const best = prog.grammarQuizBest && prog.grammarQuizBest[t.id];
+        if (best && typeof best.correct === 'number') {
+          bestCorrectSum += Math.min(qLen, best.correct);
+        }
+      });
+
+      const pct = totalTopics > 0 ? Math.round((completedCount / totalTopics) * 100) : 0;
+      return { totalTopics, completedCount, totalQuestions, bestCorrectSum, pct };
+    }
+
+    function selectGrammarBand(bandId) {
+      const validBands = ['450', '550', '650', '750', '850'];
+      const clean = String(bandId || '450').replace('+', '').trim();
+      currentBand = validBands.includes(clean) ? clean : '450';
+      const storage = getSafeStorage();
+      if (storage && typeof storage.setStudyBand === 'function') {
+        storage.setStudyBand(currentBand);
+      }
+      const topics = getGrammarTopicsForBand(currentBand);
+      currentTopicId = topics[0] ? topics[0].id : '';
+      loadSavedAnswersForTopic(currentTopicId);
+      renderAllGrammar();
+      return currentBand;
+    }
+
+    function loadSavedAnswersForTopic(topicId) {
+      practiceAnswers = {};
+      const storage = getSafeStorage();
+      if (storage && typeof storage.getStudyProgress === 'function') {
+        const prog = storage.getStudyProgress();
+        const saved = prog.grammarQuizBest && prog.grammarQuizBest[topicId];
+        if (saved && saved.answers && typeof saved.answers === 'object') {
+          practiceAnswers = { ...saved.answers };
+        }
+      }
+    }
+
+    function selectGrammarTopic(topicId) {
+      currentTopicId = String(topicId || '');
+      loadSavedAnswersForTopic(currentTopicId);
+      renderAllGrammar();
+      return currentTopicId;
+    }
+
+    function renderGrammarBandSelector() {
+      const wrap = typeof document !== 'undefined' ? document.getElementById('grammar-band-selector') : null;
+      if (!wrap) return;
+      const data = getStudyData();
+      const bands = data.bands || [];
+      wrap.innerHTML = bands.map(b => {
+        const stats = computeGrammarBandStats(b.id);
+        const isActive = String(b.id) === String(currentBand);
+        return `
+          <button type="button" class="band-pill-btn ${isActive ? 'active' : ''}" data-band="${b.id}" onclick="selectGrammarBand('${b.id}')" aria-pressed="${isActive ? 'true' : 'false'}">
+            <span class="band-pill-score">🎯 ${b.label}</span>
+            <span class="band-pill-progress">${stats.completedCount}/${stats.totalTopics} bài (${stats.pct}%)</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function renderGrammarBandOverview() {
+      const wrap = typeof document !== 'undefined' ? document.getElementById('grammar-band-overview') : null;
+      if (!wrap) return;
+      const data = getStudyData();
+      const bandMeta = (data.bands || []).find(b => String(b.id) === String(currentBand)) || {
+        id: currentBand,
+        label: `${currentBand}+`,
+        name: `Mục tiêu ${currentBand}+`,
+        shortDesc: ''
+      };
+      const stats = computeGrammarBandStats(currentBand);
+
+      wrap.innerHTML = `
+        <div class="band-overview-top">
+          <div>
+            <h2 class="band-overview-title">
+              <span>📐 ${bandMeta.name}</span>
+              <span class="test-best-badge">RC mục tiêu: ${bandMeta.targetReading || ''}</span>
+            </h2>
+            <p class="band-overview-desc">${bandMeta.shortDesc}</p>
+          </div>
+          <div class="backup-actions-row">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="exportStudyBackup()" title="Tải file JSON sao lưu tiến độ học tập">
+              ⬇️ Xuất Backup
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="triggerImportStudyBackup()" title="Khôi phục tiến độ học từ file JSON">
+              ⬆️ Nhập Backup
+            </button>
+          </div>
+        </div>
+        <div class="study-progress-bar-wrap" role="progressbar" aria-valuenow="${stats.pct}" aria-valuemin="0" aria-valuemax="100">
+          <div class="study-progress-bar-fill" style="width: ${stats.pct}%;"></div>
+        </div>
+        <div class="study-progress-stats">
+          <span>✅ Chuyên đề hoàn thành: <strong>${stats.completedCount}/${stats.totalTopics} (${stats.pct}%)</strong></span>
+          <span>🎯 Bài tập ETS đã giải đúng: <strong>${stats.bestCorrectSum}/${stats.totalQuestions} câu</strong></span>
+        </div>
+      `;
+    }
+
+    function renderGrammarTopicTabs() {
+      const wrap = typeof document !== 'undefined' ? document.getElementById('grammar-topic-tabs') : null;
+      if (!wrap) return;
+      const topics = getGrammarTopicsForBand(currentBand);
+      const storage = getSafeStorage();
+      const prog = storage && typeof storage.getStudyProgress === 'function'
+        ? storage.getStudyProgress()
+        : { grammarCompleted: {}, grammarQuizBest: {} };
+
+      wrap.innerHTML = topics.map(t => {
+        const isActive = t.id === currentTopicId;
+        const isDone = Boolean(prog.grammarCompleted && prog.grammarCompleted[t.id]);
+        const best = prog.grammarQuizBest && prog.grammarQuizBest[t.id];
+        const qCount = (t.practiceQuestions || []).length;
+
+        return `
+          <button type="button" class="topic-select-card ${isActive ? 'active' : ''}" onclick="selectGrammarTopic('${t.id}')" aria-pressed="${isActive ? 'true' : 'false'}">
+            <div class="topic-card-header">
+              <span class="topic-card-title">${t.icon || '📐'} ${t.title}</span>
+              ${isDone ? '<span class="test-best-badge">✓ Đã nắm vững</span>' : ''}
+            </div>
+            <div class="topic-card-meta">
+              <span class="freq-pill">🔥 ${t.frequencyBadge || 'Trọng tâm Part 5 & 6'}</span>
+              <strong>${best ? `Bài tập: ${best.correct}/${qCount}` : `${qCount} câu ETS thực chiến`}</strong>
+            </div>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function renderGrammarWorkspace() {
+      const container = typeof document !== 'undefined' ? document.getElementById('grammar-workspace-container') : null;
+      if (!container) return;
+      const topic = getCurrentGrammarTopic();
+      if (!topic) {
+        container.innerHTML = '<p>Đang tải chuyên đề ngữ pháp...</p>';
+        return;
+      }
+
+      const storage = getSafeStorage();
+      const prog = storage && typeof storage.getStudyProgress === 'function'
+        ? storage.getStudyProgress()
+        : { grammarCompleted: {}, grammarQuizBest: {} };
+      const isCompleted = Boolean(prog.grammarCompleted && prog.grammarCompleted[topic.id]);
+      const questions = topic.practiceQuestions || [];
+
+      let answeredCount = 0;
+      let correctCount = 0;
+      questions.forEach(q => {
+        const u = practiceAnswers[q.id];
+        if (u) {
+          answeredCount++;
+          if (u === q.correctAnswer) correctCount++;
+        }
+      });
+
+      container.innerHTML = `
+        <!-- Topic Header & Summary -->
+        <div class="grammar-section-card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:10px;">
+            <div>
+              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;">
+                <span class="freq-pill">🔥 ${topic.frequencyBadge || ''}</span>
+                <span class="fc-pos-badge" style="padding:3px 10px;border-radius:999px;font-size:0.75rem;background:rgba(99,102,241,0.18);color:#a5b4fc;">Mục tiêu ${topic.band}+</span>
+              </div>
+              <h2 style="font-size:1.35rem;font-weight:800;margin:0;">${topic.icon || '📐'} ${topic.title}</h2>
+            </div>
+            <button type="button" class="btn ${isCompleted ? 'btn-success' : 'btn-secondary'} btn-sm" onclick="handleToggleGrammarCompleted('${topic.id}')">
+              ${isCompleted ? '✅ Đã hoàn thành chuyên đề' : '☑️ Đánh dấu Đã học xong'}
+            </button>
+          </div>
+          <p style="font-size:0.93rem;color:var(--text-secondary);line-height:1.55;margin:0;">${topic.summary}</p>
+        </div>
+
+        <!-- 1. Formulas & Core Theory -->
+        <div class="grammar-section-card">
+          <h3 class="grammar-section-heading">📌 1. Công Thức Cốt Lõi &amp; Cấu Trúc Chuẩn</h3>
+          <div class="formula-cards-grid">
+            ${(topic.formulas || []).map(f => `
+              <div class="formula-box">
+                <div class="formula-name">${f.name}</div>
+                <div class="formula-code">${f.structure}</div>
+                <div class="formula-usage">${f.usage}</div>
+                <div class="formula-example">
+                  <div><strong>Ví dụ ETS:</strong> "${f.exampleEn}"</div>
+                  <div style="color:var(--text-secondary);margin-top:2px;">→ ${f.exampleVi}</div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <!-- 2. 5-Second Fast Signals & ETS Traps -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:16px;margin-bottom:18px;">
+          <div class="grammar-section-card" style="margin-bottom:0;">
+            <h3 class="grammar-section-heading">⚡ 2. Dấu Hiệu Giải Nhanh 5 Giây</h3>
+            ${(topic.fastSignals || []).map(s => `
+              <div class="signal-row">
+                <div><strong>🔍 Khi thấy:</strong> ${s.signal}</div>
+                <div style="color:#34d399;font-weight:700;">➔ ${s.action}</div>
+              </div>
+            `).join('')}
+          </div>
+
+          <div class="grammar-section-card" style="margin-bottom:0;">
+            <h3 class="grammar-section-heading">⚠️ 3. Bẫy ETS Thường Gặp Nhất</h3>
+            ${(topic.etsTraps || []).map(t => `
+              <div class="trap-row">
+                <div style="color:#fbbf24;font-weight:700;margin-bottom:4px;">🪤 Bẫy: ${t.trap}</div>
+                <div><strong>💡 Cách hóa giải:</strong> ${t.fix}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <!-- 4. Real ETS Practice Questions -->
+        <div class="grammar-section-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px;">
+            <div>
+              <h3 class="grammar-section-heading" style="margin-bottom:2px;">🎯 4. Bài Tập Thực Chiến Trích Từ Đề ETS (${questions.length} câu)</h3>
+              <div style="font-size:0.84rem;color:var(--text-secondary);">
+                Đã làm: <strong>${answeredCount}/${questions.length}</strong> • Đúng: <strong style="color:var(--success);">${correctCount}/${questions.length}</strong> (Đạt ≥ 60% tự động hoàn thành chuyên đề)
+              </div>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="resetGrammarPractice()">🔄 Làm lại bài tập</button>
+          </div>
+
+          ${questions.map((q, idx) => {
+            const userChoice = practiceAnswers[q.id] || null;
+            const letters = ['A', 'B', 'C', 'D'];
+            return `
+              <div class="study-quiz-card" id="gquiz-card-${q.id}">
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;">
+                  <span class="freq-pill">Câu ${idx + 1} / ${questions.length}</span>
+                  <span style="font-size:0.76rem;color:var(--text-muted);font-weight:600;">📚 Nguồn: ${q.source}</span>
+                </div>
+                <p style="font-size:1.02rem;font-weight:700;line-height:1.55;margin-bottom:14px;">${q.questionText}</p>
+                <div>
+                  ${letters.map(letter => {
+                    const optText = q.options && q.options[letter] ? q.options[letter] : '';
+                    let cls = 'study-quiz-opt';
+                    if (userChoice) {
+                      if (letter === q.correctAnswer) cls += ' correct-choice';
+                      else if (letter === userChoice && userChoice !== q.correctAnswer) cls += ' wrong-choice';
+                    }
+                    return `
+                      <button type="button" class="${cls}" onclick="answerGrammarQuestion('${q.id}', '${letter}')">
+                        <span class="ans-key">${letter}</span>
+                        <span>${optText}</span>
+                      </button>
+                    `;
+                  }).join('')}
+                </div>
+                ${userChoice ? `
+                  <div class="explanation-box">
+                    <div style="font-weight:800;color:${userChoice === q.correctAnswer ? '#34d399' : '#f87171'};margin-bottom:4px;">
+                      ${userChoice === q.correctAnswer ? '✓ Chính xác!' : `✕ Chưa đúng! Đáp án đúng là (${q.correctAnswer}) ${q.options[q.correctAnswer] || ''}.`}
+                    </div>
+                    ${q.questionTranslation ? `<div style="margin-bottom:4px;"><strong>📖 Dịch câu:</strong> ${q.questionTranslation}</div>` : ''}
+                    ${q.explanation ? `<div style="margin-bottom:4px;"><strong>💡 Giải thích:</strong> ${q.explanation}</div>` : ''}
+                    ${q.analysis ? `<div style="color:var(--text-secondary);white-space:pre-line;margin-top:6px;padding-top:6px;border-top:1px dashed rgba(255,255,255,0.12);">${q.analysis}</div>` : ''}
+                  </div>
+                ` : ''}
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
+    function renderAllGrammar() {
+      renderGrammarBandSelector();
+      renderGrammarBandOverview();
+      renderGrammarTopicTabs();
+      renderGrammarWorkspace();
+    }
+
+    function answerGrammarQuestion(questionId, choice) {
+      practiceAnswers[questionId] = choice;
+      const topic = getCurrentGrammarTopic();
+      if (topic && Array.isArray(topic.practiceQuestions)) {
+        let correct = 0;
+        topic.practiceQuestions.forEach(q => {
+          if (practiceAnswers[q.id] === q.correctAnswer) correct++;
+        });
+        const storage = getSafeStorage();
+        if (storage && typeof storage.saveGrammarPracticeScore === 'function') {
+          storage.saveGrammarPracticeScore(topic.id, correct, topic.practiceQuestions.length, practiceAnswers);
+        }
+      }
+      renderAllGrammar();
+    }
+
+    function resetGrammarPractice() {
+      practiceAnswers = {};
+      renderGrammarWorkspace();
+    }
+
+    function handleToggleGrammarCompleted(topicId) {
+      const storage = getSafeStorage();
+      if (storage && typeof storage.toggleGrammarTopicCompleted === 'function') {
+        storage.toggleGrammarTopicCompleted(topicId);
+      }
+      renderAllGrammar();
+    }
+
+    function exportStudyBackup() {
+      const storage = getSafeStorage();
+      if (!storage || typeof storage.exportStudyProgressJSON !== 'function') return null;
+      const jsonStr = storage.exportStudyProgressJSON();
+      if (typeof document !== 'undefined' && typeof Blob !== 'undefined' && typeof URL !== 'undefined') {
+        const blob = new Blob([jsonStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        const dateTag = new Date().toISOString().slice(0, 10);
+        a.download = `toeic_study_backup_${dateTag}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+      return jsonStr;
+    }
+
+    function triggerImportStudyBackup() {
+      const input = typeof document !== 'undefined' ? document.getElementById('study-backup-file-input') : null;
+      if (input && typeof input.click === 'function') input.click();
+    }
+
+    function handleImportStudyBackup(event) {
+      const file = event && event.target && event.target.files && event.target.files[0];
+      if (!file || typeof FileReader === 'undefined') return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e && e.target ? e.target.result : '';
+        const storage = getSafeStorage();
+        if (storage && typeof storage.importStudyProgressJSON === 'function') {
+          const res = storage.importStudyProgressJSON(content);
+          if (res && res.ok) {
+            if (typeof alert === 'function') alert('✅ Đã khôi phục tiến độ học Từ vựng & Ngữ pháp thành công!');
+            loadSavedAnswersForTopic(currentTopicId);
+            renderAllGrammar();
+          } else if (typeof alert === 'function') {
+            alert('⚠️ ' + ((res && res.error) || 'File backup không hợp lệ.'));
+          }
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') {
+      document.addEventListener('DOMContentLoaded', () => {
+        const storage = getSafeStorage();
+        if (storage && typeof storage.initTheme === 'function') {
+          storage.initTheme();
+        }
+        let initialBand = '450';
+        if (storage && typeof storage.getStudyProgress === 'function') {
+          initialBand = storage.getStudyProgress().lastBand || '450';
+        }
+        try {
+          const params = new URLSearchParams(window.location.search);
+          if (params.get('band')) initialBand = params.get('band');
+        } catch (_) {}
+        selectGrammarBand(initialBand);
+      });
+    }
+
+    if (typeof window !== 'undefined') {
+      window.selectGrammarBand = selectGrammarBand;
+      window.selectGrammarTopic = selectGrammarTopic;
+      window.answerGrammarQuestion = answerGrammarQuestion;
+      window.resetGrammarPractice = resetGrammarPractice;
+      window.handleToggleGrammarCompleted = handleToggleGrammarCompleted;
+      window.exportStudyBackup = exportStudyBackup;
+      window.triggerImportStudyBackup = triggerImportStudyBackup;
+      window.handleImportStudyBackup = handleImportStudyBackup;
+      window.toggleTheme = toggleTheme;
+    }
+
+    if (typeof module !== 'undefined' && module.exports) {
+      module.exports = {
+        selectGrammarBand,
+        selectGrammarTopic,
+        answerGrammarQuestion,
+        resetGrammarPractice,
+        handleToggleGrammarCompleted,
+        exportStudyBackup,
+        computeGrammarBandStats
+      };
+    }
+  </script>
+</body>
+</html>

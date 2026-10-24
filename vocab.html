@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Học Từ Vựng TOEIC Theo Mục Tiêu 450+ ➔ 850+ — TOEIC Master</title>
+  <meta name="description" content="Học từ vựng TOEIC theo từng mục tiêu điểm 450+, 550+, 650+, 750+, 850+ qua Flashcard phát âm, Danh sách tra cứu và Trắc nghiệm thực chiến trích từ đề ETS.">
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/base.css?v=20261024v9">
+  <link rel="stylesheet" href="css/layout.css?v=20261024v9">
+  <link rel="stylesheet" href="css/components.css?v=20261024v9">
+  <link rel="stylesheet" href="css/responsive.css?v=20261024v9">
+  <style>
+    .study-hero {
+      padding: 20px 0 12px;
+      text-align: center;
+    }
+    .study-page-title {
+      font-size: 1.7rem;
+      font-weight: 800;
+      margin: 0 0 6px;
+      letter-spacing: -0.4px;
+    }
+    .study-page-subtitle {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      max-width: 680px;
+      margin: 0 auto 16px;
+    }
+    .band-overview-card {
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+    .band-overview-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .band-overview-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin: 0 0 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .band-overview-desc {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+    .backup-actions-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .study-progress-bar-wrap {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .study-progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-primary), var(--success));
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+    .study-progress-stats {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    .topic-tabs-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .topic-select-card {
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-glass);
+      color: var(--text-primary);
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.18s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .topic-select-card:hover {
+      background: var(--bg-glass-hover);
+      border-color: var(--accent-primary);
+    }
+    .topic-select-card.active {
+      background: rgba(99, 102, 241, 0.16);
+      border-color: var(--accent-primary);
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.22);
+    }
+    .topic-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .topic-card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .topic-card-meta {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .study-mode-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .study-mode-btn {
+      padding: 9px 18px;
+      border-radius: var(--radius-full);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-glass);
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+    .study-mode-btn:hover {
+      color: var(--text-primary);
+      background: var(--bg-glass-hover);
+    }
+    .study-mode-btn.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+      box-shadow: 0 2px 10px var(--accent-primary-glow);
+    }
+
+    /* ── Flashcard Stage ── */
+    .flashcard-stage-wrap {
+      max-width: 680px;
+      margin: 0 auto 24px;
+    }
+    .flashcard-counter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .vocab-flashcard {
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-xl);
+      padding: 28px 24px;
+      min-height: 290px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      position: relative;
+      box-shadow: var(--shadow-md);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      user-select: none;
+    }
+    .vocab-flashcard:hover {
+      border-color: var(--accent-primary);
+    }
+    .vocab-flashcard.is-flipped {
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.96), rgba(15, 23, 42, 0.98));
+      border-color: var(--accent-secondary);
+    }
+    .fc-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .fc-pos-badge {
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      background: rgba(99, 102, 241, 0.18);
+      color: #a5b4fc;
+      border: 1px solid rgba(99, 102, 241, 0.35);
+    }
+    .fc-icon-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .fc-action-icon-btn {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-glass);
+      color: var(--text-primary);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .fc-action-icon-btn:hover {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+    }
+    .fc-action-icon-btn.starred {
+      background: rgba(245, 158, 11, 0.2);
+      border-color: #f59e0b;
+      color: #fbbf24;
+    }
+    .fc-center-body {
+      text-align: center;
+      margin: 18px 0;
+    }
+    .fc-word-main {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+      color: var(--text-primary);
+    }
+    .fc-ipa-text {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      color: var(--accent-secondary);
+      margin-bottom: 14px;
+    }
+    .fc-meaning-main {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #34d399;
+      margin-bottom: 12px;
+    }
+    .fc-detail-box {
+      text-align: left;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      font-size: 0.88rem;
+      line-height: 1.55;
+      margin-top: 8px;
+    }
+    .fc-flip-hint {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 10px;
+    }
+    .fc-controls-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+    .fc-status-btns {
+      display: flex;
+      gap: 8px;
+      flex: 1;
+      justify-content: center;
+    }
+
+    /* ── Word List View ── */
+    .wordlist-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .wordlist-search-input {
+      flex: 1 1 240px;
+      padding: 9px 14px;
+      border-radius: var(--radius-md);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-glass);
+      color: var(--text-primary);
+      font-size: 0.9rem;
+    }
+    .wordlist-filter-pills {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .wl-filter-btn {
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-glass);
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+    .wl-filter-btn.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+    }
+    .vocab-list-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .vocab-item-card {
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .vocab-item-card.status-mastered {
+      border-left: 4px solid var(--success);
+    }
+    .vocab-item-card.status-learning {
+      border-left: 4px solid var(--warning);
+    }
+    .vocab-item-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .vocab-word-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .vocab-meaning-line {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #34d399;
+      margin-top: 2px;
+    }
+    .vocab-example-box {
+      background: rgba(99, 102, 241, 0.08);
+      border-left: 3px solid var(--accent-primary);
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      line-height: 1.45;
+    }
+    .vocab-item-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      padding-top: 6px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .status-chip-btn {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-glass);
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+    .status-chip-btn.active-mastered {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: var(--success);
+      color: #34d399;
+    }
+    .status-chip-btn.active-learning {
+      background: rgba(245, 158, 11, 0.2);
+      border-color: var(--warning);
+      color: #fbbf24;
+    }
+
+    /* ── Quiz View ── */
+    .quiz-card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 780px;
+      margin: 0 auto 40px;
+    }
+    .study-quiz-card {
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+    }
+    .study-quiz-opt {
+      width: 100%;
+      text-align: left;
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-glass);
+      color: var(--text-primary);
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.15s ease;
+    }
+    .study-quiz-opt:hover {
+      border-color: var(--accent-primary);
+      background: var(--bg-glass-hover);
+    }
+    .study-quiz-opt.correct-choice {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: var(--success);
+      color: #34d399;
+    }
+    .study-quiz-opt.wrong-choice {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: var(--danger);
+      color: #f87171;
+    }
+
+    [data-theme="light"] .band-overview-card,
+    [data-theme="light"] .vocab-flashcard,
+    [data-theme="light"] .vocab-item-card,
+    [data-theme="light"] .study-quiz-card {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+    }
+    [data-theme="light"] .vocab-flashcard.is-flipped {
+      background: #f8fafc;
+      border-color: #6366f1;
+    }
+    [data-theme="light"] .fc-meaning-main,
+    [data-theme="light"] .vocab-meaning-line {
+      color: #059669;
+    }
+    [data-theme="light"] .fc-detail-box {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      color: #1e293b;
+    }
+    [data-theme="light"] .topic-select-card,
+    [data-theme="light"] .study-mode-btn,
+    [data-theme="light"] .wordlist-search-input,
+    [data-theme="light"] .wl-filter-btn,
+    [data-theme="light"] .study-quiz-opt {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      color: #1e293b;
+    }
+    [data-theme="light"] .study-mode-btn.active,
+    [data-theme="light"] .wl-filter-btn.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <nav class="app-navbar">
+    <div class="nav-brand">
+      <a href="index.html" style="color: inherit; display: flex; align-items: center; gap: 8px; text-decoration: none;">
+        <span>🎯 TOEIC Master</span>
+      </a>
+      <span class="brand-badge">Từ Vựng</span>
+    </div>
+    <div class="nav-links">
+      <div class="header-ctrl-dropdown" id="header-zoom-ctrl">
+        <button type="button" class="nav-icon-ctrl-btn" id="zoom-menu-btn" onclick="StorageService.toggleHeaderPopover('zoom-popover-menu', event)" aria-label="Điều chỉnh cỡ chữ và thu phóng toàn trang" title="Chỉnh cỡ chữ / Thu phóng toàn trang">
+          <span>🔤</span>
+          <span id="zoom-level-label">100%</span>
+        </button>
+        <div class="header-ctrl-popover" id="zoom-popover-menu" style="display: none;" onclick="event.stopPropagation()">
+          <div class="popover-ctrl-title">🔤 Cỡ chữ / Zoom toàn trang</div>
+          <div class="zoom-stepper-row">
+            <button type="button" class="zoom-step-btn" onclick="StorageService.stepPageZoom(-10)" title="Thu nhỏ (-10%)" aria-label="Thu nhỏ 10%">➖</button>
+            <span class="zoom-current-val" id="zoom-popover-val">100%</span>
+            <button type="button" class="zoom-step-btn" onclick="StorageService.stepPageZoom(10)" title="Phóng to (+10%)" aria-label="Phóng to 10%">➕</button>
+          </div>
+          <div class="ctrl-preset-grid">
+            <button type="button" class="zoom-preset-btn" data-zoom="85" onclick="StorageService.setPageZoom(85)">85%</button>
+            <button type="button" class="zoom-preset-btn" data-zoom="90" onclick="StorageService.setPageZoom(90)">90%</button>
+            <button type="button" class="zoom-preset-btn active" data-zoom="100" onclick="StorageService.setPageZoom(100)">100%</button>
+            <button type="button" class="zoom-preset-btn" data-zoom="110" onclick="StorageService.setPageZoom(110)">110%</button>
+            <button type="button" class="zoom-preset-btn" data-zoom="120" onclick="StorageService.setPageZoom(120)">120%</button>
+            <button type="button" class="zoom-preset-btn" data-zoom="130" onclick="StorageService.setPageZoom(130)">130%</button>
+          </div>
+        </div>
+      </div>
+
+      <button class="fullscreen-toggle-btn" id="fullscreen-btn" type="button" onclick="StorageService.toggleFullscreen()" aria-label="Bật chế độ toàn màn hình" aria-pressed="false" title="Bật / Tắt chế độ toàn màn hình">
+        <svg class="fs-icon-enter" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+        <svg class="fs-icon-exit" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/></svg>
+      </button>
+
+      <div class="header-ctrl-dropdown" id="header-main-menu-ctrl">
+        <button type="button" class="nav-menu-trigger-btn" id="main-menu-btn" onclick="StorageService.toggleHeaderPopover('main-menu-popover', event)" aria-label="Mở menu điều hướng và cài đặt" title="Menu chức năng">
+          <span aria-hidden="true">☰</span>
+        </button>
+        <div class="header-ctrl-popover main-menu-popover" id="main-menu-popover" style="display: none;" onclick="event.stopPropagation()">
+          <div class="popover-ctrl-title">🧭 Menu Học Tập &amp; Cài Đặt</div>
+          <div class="main-menu-list">
+            <a href="index.html" class="main-menu-item">
+              <span class="main-menu-item-left"><span>📝</span><span>Luyện đề ETS</span></span>
+            </a>
+            <a href="vocab.html" class="main-menu-item active">
+              <span class="main-menu-item-left"><span>📚</span><span>Học Từ Vựng</span></span>
+              <span class="main-menu-badge">450+ ➔ 850+</span>
+            </a>
+            <a href="grammar.html" class="main-menu-item">
+              <span class="main-menu-item-left"><span>📐</span><span>Học Ngữ Pháp</span></span>
+              <span class="main-menu-badge">450+ ➔ 850+</span>
+            </a>
+            <a href="history.html" class="main-menu-item nav-link-btn">
+              <span class="main-menu-item-left"><span>📊</span><span>Lịch sử thi</span></span>
+            </a>
+            <div class="main-menu-divider"></div>
+            <div class="main-menu-theme-row">
+              <span class="main-menu-theme-label"><span>🎨</span><span>Giao diện Sáng / Tối</span></span>
+              <button class="theme-toggle-btn" id="theme-btn" type="button" onclick="toggleTheme()" aria-label="Đổi giao diện Sáng / Tối" title="Đổi giao diện Sáng / Tối">
+                🌓
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Workspace -->
+  <main class="container" style="padding-bottom: 64px;">
+    <section class="study-hero">
+      <h1 class="study-page-title">📚 Từ Vựng TOEIC Theo Mục Tiêu Điểm</h1>
+      <p class="study-page-subtitle">Từ vựng trọng tâm phân tầng 450+ ➔ 850+ kèm cụm từ Collocations, mẹo bẫy và câu ví dụ trích trực tiếp từ 4 bộ đề ETS.</p>
+
+      <!-- 5 Score Band Selector Pills -->
+      <div class="band-selector-grid" id="vocab-band-selector" role="tablist" aria-label="Chọn mục tiêu điểm từ vựng"></div>
+
+      <!-- Band Progress & Backup Banner -->
+      <div class="band-overview-card" id="vocab-band-overview"></div>
+
+      <!-- Hidden File Input for Backup JSON Import -->
+      <input type="file" id="study-backup-file-input" accept=".json,application/json" style="display: none;" onchange="handleImportStudyBackup(event)">
+    </section>
+
+    <!-- Topic Cards within Selected Band -->
+    <section aria-label="Danh sách chủ đề từ vựng">
+      <div class="topic-tabs-row" id="vocab-topic-tabs"></div>
+    </section>
+
+    <!-- 3 Learning Mode Switcher -->
+    <div class="study-mode-tabs" role="tablist" aria-label="Chọn chế độ học từ vựng">
+      <button type="button" class="study-mode-btn active" id="vmode-flashcard" onclick="switchVocabMode('flashcard')" aria-pressed="true">
+        🃏 1. Thẻ lật Flashcard
+      </button>
+      <button type="button" class="study-mode-btn" id="vmode-list" onclick="switchVocabMode('list')" aria-pressed="false">
+        📋 2. Danh sách &amp; Đánh dấu
+      </button>
+      <button type="button" class="study-mode-btn" id="vmode-quiz" onclick="switchVocabMode('quiz')" aria-pressed="false">
+        🎯 3. Trắc nghiệm ETS
+      </button>
+    </div>
+
+    <!-- Active Mode Workspace -->
+    <section id="vocab-workspace-container" aria-live="polite"></section>
+  </main>
+
+  <!-- Scripts -->
+  <script src="js/app-config.js?v=20261024v9"></script>
+  <script src="js/storage-service.js?v=20261024v9"></script>
+  <script src="js/study-data.js?v=20261024v9"></script>
+  <script>
+    let currentBand = '450';
+    let currentTopicId = '';
+    let currentMode = 'flashcard'; // 'flashcard' | 'list' | 'quiz'
+    let flashcardIndex = 0;
+    let isFlashcardFlipped = false;
+    let listSearchQuery = '';
+    let listStatusFilter = 'all'; // 'all' | 'unseen' | 'learning' | 'mastered' | 'starred'
+    let quizUserAnswers = {};
+
+    function getSafeStorage() {
+      return (typeof StorageService !== 'undefined')
+        ? StorageService
+        : (typeof window !== 'undefined' && window.StorageService ? window.StorageService : null);
+    }
+
+    function getStudyData() {
+      if (typeof StudyData !== 'undefined' && StudyData) return StudyData;
+      if (typeof window !== 'undefined' && window.StudyData) return window.StudyData;
+      return { bands: [], vocabTopics: [], grammarTopics: [] };
+    }
+
+    function toggleTheme() {
+      const storage = getSafeStorage();
+      if (storage && typeof storage.toggleTheme === 'function') {
+        storage.toggleTheme();
+      }
+    }
+
+    function speakEnglishWord(text, event) {
+      if (event && typeof event.stopPropagation === 'function') event.stopPropagation();
+      if (typeof window === 'undefined' || !window.speechSynthesis || typeof SpeechSynthesisUtterance === 'undefined') {
+        return false;
+      }
+      try {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(String(text || ''));
+        utter.lang = 'en-US';
+        utter.rate = 0.92;
+        window.speechSynthesis.speak(utter);
+        return true;
+      } catch (_) {
+        return false;
+      }
+    }
+
+    function getTopicsForBand(bandId) {
+      const data = getStudyData();
+      return (data.vocabTopics || []).filter(t => String(t.band) === String(bandId));
+    }
+
+    function getCurrentTopic() {
+      const topics = getTopicsForBand(currentBand);
+      return topics.find(t => t.id === currentTopicId) || topics[0] || null;
+    }
+
+    function computeBandStats(bandId) {
+      const storage = getSafeStorage();
+      const prog = storage && typeof storage.getStudyProgress === 'function'
+        ? storage.getStudyProgress()
+        : { vocabStatus: {}, vocabStarred: {} };
+      const topics = getTopicsForBand(bandId);
+      let totalWords = 0;
+      let masteredCount = 0;
+      let learningCount = 0;
+      let starredCount = 0;
+
+      topics.forEach(t => {
+        (t.words || []).forEach(w => {
+          totalWords++;
+          const st = prog.vocabStatus && prog.vocabStatus[w.id];
+          if (st === 'mastered') masteredCount++;
+          else if (st === 'learning') learningCount++;
+          if (prog.vocabStarred && prog.vocabStarred[w.id]) starredCount++;
+        });
+      });
+
+      const pct = totalWords > 0 ? Math.round((masteredCount / totalWords) * 100) : 0;
+      return { totalWords, masteredCount, learningCount, starredCount, pct };
+    }
+
+    function selectBand(bandId) {
+      const validBands = ['450', '550', '650', '750', '850'];
+      const clean = String(bandId || '450').replace('+', '').trim();
+      currentBand = validBands.includes(clean) ? clean : '450';
+      const storage = getSafeStorage();
+      if (storage && typeof storage.setStudyBand === 'function') {
+        storage.setStudyBand(currentBand);
+      }
+      const topics = getTopicsForBand(currentBand);
+      currentTopicId = topics[0] ? topics[0].id : '';
+      flashcardIndex = 0;
+      isFlashcardFlipped = false;
+      quizUserAnswers = {};
+      renderAll();
+      return currentBand;
+    }
+
+    function selectTopic(topicId) {
+      currentTopicId = String(topicId || '');
+      flashcardIndex = 0;
+      isFlashcardFlipped = false;
+      quizUserAnswers = {};
+      renderAll();
+      return currentTopicId;
+    }
+
+    function switchVocabMode(mode) {
+      const validModes = ['flashcard', 'list', 'quiz'];
+      currentMode = validModes.includes(mode) ? mode : 'flashcard';
+      ['flashcard', 'list', 'quiz'].forEach(m => {
+        const btn = typeof document !== 'undefined' ? document.getElementById(`vmode-${m}`) : null;
+        if (btn) {
+          if (btn.classList) btn.classList.toggle('active', m === currentMode);
+          if (typeof btn.setAttribute === 'function') btn.setAttribute('aria-pressed', m === currentMode ? 'true' : 'false');
+        }
+      });
+      renderWorkspace();
+      return currentMode;
+    }
+
+    function renderBandSelector() {
+      const wrap = typeof document !== 'undefined' ? document.getElementById('vocab-band-selector') : null;
+      if (!wrap) return;
+      const data = getStudyData();
+      const bands = data.bands || [];
+      wrap.innerHTML = bands.map(b => {
+        const stats = computeBandStats(b.id);
+        const isActive = String(b.id) === String(currentBand);
+        return `
+          <button type="button" class="band-pill-btn ${isActive ? 'active' : ''}" data-band="${b.id}" onclick="selectBand('${b.id}')" aria-pressed="${isActive ? 'true' : 'false'}">
+            <span class="band-pill-score">🎯 ${b.label}</span>
+            <span class="band-pill-progress">${stats.pct}% (${stats.masteredCount}/${stats.totalWords})</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function renderBandOverview() {
+      const wrap = typeof document !== 'undefined' ? document.getElementById('vocab-band-overview') : null;
+      if (!wrap) return;
+      const data = getStudyData();
+      const bandMeta = (data.bands || []).find(b => String(b.id) === String(currentBand)) || {
+        id: currentBand,
+        label: `${currentBand}+`,
+        name: `Mục tiêu ${currentBand}+`,
+        shortDesc: ''
+      };
+      const stats = computeBandStats(currentBand);
+
+      wrap.innerHTML = `
+        <div class="band-overview-top">
+          <div>
+            <h2 class="band-overview-title">
+              <span>🏆 ${bandMeta.name}</span>
+              <span class="test-best-badge">LC ${bandMeta.targetListening || ''} • RC ${bandMeta.targetReading || ''}</span>
+            </h2>
+            <p class="band-overview-desc">${bandMeta.shortDesc}</p>
+          </div>
+          <div class="backup-actions-row">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="exportStudyBackup()" title="Tải file JSON sao lưu tiến độ học tập">
+              ⬇️ Xuất Backup
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="triggerImportStudyBackup()" title="Khôi phục tiến độ học từ file JSON">
+              ⬆️ Nhập Backup
+            </button>
+          </div>
+        </div>
+        <div class="study-progress-bar-wrap" role="progressbar" aria-valuenow="${stats.pct}" aria-valuemin="0" aria-valuemax="100">
+          <div class="study-progress-bar-fill" style="width: ${stats.pct}%;"></div>
+        </div>
+        <div class="study-progress-stats">
+          <span>✅ Đã thuộc: <strong>${stats.masteredCount}/${stats.totalWords} từ (${stats.pct}%)</strong></span>
+          <span>⏳ Cần ôn lại: <strong>${stats.learningCount} từ</strong></span>
+          <span>⭐ Đánh dấu sao: <strong>${stats.starredCount} từ</strong></span>
+        </div>
+      `;
+    }
+
+    function renderTopicTabs() {
+      const wrap = typeof document !== 'undefined' ? document.getElementById('vocab-topic-tabs') : null;
+      if (!wrap) return;
+      const topics = getTopicsForBand(currentBand);
+      const storage = getSafeStorage();
+      const prog = storage && typeof storage.getStudyProgress === 'function' ? storage.getStudyProgress() : { vocabStatus: {}, vocabQuizBest: {} };
+
+      wrap.innerHTML = topics.map(t => {
+        const isActive = t.id === currentTopicId;
+        const words = t.words || [];
+        const mastered = words.filter(w => prog.vocabStatus && prog.vocabStatus[w.id] === 'mastered').length;
+        const quizBest = prog.vocabQuizBest && prog.vocabQuizBest[t.id];
+        const quizBadge = quizBest
+          ? `<span class="test-best-badge">Quiz: ${quizBest.correct}/${quizBest.total}</span>`
+          : `<span style="font-size:0.75rem;color:var(--text-muted);">${words.length} từ</span>`;
+
+        return `
+          <button type="button" class="topic-select-card ${isActive ? 'active' : ''}" onclick="selectTopic('${t.id}')" aria-pressed="${isActive ? 'true' : 'false'}">
+            <div class="topic-card-header">
+              <span class="topic-card-title">${t.icon || '📘'} ${t.title}</span>
+              ${quizBadge}
+            </div>
+            <div class="topic-card-meta">
+              <span>${t.description}</span>
+              <strong style="white-space:nowrap;">${mastered}/${words.length} đã thuộc</strong>
+            </div>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function renderFlashcardMode(topic) {
+      const words = (topic && topic.words) || [];
+      if (words.length === 0) return '<p>Không có dữ liệu từ vựng.</p>';
+      if (flashcardIndex < 0) flashcardIndex = 0;
+      if (flashcardIndex >= words.length) flashcardIndex = words.length - 1;
+
+      const w = words[flashcardIndex];
+      const storage = getSafeStorage();
+      const prog = storage && typeof storage.getStudyProgress === 'function' ? storage.getStudyProgress() : { vocabStatus: {}, vocabStarred: {} };
+      const status = (prog.vocabStatus && prog.vocabStatus[w.id]) || 'unseen';
+      const isStarred = Boolean(prog.vocabStarred && prog.vocabStarred[w.id]);
+
+      const statusBadge = status === 'mastered'
+        ? '<span class="test-best-badge">✅ Đã thuộc</span>'
+        : (status === 'learning' ? '<span class="test-best-badge" style="color:#fbbf24;border-color:#f59e0b;background:rgba(245,158,11,0.15);">⏳ Cần ôn lại</span>' : '<span style="font-size:0.78rem;color:var(--text-muted);">Chưa học</span>');
+
+      return `
+        <div class="flashcard-stage-wrap">
+          <div class="flashcard-counter-bar">
+            <span>Thẻ <strong>${flashcardIndex + 1} / ${words.length}</strong> • ${topic.title}</span>
+            ${statusBadge}
+          </div>
+
+          <div class="vocab-flashcard ${isFlashcardFlipped ? 'is-flipped' : ''}" id="active-flashcard" onclick="flipFlashcard()" role="button" tabindex="0" aria-label="Nhấn để lật thẻ từ vựng ${w.word}">
+            <div class="fc-top-bar">
+              <span class="fc-pos-badge">${w.pos}</span>
+              <div class="fc-icon-actions">
+                <button type="button" class="fc-action-icon-btn" onclick="speakEnglishWord('${w.word.replace(/'/g, "\\'")}', event)" aria-label="Phát âm từ ${w.word}">
+                  🔊 Phát âm
+                </button>
+                <button type="button" class="fc-action-icon-btn ${isStarred ? 'starred' : ''}" onclick="handleToggleStar('${w.id}', event)" aria-label="Đánh dấu sao từ ${w.word}">
+                  ${isStarred ? '⭐ Đã gắn sao' : '☆ Gắn sao'}
+                </button>
+              </div>
+            </div>
+
+            ${!isFlashcardFlipped ? `
+              <div class="fc-center-body">
+                <div class="fc-word-main">${w.word}</div>
+                <div class="fc-ipa-text">${w.ipa}</div>
+                <div class="fc-detail-box">
+                  <div style="font-size:0.76rem;color:var(--accent-secondary);font-weight:700;margin-bottom:4px;">📌 Ví dụ thực tế (${w.exampleSource}):</div>
+                  <div>"${w.exampleEn}"</div>
+                </div>
+              </div>
+              <div class="fc-flip-hint">👆 Nhấn vào thẻ (hoặc phím Space) để lật xem nghĩa, cụm từ &amp; mẹo bẫy ETS</div>
+            ` : `
+              <div class="fc-center-body">
+                <div class="fc-word-main" style="font-size:1.55rem;">${w.word} <span style="font-size:0.95rem;font-weight:500;color:var(--accent-secondary);">${w.ipa}</span></div>
+                <div class="fc-meaning-main">${w.meaning}</div>
+                <div class="fc-detail-box">
+                  <div style="margin-bottom:6px;"><strong>🔗 Cụm từ (Collocations):</strong> ${w.collocations}</div>
+                  <div style="margin-bottom:6px;"><strong>💡 Mẹo ETS:</strong> ${w.tip}</div>
+                  <div><strong>📖 Ví dụ (${w.exampleSource}):</strong><br>"${w.exampleEn}"<br><span style="color:var(--text-secondary);">→ ${w.exampleVi}</span></div>
+                </div>
+              </div>
+              <div class="fc-flip-hint">👆 Nhấn vào thẻ để lật lại mặt trước</div>
+            `}
+          </div>
+
+          <div class="fc-controls-row">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="stepFlashcard(-1)" ${flashcardIndex === 0 ? 'disabled' : ''}>
+              ◀ Từ trước
+            </button>
+            <div class="fc-status-btns">
+              <button type="button" class="btn btn-secondary btn-sm" onclick="markWordStatusAndNext('${w.id}', 'learning')" style="border-color:#f59e0b;color:#fbbf24;">
+                ⏳ Cần ôn lại
+              </button>
+              <button type="button" class="btn btn-success btn-sm" onclick="markWordStatusAndNext('${w.id}', 'mastered')">
+                ✅ Đã thuộc từ này
+              </button>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="stepFlashcard(1)" ${flashcardIndex >= words.length - 1 ? 'disabled' : ''}>
+              Từ tiếp ▶
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderWordListMode(topic) {
+      const words = (topic && topic.words) || [];
+      const storage = getSafeStorage();
+      const prog = storage && typeof storage.getStudyProgress === 'function' ? storage.getStudyProgress() : { vocabStatus: {}, vocabStarred: {} };
+      const q = (listSearchQuery || '').trim().toLowerCase();
+
+      const filtered = words.filter(w => {
+        const st = (prog.vocabStatus && prog.vocabStatus[w.id]) || 'unseen';
+        const starred = Boolean(prog.vocabStarred && prog.vocabStarred[w.id]);
+        if (listStatusFilter === 'mastered' && st !== 'mastered') return false;
+        if (listStatusFilter === 'learning' && st !== 'learning') return false;
+        if (listStatusFilter === 'unseen' && st !== 'unseen') return false;
+        if (listStatusFilter === 'starred' && !starred) return false;
+        if (q) {
+          const hay = `${w.word} ${w.meaning} ${w.collocations} ${w.exampleEn}`.toLowerCase();
+          return hay.includes(q);
+        }
+        return true;
+      });
+
+      const filters = [
+        { id: 'all', label: `Tất cả (${words.length})` },
+        { id: 'unseen', label: 'Chưa học' },
+        { id: 'learning', label: '⏳ Cần ôn' },
+        { id: 'mastered', label: '✅ Đã thuộc' },
+        { id: 'starred', label: '⭐ Đã gắn sao' }
+      ];
+
+      return `
+        <div class="wordlist-toolbar">
+          <input type="search" class="wordlist-search-input" id="vocab-search-input" placeholder="🔍 Tìm nhanh từ vựng, nghĩa hoặc cụm từ..." value="${listSearchQuery.replace(/"/g, '&quot;')}" oninput="handleVocabSearch(this.value)" aria-label="Tìm kiếm từ vựng">
+          <div class="wordlist-filter-pills">
+            ${filters.map(f => `
+              <button type="button" class="wl-filter-btn ${listStatusFilter === f.id ? 'active' : ''}" onclick="setVocabListFilter('${f.id}')">
+                ${f.label}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+
+        ${filtered.length === 0 ? `
+          <div style="text-align:center;padding:36px 16px;color:var(--text-secondary);background:var(--bg-glass-card);border-radius:var(--radius-lg);border:1px solid var(--border-glass);">
+            Không tìm thấy từ vựng nào khớp với bộ lọc hiện tại.
+          </div>
+        ` : `
+          <div class="vocab-list-grid">
+            ${filtered.map(w => {
+              const st = (prog.vocabStatus && prog.vocabStatus[w.id]) || 'unseen';
+              const starred = Boolean(prog.vocabStarred && prog.vocabStarred[w.id]);
+              return `
+                <article class="vocab-item-card status-${st}">
+                  <div>
+                    <div class="vocab-item-head">
+                      <div>
+                        <div class="vocab-word-title">
+                          <span>${w.word}</span>
+                          <span style="font-size:0.85rem;font-weight:500;color:var(--accent-secondary);font-family:var(--font-mono);">${w.ipa}</span>
+                          <span class="fc-pos-badge">${w.pos}</span>
+                        </div>
+                        <div class="vocab-meaning-line">${w.meaning}</div>
+                      </div>
+                      <div style="display:flex;gap:6px;">
+                        <button type="button" class="fc-action-icon-btn" onclick="speakEnglishWord('${w.word.replace(/'/g, "\\'")}', event)" title="Phát âm" aria-label="Phát âm ${w.word}">🔊</button>
+                        <button type="button" class="fc-action-icon-btn ${starred ? 'starred' : ''}" onclick="handleToggleStar('${w.id}', event)" title="Đánh dấu sao" aria-label="Đánh dấu sao ${w.word}">${starred ? '⭐' : '☆'}</button>
+                      </div>
+                    </div>
+
+                    <div style="font-size:0.84rem;margin:8px 0;line-height:1.5;">
+                      <div><strong>🔗 Cụm từ:</strong> ${w.collocations}</div>
+                      <div style="color:var(--text-secondary);margin-top:3px;"><strong>💡 Mẹo ETS:</strong> ${w.tip}</div>
+                    </div>
+
+                    <div class="vocab-example-box">
+                      <div style="font-size:0.72rem;color:var(--accent-secondary);font-weight:700;margin-bottom:2px;">📌 ${w.exampleSource}</div>
+                      <div><strong>${w.exampleEn}</strong></div>
+                      <div style="color:var(--text-secondary);margin-top:2px;">→ ${w.exampleVi}</div>
+                    </div>
+                  </div>
+
+                  <div class="vocab-item-footer">
+                    <span style="font-size:0.76rem;color:var(--text-muted);">Trạng thái ghi nhớ:</span>
+                    <div style="display:flex;gap:6px;">
+                      <button type="button" class="status-chip-btn ${st === 'learning' ? 'active-learning' : ''}" onclick="setWordStatus('${w.id}', 'learning')">
+                        ⏳ Cần ôn
+                      </button>
+                      <button type="button" class="status-chip-btn ${st === 'mastered' ? 'active-mastered' : ''}" onclick="setWordStatus('${w.id}', 'mastered')">
+                        ✅ Đã thuộc
+                      </button>
+                    </div>
+                  </div>
+                </article>
+              `;
+            }).join('')}
+          </div>
+        `}
+      `;
+    }
+
+    function renderQuizMode(topic) {
+      const questions = (topic && topic.quizQuestions) || [];
+      if (questions.length === 0) return '<p>Không có câu hỏi trắc nghiệm.</p>';
+
+      let answeredCount = 0;
+      let correctCount = 0;
+      questions.forEach(q => {
+        const u = quizUserAnswers[q.id];
+        if (u) {
+          answeredCount++;
+          if (u === q.correctAnswer) correctCount++;
+        }
+      });
+
+      return `
+        <div class="quiz-card-list">
+          <div class="band-overview-card" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+            <div>
+              <strong>🎯 Trắc nghiệm Từ vựng thực chiến: ${topic.title}</strong>
+              <div style="font-size:0.84rem;color:var(--text-secondary);margin-top:2px;">
+                Đã làm: <strong>${answeredCount}/${questions.length}</strong> câu • Đúng: <strong style="color:var(--success);">${correctCount}/${questions.length}</strong>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button type="button" class="btn btn-secondary btn-sm" onclick="resetVocabQuiz()">🔄 Làm lại Quiz</button>
+            </div>
+          </div>
+
+          ${questions.map((q, idx) => {
+            const userChoice = quizUserAnswers[q.id] || null;
+            const letters = ['A', 'B', 'C', 'D'];
+            return `
+              <div class="study-quiz-card" id="vquiz-card-${q.id}">
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;">
+                  <span class="fc-pos-badge">Câu ${idx + 1} / ${questions.length}</span>
+                  <span style="font-size:0.75rem;color:var(--text-muted);">${q.source}</span>
+                </div>
+                <p style="font-size:1rem;font-weight:700;line-height:1.5;margin-bottom:14px;white-space:pre-line;">${q.questionText}</p>
+                <div>
+                  ${letters.map(letter => {
+                    const optText = q.options && q.options[letter] ? q.options[letter] : '';
+                    let cls = 'study-quiz-opt';
+                    if (userChoice) {
+                      if (letter === q.correctAnswer) cls += ' correct-choice';
+                      else if (letter === userChoice && userChoice !== q.correctAnswer) cls += ' wrong-choice';
+                    }
+                    return `
+                      <button type="button" class="${cls}" onclick="answerVocabQuiz('${q.id}', '${letter}')">
+                        <span class="ans-key">${letter}</span>
+                        <span>${optText}</span>
+                      </button>
+                    `;
+                  }).join('')}
+                </div>
+                ${userChoice ? `
+                  <div class="vocab-example-box" style="margin-top:10px;">
+                    <div style="font-weight:700;color:${userChoice === q.correctAnswer ? '#34d399' : '#f87171'};margin-bottom:4px;">
+                      ${userChoice === q.correctAnswer ? '✓ Chính xác!' : `✕ Chưa đúng! Đáp án đúng là (${q.correctAnswer}).`}
+                    </div>
+                    <div style="margin-bottom:4px;"><strong>Dịch nghĩa:</strong> ${q.questionTranslation}</div>
+                    <div style="color:var(--text-secondary);"><strong>Giải thích:</strong> ${q.explanation}</div>
+                  </div>
+                ` : ''}
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
+    function renderWorkspace() {
+      const container = typeof document !== 'undefined' ? document.getElementById('vocab-workspace-container') : null;
+      if (!container) return;
+      const topic = getCurrentTopic();
+      if (!topic) {
+        container.innerHTML = '<p>Đang tải dữ liệu chủ đề...</p>';
+        return;
+      }
+      if (currentMode === 'flashcard') {
+        container.innerHTML = renderFlashcardMode(topic);
+      } else if (currentMode === 'list') {
+        container.innerHTML = renderWordListMode(topic);
+      } else {
+        container.innerHTML = renderQuizMode(topic);
+      }
+    }
+
+    function renderAll() {
+      renderBandSelector();
+      renderBandOverview();
+      renderTopicTabs();
+      renderWorkspace();
+    }
+
+    function flipFlashcard() {
+      isFlashcardFlipped = !isFlashcardFlipped;
+      renderWorkspace();
+      return isFlashcardFlipped;
+    }
+
+    function stepFlashcard(delta) {
+      const topic = getCurrentTopic();
+      const words = (topic && topic.words) || [];
+      if (words.length === 0) return 0;
+      flashcardIndex = Math.min(words.length - 1, Math.max(0, flashcardIndex + delta));
+      isFlashcardFlipped = false;
+      renderWorkspace();
+      return flashcardIndex;
+    }
+
+    function setWordStatus(wordId, status) {
+      const storage = getSafeStorage();
+      if (storage && typeof storage.setVocabWordStatus === 'function') {
+        const prog = storage.getStudyProgress();
+        const cur = prog.vocabStatus && prog.vocabStatus[wordId];
+        const next = cur === status ? 'unseen' : status;
+        storage.setVocabWordStatus(wordId, next);
+      }
+      renderAll();
+    }
+
+    function markWordStatusAndNext(wordId, status) {
+      const storage = getSafeStorage();
+      if (storage && typeof storage.setVocabWordStatus === 'function') {
+        storage.setVocabWordStatus(wordId, status);
+      }
+      const topic = getCurrentTopic();
+      const words = (topic && topic.words) || [];
+      if (flashcardIndex < words.length - 1) {
+        flashcardIndex++;
+      }
+      isFlashcardFlipped = false;
+      renderAll();
+    }
+
+    function handleToggleStar(wordId, event) {
+      if (event && typeof event.stopPropagation === 'function') event.stopPropagation();
+      const storage = getSafeStorage();
+      if (storage && typeof storage.toggleVocabStar === 'function') {
+        storage.toggleVocabStar(wordId);
+      }
+      renderAll();
+    }
+
+    function handleVocabSearch(val) {
+      listSearchQuery = String(val || '');
+      renderWorkspace();
+      const input = typeof document !== 'undefined' ? document.getElementById('vocab-search-input') : null;
+      if (input && typeof input.focus === 'function') {
+        input.focus();
+        try {
+          input.setSelectionRange(listSearchQuery.length, listSearchQuery.length);
+        } catch (_) {}
+      }
+    }
+
+    function setVocabListFilter(filterId) {
+      listStatusFilter = filterId || 'all';
+      renderWorkspace();
+    }
+
+    function answerVocabQuiz(questionId, choice) {
+      quizUserAnswers[questionId] = choice;
+      const topic = getCurrentTopic();
+      if (topic && Array.isArray(topic.quizQuestions)) {
+        let correct = 0;
+        topic.quizQuestions.forEach(q => {
+          if (quizUserAnswers[q.id] === q.correctAnswer) correct++;
+        });
+        const storage = getSafeStorage();
+        if (storage && typeof storage.saveVocabQuizScore === 'function') {
+          storage.saveVocabQuizScore(topic.id, correct, topic.quizQuestions.length);
+        }
+      }
+      renderAll();
+    }
+
+    function resetVocabQuiz() {
+      quizUserAnswers = {};
+      renderWorkspace();
+    }
+
+    function exportStudyBackup() {
+      const storage = getSafeStorage();
+      if (!storage || typeof storage.exportStudyProgressJSON !== 'function') return null;
+      const jsonStr = storage.exportStudyProgressJSON();
+      if (typeof document !== 'undefined' && typeof Blob !== 'undefined' && typeof URL !== 'undefined') {
+        const blob = new Blob([jsonStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        const dateTag = new Date().toISOString().slice(0, 10);
+        a.download = `toeic_study_backup_${dateTag}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+      return jsonStr;
+    }
+
+    function triggerImportStudyBackup() {
+      const input = typeof document !== 'undefined' ? document.getElementById('study-backup-file-input') : null;
+      if (input && typeof input.click === 'function') input.click();
+    }
+
+    function handleImportStudyBackup(event) {
+      const file = event && event.target && event.target.files && event.target.files[0];
+      if (!file || typeof FileReader === 'undefined') return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e && e.target ? e.target.result : '';
+        const storage = getSafeStorage();
+        if (storage && typeof storage.importStudyProgressJSON === 'function') {
+          const res = storage.importStudyProgressJSON(content);
+          if (res && res.ok) {
+            if (typeof alert === 'function') alert('✅ Đã khôi phục tiến độ học Từ vựng & Ngữ pháp thành công!');
+            renderAll();
+          } else if (typeof alert === 'function') {
+            alert('⚠️ ' + ((res && res.error) || 'File backup không hợp lệ.'));
+          }
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') {
+      document.addEventListener('DOMContentLoaded', () => {
+        const storage = getSafeStorage();
+        if (storage && typeof storage.initTheme === 'function') {
+          storage.initTheme();
+        }
+        let initialBand = '450';
+        if (storage && typeof storage.getStudyProgress === 'function') {
+          initialBand = storage.getStudyProgress().lastBand || '450';
+        }
+        try {
+          const params = new URLSearchParams(window.location.search);
+          if (params.get('band')) initialBand = params.get('band');
+          if (params.get('mode')) currentMode = params.get('mode');
+        } catch (_) {}
+        selectBand(initialBand);
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (currentMode !== 'flashcard') return;
+        const tag = e.target && e.target.tagName ? e.target.tagName.toUpperCase() : '';
+        if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+        if (e.code === 'Space') {
+          e.preventDefault();
+          flipFlashcard();
+        } else if (e.code === 'ArrowRight') {
+          stepFlashcard(1);
+        } else if (e.code === 'ArrowLeft') {
+          stepFlashcard(-1);
+        }
+      });
+    }
+
+    if (typeof window !== 'undefined') {
+      window.selectBand = selectBand;
+      window.selectTopic = selectTopic;
+      window.switchVocabMode = switchVocabMode;
+      window.flipFlashcard = flipFlashcard;
+      window.stepFlashcard = stepFlashcard;
+      window.setWordStatus = setWordStatus;
+      window.markWordStatusAndNext = markWordStatusAndNext;
+      window.handleToggleStar = handleToggleStar;
+      window.handleVocabSearch = handleVocabSearch;
+      window.setVocabListFilter = setVocabListFilter;
+      window.answerVocabQuiz = answerVocabQuiz;
+      window.resetVocabQuiz = resetVocabQuiz;
+      window.exportStudyBackup = exportStudyBackup;
+      window.triggerImportStudyBackup = triggerImportStudyBackup;
+      window.handleImportStudyBackup = handleImportStudyBackup;
+      window.speakEnglishWord = speakEnglishWord;
+      window.toggleTheme = toggleTheme;
+    }
+
+    if (typeof module !== 'undefined' && module.exports) {
+      module.exports = {
+        selectBand,
+        selectTopic,
+        switchVocabMode,
+        flipFlashcard,
+        stepFlashcard,
+        setWordStatus,
+        markWordStatusAndNext,
+        handleToggleStar,
+        handleVocabSearch,
+        setVocabListFilter,
+        answerVocabQuiz,
+        resetVocabQuiz,
+        exportStudyBackup,
+        computeBandStats
+      };
+    }
+  </script>
+</body>
+</html>

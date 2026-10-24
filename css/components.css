@@ -4301,3 +4301,235 @@ html.no-animations *::after {
     font-size: 0.64rem;
   }
 }
+
+/* ==========================================================================
+   HEADER MAIN MENU POPOVER (☰) & VOCABULARY / GRAMMAR STUDY HUB
+   ========================================================================== */
+.nav-menu-trigger-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full, 999px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-tertiary, #1e293b);
+  border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.12));
+  color: var(--text-primary, #f8fafc);
+  font-size: 1.15rem;
+  cursor: pointer;
+  transition: all var(--transition-fast, 0.16s ease);
+  flex-shrink: 0;
+}
+
+.nav-menu-trigger-btn:hover,
+.nav-menu-trigger-btn.active {
+  background: rgba(99, 102, 241, 0.18);
+  border-color: var(--accent-primary, #6366f1);
+  color: var(--accent-primary, #6366f1);
+}
+
+[data-theme="light"] .nav-menu-trigger-btn {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #1e293b;
+}
+
+[data-theme="light"] .nav-menu-trigger-btn:hover {
+  background: #e0e7ff;
+  border-color: #6366f1;
+  color: #312e81;
+}
+
+.main-menu-popover {
+  min-width: 240px !important;
+  padding: 10px !important;
+}
+
+.main-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.main-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm, 8px);
+  color: var(--text-primary, #f8fafc);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+}
+
+.main-menu-item:hover,
+.main-menu-item.active {
+  background: rgba(99, 102, 241, 0.16);
+  border-color: rgba(99, 102, 241, 0.35);
+  color: #ffffff;
+}
+
+[data-theme="light"] .main-menu-item {
+  color: #1e293b;
+}
+
+[data-theme="light"] .main-menu-item:hover,
+[data-theme="light"] .main-menu-item.active {
+  background: #eef2ff;
+  border-color: #a5b4fc;
+  color: #312e81;
+}
+
+.main-menu-item-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.main-menu-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.18);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+[data-theme="light"] .main-menu-badge {
+  background: #d1fae5;
+  color: #065f46;
+  border-color: #6ee7b7;
+}
+
+.main-menu-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 6px 0;
+}
+
+[data-theme="light"] .main-menu-divider {
+  background: #e2e8f0;
+}
+
+.main-menu-theme-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm, 8px);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="light"] .main-menu-theme-row {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+.main-menu-theme-label {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-secondary, #cbd5e1);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+[data-theme="light"] .main-menu-theme-label {
+  color: #334155;
+}
+
+/* ── Score Band Selector Pills (450+ .. 850+) ── */
+.band-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  max-width: 780px;
+  margin: 0 auto 16px;
+}
+
+.band-pill-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 10px 8px;
+  border-radius: var(--radius-md, 12px);
+  background: var(--bg-secondary, #1e293b);
+  border: 1px solid var(--border-glass, rgba(255, 255, 255, 0.12));
+  color: var(--text-secondary, #cbd5e1);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.band-pill-btn:hover {
+  background: var(--bg-glass-hover, rgba(255, 255, 255, 0.08));
+  color: var(--text-primary, #f8fafc);
+  transform: translateY(-1px);
+}
+
+.band-pill-btn.active {
+  background: linear-gradient(135deg, var(--accent-primary, #6366f1), #4f46e5);
+  color: #ffffff;
+  border-color: var(--accent-primary, #6366f1);
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+}
+
+.band-pill-score {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+.band-pill-progress {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: inherit;
+}
+
+[data-theme="light"] .band-pill-btn {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  color: #334155;
+}
+
+[data-theme="light"] .band-pill-btn.active {
+  background: linear-gradient(135deg, #4f46e5, #4338ca);
+  color: #ffffff;
+  border-color: #4f46e5;
+}
+
+[data-theme="light"] .band-pill-btn:not(.active) .band-pill-progress {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+@media (max-width: 600px) {
+  .band-selector-grid {
+    gap: 5px;
+  }
+  .band-pill-btn {
+    padding: 8px 4px;
+  }
+  .band-pill-score {
+    font-size: 0.86rem;
+  }
+  .band-pill-progress {
+    font-size: 0.64rem;
+  }
+}
+
