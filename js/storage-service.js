@@ -538,6 +538,7 @@ const StorageService = {
   initTheme() {
     try { this.initPageZoom(); } catch (_) {}
     try { this.bindHeaderPopoversClose(); } catch (_) {}
+    try { this.bindFullscreenListeners(); } catch (_) {}
     const saved = this.getTheme();
     return this.setTheme(saved);
   },
@@ -645,6 +646,110 @@ const StorageService = {
       }
       this.closeHeaderPopovers();
     });
+  },
+  isFullscreen() {
+    if (typeof document === 'undefined') return false;
+    return Boolean(
+      document.fullscreenElement ||
+      document.webkitFullscreenElement ||
+      document.mozFullScreenElement ||
+      document.msFullscreenElement
+    );
+  },
+  syncFullscreenUI() {
+    if (typeof document === 'undefined' || typeof document.querySelectorAll !== 'function') return;
+    const active = this.isFullscreen();
+    try {
+      if (document.documentElement && document.documentElement.classList) {
+        document.documentElement.classList.toggle('is-fullscreen', active);
+      }
+      document.querySelectorAll('.fullscreen-toggle-btn').forEach(btn => {
+        if (btn.classList && typeof btn.classList.toggle === 'function') {
+          btn.classList.toggle('active', active);
+        }
+        if (typeof btn.setAttribute === 'function') {
+          btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+          const label = active ? 'Thoát chế độ toàn màn hình' : 'Bật chế độ toàn màn hình';
+          btn.setAttribute('title', label);
+          btn.setAttribute('aria-label', label);
+        }
+        if (typeof btn.querySelector === 'function') {
+          const enterIcon = btn.querySelector('.fs-icon-enter');
+          const exitIcon = btn.querySelector('.fs-icon-exit');
+          if (enterIcon && enterIcon.style) enterIcon.style.display = active ? 'none' : 'block';
+          if (exitIcon && exitIcon.style) exitIcon.style.display = active ? 'block' : 'none';
+        }
+      });
+      if (typeof UIRenderer !== 'undefined' && UIRenderer && typeof UIRenderer.syncReadingStageHeights === 'function') {
+        setTimeout(() => UIRenderer.syncReadingStageHeights(), 80);
+      }
+    } catch (_) {}
+  },
+  bindFullscreenListeners() {
+    if (this._fullscreenBound || typeof document === 'undefined' || typeof document.addEventListener !== 'function') return;
+    this._fullscreenBound = true;
+    const onFsChange = () => this.syncFullscreenUI();
+    document.addEventListener('fullscreenchange', onFsChange);
+    document.addEventListener('webkitfullscreenchange', onFsChange);
+    document.addEventListener('mozfullscreenchange', onFsChange);
+    document.addEventListener('MSFullscreenChange', onFsChange);
+    this.syncFullscreenUI();
+  },
+  async toggleFullscreen() {
+    if (typeof document === 'undefined') return false;
+    try {
+      if (this.isFullscreen()) {
+        if (typeof document.exitFullscreen === 'function') {
+          await document.exitFullscreen();
+        } else if (typeof document.webkitExitFullscreen === 'function') {
+          document.webkitExitFullscreen();
+        } else if (typeof document.mozCancelFullScreen === 'function') {
+          document.mozCancelFullScreen();
+        } else if (typeof document.msExitFullscreen === 'function') {
+          document.msExitFullscreen();
+        }
+        this.syncFullscreenUI();
+        return false;
+      } else {
+        const docEl = document.documentElement;
+        if (!docEl) return false;
+        if (typeof docEl.requestFullscreen === 'function') {
+          try {
+            await docEl.requestFullscreen({ navigationUI: 'hide' });
+          } catch (_) {
+            await docEl.requestFullscreen();
+          }
+        } else if (typeof docEl.webkitRequestFullscreen === 'function') {
+          docEl.webkitRequestFullscreen();
+        } else if (typeof docEl.mozRequestFullScreen === 'function') {
+          docEl.mozRequestFullScreen();
+        } else if (typeof docEl.msRequestFullscreen === 'function') {
+          docEl.msRequestFullscreen();
+        } else {
+          this.showFullscreenFallbackNotice();
+          return false;
+        }
+        this.syncFullscreenUI();
+        return true;
+      }
+    } catch (err) {
+      this.showFullscreenFallbackNotice();
+      return false;
+    }
+  },
+  showFullscreenFallbackNotice() {
+    if (typeof document === 'undefined' || !document.body) return;
+    const existing = document.getElementById('fs-fallback-toast');
+    if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
+    const toast = document.createElement('div');
+    toast.id = 'fs-fallback-toast';
+    toast.setAttribute('role', 'status');
+    toast.style.cssText = 'position:fixed;bottom:76px;left:50%;transform:translateX(-50%);z-index:9999;max-width:92vw;width:360px;padding:10px 14px;border-radius:12px;background:rgba(15,23,42,0.95);color:#f8fafc;border:1px solid rgba(99,102,241,0.45);box-shadow:0 8px 24px rgba(0,0,0,0.4);font-size:0.8rem;line-height:1.45;text-align:center;';
+    toast.textContent = '💡 Trình duyệt này không hỗ trợ ẩn thanh địa chỉ trực tiếp. Trên iPhone (Safari), nhấn nút Chia sẻ ➔ "Thêm vào MH chính" để mở toàn màn hình.';
+    document.body.appendChild(toast);
+    setTimeout(() => {
+      if (toast.parentNode) toast.parentNode.removeChild(toast);
+    }, 4200);
   }
 };
 if (typeof window !== 'undefined') {

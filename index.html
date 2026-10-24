@@ -7,10 +7,10 @@
   <meta name="description" content="Nền tảng thi thử TOEIC trực tuyến chuẩn format ETS 2022, audio cắt từng câu, chấm điểm 990 tự động và lời giải chi tiết.">
   
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="css/base.css?v=20261024v5">
-  <link rel="stylesheet" href="css/layout.css?v=20261024v5">
-  <link rel="stylesheet" href="css/components.css?v=20261024v5">
-  <link rel="stylesheet" href="css/responsive.css?v=20261024v5">
+  <link rel="stylesheet" href="css/base.css?v=20261024v6">
+  <link rel="stylesheet" href="css/layout.css?v=20261024v6">
+  <link rel="stylesheet" href="css/components.css?v=20261024v6">
+  <link rel="stylesheet" href="css/responsive.css?v=20261024v6">
   <style>
     .part-filter-btn,
     .book-filter-btn {
@@ -188,6 +188,10 @@
         </div>
       </div>
       <a href="history.html" class="nav-link-btn">Lịch sử thi</a>
+      <button class="fullscreen-toggle-btn" id="fullscreen-btn" type="button" onclick="StorageService.toggleFullscreen()" aria-label="Bật chế độ toàn màn hình" aria-pressed="false" title="Bật / Tắt chế độ toàn màn hình">
+        <svg class="fs-icon-enter" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+        <svg class="fs-icon-exit" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/></svg>
+      </button>
       <button class="theme-toggle-btn" id="theme-btn" type="button" onclick="toggleTheme()" aria-label="Đổi giao diện Sáng / Tối" title="Đổi giao diện Sáng / Tối">
         🌓
       </button>
@@ -254,8 +258,8 @@
   </main>
 
   <!-- Scripts -->
-  <script src="js/app-config.js?v=20261024v5"></script>
-  <script src="js/storage-service.js?v=20261024v5"></script>
+  <script src="js/app-config.js?v=20261024v6"></script>
+  <script src="js/storage-service.js?v=20261024v6"></script>
   <script>
     let currentMode = 'full';
     let selectedPart = 'part1';

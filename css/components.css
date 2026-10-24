@@ -61,7 +61,8 @@
   background: var(--bg-elevated);
 }
 
-.theme-toggle-btn {
+.theme-toggle-btn,
+.fullscreen-toggle-btn {
   width: 40px;
   height: 40px;
   border-radius: var(--radius-full);
@@ -73,11 +74,26 @@
   color: var(--text-primary);
   font-size: 1.1rem;
   transition: all var(--transition-fast);
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
 .theme-toggle-btn:hover {
   background: var(--bg-glass-hover);
   transform: rotate(15deg);
+}
+
+.fullscreen-toggle-btn:hover {
+  background: var(--bg-glass-hover);
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.fullscreen-toggle-btn.active {
+  background: rgba(99, 102, 241, 0.16);
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.25);
 }
 
 /* ── Buttons System ── */

@@ -160,7 +160,8 @@
 }
 
 @media (max-width: 1024px) {
-  .exam-navbar .nav-links {
+  .exam-navbar .nav-links #header-zoom-ctrl,
+  .exam-navbar .nav-links #theme-btn {
     display: none !important;
   }
 }
@@ -168,6 +169,14 @@
 @media (max-width: 768px) {
   :root {
     --navbar-height: 46px;
+  }
+
+  .theme-toggle-btn,
+  .fullscreen-toggle-btn {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    font-size: 0.92rem;
   }
 
   .container {
