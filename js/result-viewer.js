@@ -208,14 +208,7 @@ const ResultViewer = {
       this.currentPartFilter = 'part1';
     }
     if (typeof document !== 'undefined') {
-      if (isDirectReview) {
-        const section = document.getElementById('detailed-review-section');
-        if (section) section.style.display = 'block';
-        const btn = document.getElementById('btn-show-detail');
-        if (btn && typeof btn.setAttribute === 'function') {
-          btn.setAttribute('aria-expanded', 'true');
-        }
-      }
+      this.setReviewPageMode(Boolean(isDirectReview), false);
       if (typeof document.querySelectorAll === 'function') {
         document.querySelectorAll('#part-filter-group .filter-pill-btn').forEach(btn => {
           const btnPart = btn.dataset ? btn.dataset.part : (btn.getAttribute && btn.getAttribute('data-part'));
@@ -236,7 +229,7 @@ const ResultViewer = {
     if (targetQNum && typeof this.scrollToQuestionInReview === 'function') {
       this.scrollToQuestionInReview(targetQNum, true);
     } else if (isDirectReview && typeof this.showDetailedReviewSection === 'function') {
-      this.showDetailedReviewSection();
+      this.showDetailedReviewSection(true, false);
     }
     this.bindGlobalClickOutside();
     return true;
@@ -634,8 +627,8 @@ const ResultViewer = {
             <div class="part-stat-card part-donut-card"
                  role="button"
                  tabindex="0"
-                 onclick="ResultViewer.setPartFilter('${key}'); document.getElementById('detailed-review-section')?.scrollIntoView({behavior: 'smooth', block: 'start'});"
-                 onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); ResultViewer.setPartFilter('${key}'); document.getElementById('detailed-review-section')?.scrollIntoView({behavior: 'smooth', block: 'start'});}"
+                 onclick="ResultViewer.setPartFilter('${key}'); ResultViewer.showDetailedReviewSection();"
+                 onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); ResultViewer.setPartFilter('${key}'); ResultViewer.showDetailedReviewSection();}"
                  title="${partName}: ${pct}% (${statCorrect}/${statTotal} câu) - Nhấn để xem chi tiết"
                  aria-label="${partName}: ${pct}%, ${statCorrect} trên ${statTotal} câu đúng. Nhấn để lọc phần này.">
               <div class="part-donut-chart-wrap" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100" aria-label="Tỷ lệ chính xác ${partName}: ${pct}%">
@@ -668,23 +661,57 @@ const ResultViewer = {
     }
     return true;
   },
-  showDetailedReviewSection(instant = false) {
+  setReviewPageMode(isDetailView, pushHistory = false) {
     if (typeof document === 'undefined') return false;
-    const section = document.getElementById('detailed-review-section');
-    if (section) {
-      section.style.display = 'block';
-      const btn = document.getElementById('btn-show-detail');
-      if (btn && typeof btn.setAttribute === 'function') {
-        btn.setAttribute('aria-expanded', 'true');
+    if (document.documentElement && document.documentElement.classList) {
+      if (isDetailView) {
+        document.documentElement.classList.add('review-page-active');
+      } else {
+        document.documentElement.classList.remove('review-page-active');
       }
-      const scrollY = (typeof window !== 'undefined' && window.scrollY !== undefined)
-        ? window.scrollY
-        : ((typeof window !== 'undefined' && window.pageYOffset) || 0);
-      const offsetTop = Math.max(0, section.getBoundingClientRect().top + scrollY - 80);
+    }
+    const overview = typeof document.getElementById === 'function' ? document.getElementById('result-overview-page') : null;
+    if (overview && overview.style) {
+      overview.style.display = isDetailView ? 'none' : 'block';
+    }
+    const section = typeof document.getElementById === 'function' ? document.getElementById('detailed-review-section') : null;
+    if (section && section.style) {
+      section.style.display = isDetailView ? 'block' : 'none';
+    }
+    const btn = typeof document.getElementById === 'function' ? document.getElementById('btn-show-detail') : null;
+    if (btn && typeof btn.setAttribute === 'function') {
+      btn.setAttribute('aria-expanded', isDetailView ? 'true' : 'false');
+    }
+    if (pushHistory && isDetailView && typeof window !== 'undefined' && window.history && typeof window.history.pushState === 'function' && window.location) {
+      try {
+        const params = new URLSearchParams(window.location.search || '');
+        const curShow = (params.get('show') || params.get('section') || '').toLowerCase();
+        if (curShow !== 'review' && curShow !== 'detail') {
+          params.set('show', 'review');
+          const nextSearch = params.toString();
+          const nextUrl = (window.location.pathname || 'result.html') + (nextSearch ? `?${nextSearch}` : '');
+          window.history.pushState({ view: 'review' }, '', nextUrl);
+        }
+      } catch (_) {}
+    }
+    return Boolean(section);
+  },
+  showSummarySection() {
+    if (typeof AudioController !== 'undefined' && typeof AudioController.stopCurrent === 'function') {
+      try { AudioController.stopCurrent(); } catch (_) {}
+    }
+    this.setReviewPageMode(false, false);
+    if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+      try { window.scrollTo({ top: 0, behavior: 'auto' }); } catch (_) {}
+    }
+    return true;
+  },
+  showDetailedReviewSection(instant = false, pushHistory = true) {
+    if (typeof document === 'undefined') return false;
+    const hasSection = this.setReviewPageMode(true, pushHistory);
+    if (hasSection) {
       if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
-        const noAnim = Boolean(instant || (document.documentElement && document.documentElement.classList && document.documentElement.classList.contains('no-animations')));
-        const prefersReduced = noAnim || (typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-        window.scrollTo({ top: offsetTop, behavior: prefersReduced ? 'auto' : 'smooth' });
+        try { window.scrollTo({ top: 0, behavior: 'auto' }); } catch (_) {}
       }
       return true;
     }
@@ -694,14 +721,7 @@ const ResultViewer = {
     const parsedQ = parseInt(qNum, 10);
     if (isNaN(parsedQ) || parsedQ < 1 || parsedQ > 200) return false;
     if (typeof document === 'undefined') return false;
-    const section = document.getElementById('detailed-review-section');
-    if (section) {
-      section.style.display = 'block';
-    }
-    const btn = document.getElementById('btn-show-detail');
-    if (btn && typeof btn.setAttribute === 'function') {
-      btn.setAttribute('aria-expanded', 'true');
-    }
+    this.setReviewPageMode(true, false);
     let qEl = document.getElementById(`review_q_${parsedQ}`);
     if (!qEl) {
       const config = this._getConfig();
@@ -826,10 +846,7 @@ const ResultViewer = {
     const targetStatus = valid.includes(raw) ? raw : 'all';
     this.currentStatusFilter = targetStatus;
     if (typeof document !== 'undefined') {
-      const section = document.getElementById('detailed-review-section');
-      if (section && (section.style.display === 'none' || !section.style.display)) {
-        section.style.display = 'block';
-      }
+      this.setReviewPageMode(true, false);
       if (typeof document.querySelectorAll === 'function') {
         document.querySelectorAll('#status-filter-group .filter-tab-btn').forEach(btn => {
           const isActive = btn.dataset ? (btn.dataset.status === targetStatus) : (btn.getAttribute && btn.getAttribute('data-status') === targetStatus);
@@ -872,10 +889,7 @@ const ResultViewer = {
       try { AudioController.stopCurrent(); } catch (_) {}
     }
     if (typeof document !== 'undefined') {
-      const section = document.getElementById('detailed-review-section');
-      if (section && (section.style.display === 'none' || !section.style.display)) {
-        section.style.display = 'block';
-      }
+      this.setReviewPageMode(true, false);
       if (typeof document.querySelectorAll === 'function') {
         document.querySelectorAll('#part-filter-group .filter-pill-btn').forEach(btn => {
           const isActive = btn.dataset ? (btn.dataset.part === targetPart) : (btn.getAttribute && btn.getAttribute('data-part') === targetPart);
@@ -891,12 +905,8 @@ const ResultViewer = {
     if (typeof this.renderDetailedReview === 'function') {
       this.renderDetailedReview();
     }
-    if ((targetPart === 'part6' || targetPart === 'part7') && typeof window !== 'undefined' && window.innerWidth <= 768 && typeof document !== 'undefined' && typeof document.querySelector === 'function') {
-      const activeCard = document.querySelector(`.reading-group-stage.mobile-active-group[data-part="${targetPart}"]`);
-      if (activeCard && typeof activeCard.getBoundingClientRect === 'function' && typeof window.scrollTo === 'function') {
-        const cardTop = activeCard.getBoundingClientRect().top + (window.pageYOffset || (document.documentElement ? document.documentElement.scrollTop : 0) || 0);
-        window.scrollTo({ top: Math.max(0, cardTop - 76), behavior: 'smooth' });
-      }
+    if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+      try { window.scrollTo({ top: 0, behavior: 'auto' }); } catch (_) {}
     }
     return targetPart;
   },

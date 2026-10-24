@@ -7,10 +7,10 @@
   <meta name="description" content="Kết quả bài thi TOEIC trực tuyến, phân tích điểm số chuẩn ETS và lời giải chi tiết từng câu.">
   
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="css/base.css?v=20261024v4">
-  <link rel="stylesheet" href="css/layout.css?v=20261024v4">
-  <link rel="stylesheet" href="css/components.css?v=20261024v4">
-  <link rel="stylesheet" href="css/responsive.css?v=20261024v4">
+  <link rel="stylesheet" href="css/base.css?v=20261024v5">
+  <link rel="stylesheet" href="css/layout.css?v=20261024v5">
+  <link rel="stylesheet" href="css/components.css?v=20261024v5">
+  <link rel="stylesheet" href="css/responsive.css?v=20261024v5">
   <style>
     /* Compact Navbar so sticky Part 1..7 bar has maximum vertical room and is never covered */
     :root {
@@ -258,16 +258,20 @@
       margin-bottom: 36px;
     }
     .review-section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
-      gap: 10px;
+      display: none !important;
     }
     .review-toggle-all-btns {
       display: flex;
       gap: 8px;
+    }
+    #detailed-review-section {
+      padding-top: 4px;
+    }
+    html.review-page-active #result-overview-page {
+      display: none !important;
+    }
+    html.review-page-active #detailed-review-section {
+      display: block !important;
     }
     @media (max-width: 640px) {
       #result-test-title,
@@ -455,59 +459,62 @@
   <!-- Main Content -->
   <main class="container" style="padding-bottom: 80px;">
     
-    <!-- Result Hero Section -->
-    <section class="result-hero animate-fade-in">
-      <h1 id="result-test-title" class="result-hero-title">EST 2022 — Test 01</h1>
-      <p id="result-time-spent" style="color: var(--text-secondary); font-size: 1rem; margin-bottom: 28px;">
-        ⏱️ Thời gian làm bài: 0 phút
-      </p>
+    <!-- Page 1: Result Overview Page (Score Hero & Part Breakdown) -->
+    <div id="result-overview-page">
+      <!-- Result Hero Section -->
+      <section class="result-hero animate-fade-in">
+        <h1 id="result-test-title" class="result-hero-title">EST 2022 — Test 01</h1>
+        <p id="result-time-spent" style="color: var(--text-secondary); font-size: 1rem; margin-bottom: 28px;">
+          ⏱️ Thời gian làm bài: 0 phút
+        </p>
 
-      <!-- Circular Scaled Score 10 - 990 -->
-      <div class="score-circle-wrap" role="region" aria-label="Điểm tổng kết quả thi">
-        <div class="score-circle-inner">
-          <div class="score-val" id="result-total-score">0</div>
-          <div class="score-max">/ 990 ĐIỂM</div>
+        <!-- Circular Scaled Score 10 - 990 -->
+        <div class="score-circle-wrap" role="region" aria-label="Điểm tổng kết quả thi">
+          <div class="score-circle-inner">
+            <div class="score-val" id="result-total-score">0</div>
+            <div class="score-max">/ 990 ĐIỂM</div>
+          </div>
         </div>
-      </div>
 
-      <!-- Scaled Scores & Correct Answers Counts -->
-      <div class="score-summary-grid">
-        <div class="score-summary-card">
-          <div class="score-summary-title">🎧 Listening (LC)</div>
-          <div class="score-summary-val" id="result-lc-score" style="color: var(--accent-primary);">0 / 495</div>
+        <!-- Scaled Scores & Correct Answers Counts -->
+        <div class="score-summary-grid">
+          <div class="score-summary-card">
+            <div class="score-summary-title">🎧 Listening (LC)</div>
+            <div class="score-summary-val" id="result-lc-score" style="color: var(--accent-primary);">0 / 495</div>
+          </div>
+          <div class="score-summary-card">
+            <div class="score-summary-title">📖 Reading (RC)</div>
+            <div class="score-summary-val" id="result-rc-score" style="color: var(--accent-secondary);">0 / 495</div>
+          </div>
+          <div class="score-summary-card">
+            <div class="score-summary-title">🎯 Số câu đúng</div>
+            <div class="score-summary-val" id="result-total-correct" style="color: var(--success);">0 / 200</div>
+          </div>
         </div>
-        <div class="score-summary-card">
-          <div class="score-summary-title">📖 Reading (RC)</div>
-          <div class="score-summary-val" id="result-rc-score" style="color: var(--accent-secondary);">0 / 495</div>
+
+        <!-- Action Buttons -->
+        <div class="result-action-btns">
+          <button type="button" class="btn btn-primary btn-lg result-btn-detail" onclick="showDetailedReviewAndSyncAria()" id="btn-show-detail" aria-expanded="false" aria-controls="detailed-review-section" aria-label="Xem chi tiết bài làm và lời giải phân tích">
+            📝 Xem Chi Tiết Bài Làm & Lời Giải ➔
+          </button>
+          <button type="button" class="btn btn-secondary btn-lg result-btn-retake" onclick="retakeExam()" aria-label="Làm lại đề thi này">
+            🔄 Làm lại đề này
+          </button>
         </div>
-        <div class="score-summary-card">
-          <div class="score-summary-title">🎯 Số câu đúng</div>
-          <div class="score-summary-val" id="result-total-correct" style="color: var(--success);">0 / 200</div>
+      </section>
+
+      <!-- Part Breakdown Grid -->
+      <section style="margin-bottom: 40px;">
+        <h2 style="font-size: 1.3rem; margin-bottom: 18px; display: flex; align-items: center; gap: 8px;">
+          <span>📊</span> Đánh Giá Từng Phần (Part 1 - 7)
+        </h2>
+        <div class="part-breakdown-grid" id="result-part-breakdown">
+          <!-- Rendered dynamically by ResultViewer -->
         </div>
-      </div>
+      </section>
+    </div>
 
-      <!-- Action Buttons -->
-      <div class="result-action-btns">
-        <button type="button" class="btn btn-primary btn-lg result-btn-detail" onclick="showDetailedReviewAndSyncAria()" id="btn-show-detail" aria-expanded="false" aria-controls="detailed-review-section" aria-label="Xem chi tiết bài làm và lời giải phân tích">
-          📝 Xem Chi Tiết Bài Làm & Lời Giải ➔
-        </button>
-        <button type="button" class="btn btn-secondary btn-lg result-btn-retake" onclick="retakeExam()" aria-label="Làm lại đề thi này">
-          🔄 Làm lại đề này
-        </button>
-      </div>
-    </section>
-
-    <!-- Part Breakdown Grid -->
-    <section style="margin-bottom: 40px;">
-      <h2 style="font-size: 1.3rem; margin-bottom: 18px; display: flex; align-items: center; gap: 8px;">
-        <span>📊</span> Đánh Giá Từng Phần (Part 1 - 7)
-      </h2>
-      <div class="part-breakdown-grid" id="result-part-breakdown">
-        <!-- Rendered dynamically by ResultViewer -->
-      </div>
-    </section>
-
-    <!-- Detailed Review Section (Hidden until user clicks 'Xem Chi Tiết Bài Làm') -->
+    <!-- Page 2: Detailed Review Section (Separate Page shown when user clicks 'Xem Chi Tiết Bài Làm') -->
     <section id="detailed-review-section" style="display: none; scroll-margin-top: 90px;" class="animate-fade-in">
       <div class="review-section-header">
         <h2 style="font-size: 1.5rem; display: flex; align-items: center; gap: 8px;">
@@ -571,11 +578,11 @@
   </main>
 
   <!-- JavaScript Modules -->
-  <script src="js/app-config.js?v=20261024v4"></script>
-  <script src="js/storage-service.js?v=20261024v4"></script>
-  <script src="js/audio-controller.js?v=20261024v4"></script>
-  <script src="js/ui-renderer.js?v=20261024v4"></script>
-  <script src="js/result-viewer.js?v=20261024v4"></script>
+  <script src="js/app-config.js?v=20261024v5"></script>
+  <script src="js/storage-service.js?v=20261024v5"></script>
+  <script src="js/audio-controller.js?v=20261024v5"></script>
+  <script src="js/ui-renderer.js?v=20261024v5"></script>
+  <script src="js/result-viewer.js?v=20261024v5"></script>
 
   <script>
     if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') {
@@ -584,10 +591,30 @@
           const earlyParams = new URLSearchParams(window.location.search);
           const earlyShow = (earlyParams.get('show') || earlyParams.get('section') || '').toLowerCase();
           if (earlyParams.get('q') || earlyParams.get('question') || earlyShow === 'review' || earlyShow === 'detail') {
-            document.documentElement.classList.add('no-animations');
+            if (document.documentElement && document.documentElement.classList) {
+              document.documentElement.classList.add('no-animations');
+              document.documentElement.classList.add('review-page-active');
+            }
           }
         }
       } catch (_) {}
+
+      if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+        window.addEventListener('popstate', () => {
+          try {
+            const urlParams = new URLSearchParams(window.location.search);
+            const qParam = urlParams.get('q') || urlParams.get('question');
+            const showParam = (urlParams.get('show') || urlParams.get('section') || '').toLowerCase();
+            if (qParam || showParam === 'review' || showParam === 'detail') {
+              if (typeof ResultViewer !== 'undefined' && ResultViewer && typeof ResultViewer.showDetailedReviewSection === 'function') {
+                ResultViewer.showDetailedReviewSection(true, false);
+              }
+            } else if (typeof ResultViewer !== 'undefined' && ResultViewer && typeof ResultViewer.showSummarySection === 'function') {
+              ResultViewer.showSummarySection();
+            }
+          } catch (_) {}
+        });
+      }
 
       document.addEventListener('DOMContentLoaded', async () => {
         if (typeof StorageService !== 'undefined' && StorageService && typeof StorageService.initTheme === 'function') {
@@ -609,17 +636,19 @@
             if (qParam && typeof ResultViewer !== 'undefined' && ResultViewer && typeof ResultViewer.scrollToQuestionInReview === 'function') {
               ResultViewer.scrollToQuestionInReview(qParam, true);
             } else if (showParam && (showParam.toLowerCase() === 'review' || showParam.toLowerCase() === 'detail')) {
-              showDetailedReviewAndSyncAria();
+              showDetailedReviewAndSyncAria(false);
             }
           }
         } catch (_) {}
       });
     }
 
-    function showDetailedReviewAndSyncAria() {
+    function showDetailedReviewAndSyncAria(pushHistory = true) {
       if (typeof ResultViewer !== 'undefined' && ResultViewer && typeof ResultViewer.showDetailedReviewSection === 'function') {
-        ResultViewer.showDetailedReviewSection();
+        ResultViewer.showDetailedReviewSection(false, pushHistory);
       } else if (typeof document !== 'undefined') {
+        const overview = document.getElementById('result-overview-page');
+        if (overview && overview.style) overview.style.display = 'none';
         const sec = document.getElementById('detailed-review-section');
         if (sec) sec.style.display = 'block';
       }
