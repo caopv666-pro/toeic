@@ -6,10 +6,10 @@
   <title>Ngữ Pháp TOEIC 450+ ➔ 850+ — TOEIC Master</title>
   <meta name="description" content="Học ngữ pháp TOEIC tinh gọn theo từng mục tiêu điểm 450+, 550+, 650+, 750+, 850+: công thức cốt lõi, mẹo giải nhanh 5 giây và bài tập ETS thực chiến.">
 
-  <link rel="stylesheet" href="css/base.css?v=20261024v10">
-  <link rel="stylesheet" href="css/layout.css?v=20261024v10">
-  <link rel="stylesheet" href="css/components.css?v=20261024v10">
-  <link rel="stylesheet" href="css/responsive.css?v=20261024v10">
+  <link rel="stylesheet" href="css/base.css?v=20261025v11">
+  <link rel="stylesheet" href="css/layout.css?v=20261025v11">
+  <link rel="stylesheet" href="css/components.css?v=20261025v11">
+  <link rel="stylesheet" href="css/responsive.css?v=20261025v11">
   <style>
     /* ── Ultra-Minimalist Top Filter & Control Bar (Synced with index.html & vocab.html) ── */
     .study-top-section {
@@ -310,6 +310,65 @@
       line-height: 1.45;
     }
 
+    /* Practice Filter & Pagination Bar */
+    .prac-filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .prac-filter-pills {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .prac-filter-pill {
+      padding: 5px 11px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-glass);
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .prac-filter-pill:hover {
+      border-color: var(--accent-primary);
+      color: var(--text-primary);
+    }
+    .prac-filter-pill.active {
+      background: rgba(99, 102, 241, 0.18);
+      border-color: var(--accent-primary);
+      color: #ffffff;
+    }
+    .prac-book-select {
+      padding: 5px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-glass);
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .prac-pagination-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: var(--radius-md);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-glass);
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin: 12px 0;
+    }
+
     @media (max-width: 640px) {
       .quiz-opts-grid {
         grid-template-columns: 1fr;
@@ -325,10 +384,18 @@
     [data-theme="light"] .topic-header-bar,
     [data-theme="light"] .clean-theory-card,
     [data-theme="light"] .quiz-item-card,
-    [data-theme="light"] .quiz-opt-btn {
+    [data-theme="light"] .quiz-opt-btn,
+    [data-theme="light"] .prac-filter-pill,
+    [data-theme="light"] .prac-book-select,
+    [data-theme="light"] .prac-pagination-bar {
       background: #ffffff;
       border-color: #cbd5e1;
       color: #1e293b;
+    }
+    [data-theme="light"] .prac-filter-pill.active {
+      background: #eef2ff;
+      color: #312e81;
+      border-color: #6366f1;
     }
     [data-theme="light"] .band-chip-btn.active {
       background: var(--accent-primary);
@@ -402,6 +469,10 @@
               <span class="main-menu-item-left"><span>📚</span><span>Học Từ Vựng</span></span>
               <span class="main-menu-badge">450+ ➔ 850+</span>
             </a>
+            <a href="vocab.html?mode=dict" class="main-menu-item">
+              <span class="main-menu-item-left"><span>📖</span><span>Từ Điển 40 Đề ETS</span></span>
+              <span class="main-menu-badge">Map câu hỏi</span>
+            </a>
             <a href="grammar.html" class="main-menu-item active">
               <span class="main-menu-item-left"><span>📐</span><span>Học Ngữ Pháp</span></span>
               <span class="main-menu-badge">450+ ➔ 850+</span>
@@ -450,14 +521,19 @@
     <section class="grammar-content-wrap" id="grammar-workspace-container" aria-live="polite"></section>
   </main>
 
-  <script src="js/app-config.js?v=20261024v10"></script>
-  <script src="js/storage-service.js?v=20261024v10"></script>
-  <script src="js/study-data.js?v=20261024v10"></script>
+  <script src="js/app-config.js?v=20261025v11"></script>
+  <script src="js/storage-service.js?v=20261025v11"></script>
+  <script src="js/study-data.js?v=20261025v11"></script>
   <script>
     let currentBand = '450';
     let currentTopicId = '';
     let currentGrammarTab = 'theory'; // 'theory' | 'practice'
     let practiceAnswers = {};
+    let practiceFilter = 'all'; // 'all' | 'unanswered' | 'wrong'
+    let practiceBookFilter = 'all'; // 'all' | '22' | '23' | '24' | '26'
+    let practicePage = 1;
+    const PRACTICE_PAGE_SIZE = 20;
+    let sessionJustAnswered = new Set();
 
     function getSafeStorage() {
       return (typeof StorageService !== 'undefined')
@@ -523,6 +599,8 @@
       }
       const topics = getGrammarTopicsForBand(currentBand);
       currentTopicId = topics[0] ? topics[0].id : '';
+      practicePage = 1;
+      sessionJustAnswered.clear();
       loadSavedAnswersForTopic(currentTopicId);
       renderAllGrammar();
       return currentBand;
@@ -542,9 +620,72 @@
 
     function selectGrammarTopic(topicId) {
       currentTopicId = String(topicId || '');
+      practicePage = 1;
+      sessionJustAnswered.clear();
       loadSavedAnswersForTopic(currentTopicId);
       renderAllGrammar();
       return currentTopicId;
+    }
+
+    function setGrammarPracticeFilter(filter) {
+      const valid = ['all', 'unanswered', 'wrong'];
+      practiceFilter = valid.includes(filter) ? filter : 'all';
+      practicePage = 1;
+      sessionJustAnswered.clear();
+      renderGrammarWorkspace();
+      return practiceFilter;
+    }
+
+    function setGrammarBookFilter(bookCode) {
+      const valid = ['all', '22', '23', '24', '26'];
+      practiceBookFilter = valid.includes(String(bookCode)) ? String(bookCode) : 'all';
+      practicePage = 1;
+      sessionJustAnswered.clear();
+      renderGrammarWorkspace();
+      return practiceBookFilter;
+    }
+
+    function stepGrammarPracticePage(delta) {
+      practicePage = Math.max(1, practicePage + (Number(delta) || 0));
+      sessionJustAnswered.clear();
+      renderGrammarWorkspace();
+      if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      return practicePage;
+    }
+
+    function extractQuestionLinkMeta(q) {
+      if (!q) return null;
+      if (q.bookShort && q.testId && q.questionNumber) {
+        return { bookYear: '20' + q.bookShort, testId: q.testId, qNum: q.questionNumber };
+      }
+      const mId = String(q.id || '').match(/^p5_(\d{2})_(\d+)_(\d+)$/);
+      if (mId) {
+        return { bookYear: '20' + mId[1], testId: Number(mId[2]), qNum: Number(mId[3]) };
+      }
+      const mSrc = String(q.source || '').match(/20(\d{2})\s*[•·-]\s*Test\s*(\d+)\s*[•·-]\s*(?:Câu|Q)\s*(\d+)/i);
+      if (mSrc) {
+        return { bookYear: '20' + mSrc[1], testId: Number(mSrc[2]), qNum: Number(mSrc[3]) };
+      }
+      return null;
+    }
+
+    function getFilteredGrammarQuestions(questions) {
+      return (questions || []).filter(q => {
+        if (practiceBookFilter !== 'all') {
+          const meta = extractQuestionLinkMeta(q);
+          if (!meta || meta.bookYear !== '20' + practiceBookFilter) return false;
+        }
+        const u = practiceAnswers[q.id];
+        if (practiceFilter === 'unanswered') {
+          return !u || sessionJustAnswered.has(q.id);
+        }
+        if (practiceFilter === 'wrong') {
+          return (Boolean(u) && u !== q.correctAnswer) || (sessionJustAnswered.has(q.id) && Boolean(u));
+        }
+        return true;
+      });
     }
 
     function switchGrammarTab(tab) {
@@ -580,6 +721,8 @@
     function renderGrammarBandOverview() {
       const wrap = typeof document !== 'undefined' ? document.getElementById('grammar-band-overview') : null;
       if (!wrap) return;
+      const data = getStudyData();
+      const totalCorpusGrammar = (data.part5Stats && data.part5Stats.grammarCount) || 814;
       const stats = computeGrammarBandStats(currentBand);
       const topic = getCurrentGrammarTopic();
       const qCount = (topic && topic.practiceQuestions ? topic.practiceQuestions.length : 10);
@@ -594,7 +737,7 @@
           <div class="slim-bar-track" role="progressbar" aria-valuenow="${stats.pct}" aria-valuemin="0" aria-valuemax="100">
             <div class="slim-bar-fill" style="width:${stats.pct}%;"></div>
           </div>
-          <span>Hoàn thành <strong>${stats.completedCount}/${stats.totalTopics}</strong> chuyên đề • Đúng <strong>${stats.bestCorrectSum}/${stats.totalQuestions}</strong> câu ETS</span>
+          <span>Hoàn thành <strong>${stats.completedCount}/${stats.totalTopics}</strong> chuyên đề • Đúng <strong>${stats.bestCorrectSum}/${stats.totalQuestions}</strong> câu (Kho ${totalCorpusGrammar} câu Part 5)</span>
         </div>
         <div class="slim-actions-right">
           <button type="button" class="slim-link-btn" onclick="exportStudyBackup()" title="Xuất file JSON sao lưu tiến độ">⬇️ Sao lưu</button>
@@ -616,10 +759,12 @@
         const isActive = t.id === currentTopicId;
         const isDone = Boolean(prog.grammarCompleted && prog.grammarCompleted[t.id]);
         const shortTitle = t.title.split('(')[0].trim();
+        const qLen = (t.practiceQuestions || []).length;
 
         return `
           <button type="button" class="topic-pill-btn ${isActive ? 'active' : ''}" onclick="selectGrammarTopic('${t.id}')" aria-pressed="${isActive ? 'true' : 'false'}">
             <span>${t.icon || ''} ${shortTitle}</span>
+            <span style="font-size:0.7rem;opacity:0.75;">(${qLen})</span>
             ${isDone ? '<span class="topic-done-dot">✓</span>' : ''}
           </button>
         `;
@@ -644,13 +789,16 @@
 
       let answeredCount = 0;
       let correctCount = 0;
+      let wrongCount = 0;
       questions.forEach(q => {
         const u = practiceAnswers[q.id];
         if (u) {
           answeredCount++;
           if (u === q.correctAnswer) correctCount++;
+          else wrongCount++;
         }
       });
+      const unansweredCount = Math.max(0, questions.length - answeredCount);
 
       const headerHtml = `
         <div class="topic-header-bar">
@@ -715,6 +863,20 @@
           </div>
         `;
       } else {
+        const filtered = getFilteredGrammarQuestions(questions);
+        const totalPages = Math.max(1, Math.ceil(filtered.length / PRACTICE_PAGE_SIZE));
+        if (practicePage > totalPages) practicePage = totalPages;
+        const startIdx = (practicePage - 1) * PRACTICE_PAGE_SIZE;
+        const pagedQuestions = filtered.slice(startIdx, startIdx + PRACTICE_PAGE_SIZE);
+
+        const paginationHtml = totalPages > 1 ? `
+          <div class="prac-pagination-bar">
+            <button type="button" class="slim-link-btn" onclick="stepGrammarPracticePage(-1)" ${practicePage <= 1 ? 'disabled style="opacity:0.4;cursor:not-allowed;"' : ''}>← Trang trước</button>
+            <span>Trang <strong>${practicePage}/${totalPages}</strong> (Hiển thị ${startIdx + 1}–${Math.min(filtered.length, startIdx + PRACTICE_PAGE_SIZE)} / ${filtered.length} câu)</span>
+            <button type="button" class="slim-link-btn" onclick="stepGrammarPracticePage(1)" ${practicePage >= totalPages ? 'disabled style="opacity:0.4;cursor:not-allowed;"' : ''}>Trang sau →</button>
+          </div>
+        ` : '';
+
         container.innerHTML = `
           ${headerHtml}
 
@@ -726,14 +888,42 @@
             </div>
           </div>
 
-          ${questions.map((q, idx) => {
+          <div class="prac-filter-bar">
+            <div class="prac-filter-pills">
+              <button type="button" class="prac-filter-pill ${practiceFilter === 'all' ? 'active' : ''}" onclick="setGrammarPracticeFilter('all')">Tất cả (${questions.length})</button>
+              <button type="button" class="prac-filter-pill ${practiceFilter === 'unanswered' ? 'active' : ''}" onclick="setGrammarPracticeFilter('unanswered')">Chưa làm (${unansweredCount})</button>
+              <button type="button" class="prac-filter-pill ${practiceFilter === 'wrong' ? 'active' : ''}" onclick="setGrammarPracticeFilter('wrong')">Làm sai (${wrongCount})</button>
+            </div>
+            <select class="prac-book-select" aria-label="Lọc câu hỏi theo bộ đề ETS" onchange="setGrammarBookFilter(this.value)">
+              <option value="all" ${practiceBookFilter === 'all' ? 'selected' : ''}>📚 Tất cả 40 Đề ETS</option>
+              <option value="22" ${practiceBookFilter === '22' ? 'selected' : ''}>ETS 2022</option>
+              <option value="23" ${practiceBookFilter === '23' ? 'selected' : ''}>ETS 2023</option>
+              <option value="24" ${practiceBookFilter === '24' ? 'selected' : ''}>ETS 2024</option>
+              <option value="26" ${practiceBookFilter === '26' ? 'selected' : ''}>ETS 2026</option>
+            </select>
+          </div>
+
+          ${paginationHtml}
+
+          ${pagedQuestions.length === 0 ? `
+            <div class="clean-theory-card" style="text-align:center;padding:24px;color:var(--text-muted);">
+              Không có câu hỏi nào khớp với bộ lọc hiện tại.
+            </div>
+          ` : pagedQuestions.map((q, idx) => {
             const userChoice = practiceAnswers[q.id] || null;
             const letters = ['A', 'B', 'C', 'D'];
+            const linkMeta = extractQuestionLinkMeta(q);
+            const reviewHref = linkMeta
+              ? `result.html?book=${linkMeta.bookYear}&test=${linkMeta.testId}&show=review&q=${linkMeta.qNum}`
+              : '';
             return `
               <div class="quiz-item-card">
-                <div style="display:flex;justify-content:space-between;font-size:0.74rem;color:var(--text-muted);">
-                  <strong>Câu ${idx + 1}/${questions.length}</strong>
-                  <span>${q.source}</span>
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:0.74rem;color:var(--text-muted);">
+                  <strong>Câu ${startIdx + idx + 1}/${filtered.length}</strong>
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span>${q.source}</span>
+                    ${reviewHref ? `<a href="${reviewHref}" class="slim-link-btn" style="text-decoration:none;padding:2px 7px;font-size:0.7rem;" title="Mở câu này trong trang chữa đề gốc">🔗 Mở đề gốc</a>` : ''}
+                  </div>
                 </div>
                 <div class="quiz-q-text">${q.questionText}</div>
                 <div class="quiz-opts-grid">
@@ -764,6 +954,8 @@
               </div>
             `;
           }).join('')}
+
+          ${paginationHtml}
         `;
       }
     }
@@ -777,6 +969,7 @@
 
     function answerGrammarQuestion(questionId, choice) {
       practiceAnswers[questionId] = choice;
+      sessionJustAnswered.add(questionId);
       const topic = getCurrentGrammarTopic();
       if (topic && Array.isArray(topic.practiceQuestions)) {
         let correct = 0;
@@ -793,6 +986,8 @@
 
     function resetGrammarPractice() {
       practiceAnswers = {};
+      practicePage = 1;
+      sessionJustAnswered.clear();
       renderGrammarWorkspace();
     }
 
@@ -869,6 +1064,9 @@
       window.selectGrammarBand = selectGrammarBand;
       window.selectGrammarTopic = selectGrammarTopic;
       window.switchGrammarTab = switchGrammarTab;
+      window.setGrammarPracticeFilter = setGrammarPracticeFilter;
+      window.setGrammarBookFilter = setGrammarBookFilter;
+      window.stepGrammarPracticePage = stepGrammarPracticePage;
       window.answerGrammarQuestion = answerGrammarQuestion;
       window.resetGrammarPractice = resetGrammarPractice;
       window.handleToggleGrammarCompleted = handleToggleGrammarCompleted;
@@ -883,6 +1081,11 @@
         selectGrammarBand,
         selectGrammarTopic,
         switchGrammarTab,
+        setGrammarPracticeFilter,
+        setGrammarBookFilter,
+        stepGrammarPracticePage,
+        getFilteredGrammarQuestions,
+        extractQuestionLinkMeta,
         answerGrammarQuestion,
         resetGrammarPractice,
         handleToggleGrammarCompleted,

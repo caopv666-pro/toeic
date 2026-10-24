@@ -527,6 +527,220 @@
     [data-theme="light"] .vc-example-line {
       border-top-color: #f1f5f9;
     }
+
+    /* ── 40-Test ETS Dictionary Minimalist Styles ── */
+    .dict-toolbar {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .dict-search-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .dict-sort-select {
+      padding: 7px 10px;
+      border-radius: var(--radius-md);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-glass);
+      color: var(--text-primary);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .dict-stat-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 2px;
+    }
+    .dict-mini-badge {
+      font-size: 0.71rem;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      color: var(--text-secondary);
+    }
+    .dict-mini-badge.is-hot {
+      background: rgba(16, 185, 129, 0.14);
+      border-color: rgba(16, 185, 129, 0.35);
+      color: var(--success);
+    }
+    .dict-mini-badge.is-fam {
+      background: rgba(99, 102, 241, 0.14);
+      border-color: rgba(99, 102, 241, 0.35);
+      color: #a5b4fc;
+    }
+    .dict-card-clickable {
+      cursor: pointer;
+    }
+    .dict-pager-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin: 16px 0 40px;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+
+    /* Word Detail Modal */
+    .dict-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+      background: rgba(9, 13, 26, 0.72);
+      backdrop-filter: blur(5px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .dict-modal-backdrop.open {
+      display: flex;
+    }
+    .dict-modal-panel {
+      width: 100%;
+      max-width: 720px;
+      max-height: 88vh;
+      overflow-y: auto;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-xl);
+      padding: 20px 22px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .dict-freq-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .dict-freq-box {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 9px 10px;
+      text-align: center;
+    }
+    .dict-freq-num {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+    .dict-freq-lbl {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .dict-sec-box {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+    }
+    .dict-sec-title {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .fam-chips-wrap,
+    .qmap-chips-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .fam-chip-btn {
+      padding: 5px 10px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-glass);
+      color: var(--text-primary);
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: border-color 0.15s ease;
+    }
+    .fam-chip-btn:hover,
+    .fam-chip-btn.is-self {
+      border-color: var(--accent-primary);
+      background: rgba(99, 102, 241, 0.15);
+    }
+    .qmap-link-chip {
+      text-decoration: none;
+      padding: 4px 9px;
+      border-radius: 6px;
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-glass);
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+    }
+    .qmap-link-chip:hover {
+      border-color: var(--accent-primary);
+      color: var(--text-primary);
+    }
+    .qmap-link-chip.is-ans {
+      background: rgba(16, 185, 129, 0.14);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: var(--success);
+    }
+    .qmap-link-chip.is-opt {
+      background: rgba(99, 102, 241, 0.12);
+      border-color: rgba(99, 102, 241, 0.35);
+      color: #a5b4fc;
+    }
+
+    @media (max-width: 640px) {
+      .dict-freq-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    [data-theme="light"] .dict-sort-select,
+    [data-theme="light"] .dict-modal-panel,
+    [data-theme="light"] .fam-chip-btn,
+    [data-theme="light"] .qmap-link-chip {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      color: #1e293b;
+    }
+    [data-theme="light"] .dict-freq-box,
+    [data-theme="light"] .dict-sec-box,
+    [data-theme="light"] .dict-mini-badge {
+      background: #f8fafc;
+      border-color: #e2e8f0;
+      color: #334155;
+    }
+    [data-theme="light"] .dict-mini-badge.is-fam,
+    [data-theme="light"] .qmap-link-chip.is-opt {
+      background: #eef2ff;
+      border-color: #a5b4fc;
+      color: #3730a3;
+    }
+    [data-theme="light"] .dict-mini-badge.is-hot,
+    [data-theme="light"] .qmap-link-chip.is-ans {
+      background: #ecfdf5;
+      border-color: #6ee7b7;
+      color: #047857;
+    }
   </style>
 </head>
 <body>
@@ -582,6 +796,10 @@
               <span class="main-menu-item-left"><span>📚</span><span>Học Từ Vựng</span></span>
               <span class="main-menu-badge">450+ ➔ 850+</span>
             </a>
+            <a href="vocab.html?mode=dict" class="main-menu-item">
+              <span class="main-menu-item-left"><span>📖</span><span>Từ Điển 40 Đề ETS</span></span>
+              <span class="main-menu-badge">Map câu hỏi</span>
+            </a>
             <a href="grammar.html" class="main-menu-item">
               <span class="main-menu-item-left"><span>📐</span><span>Học Ngữ Pháp</span></span>
               <span class="main-menu-badge">450+ ➔ 850+</span>
@@ -619,6 +837,9 @@
         <button type="button" class="mode-tab-btn" id="vmode-quiz" onclick="switchVocabMode('quiz')" aria-pressed="false">
           🎯 Quiz ETS
         </button>
+        <button type="button" class="mode-tab-btn" id="vmode-dict" onclick="switchVocabMode('dict')" aria-pressed="false">
+          📖 Từ điển 40 Đề
+        </button>
       </div>
 
       <!-- 3. Compact Topic Pills -->
@@ -633,18 +854,33 @@
     <section id="vocab-workspace-container" aria-live="polite"></section>
   </main>
 
-  <script src="js/app-config.js?v=20261024v10"></script>
-  <script src="js/storage-service.js?v=20261024v10"></script>
-  <script src="js/study-data.js?v=20261024v10"></script>
+  <!-- 40-Test Dictionary Word Detail Modal -->
+  <div class="dict-modal-backdrop" id="dict-word-modal" role="dialog" aria-modal="true" aria-label="Chi tiết từ điển 40 đề ETS" onclick="closeDictWordModal(event)">
+    <div class="dict-modal-panel" id="dict-word-modal-body" onclick="event.stopPropagation()"></div>
+  </div>
+
+  <script src="js/app-config.js?v=20261025v11"></script>
+  <script src="js/storage-service.js?v=20261025v11"></script>
+  <script src="js/study-data.js?v=20261025v11"></script>
   <script>
     let currentBand = '450';
     let currentTopicId = '';
-    let currentMode = 'list'; // Default to clean scannable list; 'list' | 'flashcard' | 'quiz'
+    let currentMode = 'list'; // 'list' | 'flashcard' | 'quiz' | 'dict'
     let flashcardIndex = 0;
     let isFlashcardFlipped = false;
     let listSearchQuery = '';
     let listStatusFilter = 'all';
     let quizUserAnswers = {};
+
+    // 40-Test ETS Dictionary State
+    let dictSearchQuery = '';
+    let dictBandFilter = 'all'; // 'all' | '450' | '550' | '650' | '750' | '850'
+    let dictPosFilter = 'all';  // 'all' | 'fam' | 'ans' | 'n' | 'v' | 'adj' | 'adv' | 'phr' | 'starred'
+    let dictSortBy = 'freq';    // 'freq' | 'ans' | 'az'
+    let dictPage = 1;
+    const DICT_PAGE_SIZE = 40;
+    let activeDictWordKey = '';
+    let _dictLookupCache = null;
 
     function getSafeStorage() {
       return (typeof StorageService !== 'undefined')
@@ -655,7 +891,69 @@
     function getStudyData() {
       if (typeof StudyData !== 'undefined' && StudyData) return StudyData;
       if (typeof window !== 'undefined' && window.StudyData) return window.StudyData;
-      return { bands: [], vocabTopics: [], grammarTopics: [] };
+      return { bands: [], vocabTopics: [], grammarTopics: [], etsDictionary: [] };
+    }
+
+    function getDictIndex() {
+      const data = getStudyData();
+      const entries = data.etsDictionary || [];
+      if (_dictLookupCache && _dictLookupCache.len === entries.length) return _dictLookupCache;
+      const byWord = new Map();
+      const byId = new Map();
+      entries.forEach(e => {
+        byWord.set(String(e.w || '').toLowerCase(), e);
+        byId.set(e.id, e);
+      });
+      _dictLookupCache = { len: entries.length, entries, byWord, byId };
+      return _dictLookupCache;
+    }
+
+    function resolveDictEntry(wordOrId) {
+      const idx = getDictIndex();
+      const raw = String(wordOrId || '').trim();
+      if (!raw) return null;
+      if (idx.byId.has(raw)) return idx.byId.get(raw);
+      const lw = raw.toLowerCase();
+      if (idx.byWord.has(lw)) return idx.byWord.get(lw);
+      // Inflection fallback (e.g., products -> product, produced -> produce, cities -> city)
+      if (lw.endsWith('ies') && idx.byWord.has(lw.slice(0, -3) + 'y')) return idx.byWord.get(lw.slice(0, -3) + 'y');
+      if (lw.endsWith('ied') && idx.byWord.has(lw.slice(0, -3) + 'y')) return idx.byWord.get(lw.slice(0, -3) + 'y');
+      if (lw.endsWith('es') && idx.byWord.has(lw.slice(0, -2))) return idx.byWord.get(lw.slice(0, -2));
+      if (lw.endsWith('s') && idx.byWord.has(lw.slice(0, -1))) return idx.byWord.get(lw.slice(0, -1));
+      if (lw.endsWith('ed') && idx.byWord.has(lw.slice(0, -2))) return idx.byWord.get(lw.slice(0, -2));
+      if (lw.endsWith('ed') && idx.byWord.has(lw.slice(0, -1))) return idx.byWord.get(lw.slice(0, -1));
+      if (lw.endsWith('ing') && idx.byWord.has(lw.slice(0, -3))) return idx.byWord.get(lw.slice(0, -3));
+      if (lw.endsWith('ing') && idx.byWord.has(lw.slice(0, -3) + 'e')) return idx.byWord.get(lw.slice(0, -3) + 'e');
+      return null;
+    }
+
+    function decodeQMapCode(rawCode) {
+      const s = String(rawCode || '').trim();
+      const isAns = s.endsWith('*');
+      const isOpt = s.endsWith('+');
+      const core = s.replace(/[*+]$/, '');
+      const [yy, tId, qNumStr] = core.split('-');
+      const qNum = Number(qNumStr) || 1;
+      const year = `20${yy}`;
+      let partNum = 7;
+      if (qNum <= 6) partNum = 1;
+      else if (qNum <= 31) partNum = 2;
+      else if (qNum <= 70) partNum = 3;
+      else if (qNum <= 100) partNum = 4;
+      else if (qNum <= 130) partNum = 5;
+      else if (qNum <= 146) partNum = 6;
+      const roleLabel = isAns ? '★ Đáp án đúng' : (isOpt ? '◆ Phương án P5/6' : `P${partNum}`);
+      return {
+        year,
+        testId: tId,
+        qNum,
+        partNum,
+        isAns,
+        isOpt,
+        label: `ETS ${year} • T${tId} • Q${qNum}`,
+        roleLabel,
+        href: `result.html?book=${year}&test=${tId}&show=review&q=${qNum}`
+      };
     }
 
     function toggleTheme() {
@@ -725,6 +1023,12 @@
       if (storage && typeof storage.setStudyBand === 'function') {
         storage.setStudyBand(currentBand);
       }
+      if (currentMode === 'dict') {
+        dictBandFilter = dictBandFilter === currentBand ? 'all' : currentBand;
+        dictPage = 1;
+        renderAll();
+        return currentBand;
+      }
       const topics = getTopicsForBand(currentBand);
       currentTopicId = topics[0] ? topics[0].id : '';
       flashcardIndex = 0;
@@ -744,16 +1048,16 @@
     }
 
     function switchVocabMode(mode) {
-      const validModes = ['flashcard', 'list', 'quiz'];
+      const validModes = ['flashcard', 'list', 'quiz', 'dict'];
       currentMode = validModes.includes(mode) ? mode : 'list';
-      ['flashcard', 'list', 'quiz'].forEach(m => {
+      validModes.forEach(m => {
         const btn = typeof document !== 'undefined' ? document.getElementById(`vmode-${m}`) : null;
         if (btn) {
           if (btn.classList) btn.classList.toggle('active', m === currentMode);
           if (typeof btn.setAttribute === 'function') btn.setAttribute('aria-pressed', m === currentMode ? 'true' : 'false');
         }
       });
-      renderWorkspace();
+      renderAll();
       return currentMode;
     }
 
@@ -762,6 +1066,27 @@
       if (!wrap) return;
       const data = getStudyData();
       const bands = data.bands || [];
+      if (currentMode === 'dict') {
+        const entries = (data.etsDictionary || []);
+        wrap.innerHTML = [
+          `<button type="button" class="band-chip-btn ${dictBandFilter === 'all' ? 'active' : ''}" onclick="setDictBandFilter('all')" aria-pressed="${dictBandFilter === 'all' ? 'true' : 'false'}">
+            <span class="band-chip-label">Tất cả</span>
+            <span class="band-chip-sub">${entries.length} từ</span>
+          </button>`,
+          ...bands.map(b => {
+            const cnt = entries.filter(e => String(e.band) === String(b.id)).length;
+            const isAct = String(dictBandFilter) === String(b.id);
+            return `
+              <button type="button" class="band-chip-btn ${isAct ? 'active' : ''}" data-band="${b.id}" onclick="setDictBandFilter('${b.id}')" aria-pressed="${isAct ? 'true' : 'false'}">
+                <span class="band-chip-label">${b.label}</span>
+                <span class="band-chip-sub">${cnt} từ</span>
+              </button>
+            `;
+          })
+        ].join('');
+        return;
+      }
+
       wrap.innerHTML = bands.map(b => {
         const stats = computeBandStats(b.id);
         const isActive = String(b.id) === String(currentBand);
@@ -777,6 +1102,23 @@
     function renderBandOverview() {
       const wrap = typeof document !== 'undefined' ? document.getElementById('vocab-band-overview') : null;
       if (!wrap) return;
+      const data = getStudyData();
+
+      if (currentMode === 'dict') {
+        const dStats = data.dictionaryStats || { totalEntries: (data.etsDictionary || []).length, multiMemberFamiliesCount: 0 };
+        wrap.innerHTML = `
+          <div class="slim-progress-left">
+            <strong>📖 Từ điển 40 Đề ETS:</strong>
+            <span>Tổng hợp <strong>${dStats.totalEntries}</strong> mục từ • <strong>${dStats.multiMemberFamiliesCount}</strong> gia đình từ cùng gốc • Tra map trực tiếp 8.000 câu</span>
+          </div>
+          <div class="slim-actions-right">
+            <button type="button" class="slim-link-btn" onclick="exportStudyBackup()" title="Xuất file JSON sao lưu tiến độ">⬇️ Sao lưu</button>
+            <button type="button" class="slim-link-btn" onclick="triggerImportStudyBackup()" title="Khôi phục tiến độ từ file JSON">⬆️ Khôi phục</button>
+          </div>
+        `;
+        return;
+      }
+
       const stats = computeBandStats(currentBand);
       const topic = getCurrentTopic();
       const topicLabel = topic ? topic.title : '';
@@ -800,6 +1142,12 @@
     function renderTopicTabs() {
       const wrap = typeof document !== 'undefined' ? document.getElementById('vocab-topic-tabs') : null;
       if (!wrap) return;
+      if (currentMode === 'dict') {
+        wrap.style.display = 'none';
+        wrap.innerHTML = '';
+        return;
+      }
+      wrap.style.display = '';
       const topics = getTopicsForBand(currentBand);
       const storage = getSafeStorage();
       const prog = storage && typeof storage.getStudyProgress === 'function' ? storage.getStudyProgress() : { vocabStatus: {} };
@@ -829,6 +1177,7 @@
       const prog = storage && typeof storage.getStudyProgress === 'function' ? storage.getStudyProgress() : { vocabStatus: {}, vocabStarred: {} };
       const status = (prog.vocabStatus && prog.vocabStatus[w.id]) || 'unseen';
       const isStarred = Boolean(prog.vocabStarred && prog.vocabStarred[w.id]);
+      const safeWordEsc = w.word.replace(/'/g, "\\'");
 
       return `
         <div class="fc-container">
@@ -841,7 +1190,8 @@
             <div class="fc-header">
               <span class="pos-tag">${w.pos}</span>
               <div style="display:flex;gap:6px;">
-                <button type="button" class="icon-pill-btn" onclick="speakEnglishWord('${w.word.replace(/'/g, "\\'")}', event)">🔊 Nghe</button>
+                <button type="button" class="icon-pill-btn" onclick="openDictWordModal('${safeWordEsc}', event)" title="Tra Map câu hỏi & Từ cùng gốc trong 40 đề">🔍 Map 40 đề</button>
+                <button type="button" class="icon-pill-btn" onclick="speakEnglishWord('${safeWordEsc}', event)">🔊 Nghe</button>
                 <button type="button" class="icon-pill-btn ${isStarred ? 'starred' : ''}" onclick="handleToggleStar('${w.id}', event)">${isStarred ? '⭐' : '☆'}</button>
               </div>
             </div>
@@ -926,16 +1276,19 @@
             ${filtered.map(w => {
               const st = (prog.vocabStatus && prog.vocabStatus[w.id]) || 'unseen';
               const starred = Boolean(prog.vocabStarred && prog.vocabStarred[w.id]);
+              const safeWordEsc = w.word.replace(/'/g, "\\'");
+              const dictHit = resolveDictEntry(w.word);
               return `
                 <article class="vocab-compact-card ${st === 'mastered' ? 'is-mastered' : (st === 'learning' ? 'is-learning' : '')}">
                   <div class="vc-row-top">
                     <div class="vc-word-group">
-                      <span class="vc-word">${w.word}</span>
+                      <span class="vc-word" style="cursor:pointer;" onclick="openDictWordModal('${safeWordEsc}', event)" title="Nhấn để xem Map câu hỏi & Từ cùng gốc">${w.word}</span>
                       <span class="pos-tag">${w.pos}</span>
                       <span class="vc-ipa">${w.ipa}</span>
                     </div>
                     <div class="vc-actions">
-                      <button type="button" class="vc-icon-btn" onclick="speakEnglishWord('${w.word.replace(/'/g, "\\'")}', event)" title="Phát âm">🔊</button>
+                      <button type="button" class="vc-icon-btn" onclick="openDictWordModal('${safeWordEsc}', event)" title="Tra Map câu hỏi & Gia đình từ trong 40 đề">🔍${dictHit ? ` ${dictHit.tot}` : ''}</button>
+                      <button type="button" class="vc-icon-btn" onclick="speakEnglishWord('${safeWordEsc}', event)" title="Phát âm">🔊</button>
                       <button type="button" class="vc-icon-btn" onclick="handleToggleStar('${w.id}', event)" title="Gắn sao">${starred ? '⭐' : '☆'}</button>
                       <button type="button" class="vc-icon-btn ${st === 'learning' ? 'active-learning' : ''}" onclick="setWordStatus('${w.id}', 'learning')" title="Cần ôn lại">Ôn</button>
                       <button type="button" class="vc-icon-btn ${st === 'mastered' ? 'active-mastered' : ''}" onclick="setWordStatus('${w.id}', 'mastered')" title="Đánh dấu đã thuộc">✓ Thuộc</button>
@@ -978,11 +1331,17 @@
           ${questions.map((q, idx) => {
             const userChoice = quizUserAnswers[q.id] || null;
             const letters = ['A', 'B', 'C', 'D'];
+            const reviewHref = q.isOfficialEtsPart5 && q.bookShort && q.testId && q.questionNumber
+              ? `result.html?book=20${q.bookShort}&test=${q.testId}&show=review&q=${q.questionNumber}`
+              : '';
             return `
               <div class="quiz-item-card">
-                <div style="display:flex;justify-content:space-between;font-size:0.74rem;color:var(--text-muted);">
+                <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.74rem;color:var(--text-muted);">
                   <strong>Câu ${idx + 1}/${questions.length}</strong>
-                  <span>${q.source}</span>
+                  <span style="display:inline-flex;align-items:center;gap:8px;">
+                    <span>${q.source}</span>
+                    ${reviewHref ? `<a href="${reviewHref}" target="_blank" rel="noopener" style="color:var(--accent-secondary);text-decoration:none;font-weight:700;">🔗 Mở đề gốc</a>` : ''}
+                  </span>
                 </div>
                 <div class="quiz-q-text">${q.questionText}</div>
                 <div class="quiz-opts-grid">
@@ -1004,7 +1363,7 @@
                 ${userChoice ? `
                   <div class="quiz-explain-box">
                     <div style="font-weight:700;color:${userChoice === q.correctAnswer ? 'var(--success)' : 'var(--danger)'};margin-bottom:3px;">
-                      ${userChoice === q.correctAnswer ? '✓ Chính xác!' : `✕ Đáp án đúng: (${q.correctAnswer})`}
+                      ${userChoice === q.correctAnswer ? '✓ Chính xác!' : `✕ Đáp án đúng: (${q.correctAnswer}) ${q.options[q.correctAnswer] || ''}`}
                     </div>
                     <div><strong>Dịch:</strong> ${q.questionTranslation}</div>
                     <div style="color:var(--text-secondary);margin-top:2px;">${q.explanation}</div>
@@ -1017,9 +1376,304 @@
       `;
     }
 
+    function getFilteredDictionaryEntries() {
+      const idx = getDictIndex();
+      const storage = getSafeStorage();
+      const prog = storage && typeof storage.getStudyProgress === 'function' ? storage.getStudyProgress() : { vocabStarred: {} };
+      const q = (dictSearchQuery || '').trim().toLowerCase();
+      const directResolved = q ? resolveDictEntry(q) : null;
+
+      let list = idx.entries.filter(e => {
+        if (dictBandFilter !== 'all' && String(e.band) !== String(dictBandFilter)) return false;
+        if (dictPosFilter === 'fam' && (!e.fam || e.fam.length < 2)) return false;
+        if (dictPosFilter === 'ans' && (!e.p56Ans || e.p56Ans < 1)) return false;
+        if (dictPosFilter === 'starred' && !(prog.vocabStarred && prog.vocabStarred[e.id])) return false;
+        if (['n', 'v', 'adj', 'adv', 'phr'].includes(dictPosFilter)) {
+          const pTokens = String(e.pos || '').split(/\s*\/\s*/);
+          if (!pTokens.includes(dictPosFilter)) return false;
+        }
+        if (q) {
+          if (directResolved && directResolved.id === e.id) return true;
+          if (e.w.includes(q) || String(e.m || '').toLowerCase().includes(q)) return true;
+          if ((e.fam || []).some(fm => fm.w.includes(q))) return true;
+          if ((e.colloc || []).some(c => c.toLowerCase().includes(q))) return true;
+          return false;
+        }
+        return true;
+      });
+
+      if (q) {
+        // Put exact or inflection-resolved headword match first!
+        list = list.slice().sort((a, b) => {
+          const aExact = a.w === q || (directResolved && a.id === directResolved.id) ? 1 : (a.w.startsWith(q) ? 0.5 : 0);
+          const bExact = b.w === q || (directResolved && b.id === directResolved.id) ? 1 : (b.w.startsWith(q) ? 0.5 : 0);
+          if (bExact !== aExact) return bExact - aExact;
+          return b.tot - a.tot;
+        });
+      } else if (dictSortBy === 'ans') {
+        list = list.slice().sort((a, b) => b.p56Ans - a.p56Ans || b.p56Opt - a.p56Opt || b.tot - a.tot);
+      } else if (dictSortBy === 'az') {
+        list = list.slice().sort((a, b) => a.w.localeCompare(b.w));
+      }
+      return list;
+    }
+
+    function renderDictionaryMode() {
+      const storage = getSafeStorage();
+      const prog = storage && typeof storage.getStudyProgress === 'function' ? storage.getStudyProgress() : { vocabStatus: {}, vocabStarred: {} };
+      const filtered = getFilteredDictionaryEntries();
+      const totalPages = Math.max(1, Math.ceil(filtered.length / DICT_PAGE_SIZE));
+      if (dictPage > totalPages) dictPage = totalPages;
+      if (dictPage < 1) dictPage = 1;
+      const startIdx = (dictPage - 1) * DICT_PAGE_SIZE;
+      const pageItems = filtered.slice(startIdx, startIdx + DICT_PAGE_SIZE);
+
+      const posFilters = [
+        { id: 'all', label: 'Tất cả' },
+        { id: 'fam', label: '🌳 Có từ cùng gốc' },
+        { id: 'ans', label: '🎯 Đáp án đúng P5/6' },
+        { id: 'n', label: 'Danh từ' },
+        { id: 'v', label: 'Động từ' },
+        { id: 'adj', label: 'Tính từ' },
+        { id: 'adv', label: 'Trạng từ' },
+        { id: 'phr', label: 'Cụm từ' },
+        { id: 'starred', label: '⭐ Đã lưu' }
+      ];
+
+      return `
+        <div class="dict-toolbar">
+          <div class="dict-search-row">
+            <input type="search" class="search-box-minimal" id="dict-search-input" placeholder="Tra từ tiếng Anh (kể cả chia thì/số nhiều), nghĩa tiếng Việt hoặc cụm từ trong 40 đề..." value="${dictSearchQuery.replace(/"/g, '&quot;')}" oninput="handleDictSearch(this.value)" aria-label="Tra từ điển 40 đề ETS">
+            <select class="dict-sort-select" onchange="setDictSortBy(this.value)" aria-label="Sắp xếp từ điển">
+              <option value="freq" ${dictSortBy === 'freq' ? 'selected' : ''}>🔥 Xuất hiện nhiều nhất</option>
+              <option value="ans" ${dictSortBy === 'ans' ? 'selected' : ''}>🎯 Hay làm đáp án P5/6</option>
+              <option value="az" ${dictSortBy === 'az' ? 'selected' : ''}>🔤 Bảng chữ cái A ➔ Z</option>
+            </select>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+            <div class="filter-chips-group">
+              ${posFilters.map(f => `
+                <button type="button" class="mini-filter-chip ${dictPosFilter === f.id ? 'active' : ''}" onclick="setDictPosFilter('${f.id}')">${f.label}</button>
+              `).join('')}
+            </div>
+            <span style="font-size:0.76rem;color:var(--text-muted);">Tìm thấy <strong>${filtered.length}</strong> mục từ</span>
+          </div>
+        </div>
+
+        ${pageItems.length === 0 ? `
+          <div style="text-align:center;padding:36px;color:var(--text-muted);font-size:0.88rem;">Không tìm thấy từ khớp với bộ lọc hiện tại.</div>
+        ` : `
+          <div class="vocab-compact-grid" style="margin-bottom:16px;">
+            ${pageItems.map(e => {
+              const st = (prog.vocabStatus && prog.vocabStatus[e.id]) || 'unseen';
+              const starred = Boolean(prog.vocabStarred && prog.vocabStarred[e.id]);
+              const safeWordEsc = e.w.replace(/'/g, "\\'");
+              return `
+                <article class="vocab-compact-card dict-card-clickable ${st === 'mastered' ? 'is-mastered' : (st === 'learning' ? 'is-learning' : '')}" onclick="openDictWordModal('${e.id}', event)">
+                  <div class="vc-row-top">
+                    <div class="vc-word-group">
+                      <span class="vc-word">${e.w}</span>
+                      <span class="pos-tag">${e.pos}</span>
+                      ${e.ipa ? `<span class="vc-ipa">${e.ipa}</span>` : `<span class="vc-ipa">${e.band}+</span>`}
+                    </div>
+                    <div class="vc-actions" onclick="event.stopPropagation()">
+                      <button type="button" class="vc-icon-btn" onclick="speakEnglishWord('${safeWordEsc}', event)" title="Phát âm">🔊</button>
+                      <button type="button" class="vc-icon-btn" onclick="handleToggleStar('${e.id}', event)" title="Gắn sao">${starred ? '⭐' : '☆'}</button>
+                      <button type="button" class="vc-icon-btn ${st === 'mastered' ? 'active-mastered' : ''}" onclick="setWordStatus('${e.id}', 'mastered')" title="Đã thuộc">✓</button>
+                    </div>
+                  </div>
+                  <div class="vc-meaning">${e.m}</div>
+                  <div class="dict-stat-badges">
+                    <span class="dict-mini-badge">📊 <strong>${e.tot}</strong> lần (LC:${e.parts.lc} • P5-6:${e.parts.p56} • P7:${e.parts.p7})</span>
+                    ${e.p56Ans > 0 ? `<span class="dict-mini-badge is-hot">🎯 ${e.p56Ans} lần đáp án đúng</span>` : ''}
+                    ${e.fam && e.fam.length >= 2 ? `<span class="dict-mini-badge is-fam">🌳 ${e.fam.length} từ cùng gốc</span>` : ''}
+                  </div>
+                </article>
+              `;
+            }).join('')}
+          </div>
+
+          ${totalPages > 1 ? `
+            <div class="dict-pager-bar">
+              <button type="button" class="btn btn-secondary btn-sm" onclick="stepDictPage(-1)" ${dictPage <= 1 ? 'disabled' : ''}>◀ Trang trước</button>
+              <span>Trang <strong>${dictPage} / ${totalPages}</strong> (${filtered.length} từ)</span>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="stepDictPage(1)" ${dictPage >= totalPages ? 'disabled' : ''}>Trang sau ▶</button>
+            </div>
+          ` : ''}
+        `}
+      `;
+    }
+
+    function openDictWordModal(wordOrId, event) {
+      if (event && typeof event.stopPropagation === 'function') event.stopPropagation();
+      const entry = resolveDictEntry(wordOrId);
+      const modal = typeof document !== 'undefined' ? document.getElementById('dict-word-modal') : null;
+      const body = typeof document !== 'undefined' ? document.getElementById('dict-word-modal-body') : null;
+      if (!entry || !modal || !body) return null;
+
+      activeDictWordKey = entry.id;
+      const storage = getSafeStorage();
+      const prog = storage && typeof storage.getStudyProgress === 'function' ? storage.getStudyProgress() : { vocabStatus: {}, vocabStarred: {} };
+      const st = (prog.vocabStatus && prog.vocabStatus[entry.id]) || 'unseen';
+      const starred = Boolean(prog.vocabStarred && prog.vocabStarred[entry.id]);
+      const safeWordEsc = entry.w.replace(/'/g, "\\'");
+      const decodedQMap = (entry.qMap || []).map(decodeQMapCode);
+
+      body.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;">
+          <div>
+            <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;">
+              <h2 style="margin:0;font-size:1.65rem;font-weight:800;color:var(--text-primary);">${entry.w}</h2>
+              <span class="pos-tag">${entry.pos}</span>
+              ${entry.ipa ? `<span class="vc-ipa" style="font-size:0.9rem;">${entry.ipa}</span>` : ''}
+              <span class="dict-mini-badge">Mục tiêu ${entry.band}+</span>
+            </div>
+            <div style="font-size:1.1rem;font-weight:800;color:var(--success);margin-top:4px;">${entry.m}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <button type="button" class="icon-pill-btn" onclick="speakEnglishWord('${safeWordEsc}', event)">🔊 Phát âm</button>
+            <button type="button" class="icon-pill-btn ${starred ? 'starred' : ''}" onclick="handleToggleStar('${entry.id}', event); openDictWordModal('${entry.id}')">${starred ? '⭐ Đã lưu' : '☆ Lưu từ'}</button>
+            <button type="button" class="vc-icon-btn ${st === 'mastered' ? 'active-mastered' : ''}" onclick="setWordStatus('${entry.id}', 'mastered'); openDictWordModal('${entry.id}')">✓ Đã thuộc</button>
+            <button type="button" class="icon-pill-btn" onclick="closeDictWordModal()" aria-label="Đóng cửa sổ">✕</button>
+          </div>
+        </div>
+
+        <!-- 1. Frequency Breakdown across 40 ETS Tests -->
+        <div class="dict-freq-grid">
+          <div class="dict-freq-box">
+            <div class="dict-freq-num" style="color:var(--accent-secondary);">${entry.tot}</div>
+            <div class="dict-freq-lbl">Tổng lần gặp / 40 đề</div>
+          </div>
+          <div class="dict-freq-box">
+            <div class="dict-freq-num">${entry.parts.lc}</div>
+            <div class="dict-freq-lbl">Nghe (Part 1–4)</div>
+          </div>
+          <div class="dict-freq-box">
+            <div class="dict-freq-num" style="color:var(--success);">${entry.parts.p56}</div>
+            <div class="dict-freq-lbl">Part 5–6 (${entry.p56Opt} chọn • ${entry.p56Ans} đúng)</div>
+          </div>
+          <div class="dict-freq-box">
+            <div class="dict-freq-num">${entry.parts.p7}</div>
+            <div class="dict-freq-lbl">Đọc hiểu (Part 7)</div>
+          </div>
+        </div>
+
+        <!-- 2. Word Family / Same Morphological Root -->
+        ${entry.fam && entry.fam.length >= 2 ? `
+          <div class="dict-sec-box">
+            <div class="dict-sec-title">🌳 Gia đình từ / Các từ cùng gốc trong 40 đề (${entry.fam.length} từ)</div>
+            <div class="fam-chips-wrap">
+              ${entry.fam.map(fm => `
+                <button type="button" class="fam-chip-btn ${fm.w === entry.w ? 'is-self' : ''}" onclick="openDictWordModal('${fm.w.replace(/'/g, "\\'")}', event)">
+                  <strong>${fm.w}</strong>
+                  <span class="pos-tag" style="padding:1px 5px;font-size:0.66rem;">${fm.pos}</span>
+                  <span style="color:var(--text-secondary);font-size:0.75rem;">${fm.m}</span>
+                  <span style="color:var(--text-muted);font-size:0.72rem;">(${fm.tot} lần)</span>
+                </button>
+              `).join('')}
+            </div>
+          </div>
+        ` : ''}
+
+        <!-- 3. Collocations, Tips & Real ETS Bilingual Examples -->
+        ${(entry.colloc && entry.colloc.length > 0) || entry.tip || (entry.ex && entry.ex.length > 0) ? `
+          <div class="dict-sec-box" style="display:flex;flex-direction:column;gap:8px;font-size:0.84rem;line-height:1.45;">
+            ${entry.colloc && entry.colloc.length > 0 ? `
+              <div>
+                <div class="dict-sec-title" style="margin-bottom:4px;">💡 Cụm từ &amp; Cấu trúc đi kèm trong đề</div>
+                ${entry.colloc.map(c => `<div style="color:var(--text-secondary);">• ${c}</div>`).join('')}
+              </div>
+            ` : ''}
+            ${entry.tip ? `
+              <div><strong>📌 Lưu ý thi ETS:</strong> <span style="color:var(--text-secondary);">${entry.tip}</span></div>
+            ` : ''}
+            ${entry.ex && entry.ex.length > 0 ? `
+              <div style="padding-top:6px;border-top:1px solid var(--border-glass);">
+                <div class="dict-sec-title" style="margin-bottom:4px;">📝 Ngữ cảnh thực tế trích từ đề thi</div>
+                ${entry.ex.map(ex => `
+                  <div style="margin-bottom:6px;">
+                    <span style="color:var(--text-primary);font-weight:600;">"${ex.en}"</span>
+                    <span style="font-size:0.73rem;color:var(--accent-secondary);"> (${ex.q})</span><br>
+                    <span style="color:var(--text-muted);">→ ${ex.vi}</span>
+                  </div>
+                `).join('')}
+              </div>
+            ` : ''}
+          </div>
+        ` : ''}
+
+        <!-- 4. Question Map across 40 ETS Tests -->
+        <div class="dict-sec-box">
+          <div class="dict-sec-title">🗺️ Map câu hỏi xuất hiện trong 40 Bộ đề ETS (Nhấn để mở lời giải gốc)</div>
+          <div class="qmap-chips-wrap">
+            ${decodedQMap.map(qm => `
+              <a href="${qm.href}" target="_blank" rel="noopener" class="qmap-link-chip ${qm.isAns ? 'is-ans' : (qm.isOpt ? 'is-opt' : '')}" title="Mở giải thích chi tiết câu ${qm.qNum} (${qm.label})">
+                <span>${qm.label}</span>
+                <span style="opacity:0.85;">• ${qm.roleLabel}</span>
+              </a>
+            `).join('')}
+            ${entry.tot > decodedQMap.length ? `
+              <span class="dict-mini-badge">+ ${entry.tot - decodedQMap.length} câu khác trong bộ 40 đề</span>
+            ` : ''}
+          </div>
+        </div>
+      `;
+
+      if (modal.classList) modal.classList.add('open');
+      return entry;
+    }
+
+    function closeDictWordModal(event) {
+      if (event && event.target && event.target.id && event.target.id !== 'dict-word-modal') return;
+      const modal = typeof document !== 'undefined' ? document.getElementById('dict-word-modal') : null;
+      if (modal && modal.classList) modal.classList.remove('open');
+      activeDictWordKey = '';
+    }
+
+    function handleDictSearch(val) {
+      dictSearchQuery = String(val || '');
+      dictPage = 1;
+      renderWorkspace();
+      const input = typeof document !== 'undefined' ? document.getElementById('dict-search-input') : null;
+      if (input && typeof input.focus === 'function') {
+        input.focus();
+        try { input.setSelectionRange(dictSearchQuery.length, dictSearchQuery.length); } catch (_) {}
+      }
+    }
+
+    function setDictBandFilter(band) {
+      dictBandFilter = band || 'all';
+      dictPage = 1;
+      renderAll();
+    }
+
+    function setDictPosFilter(pos) {
+      dictPosFilter = pos || 'all';
+      dictPage = 1;
+      renderWorkspace();
+    }
+
+    function setDictSortBy(sortVal) {
+      dictSortBy = sortVal || 'freq';
+      dictPage = 1;
+      renderWorkspace();
+    }
+
+    function stepDictPage(delta) {
+      dictPage = Math.max(1, dictPage + delta);
+      renderWorkspace();
+      if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
     function renderWorkspace() {
       const container = typeof document !== 'undefined' ? document.getElementById('vocab-workspace-container') : null;
       if (!container) return;
+      if (currentMode === 'dict') {
+        container.innerHTML = renderDictionaryMode();
+        return;
+      }
       const topic = getCurrentTopic();
       if (!topic) {
         container.innerHTML = '';
@@ -1176,16 +1830,27 @@
         if (storage && typeof storage.getStudyProgress === 'function') {
           initialBand = storage.getStudyProgress().lastBand || '450';
         }
+        let targetWord = '';
         try {
           const params = new URLSearchParams(window.location.search);
           if (params.get('band')) initialBand = params.get('band');
           if (params.get('mode')) switchVocabMode(params.get('mode'));
+          if (params.get('word')) targetWord = params.get('word');
         } catch (_) {}
         selectBand(initialBand);
+        if (targetWord) {
+          switchVocabMode('dict');
+          handleDictSearch(targetWord);
+          openDictWordModal(targetWord);
+        }
       });
 
       document.addEventListener('keydown', (e) => {
-        if (currentMode !== 'flashcard') return;
+        if (e.code === 'Escape' && activeDictWordKey) {
+          closeDictWordModal();
+          return;
+        }
+        if (currentMode !== 'flashcard' || activeDictWordKey) return;
         const tag = e.target && e.target.tagName ? e.target.tagName.toUpperCase() : '';
         if (tag === 'INPUT' || tag === 'TEXTAREA') return;
         if (e.code === 'Space') {
@@ -1212,6 +1877,15 @@
       window.setVocabListFilter = setVocabListFilter;
       window.answerVocabQuiz = answerVocabQuiz;
       window.resetVocabQuiz = resetVocabQuiz;
+      window.handleDictSearch = handleDictSearch;
+      window.setDictBandFilter = setDictBandFilter;
+      window.setDictPosFilter = setDictPosFilter;
+      window.setDictSortBy = setDictSortBy;
+      window.stepDictPage = stepDictPage;
+      window.openDictWordModal = openDictWordModal;
+      window.closeDictWordModal = closeDictWordModal;
+      window.resolveDictEntry = resolveDictEntry;
+      window.decodeQMapCode = decodeQMapCode;
       window.exportStudyBackup = exportStudyBackup;
       window.triggerImportStudyBackup = triggerImportStudyBackup;
       window.handleImportStudyBackup = handleImportStudyBackup;
@@ -1233,6 +1907,16 @@
         setVocabListFilter,
         answerVocabQuiz,
         resetVocabQuiz,
+        handleDictSearch,
+        setDictBandFilter,
+        setDictPosFilter,
+        setDictSortBy,
+        stepDictPage,
+        openDictWordModal,
+        closeDictWordModal,
+        resolveDictEntry,
+        decodeQMapCode,
+         getFilteredDictionaryEntries,
         exportStudyBackup,
         computeBandStats
       };
