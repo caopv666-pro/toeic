@@ -7,10 +7,10 @@
   <meta name="description" content="Giao diện thi thử TOEIC trực tuyến chuẩn định dạng ETS, tự động tính giờ và lưu tiến độ.">
   
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="css/base.css?v=20261024v7">
-  <link rel="stylesheet" href="css/layout.css?v=20261024v7">
-  <link rel="stylesheet" href="css/components.css?v=20261024v7">
-  <link rel="stylesheet" href="css/responsive.css?v=20261024v7">
+  <link rel="stylesheet" href="css/base.css?v=20261024v8">
+  <link rel="stylesheet" href="css/layout.css?v=20261024v8">
+  <link rel="stylesheet" href="css/components.css?v=20261024v8">
+  <link rel="stylesheet" href="css/responsive.css?v=20261024v8">
 </head>
 <body>
 
@@ -205,11 +205,11 @@
   </style>
 
   <!-- JavaScript Modules -->
-  <script src="js/app-config.js?v=20261024v7"></script>
-  <script src="js/storage-service.js?v=20261024v7"></script>
-  <script src="js/audio-controller.js?v=20261024v7"></script>
-  <script src="js/ui-renderer.js?v=20261024v7"></script>
-  <script src="js/exam-engine.js?v=20261024v7"></script>
+  <script src="js/app-config.js?v=20261024v8"></script>
+  <script src="js/storage-service.js?v=20261024v8"></script>
+  <script src="js/audio-controller.js?v=20261024v8"></script>
+  <script src="js/ui-renderer.js?v=20261024v8"></script>
+  <script src="js/exam-engine.js?v=20261024v8"></script>
 
   <script>
     function confirmExitExam(event) {
@@ -239,6 +239,8 @@
           const testNumStr = testId < 10 ? `0${testId}` : `${testId}`;
           const mode = (urlParams.get('mode') || '').toLowerCase().trim();
           const partFilter = (urlParams.get('part') || '').toLowerCase().trim();
+          const rawDay = parseInt(urlParams.get('day') || '1', 10);
+          const dayNum = (!isNaN(rawDay) && rawDay >= 1 && rawDay <= 6) ? rawDay : 1;
 
           const titleBadge = document.getElementById('exam-header-title');
           if (titleBadge) {
@@ -251,6 +253,8 @@
                 ? AppConfig.PARTS[partFilter].name.split(':')[0]
                 : (defaultParts[partFilter] || partFilter.toUpperCase());
               titleBadge.textContent = `Test ${testNumStr} • ${partName}`;
+            } else if (mode === 'daily') {
+              titleBadge.textContent = `Test ${testNumStr} • Ngày ${dayNum}/6`;
             } else {
               titleBadge.textContent = `Test ${testNumStr}`;
             }

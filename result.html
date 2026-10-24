@@ -7,10 +7,10 @@
   <meta name="description" content="Kết quả bài thi TOEIC trực tuyến, phân tích điểm số chuẩn ETS và lời giải chi tiết từng câu.">
   
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="css/base.css?v=20261024v7">
-  <link rel="stylesheet" href="css/layout.css?v=20261024v7">
-  <link rel="stylesheet" href="css/components.css?v=20261024v7">
-  <link rel="stylesheet" href="css/responsive.css?v=20261024v7">
+  <link rel="stylesheet" href="css/base.css?v=20261024v8">
+  <link rel="stylesheet" href="css/layout.css?v=20261024v8">
+  <link rel="stylesheet" href="css/components.css?v=20261024v8">
+  <link rel="stylesheet" href="css/responsive.css?v=20261024v8">
   <style>
     /* Compact Navbar so sticky Part 1..7 bar has maximum vertical room and is never covered */
     :root {
@@ -581,11 +581,11 @@
   </main>
 
   <!-- JavaScript Modules -->
-  <script src="js/app-config.js?v=20261024v7"></script>
-  <script src="js/storage-service.js?v=20261024v7"></script>
-  <script src="js/audio-controller.js?v=20261024v7"></script>
-  <script src="js/ui-renderer.js?v=20261024v7"></script>
-  <script src="js/result-viewer.js?v=20261024v7"></script>
+  <script src="js/app-config.js?v=20261024v8"></script>
+  <script src="js/storage-service.js?v=20261024v8"></script>
+  <script src="js/audio-controller.js?v=20261024v8"></script>
+  <script src="js/ui-renderer.js?v=20261024v8"></script>
+  <script src="js/result-viewer.js?v=20261024v8"></script>
 
   <script>
     if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') {
@@ -688,7 +688,7 @@
           }
         }
         const validTestId = (parsed >= 1 && parsed <= 10) ? parsed : Math.min(10, Math.max(1, Number.isFinite(parsed) ? parsed : 1));
-        const validMode = (r.mode === 'part') ? 'part' : 'full';
+        const validMode = (r.mode === 'part') ? 'part' : (r.mode === 'daily' ? 'daily' : 'full');
         let url = `exam.html?test=${validTestId}&mode=${validMode}`;
         if (validMode === 'part' && r.partFilter) {
           const validParts = ['part1', 'part2', 'part3', 'part4', 'part5', 'part6', 'part7'];
@@ -696,6 +696,9 @@
           if (validParts.includes(normPart)) {
             url += `&part=${normPart}`;
           }
+        } else if (validMode === 'daily') {
+          const validDay = Math.min(6, Math.max(1, parseInt(r.dayFilter, 10) || 1));
+          url += `&day=${validDay}`;
         }
         if (typeof window !== 'undefined' && window.location) {
           window.location.href = url;

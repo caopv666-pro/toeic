@@ -254,6 +254,155 @@ const AppConfig = {
     }
     return null;
   },
+  DAILY_SCHEDULE: {
+    1: {
+      day: 1,
+      name: 'Ngày 1 / 6',
+      shortName: 'Ngày 1',
+      timeSeconds: 20 * 60,
+      summary: '1c P1 • 4c P2 • 6c P3 • 6c P4 • 5c P5 • 4c P6 • 3 bài P7 (~33 câu • 20 phút)',
+      part1: [1, 1],
+      part2: [7, 10],
+      part3: [32, 37],
+      part4: [71, 76],
+      part5: [101, 105],
+      part6: [131, 134],
+      part7Groups: [0, 2],
+      part7Fallback: [147, 153]
+    },
+    2: {
+      day: 2,
+      name: 'Ngày 2 / 6',
+      shortName: 'Ngày 2',
+      timeSeconds: 20 * 60,
+      summary: '1c P1 • 4c P2 • 6c P3 • 6c P4 • 5c P5 • 4c P6 • 3 bài P7 (~34 câu • 20 phút)',
+      part1: [2, 2],
+      part2: [11, 14],
+      part3: [38, 43],
+      part4: [77, 82],
+      part5: [106, 110],
+      part6: [135, 138],
+      part7Groups: [3, 5],
+      part7Fallback: [154, 161]
+    },
+    3: {
+      day: 3,
+      name: 'Ngày 3 / 6',
+      shortName: 'Ngày 3',
+      timeSeconds: 20 * 60,
+      summary: '1c P1 • 4c P2 • 6c P3 • 6c P4 • 5c P5 • 4c P6 • 2 bài P7 (~33 câu • 20 phút)',
+      part1: [3, 3],
+      part2: [15, 18],
+      part3: [44, 49],
+      part4: [83, 88],
+      part5: [111, 115],
+      part6: [139, 142],
+      part7Groups: [6, 7],
+      part7Fallback: [162, 168]
+    },
+    4: {
+      day: 4,
+      name: 'Ngày 4 / 6',
+      shortName: 'Ngày 4',
+      timeSeconds: 20 * 60,
+      summary: '1c P1 • 4c P2 • 6c P3 • 6c P4 • 5c P5 • 4c P6 • 2 bài P7 (~33 câu • 20 phút)',
+      part1: [4, 4],
+      part2: [19, 22],
+      part3: [50, 55],
+      part4: [89, 94],
+      part5: [116, 120],
+      part6: [143, 146],
+      part7Groups: [8, 9],
+      part7Fallback: [169, 175]
+    },
+    5: {
+      day: 5,
+      name: 'Ngày 5 / 6',
+      shortName: 'Ngày 5',
+      timeSeconds: 20 * 60,
+      summary: '1c P1 • 4c P2 • 6c P3 • 3c P4 • 5c P5 • 3 bài ghép P7 (34 câu • 20 phút)',
+      part1: [5, 5],
+      part2: [23, 26],
+      part3: [56, 61],
+      part4: [95, 97],
+      part5: [121, 125],
+      part6: null,
+      part7Groups: [10, 12],
+      part7Fallback: [176, 190]
+    },
+    6: {
+      day: 6,
+      name: 'Ngày 6 / 6',
+      shortName: 'Ngày 6',
+      timeSeconds: 20 * 60,
+      summary: '1c P1 • 5c P2 • 9c P3 • 3c P4 • 5c P5 • 2 bài ba P7 (33 câu • 20 phút)',
+      part1: [6, 6],
+      part2: [27, 31],
+      part3: [62, 70],
+      part4: [98, 100],
+      part5: [126, 130],
+      part6: null,
+      part7Groups: [13, 14],
+      part7Fallback: [191, 200]
+    }
+  },
+  getDailyPlanInfo(dayNum) {
+    const d = Math.min(6, Math.max(1, parseInt(dayNum, 10) || 1));
+    return this.DAILY_SCHEDULE[d] || this.DAILY_SCHEDULE[1];
+  },
+  getDailyQuestionNumbers(dayNum, testOrQuestions = null) {
+    const plan = this.getDailyPlanInfo(dayNum);
+    const qSet = new Set();
+    const addRange = (r) => {
+      if (!Array.isArray(r) || r.length < 2) return;
+      for (let i = r[0]; i <= r[1]; i++) qSet.add(i);
+    };
+    addRange(plan.part1);
+    addRange(plan.part2);
+    addRange(plan.part3);
+    addRange(plan.part4);
+    addRange(plan.part5);
+    addRange(plan.part6);
+    let p7Added = false;
+    if (testOrQuestions && Array.isArray(plan.part7Groups)) {
+      const [gStart, gEnd] = plan.part7Groups;
+      if (Array.isArray(testOrQuestions)) {
+        const p7Qs = testOrQuestions.filter(q => q && (q.part === 'part7' || Number(q.questionNumber) >= 147));
+        const seenGroups = [];
+        p7Qs.forEach(q => {
+          const gid = q.groupId || `p7_${q.questionNumber}`;
+          if (!seenGroups.includes(gid)) seenGroups.push(gid);
+        });
+        if (seenGroups.length >= gEnd + 1) {
+          const allowedGids = new Set(seenGroups.slice(gStart, gEnd + 1));
+          p7Qs.forEach(q => {
+            const gid = q.groupId || `p7_${q.questionNumber}`;
+            if (allowedGids.has(gid) && Number.isInteger(Number(q.questionNumber))) {
+              qSet.add(Number(q.questionNumber));
+              p7Added = true;
+            }
+          });
+        }
+      } else if (typeof testOrQuestions === 'object' && testOrQuestions.reading && testOrQuestions.reading.part7) {
+        const p7Raw = testOrQuestions.reading.part7;
+        const groups = Array.isArray(p7Raw) ? p7Raw : (Array.isArray(p7Raw.groups) ? p7Raw.groups : []);
+        if (groups.length >= gEnd + 1) {
+          groups.slice(gStart, gEnd + 1).forEach(g => {
+            (g.questions || []).forEach(q => {
+              if (q && Number.isInteger(Number(q.questionNumber))) {
+                qSet.add(Number(q.questionNumber));
+                p7Added = true;
+              }
+            });
+          });
+        }
+      }
+    }
+    if (!p7Added) {
+      addRange(plan.part7Fallback);
+    }
+    return Array.from(qSet).sort((a, b) => a - b);
+  },
   calculateListeningScore(correctCount) {
     const rawNum = Number(correctCount);
     if (isNaN(rawNum) || rawNum <= 0) return 5;

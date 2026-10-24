@@ -139,6 +139,9 @@ const ResultViewer = {
       }
     }
     const urlResultId = urlParams.get('id');
+    const urlMode = (urlParams.get('mode') || '').trim().toLowerCase();
+    const rawDay = parseInt(urlParams.get('day') || '0', 10);
+    const urlDay = (!isNaN(rawDay) && rawDay >= 1 && rawDay <= 6) ? rawDay : null;
     const storage = this._getStorage();
     const matchesBook = (item) => {
       if (!item) return true;
@@ -153,7 +156,7 @@ const ResultViewer = {
       return !urlBook;
     };
     if (isDirectReview && !urlResultId) {
-      await this.loadReviewModeFromDB(urlTestId || 1, activeBook);
+      await this.loadReviewModeFromDB(urlTestId || 1, activeBook, urlMode === 'daily' ? (urlDay || 1) : null);
     }
     if (!this.resultData && urlResultId && storage && typeof storage.getExamHistory === 'function') {
       const history = storage.getExamHistory();
@@ -184,7 +187,7 @@ const ResultViewer = {
         (targetQNum && (!this.resultData || !Array.isArray(this.resultData.detailedQuestions) || !this.resultData.detailedQuestions.some(q => q && Number(q.questionNumber) === targetQNum)))
       );
     if (needsDBLoad) {
-      await this.loadReviewModeFromDB(urlTestId || (this.resultData && parseInt(this.resultData.testId, 10)) || 1, activeBook);
+      await this.loadReviewModeFromDB(urlTestId || (this.resultData && parseInt(this.resultData.testId, 10)) || 1, activeBook, urlMode === 'daily' ? (urlDay || 1) : null);
     }
     if (!this.resultData) {
       console.warn('Không tìm thấy kết quả bài thi. Đang chuyển về trang chủ...');
@@ -234,7 +237,7 @@ const ResultViewer = {
     this.bindGlobalClickOutside();
     return true;
   },
-  async loadReviewModeFromDB(testId, bookOverride = null) {
+  async loadReviewModeFromDB(testId, bookOverride = null, dayFilter = null) {
     try {
       const clampedId = (Number.isFinite(testId) && testId >= 1 && testId <= 10) ? Math.floor(testId) : 1;
       const config = this._getConfig();
@@ -471,23 +474,45 @@ const ResultViewer = {
       const currentBook = normalizedBook || ((config && typeof config.getSelectedBook === 'function')
         ? config.getSelectedBook()
         : 'EST 2022');
+      let finalQuestions = detailedQuestions;
+      let isDailyReview = false;
+      const validDay = (Number.isInteger(dayFilter) && dayFilter >= 1 && dayFilter <= 6) ? dayFilter : null;
+      if (validDay && config && typeof config.getDailyQuestionNumbers === 'function') {
+        const dailySet = new Set(config.getDailyQuestionNumbers(validDay, currentTest));
+        finalQuestions = detailedQuestions.filter(q => q && dailySet.has(Number(q.questionNumber)));
+        isDailyReview = true;
+        Object.keys(partStats).forEach(k => {
+          partStats[k] = { total: 0, correct: 0, answered: 0 };
+        });
+        finalQuestions.forEach(q => {
+          if (partStats[q.part]) {
+            partStats[q.part].total++;
+            partStats[q.part].correct++;
+            partStats[q.part].answered++;
+          }
+        });
+      }
+      const testNumStr = `${clampedId < 10 ? '0' : ''}${clampedId}`;
       this.resultData = {
-        id: 'review_test_' + clampedId,
+        id: isDailyReview ? `review_test_${clampedId}_day_${validDay}` : ('review_test_' + clampedId),
         date: new Date().toISOString(),
         bookName: currentBook,
         testId: clampedId,
-        testTitle: `${currentBook} — Test ${clampedId < 10 ? '0' : ''}${clampedId}`,
-        mode: 'review',
+        testTitle: isDailyReview
+          ? `${currentBook} — Test ${testNumStr} (Ngày ${validDay}/6)`
+          : `${currentBook} — Test ${testNumStr}`,
+        mode: isDailyReview ? 'daily' : 'review',
         partFilter: null,
-        totalCorrect: 200,
-        totalQuestions: 200,
-        correctCountLC: 100,
-        correctCountRC: 100,
+        dayFilter: validDay,
+        totalCorrect: finalQuestions.length,
+        totalQuestions: finalQuestions.length,
+        correctCountLC: finalQuestions.filter(q => q && q.questionNumber <= 100).length,
+        correctCountRC: finalQuestions.filter(q => q && q.questionNumber > 100).length,
         scaledLC: 495,
         scaledRC: 495,
         totalScore: 990,
         partStats,
-        detailedQuestions,
+        detailedQuestions: finalQuestions,
         timeSpentSeconds: 0
       };
       if (storage && typeof storage.setCurrentResult === 'function') {
@@ -521,6 +546,7 @@ const ResultViewer = {
     if (typeof document === 'undefined') return false;
     const r = this.resultData;
     const isPartMode = r.mode === 'part';
+    const isDailyMode = r.mode === 'daily';
     const config = this._getConfig();
     const partsConfig = (config && config.PARTS) ? config.PARTS : {};
     const titleEl = document.getElementById('result-test-title');
@@ -540,9 +566,13 @@ const ResultViewer = {
     const totalCorr = Number.isFinite(r.totalCorrect) && r.totalCorrect >= 0 ? r.totalCorrect : 0;
     const rawAcc = Number.isFinite(r.accuracyRate) ? r.accuracyRate : Math.round((totalCorr / totalQ) * 100);
     const accuracy = Math.max(0, Math.min(100, Math.floor(rawAcc) || 0));
-    if (isPartMode) {
+    if (isPartMode || isDailyMode) {
       if (totalScoreEl) totalScoreEl.textContent = `${accuracy}%`;
-      if (scoreMaxEl) scoreMaxEl.textContent = `ĐỘ CHÍNH XÁC (${totalCorr}/${totalQ})`;
+      if (scoreMaxEl) {
+        scoreMaxEl.textContent = isDailyMode
+          ? `NGÀY ${r.dayFilter || 1}/6 (${totalCorr}/${totalQ} CÂU)`
+          : `ĐỘ CHÍNH XÁC (${totalCorr}/${totalQ})`;
+      }
       const lcCard = (lcScoreEl && typeof lcScoreEl.closest === 'function') ? lcScoreEl.closest('.score-summary-card') : null;
       const rcCard = (rcScoreEl && typeof rcScoreEl.closest === 'function') ? rcScoreEl.closest('.score-summary-card') : null;
       const totalCard = (totalCorrectEl && typeof totalCorrectEl.closest === 'function') ? totalCorrectEl.closest('.score-summary-card') : null;
@@ -614,12 +644,13 @@ const ResultViewer = {
       } else if (r.partStats && typeof r.partStats === 'object') {
         for (const [key, stat] of Object.entries(r.partStats)) {
           if (!stat || typeof stat !== 'object') continue;
+          const statTotal = Number.isFinite(stat.total) && stat.total > 0 ? stat.total : 0;
+          if (isDailyMode && statTotal === 0) continue;
           const partInfo = partsConfig[key];
           const rawName = partInfo?.name || key;
           const partNum = key.replace(/^part(\d+)$/i, 'Part $1');
           const partSub = rawName.includes(':') ? rawName.split(':')[1].trim() : '';
           const partName = this.escapeHtml(rawName);
-          const statTotal = Number.isFinite(stat.total) && stat.total > 0 ? stat.total : 0;
           const statCorrect = Number.isFinite(stat.correct) && stat.correct >= 0 ? stat.correct : 0;
           const pct = statTotal > 0 ? Math.max(0, Math.min(100, Math.round((statCorrect / statTotal) * 100))) : 0;
           const color = pct >= 70 ? 'var(--success)' : (pct >= 50 ? 'var(--warning)' : 'var(--danger)');
@@ -658,6 +689,14 @@ const ResultViewer = {
           ${pLabel} (${totalQ} câu)
         </button>
       `;
+    } else if (partGroup && isDailyMode && r.partStats && typeof partGroup.querySelectorAll === 'function') {
+      partGroup.querySelectorAll('.filter-pill-btn').forEach(btn => {
+        const pKey = (btn.dataset && btn.dataset.part) || (btn.getAttribute && btn.getAttribute('data-part'));
+        if (pKey && pKey !== 'all') {
+          const hasQuestions = (r.partStats[pKey] && r.partStats[pKey].total > 0);
+          if (btn.style) btn.style.display = hasQuestions ? '' : 'none';
+        }
+      });
     }
     return true;
   },
@@ -931,10 +970,15 @@ const ResultViewer = {
         this.setPartFilter('part7');
         this.activateReadingGroup('part7', 0, true, 'next');
       } else if (partKey === 'part7' && newIdx < 0) {
-        this.setPartFilter('part6');
-        const p6Cards = document.querySelectorAll('.reading-group-stage[data-part="part6"]');
-        if (p6Cards && p6Cards.length > 0) {
-          this.activateReadingGroup('part6', p6Cards.length - 1, true, 'prev');
+        const hasPart6 = !(this.resultData && this.resultData.partStats && this.resultData.partStats.part6 && this.resultData.partStats.part6.total === 0);
+        if (hasPart6) {
+          this.setPartFilter('part6');
+          const p6Cards = document.querySelectorAll('.reading-group-stage[data-part="part6"]');
+          if (p6Cards && p6Cards.length > 0) {
+            this.activateReadingGroup('part6', p6Cards.length - 1, true, 'prev');
+          }
+        } else {
+          this.setPartFilter('part5');
         }
       }
     }
@@ -1376,20 +1420,27 @@ const ResultViewer = {
       }
     });
     if (this.resultData && this.resultData.mode !== 'part' && /^part([1-7])$/i.test(this.currentPartFilter)) {
-      const curIdx = parseInt(this.currentPartFilter.replace(/part/i, ''), 10);
-      const prevPart = curIdx > 1 ? `part${curIdx - 1}` : null;
-      const nextPart = curIdx < 7 ? `part${curIdx + 1}` : null;
-      const isReadingPart = curIdx === 6 || curIdx === 7;
+      const allPartKeys = ['part1', 'part2', 'part3', 'part4', 'part5', 'part6', 'part7'];
+      const availParts = (this.resultData.mode === 'daily' && this.resultData.partStats)
+        ? allPartKeys.filter(pk => this.resultData.partStats[pk] && this.resultData.partStats[pk].total > 0)
+        : allPartKeys;
+      const curPartKey = this.currentPartFilter.toLowerCase();
+      const posIdx = availParts.indexOf(curPartKey);
+      const prevPart = posIdx > 0 ? availParts[posIdx - 1] : null;
+      const nextPart = (posIdx !== -1 && posIdx < availParts.length - 1) ? availParts[posIdx + 1] : null;
+      const prevLabel = prevPart ? prevPart.replace(/^part(\d+)$/i, 'Part $1') : '';
+      const nextLabel = nextPart ? nextPart.replace(/^part(\d+)$/i, 'Part $1') : '';
+      const isReadingPart = curPartKey === 'part6' || curPartKey === 'part7';
       html += `
         <div class="review-part-footer-nav ${isReadingPart ? 'reading-part-nav' : ''}" style="display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 20px 0 8px; padding: 12px 16px; background: var(--bg-glass-card); border: 1px solid var(--border-glass); border-radius: var(--radius-lg);">
           ${prevPart ? `
             <button type="button" class="btn btn-secondary" onclick="ResultViewer.setPartFilter('${prevPart}'); window.scrollTo({top: Math.max(0, (document.getElementById('detailed-review-section')?.offsetTop || 0) - 80), behavior: 'smooth'});">
-              ⬅ Part ${curIdx - 1}
+              ⬅ ${prevLabel}
             </button>
           ` : `<div></div>`}
           ${nextPart ? `
             <button type="button" class="btn btn-primary" onclick="ResultViewer.setPartFilter('${nextPart}'); window.scrollTo({top: Math.max(0, (document.getElementById('detailed-review-section')?.offsetTop || 0) - 80), behavior: 'smooth'});" style="margin-left: auto;">
-              Part ${curIdx + 1} ➔
+              ${nextLabel} ➔
             </button>
           ` : `<div></div>`}
         </div>

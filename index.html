@@ -7,12 +7,13 @@
   <meta name="description" content="Nền tảng thi thử TOEIC trực tuyến chuẩn format ETS 2022, audio cắt từng câu, chấm điểm 990 tự động và lời giải chi tiết.">
   
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="css/base.css?v=20261024v7">
-  <link rel="stylesheet" href="css/layout.css?v=20261024v7">
-  <link rel="stylesheet" href="css/components.css?v=20261024v7">
-  <link rel="stylesheet" href="css/responsive.css?v=20261024v7">
+  <link rel="stylesheet" href="css/base.css?v=20261024v8">
+  <link rel="stylesheet" href="css/layout.css?v=20261024v8">
+  <link rel="stylesheet" href="css/components.css?v=20261024v8">
+  <link rel="stylesheet" href="css/responsive.css?v=20261024v8">
   <style>
     .part-filter-btn,
+    .day-filter-btn,
     .book-filter-btn {
       padding: 6px 12px;
       font-size: 0.82rem;
@@ -26,16 +27,29 @@
       white-space: nowrap;
     }
     .part-filter-btn:hover,
+    .day-filter-btn:hover,
     .book-filter-btn:hover {
       background: var(--bg-glass-hover);
       color: var(--text-primary);
     }
     .part-filter-btn.active,
+    .day-filter-btn.active,
     .book-filter-btn.active {
       background: var(--accent-primary);
       color: #ffffff;
       border-color: var(--accent-primary);
       box-shadow: 0 2px 10px var(--accent-primary-glow);
+    }
+    .daily-plan-summary-badge {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.28);
+      padding: 6px 12px;
+      border-radius: var(--radius-md);
+      max-width: 620px;
+      line-height: 1.45;
+      text-align: center;
     }
     .book-chip-row {
       display: flex;
@@ -231,9 +245,27 @@
         <button class="mode-tab-btn active" id="tab-full" type="button" role="tab" onclick="switchMode('full')" aria-pressed="true" aria-selected="true">
           ⏱️ Full Test (200c)
         </button>
+        <button class="mode-tab-btn" id="tab-daily" type="button" role="tab" onclick="switchMode('daily')" aria-pressed="false" aria-selected="false">
+          📅 Chia 6 Ngày
+        </button>
         <button class="mode-tab-btn" id="tab-part" type="button" role="tab" onclick="switchMode('part')" aria-pressed="false" aria-selected="false">
           🎯 Theo Part
         </button>
+      </div>
+
+      <!-- 6-Day Study Plan Selector Pills (Visible when 'daily' mode is selected) -->
+      <div id="day-selector-wrap" style="display: none; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 14px;">
+        <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 6px;">
+          <button class="day-filter-btn active" data-day="1" type="button" onclick="selectDayFilter(1, this)" aria-pressed="true">Ngày 1</button>
+          <button class="day-filter-btn" data-day="2" type="button" onclick="selectDayFilter(2, this)" aria-pressed="false">Ngày 2</button>
+          <button class="day-filter-btn" data-day="3" type="button" onclick="selectDayFilter(3, this)" aria-pressed="false">Ngày 3</button>
+          <button class="day-filter-btn" data-day="4" type="button" onclick="selectDayFilter(4, this)" aria-pressed="false">Ngày 4</button>
+          <button class="day-filter-btn" data-day="5" type="button" onclick="selectDayFilter(5, this)" aria-pressed="false">Ngày 5</button>
+          <button class="day-filter-btn" data-day="6" type="button" onclick="selectDayFilter(6, this)" aria-pressed="false">Ngày 6</button>
+        </div>
+        <div id="daily-plan-summary" class="daily-plan-summary-badge">
+          📌 <strong>Ngày 1 / 6</strong>: 1c P1 • 4c P2 • 6c P3 • 6c P4 • 5c P5 • 4c P6 • 3 bài P7 (~33 câu • 20 phút)
+        </div>
       </div>
 
       <!-- Part Filter Pills (Visible when 'part' mode is selected) -->
@@ -258,11 +290,12 @@
   </main>
 
   <!-- Scripts -->
-  <script src="js/app-config.js?v=20261024v7"></script>
-  <script src="js/storage-service.js?v=20261024v7"></script>
+  <script src="js/app-config.js?v=20261024v8"></script>
+  <script src="js/storage-service.js?v=20261024v8"></script>
   <script>
     let currentMode = 'full';
     let selectedPart = 'part1';
+    let selectedDay = 1;
     let currentBook = 'EST 2022';
 
     function getSafeStorage() {
@@ -323,10 +356,16 @@
         }
         const urlMode = urlParams.get('mode');
         const urlPart = urlParams.get('part');
+        const urlDay = urlParams.get('day');
         if (urlMode && urlMode.toLowerCase() === 'part') {
           switchMode('part');
           if (urlPart) {
             selectPartFilter(urlPart);
+          }
+        } else if (urlMode && urlMode.toLowerCase() === 'daily') {
+          switchMode('daily');
+          if (urlDay) {
+            selectDayFilter(urlDay);
           }
         } else if (urlMode && urlMode.toLowerCase() === 'full') {
           switchMode('full');
@@ -400,11 +439,18 @@
           if (!banner || !desc) return;
 
           const config = getSafeConfig();
+          const isDaily = saved.mode === 'daily';
+          const dayNum = isDaily ? Math.min(6, Math.max(1, parseInt(saved.dayFilter, 10) || 1)) : 1;
           const partInfo = (saved.mode === 'part' && saved.partFilter && config.PARTS[saved.partFilter])
             ? config.PARTS[saved.partFilter]
             : null;
-          const partLabel = partInfo ? ` • ${partInfo.name.split(':')[0]}` : ' (Full Test)';
-          const total = partInfo ? partInfo.count : 200;
+          const partLabel = isDaily
+            ? ` • Ngày ${dayNum}/6`
+            : (partInfo ? ` • ${partInfo.name.split(':')[0]}` : ' (Full Test)');
+          const dailyTotal = (isDaily && typeof AppConfig !== 'undefined' && AppConfig && typeof AppConfig.getDailyQuestionNumbers === 'function')
+            ? AppConfig.getDailyQuestionNumbers(dayNum).length
+            : 33;
+          const total = isDaily ? dailyTotal : (partInfo ? partInfo.count : 200);
 
           const rawTime = Number(saved.timeRemaining);
           const remMinutes = Number.isFinite(rawTime) ? Math.max(0, Math.floor(rawTime / 60)) : 0;
@@ -421,10 +467,13 @@
       const saved = storage && typeof storage.getActiveSession === 'function' ? storage.getActiveSession() : null;
       if (saved) {
         const testId = getSafeTestId(saved.testId);
-        const mode = (saved.mode === 'part') ? 'part' : 'full';
+        const mode = (saved.mode === 'part') ? 'part' : (saved.mode === 'daily' ? 'daily' : 'full');
         let url = `exam.html?test=${testId}&mode=${mode}`;
         if (mode === 'part' && saved.partFilter) {
           url += `&part=${encodeURIComponent(saved.partFilter)}`;
+        } else if (mode === 'daily') {
+          const d = Math.min(6, Math.max(1, parseInt(saved.dayFilter, 10) || 1));
+          url += `&day=${d}`;
         }
         if (typeof window !== 'undefined' && window.location) {
           window.location.href = url;
@@ -448,10 +497,12 @@
     }
 
     function switchMode(mode) {
-      currentMode = (mode === 'part') ? 'part' : 'full';
+      currentMode = (mode === 'part') ? 'part' : (mode === 'daily' ? 'daily' : 'full');
       const tabFull = document.getElementById('tab-full');
+      const tabDaily = document.getElementById('tab-daily');
       const tabPart = document.getElementById('tab-part');
       const selectorWrap = document.getElementById('part-selector-wrap');
+      const daySelectorWrap = document.getElementById('day-selector-wrap');
 
       if (tabFull) {
         if (tabFull.classList && typeof tabFull.classList.toggle === 'function') {
@@ -460,6 +511,15 @@
         if (typeof tabFull.setAttribute === 'function') {
           tabFull.setAttribute('aria-pressed', currentMode === 'full' ? 'true' : 'false');
           tabFull.setAttribute('aria-selected', currentMode === 'full' ? 'true' : 'false');
+        }
+      }
+      if (tabDaily) {
+        if (tabDaily.classList && typeof tabDaily.classList.toggle === 'function') {
+          tabDaily.classList.toggle('active', currentMode === 'daily');
+        }
+        if (typeof tabDaily.setAttribute === 'function') {
+          tabDaily.setAttribute('aria-pressed', currentMode === 'daily' ? 'true' : 'false');
+          tabDaily.setAttribute('aria-selected', currentMode === 'daily' ? 'true' : 'false');
         }
       }
       if (tabPart) {
@@ -474,8 +534,46 @@
       if (selectorWrap && selectorWrap.style) {
         selectorWrap.style.display = (currentMode === 'part') ? 'flex' : 'none';
       }
+      if (daySelectorWrap && daySelectorWrap.style) {
+        daySelectorWrap.style.display = (currentMode === 'daily') ? 'flex' : 'none';
+      }
       renderTestCards();
       return currentMode;
+    }
+
+    function selectDayFilter(dayVal, btnEl) {
+      const parsed = parseInt(dayVal, 10);
+      selectedDay = (!isNaN(parsed) && parsed >= 1 && parsed <= 6) ? parsed : 1;
+
+      const targetBtn = btnEl || ((typeof document !== 'undefined' && typeof document.querySelector === 'function')
+        ? document.querySelector(`.day-filter-btn[data-day="${selectedDay}"]`)
+        : null);
+
+      if (typeof document !== 'undefined') {
+        if (typeof document.querySelectorAll === 'function') {
+          const btns = document.querySelectorAll('.day-filter-btn');
+          if (btns && typeof btns.forEach === 'function') {
+            btns.forEach(b => {
+              const isActive = (b === targetBtn) || (typeof b.getAttribute === 'function' && parseInt(b.getAttribute('data-day'), 10) === selectedDay);
+              if (b.classList && typeof b.classList.toggle === 'function') {
+                b.classList.toggle('active', isActive);
+              }
+              if (typeof b.setAttribute === 'function') {
+                b.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+              }
+            });
+          }
+        }
+        const summaryEl = typeof document.getElementById === 'function' ? document.getElementById('daily-plan-summary') : null;
+        if (summaryEl) {
+          const planInfo = (typeof AppConfig !== 'undefined' && AppConfig && typeof AppConfig.getDailyPlanInfo === 'function')
+            ? AppConfig.getDailyPlanInfo(selectedDay)
+            : { name: `Ngày ${selectedDay} / 6`, summary: '~33 câu • 20 phút' };
+          summaryEl.innerHTML = `📌 <strong>${planInfo.name}</strong>: ${planInfo.summary}`;
+        }
+        renderTestCards();
+      }
+      return selectedDay;
     }
 
     function selectPartFilter(partKey, btnEl) {
@@ -521,25 +619,42 @@
       for (let t = 1; t <= 10; t++) {
         const testNumStr = t < 10 ? `0${t}` : `${t}`;
         const isFull = currentMode === 'full';
-        const partShort = !isFull ? ` • P${selectedPart.replace('part', '')}` : '';
+        const isDaily = currentMode === 'daily';
+        const modeSuffix = isDaily
+          ? ` • Ngày ${selectedDay}/6`
+          : (!isFull ? ` • P${selectedPart.replace('part', '')}` : '');
 
         // Find best history record for this book + test + mode
         let bestBadgeHtml = '';
         if (Array.isArray(historyList) && historyList.length > 0) {
-          const matches = historyList.filter(item => {
+          const testRecords = historyList.filter(item => {
             if (!item || getSafeTestId(item.testId) !== t) return false;
             const itemBook = item.bookName || (item.testTitle && item.testTitle.includes('2026') ? 'EST 2026' : item.testTitle && item.testTitle.includes('2024') ? 'EST 2024' : item.testTitle && item.testTitle.includes('2023') ? 'EST 2023' : 'EST 2022');
-            if (itemBook !== bookKey) return false;
-            if (isFull) return item.mode !== 'part';
-            return item.mode === 'part' && String(item.partFilter || '').toLowerCase() === selectedPart;
+            return itemBook === bookKey;
           });
-          if (matches.length > 0) {
-            if (isFull) {
-              const bestScore = Math.max(...matches.map(m => Number(m.totalScore) || 0));
-              bestBadgeHtml = `<span class="test-best-badge" title="Điểm cao nhất đã đạt">🏆 ${bestScore}đ</span>`;
-            } else {
-              const bestItem = matches.reduce((a, b) => ((Number(b.totalCorrect) || 0) > (Number(a.totalCorrect) || 0) ? b : a), matches[0]);
-              bestBadgeHtml = `<span class="test-best-badge" title="Kết quả tốt nhất">✓ ${bestItem.totalCorrect || 0}/${bestItem.totalQuestions || 0}</span>`;
+
+          if (isDaily) {
+            const dailyMatches = testRecords.filter(item => item.mode === 'daily' && Number(item.dayFilter) === Number(selectedDay));
+            const doneDays = new Set(testRecords.filter(item => item.mode === 'daily' && Number(item.dayFilter) >= 1 && Number(item.dayFilter) <= 6).map(item => Number(item.dayFilter)));
+            if (dailyMatches.length > 0) {
+              const bestItem = dailyMatches.reduce((a, b) => ((Number(b.totalCorrect) || 0) > (Number(a.totalCorrect) || 0) ? b : a), dailyMatches[0]);
+              bestBadgeHtml = `<span class="test-best-badge" title="Kết quả tốt nhất Ngày ${selectedDay} (Đã hoàn thành ${doneDays.size}/6 ngày)">✓ ${bestItem.totalCorrect || 0}/${bestItem.totalQuestions || 0} (${doneDays.size}/6)</span>`;
+            } else if (doneDays.size > 0) {
+              bestBadgeHtml = `<span class="test-best-badge" title="Đã hoàn thành ${doneDays.size}/6 ngày của đề này">📅 ${doneDays.size}/6 ngày</span>`;
+            }
+          } else {
+            const matches = testRecords.filter(item => {
+              if (isFull) return item.mode !== 'part' && item.mode !== 'daily';
+              return item.mode === 'part' && String(item.partFilter || '').toLowerCase() === selectedPart;
+            });
+            if (matches.length > 0) {
+              if (isFull) {
+                const bestScore = Math.max(...matches.map(m => Number(m.totalScore) || 0));
+                bestBadgeHtml = `<span class="test-best-badge" title="Điểm cao nhất đã đạt">🏆 ${bestScore}đ</span>`;
+              } else {
+                const bestItem = matches.reduce((a, b) => ((Number(b.totalCorrect) || 0) > (Number(a.totalCorrect) || 0) ? b : a), matches[0]);
+                bestBadgeHtml = `<span class="test-best-badge" title="Kết quả tốt nhất">✓ ${bestItem.totalCorrect || 0}/${bestItem.totalQuestions || 0}</span>`;
+              }
             }
           }
         }
@@ -547,7 +662,7 @@
         html += `
           <div class="test-card compact-test-card">
             <div class="compact-card-top">
-              <h3 class="test-title">Test ${testNumStr}${partShort}</h3>
+              <h3 class="test-title">Test ${testNumStr}${modeSuffix}</h3>
               ${bestBadgeHtml}
             </div>
             <div class="compact-card-actions">
@@ -573,6 +688,8 @@
       let url = `result.html?book=${encodeURIComponent(currentBook)}&test=${clampedTest}&show=review`;
       if (currentMode === 'part') {
         url += `&part=${encodeURIComponent(selectedPart)}`;
+      } else if (currentMode === 'daily') {
+        url += `&mode=daily&day=${selectedDay}`;
       }
       if (typeof window !== 'undefined' && window.location) {
         window.location.href = url;
@@ -589,6 +706,8 @@
       let url = `exam.html?test=${clampedTest}&mode=${currentMode}`;
       if (currentMode === 'part') {
         url += `&part=${encodeURIComponent(selectedPart)}`;
+      } else if (currentMode === 'daily') {
+        url += `&day=${selectedDay}`;
       }
       if (typeof window !== 'undefined' && window.location) {
         window.location.href = url;
@@ -600,6 +719,7 @@
       window.selectBook = selectBook;
       window.switchMode = switchMode;
       window.selectPartFilter = selectPartFilter;
+      window.selectDayFilter = selectDayFilter;
       window.startExam = startExam;
       window.viewTestSolution = viewTestSolution;
       window.checkActiveSession = checkActiveSession;
@@ -618,6 +738,7 @@
         selectBook,
         switchMode,
         selectPartFilter,
+        selectDayFilter,
         startExam,
         viewTestSolution,
         checkActiveSession,

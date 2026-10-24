@@ -464,7 +464,7 @@ const UIRenderer = {
         }
       });
     }
-    if (syncExamPart && typeof ExamEngine !== 'undefined' && ExamEngine && ExamEngine.mode === 'full' && ExamEngine.activeExamPart !== cleanKey && typeof ExamEngine.switchExamPart === 'function') {
+    if (syncExamPart && typeof ExamEngine !== 'undefined' && ExamEngine && (ExamEngine.mode === 'full' || ExamEngine.mode === 'daily') && ExamEngine.activeExamPart !== cleanKey && typeof ExamEngine.switchExamPart === 'function') {
       ExamEngine.switchExamPart(cleanKey, false);
     }
   },

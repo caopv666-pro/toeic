@@ -10,8 +10,9 @@ const PART_TIMES_SECONDS = {
 };
 const ExamEngine = {
   testId: 1,
-  mode: 'full', // 'full' or 'part'
+  mode: 'full', // 'full', 'part', or 'daily'
   partFilter: null, // 'part1'..'part7'
+  dayFilter: null,  // 1..6 (when mode === 'daily')
   testData: null,
   allQuestionsMap: {}, // qNum -> question object
   userAnswers: {},     // qNum -> 'A' | 'B' | 'C' | 'D'
@@ -27,20 +28,24 @@ const ExamEngine = {
     let rawTest = '1';
     let rawMode = 'full';
     let rawPart = null;
+    let rawDay = null;
     if (typeof searchOrParams === 'string') {
       const qs = searchOrParams.startsWith('?') ? searchOrParams.substring(1) : searchOrParams;
       const params = new URLSearchParams(qs);
       rawTest = params.get('test') || '1';
       rawMode = params.get('mode') || 'full';
       rawPart = params.get('part') || null;
+      rawDay = params.get('day') || null;
     } else if (searchOrParams && typeof searchOrParams.get === 'function') {
       rawTest = searchOrParams.get('test') || '1';
       rawMode = searchOrParams.get('mode') || 'full';
       rawPart = searchOrParams.get('part') || null;
+      rawDay = searchOrParams.get('day') || null;
     } else if (searchOrParams && typeof searchOrParams === 'object') {
       rawTest = searchOrParams.test || '1';
       rawMode = searchOrParams.mode || 'full';
       rawPart = searchOrParams.part || null;
+      rawDay = searchOrParams.day || null;
     }
     let testId = 1;
     if (typeof rawTest === 'number') {
@@ -52,16 +57,20 @@ const ExamEngine = {
     if (isNaN(testId) || testId < 1) testId = 1;
     if (testId > 10) testId = 10;
     const normalizedMode = (typeof rawMode === 'string') ? rawMode.trim().toLowerCase() : 'full';
-    const mode = (normalizedMode === 'part') ? 'part' : 'full';
+    const mode = (normalizedMode === 'part') ? 'part' : (normalizedMode === 'daily' ? 'daily' : 'full');
     let partFilter = null;
+    let dayFilter = null;
     if (mode === 'part') {
       const validParts = (typeof AppConfig !== 'undefined' && AppConfig.PARTS)
         ? Object.keys(AppConfig.PARTS)
         : ['part1', 'part2', 'part3', 'part4', 'part5', 'part6', 'part7'];
       const p = (typeof rawPart === 'string') ? rawPart.trim().toLowerCase() : '';
       partFilter = validParts.includes(p) ? p : 'part1';
+    } else if (mode === 'daily') {
+      const parsedDay = parseInt(rawDay, 10);
+      dayFilter = (!isNaN(parsedDay) && parsedDay >= 1 && parsedDay <= 6) ? parsedDay : 1;
     }
-    return { testId, mode, partFilter };
+    return { testId, mode, partFilter, dayFilter };
   },
   async init(customParams = null) {
     this._isSubmitting = false;
@@ -70,9 +79,12 @@ const ExamEngine = {
     this.testId = parsed.testId;
     this.mode = parsed.mode;
     this.partFilter = parsed.partFilter;
+    this.dayFilter = parsed.dayFilter;
     const partTimes = this.PART_TIMES_SECONDS || PART_TIMES_SECONDS;
     if (this.mode === 'full') {
       this.timeRemaining = 120 * 60; // 120 mins
+    } else if (this.mode === 'daily') {
+      this.timeRemaining = 20 * 60; // 20 mins per day (120 mins / 6 days)
     } else if (this.partFilter && partTimes[this.partFilter]) {
       this.timeRemaining = partTimes[this.partFilter];
     } else {
@@ -87,6 +99,10 @@ const ExamEngine = {
           const pName = AppConfig.PARTS[this.partFilter].name.split(':')[0];
           titleBadge.textContent = `Test ${testNumStr} • ${pName}`;
           titleBadge.title = AppConfig.PARTS[this.partFilter].name;
+        } else if (this.mode === 'daily') {
+          const dNum = this.dayFilter || 1;
+          titleBadge.textContent = `Test ${testNumStr} • Ngày ${dNum}/6`;
+          titleBadge.title = `Lộ trình 6 Ngày — Ngày ${dNum}/6`;
         } else {
           titleBadge.textContent = `Test ${testNumStr}`;
         }
@@ -224,6 +240,14 @@ const ExamEngine = {
       }
       return list.length > 0 ? list : Array.from({ length: end - start + 1 }, (_, idx) => start + idx);
     }
+    if (this.mode === 'daily') {
+      const dayNum = this.dayFilter || 1;
+      if (typeof AppConfig !== 'undefined' && typeof AppConfig.getDailyQuestionNumbers === 'function') {
+        const dailyList = AppConfig.getDailyQuestionNumbers(dayNum, this.testData);
+        const filtered = dailyList.filter(qNum => Boolean(this.allQuestionsMap[qNum]));
+        return filtered.length > 0 ? filtered : dailyList;
+      }
+    }
     const all = Object.keys(this.allQuestionsMap).map(Number).sort((a, b) => a - b);
     return all.length > 0 ? all : Array.from({ length: 200 }, (_, idx) => idx + 1);
   },
@@ -244,7 +268,10 @@ const ExamEngine = {
     const isTestMatch = Number(saved.testId) === Number(this.testId);
     const isModeMatch = String(saved.mode || 'full').trim().toLowerCase() === String(this.mode || 'full').trim().toLowerCase();
     const isPartMatch = (saved.partFilter ? String(saved.partFilter).trim().toLowerCase() : null) === (this.partFilter ? String(this.partFilter).trim().toLowerCase() : null);
-    if (isBookMatch && isTestMatch && isModeMatch && isPartMatch) {
+    const isDayMatch = (this.mode === 'daily')
+      ? (Number(saved.dayFilter || 1) === Number(this.dayFilter || 1))
+      : true;
+    if (isBookMatch && isTestMatch && isModeMatch && isPartMatch && isDayMatch) {
       const lastUpdated = Number(saved.lastUpdated) || 0;
       if (lastUpdated > 0 && Date.now() - lastUpdated < 24 * 3600 * 1000) {
         const rawAnswers = (saved.userAnswers && typeof saved.userAnswers === 'object' && !Array.isArray(saved.userAnswers)) ? saved.userAnswers : {};
@@ -333,6 +360,7 @@ const ExamEngine = {
         testId: this.testId,
         mode: this.mode,
         partFilter: this.partFilter,
+        dayFilter: this.dayFilter,
         userAnswers: this.userAnswers,
         flaggedQuestions: Array.from(this.flaggedQuestions),
         timeRemaining: this.timeRemaining,
@@ -546,7 +574,7 @@ const ExamEngine = {
     this.currentQNum = num;
     if (typeof document === 'undefined') return true;
     const targetPart = this.getPartKeyByQuestionNum(num);
-    if (this.mode === 'full') {
+    if (this.mode === 'full' || this.mode === 'daily') {
       if (this.activeExamPart !== targetPart) {
         this.switchExamPart(targetPart, false);
       }
@@ -615,15 +643,23 @@ const ExamEngine = {
     const dir = swipeDir || (delta > 0 ? 'next' : 'prev');
     if (newIdx >= 0 && newIdx < stageCards.length) {
       this.activateReadingGroup(partKey, newIdx, true, dir);
-    } else if (this.mode === 'full') {
+    } else if (this.mode === 'full' || this.mode === 'daily') {
       if (partKey === 'part6' && newIdx >= stageCards.length) {
-        this.switchExamPart('part7', false);
-        this.activateReadingGroup('part7', 0, true, 'next');
+        const p7Cards = document.querySelectorAll('.reading-group-stage[data-part="part7"]');
+        if (p7Cards && p7Cards.length > 0) {
+          this.switchExamPart('part7', false);
+          this.activateReadingGroup('part7', 0, true, 'next');
+        }
       } else if (partKey === 'part7' && newIdx < 0) {
-        this.switchExamPart('part6', false);
         const p6Cards = document.querySelectorAll('.reading-group-stage[data-part="part6"]');
         if (p6Cards && p6Cards.length > 0) {
+          this.switchExamPart('part6', false);
           this.activateReadingGroup('part6', p6Cards.length - 1, true, 'prev');
+        } else {
+          const p5Sec = document.getElementById('exam-part-section-part5');
+          if (p5Sec) {
+            this.switchExamPart('part5', true);
+          }
         }
       }
     }
@@ -1009,16 +1045,29 @@ const ExamEngine = {
     const lc = this.testData.listening || {};
     const rc = this.testData.reading || {};
     const isPartMode = this.mode === 'part';
-    const isFull = this.mode === 'full';
-    if (isFull && !this.activeExamPart) {
-      this.activeExamPart = this.currentQNum ? this.getPartKeyByQuestionNum(this.currentQNum) : 'part1';
-    }
-    const activePart = isFull ? (this.activeExamPart || 'part1') : this.partFilter;
+    const isDailyMode = this.mode === 'daily';
+    const isMultiPart = this.mode === 'full' || isDailyMode;
+    const useIndividualAudio = isPartMode || isDailyMode;
+    const activeQList = isDailyMode ? this.getActiveQuestionNumbers() : [];
+    const activeQSet = isDailyMode ? new Set(activeQList) : null;
     const getPartQuestions = (p) => Array.isArray(p) ? p : (Array.isArray(p?.questions) ? p.questions : []);
     const getPartGroups = (p) => Array.isArray(p) ? p : (Array.isArray(p?.groups) ? p.groups : []);
+    const filterPartQuestions = (arr) => isDailyMode ? arr.filter(q => activeQSet.has(Number(q.questionNumber))) : arr;
+    const filterPartGroups = (groups) => isDailyMode
+      ? groups.filter(g => Array.isArray(g.questions) && g.questions.some(q => activeQSet.has(Number(q.questionNumber))))
+      : groups;
     const shouldRenderPart = (partKey) => {
       if (this.mode === 'full') return true;
+      if (isDailyMode) {
+        return activeQList.some(qNum => this.getPartKeyByQuestionNum(qNum) === partKey);
+      }
       return this.partFilter === partKey;
+    };
+    const formatPartRange = (defaultRange, partKey) => {
+      if (!isDailyMode) return defaultRange;
+      const partNums = activeQList.filter(qNum => this.getPartKeyByQuestionNum(qNum) === partKey);
+      if (partNums.length === 0) return defaultRange;
+      return partNums.length === 1 ? `Câu ${partNums[0]}` : `Câu ${partNums[0]} – ${partNums[partNums.length - 1]}`;
     };
     const PART_META = [
       { key: 'part1', num: 1, badge: 'Part 1', name: 'Photographs', range: 'Câu 1 – 6' },
@@ -1029,6 +1078,12 @@ const ExamEngine = {
       { key: 'part6', num: 6, badge: 'Part 6', name: 'Text Completion', range: 'Câu 131 – 146' },
       { key: 'part7', num: 7, badge: 'Part 7', name: 'Reading Comprehension', range: 'Câu 147 – 200' }
     ];
+    const activePartsMeta = PART_META.filter(m => shouldRenderPart(m.key));
+    if (isMultiPart && (!this.activeExamPart || !shouldRenderPart(this.activeExamPart))) {
+      const candidate = this.currentQNum ? this.getPartKeyByQuestionNum(this.currentQNum) : 'part1';
+      this.activeExamPart = shouldRenderPart(candidate) ? candidate : (activePartsMeta[0]?.key || 'part1');
+    }
+    const activePart = isMultiPart ? (this.activeExamPart || 'part1') : this.partFilter;
     const renderPartDivider = (badge, name, range) => `
       <div class="part-section-divider">
         <span class="part-badge">${badge}</span>
@@ -1036,10 +1091,12 @@ const ExamEngine = {
         <span class="part-range">${range}</span>
       </div>
     `;
-    const renderPartFooterNav = (partIdx) => {
-      if (!isFull) return '';
-      const prevMeta = partIdx > 0 ? PART_META[partIdx - 1] : null;
-      const nextMeta = partIdx < PART_META.length - 1 ? PART_META[partIdx + 1] : null;
+    const renderPartFooterNav = (partKey) => {
+      if (!isMultiPart) return '';
+      const partIdx = activePartsMeta.findIndex(m => m.key === partKey);
+      if (partIdx === -1) return '';
+      const prevMeta = partIdx > 0 ? activePartsMeta[partIdx - 1] : null;
+      const nextMeta = partIdx < activePartsMeta.length - 1 ? activePartsMeta[partIdx + 1] : null;
       return `
         <div class="exam-part-footer-nav" style="display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 24px 0 12px; padding: 14px 16px; background: var(--bg-glass-card); border: 1px solid var(--border-glass); border-radius: var(--radius-lg);">
           ${prevMeta ? `
@@ -1064,10 +1121,10 @@ const ExamEngine = {
     if (headerPlayer) {
       headerPlayer.style.display = isFullListening ? 'flex' : 'none';
     }
-    if (isFull) {
+    if (isMultiPart) {
       html += `
         <div class="exam-part-stepper-bar" role="navigation" aria-label="Chọn phần thi Part 1 đến Part 7" style="position: sticky; top: var(--navbar-height, 66px); z-index: 80; display: flex; flex-wrap: nowrap; gap: 6px; overflow-x: auto; padding: 6px 10px; margin-bottom: 8px; background: var(--bg-glass); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--border-glass); border-radius: var(--radius-lg);">
-          ${PART_META.map(m => `
+          ${activePartsMeta.map(m => `
             <button type="button" class="filter-pill-btn exam-part-chip${activePart === m.key ? ' active' : ''}" data-part="${m.key}" onclick="ExamEngine.switchExamPart('${m.key}', true)" aria-pressed="${activePart === m.key ? 'true' : 'false'}" style="flex: 1 1 0; min-width: 58px; padding: 6px 8px; font-size: 0.8rem; font-weight: 700; text-align: center; white-space: nowrap;">
               ${m.badge}
             </button>
@@ -1076,55 +1133,55 @@ const ExamEngine = {
       `;
     }
     if (shouldRenderPart('part1')) {
-      html += `<div class="exam-part-section" id="exam-part-section-part1" data-part="part1" style="display: ${isFull && activePart !== 'part1' ? 'none' : 'block'};">`;
-      html += renderPartDivider('Part 1', 'Photographs', 'Câu 1 – 6');
-      getPartQuestions(lc.part1).forEach(q => {
-        html += UIRenderer.renderPart1(q, this.userAnswers[q.questionNumber], this.flaggedQuestions.has(q.questionNumber), isPartMode);
+      html += `<div class="exam-part-section" id="exam-part-section-part1" data-part="part1" style="display: ${isMultiPart && activePart !== 'part1' ? 'none' : 'block'};">`;
+      html += renderPartDivider('Part 1', 'Photographs', formatPartRange('Câu 1 – 6', 'part1'));
+      filterPartQuestions(getPartQuestions(lc.part1)).forEach(q => {
+        html += UIRenderer.renderPart1(q, this.userAnswers[q.questionNumber], this.flaggedQuestions.has(q.questionNumber), useIndividualAudio);
       });
-      html += renderPartFooterNav(0);
+      html += renderPartFooterNav('part1');
       html += `</div>`;
     }
     if (shouldRenderPart('part2')) {
-      html += `<div class="exam-part-section" id="exam-part-section-part2" data-part="part2" style="display: ${isFull && activePart !== 'part2' ? 'none' : 'block'};">`;
-      html += renderPartDivider('Part 2', 'Question-Response', 'Câu 7 – 31');
-      getPartQuestions(lc.part2).forEach(q => {
-        html += UIRenderer.renderPart2(q, this.userAnswers[q.questionNumber], this.flaggedQuestions.has(q.questionNumber), isPartMode);
+      html += `<div class="exam-part-section" id="exam-part-section-part2" data-part="part2" style="display: ${isMultiPart && activePart !== 'part2' ? 'none' : 'block'};">`;
+      html += renderPartDivider('Part 2', 'Question-Response', formatPartRange('Câu 7 – 31', 'part2'));
+      filterPartQuestions(getPartQuestions(lc.part2)).forEach(q => {
+        html += UIRenderer.renderPart2(q, this.userAnswers[q.questionNumber], this.flaggedQuestions.has(q.questionNumber), useIndividualAudio);
       });
-      html += renderPartFooterNav(1);
+      html += renderPartFooterNav('part2');
       html += `</div>`;
     }
     if (shouldRenderPart('part3')) {
-      html += `<div class="exam-part-section" id="exam-part-section-part3" data-part="part3" style="display: ${isFull && activePart !== 'part3' ? 'none' : 'block'};">`;
-      html += renderPartDivider('Part 3', 'Conversations', 'Câu 32 – 70');
-      getPartGroups(lc.part3).forEach(g => {
-        html += UIRenderer.renderGroupAudio(g, 'part3', this.userAnswers, this.flaggedQuestions, isPartMode);
+      html += `<div class="exam-part-section" id="exam-part-section-part3" data-part="part3" style="display: ${isMultiPart && activePart !== 'part3' ? 'none' : 'block'};">`;
+      html += renderPartDivider('Part 3', 'Conversations', formatPartRange('Câu 32 – 70', 'part3'));
+      filterPartGroups(getPartGroups(lc.part3)).forEach(g => {
+        html += UIRenderer.renderGroupAudio(g, 'part3', this.userAnswers, this.flaggedQuestions, useIndividualAudio);
       });
-      html += renderPartFooterNav(2);
+      html += renderPartFooterNav('part3');
       html += `</div>`;
     }
     if (shouldRenderPart('part4')) {
-      html += `<div class="exam-part-section" id="exam-part-section-part4" data-part="part4" style="display: ${isFull && activePart !== 'part4' ? 'none' : 'block'};">`;
-      html += renderPartDivider('Part 4', 'Short Talks', 'Câu 71 – 100');
-      getPartGroups(lc.part4).forEach(g => {
-        html += UIRenderer.renderGroupAudio(g, 'part4', this.userAnswers, this.flaggedQuestions, isPartMode);
+      html += `<div class="exam-part-section" id="exam-part-section-part4" data-part="part4" style="display: ${isMultiPart && activePart !== 'part4' ? 'none' : 'block'};">`;
+      html += renderPartDivider('Part 4', 'Short Talks', formatPartRange('Câu 71 – 100', 'part4'));
+      filterPartGroups(getPartGroups(lc.part4)).forEach(g => {
+        html += UIRenderer.renderGroupAudio(g, 'part4', this.userAnswers, this.flaggedQuestions, useIndividualAudio);
       });
-      html += renderPartFooterNav(3);
+      html += renderPartFooterNav('part4');
       html += `</div>`;
     }
     if (shouldRenderPart('part5')) {
-      html += `<div class="exam-part-section" id="exam-part-section-part5" data-part="part5" style="display: ${isFull && activePart !== 'part5' ? 'none' : 'block'};">`;
-      html += renderPartDivider('Part 5', 'Incomplete Sentences', 'Câu 101 – 130');
-      const p5List = getPartQuestions(rc.part5).length > 0 ? getPartQuestions(rc.part5) : getPartQuestions(lc.part5);
-      p5List.forEach(q => {
+      html += `<div class="exam-part-section" id="exam-part-section-part5" data-part="part5" style="display: ${isMultiPart && activePart !== 'part5' ? 'none' : 'block'};">`;
+      html += renderPartDivider('Part 5', 'Incomplete Sentences', formatPartRange('Câu 101 – 130', 'part5'));
+      const rawP5 = getPartQuestions(rc.part5).length > 0 ? getPartQuestions(rc.part5) : getPartQuestions(lc.part5);
+      filterPartQuestions(rawP5).forEach(q => {
         html += UIRenderer.renderPart5(q, this.userAnswers[q.questionNumber], this.flaggedQuestions.has(q.questionNumber));
       });
-      html += renderPartFooterNav(4);
+      html += renderPartFooterNav('part5');
       html += `</div>`;
     }
     if (shouldRenderPart('part6')) {
-      html += `<div class="exam-part-section" id="exam-part-section-part6" data-part="part6" style="display: ${isFull && activePart !== 'part6' ? 'none' : 'block'};">`;
-      html += renderPartDivider('Part 6', 'Text Completion', 'Câu 131 – 146');
-      const p6Groups = getPartGroups(rc.part6);
+      html += `<div class="exam-part-section" id="exam-part-section-part6" data-part="part6" style="display: ${isMultiPart && activePart !== 'part6' ? 'none' : 'block'};">`;
+      html += renderPartDivider('Part 6', 'Text Completion', formatPartRange('Câu 131 – 146', 'part6'));
+      const p6Groups = filterPartGroups(getPartGroups(rc.part6));
       if (p6Groups.length > 0) {
         const firstRange = Array.isArray(p6Groups[0].expectedRange) ? p6Groups[0].expectedRange : [131, 134];
         html += UIRenderer.renderReadingGroupNav('part6', p6Groups.length, firstRange, 0, 'ExamEngine');
@@ -1132,13 +1189,13 @@ const ExamEngine = {
       p6Groups.forEach((g, gIdx) => {
         html += UIRenderer.renderReadingGroup(g, 'part6', this.userAnswers, this.flaggedQuestions, gIdx, p6Groups.length);
       });
-      html += renderPartFooterNav(5);
+      html += renderPartFooterNav('part6');
       html += `</div>`;
     }
     if (shouldRenderPart('part7')) {
-      html += `<div class="exam-part-section" id="exam-part-section-part7" data-part="part7" style="display: ${isFull && activePart !== 'part7' ? 'none' : 'block'};">`;
-      html += renderPartDivider('Part 7', 'Reading Comprehension', 'Câu 147 – 200');
-      const p7Groups = getPartGroups(rc.part7);
+      html += `<div class="exam-part-section" id="exam-part-section-part7" data-part="part7" style="display: ${isMultiPart && activePart !== 'part7' ? 'none' : 'block'};">`;
+      html += renderPartDivider('Part 7', 'Reading Comprehension', formatPartRange('Câu 147 – 200', 'part7'));
+      const p7Groups = filterPartGroups(getPartGroups(rc.part7));
       if (p7Groups.length > 0) {
         const firstRange = Array.isArray(p7Groups[0].expectedRange) ? p7Groups[0].expectedRange : [147, 148];
         html += UIRenderer.renderReadingGroupNav('part7', p7Groups.length, firstRange, 0, 'ExamEngine');
@@ -1146,7 +1203,7 @@ const ExamEngine = {
       p7Groups.forEach((g, gIdx) => {
         html += UIRenderer.renderReadingGroup(g, 'part7', this.userAnswers, this.flaggedQuestions, gIdx, p7Groups.length);
       });
-      html += renderPartFooterNav(6);
+      html += renderPartFooterNav('part7');
       html += `</div>`;
     }
     container.innerHTML = html;
@@ -1380,6 +1437,7 @@ const ExamEngine = {
       try { AudioController.stopCurrent(); } catch (_) {}
     }
     const isPartMode = this.mode === 'part';
+    const isDailyMode = this.mode === 'daily';
     const activeQNums = this.getActiveQuestionNumbers();
     const detailedQuestions = [];
     let totalCorrect = 0;
@@ -1398,7 +1456,7 @@ const ExamEngine = {
     };
     const partsConfig = (typeof AppConfig !== 'undefined' && AppConfig.PARTS) ? AppConfig.PARTS : defaultParts;
     Object.keys(partsConfig).forEach(k => {
-      partStats[k] = { correct: 0, total: partsConfig[k]?.count || 0, answered: 0 };
+      partStats[k] = { correct: 0, total: isDailyMode ? 0 : (partsConfig[k]?.count || 0), answered: 0 };
     });
     activeQNums.forEach(qNum => {
       let qObj = (this.allQuestionsMap && typeof this.allQuestionsMap === 'object') ? this.allQuestionsMap[qNum] : null;
@@ -1433,7 +1491,10 @@ const ExamEngine = {
       const pKey = partInfo ? partInfo.key : (qObj.part || (qNum <= 6 ? 'part1' : qNum <= 31 ? 'part2' : qNum <= 70 ? 'part3' : qNum <= 100 ? 'part4' : qNum <= 130 ? 'part5' : qNum <= 146 ? 'part6' : 'part7'));
       const section = partInfo?.section || (qNum <= 100 ? 'listening' : 'reading');
       if (!partStats[pKey]) {
-        partStats[pKey] = { correct: 0, total: partsConfig[pKey]?.count || 0, answered: 0 };
+        partStats[pKey] = { correct: 0, total: isDailyMode ? 0 : (partsConfig[pKey]?.count || 0), answered: 0 };
+      }
+      if (isDailyMode) {
+        partStats[pKey].total++;
       }
       if (userChoice) {
         totalAnswered++;
@@ -1515,9 +1576,15 @@ const ExamEngine = {
     const testNum = (Number.isFinite(this.testId) && this.testId > 0) ? Math.floor(this.testId) : 1;
     const testNumStr = testNum < 10 ? `0${testNum}` : `${testNum}`;
     const partInfo = this.partFilter ? partsConfig[this.partFilter] : null;
+    const dayNum = this.dayFilter || 1;
+    const dayPlanInfo = (isDailyMode && typeof AppConfig !== 'undefined' && typeof AppConfig.getDailyPlanInfo === 'function')
+      ? AppConfig.getDailyPlanInfo(dayNum)
+      : null;
     const testTitle = isPartMode
       ? `${currentBook} — Test ${testNumStr} (${partInfo?.name || (typeof this.partFilter === 'string' ? this.partFilter.toUpperCase() : 'PART')})`
-      : `${currentBook} — Test ${testNumStr}`;
+      : (isDailyMode
+          ? `${currentBook} — Test ${testNumStr} (Ngày ${dayNum}/6)`
+          : `${currentBook} — Test ${testNumStr}`);
     const resultId = 'result_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
     const resultDate = new Date().toISOString();
     const resultPayload = {
@@ -1528,7 +1595,8 @@ const ExamEngine = {
       testTitle,
       mode: this.mode,
       partFilter: this.partFilter,
-      partName: partInfo?.name || '',
+      dayFilter: isDailyMode ? dayNum : null,
+      partName: isDailyMode ? (dayPlanInfo?.title || `Ngày ${dayNum}/6`) : (partInfo?.name || ''),
       isAutoSubmit: Boolean(isAuto),
       isTimeout: Boolean(isAuto),
       totalCorrect,

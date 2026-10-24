@@ -257,8 +257,8 @@
   </main>
 
   <!-- JavaScript Modules -->
-  <script src="js/app-config.js?v=20261022v2"></script>
-  <script src="js/storage-service.js?v=20261022v2"></script>
+  <script src="js/app-config.js?v=20261024v8"></script>
+  <script src="js/storage-service.js?v=20261024v8"></script>
 
   <script>
     let pendingDeleteTarget = 'all';
@@ -349,24 +349,34 @@
 
       tbody.innerHTML = history.map((item, index) => {
         if (!item || typeof item !== 'object') return '';
-        const isFull = (item.mode !== 'part');
+        const isPart = (item.mode === 'part');
+        const isDaily = (item.mode === 'daily');
+        const isFull = !isPart && !isDaily;
         const partText = item.partFilter ? String(item.partFilter).toUpperCase() : 'Part';
-        const modeLabel = isFull ? 'Full Test 200 câu' : `Luyện ${escapeHtml(partText)}`;
+        const modeLabel = isDaily
+          ? `📅 Ngày ${Number(item.dayFilter) || 1}/6`
+          : (isFull ? 'Full Test 200 câu' : `Luyện ${escapeHtml(partText)}`);
         const targetId = item.id != null ? String(item.id) : String(index);
         const safeTargetId = escapeHtml(targetId);
         const testTitle = item.testTitle || `Test ${item.testId || (index + 1)}`;
         const safeTestTitle = escapeHtml(testTitle);
 
+        const totalQ = Number(item.totalQuestions) || (isFull ? 200 : (isDaily ? 33 : 30));
+        const totalC = Number(item.totalCorrect) || 0;
+        const acc = Number.isFinite(item.accuracyRate) ? item.accuracyRate : Math.round((totalC / totalQ) * 100);
+
         const scoreDisplay = isFull
           ? `<span class="score-badge-history">${Number(item.totalScore) || 0} / 990</span>`
-          : `<span>${Number(item.totalCorrect) || 0} / ${Number(item.totalQuestions) || 30} câu</span>`;
+          : (isDaily
+              ? `<span class="score-badge-history">${acc}%</span>`
+              : `<span>${totalC} / ${totalQ} câu</span>`);
 
         const lcRcDisplay = isFull
           ? `<span style="color: var(--accent-primary); font-weight: 600;">${item.scaledLC || 0}</span> / 
              <span style="color: var(--accent-secondary); font-weight: 600;">${item.scaledRC || 0}</span>`
           : `<span style="color: var(--text-muted);">-- / --</span>`;
 
-        const correctCountDisplay = `<strong>${Number(item.totalCorrect) || 0}</strong> / ${Number(item.totalQuestions) || (isFull ? 200 : 30)}`;
+        const correctCountDisplay = `<strong>${totalC}</strong> / ${totalQ}`;
 
         return `
           <tr>
