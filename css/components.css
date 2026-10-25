@@ -4561,3 +4561,140 @@ html.no-animations *::after {
   }
 }
 
+/* ── Study Collocation Multi-Line List & Quoted Sentence Speaker Button ── */
+.quote-speak-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.14);
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  color: #a5b4fc;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.25;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.quote-speak-btn:hover {
+  background: rgba(99, 102, 241, 0.28);
+  border-color: var(--accent-primary, #6366f1);
+  color: #ffffff;
+}
+
+.quote-speak-btn.is-mini {
+  padding: 2px 7px;
+  font-size: 0.7rem;
+  margin-top: 1px;
+}
+
+.dict-colloc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dict-colloc-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-glass, rgba(255, 255, 255, 0.1));
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.dict-colloc-text {
+  flex: 1;
+  min-width: 0;
+  word-break: break-word;
+}
+
+.dict-colloc-en {
+  font-weight: 700;
+  color: var(--text-primary, #f8fafc);
+}
+
+.dict-colloc-vi {
+  color: var(--text-secondary, #cbd5e1);
+}
+
+.dict-tip-box {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(245, 158, 11, 0.09);
+  border: 1px solid rgba(245, 158, 11, 0.28);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--text-secondary, #cbd5e1);
+}
+
+.dict-quote-card {
+  font-size: 0.84rem;
+  line-height: 1.5;
+  margin-bottom: 8px;
+  padding: 9px 11px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-glass, rgba(255, 255, 255, 0.1));
+}
+
+.dict-quote-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+
+.fc-colloc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 3px;
+}
+
+[data-theme="light"] .quote-speak-btn {
+  background: #eef2ff;
+  border-color: #a5b4fc;
+  color: #3730a3;
+}
+
+[data-theme="light"] .quote-speak-btn:hover {
+  background: #e0e7ff;
+  border-color: #4f46e5;
+  color: #1e1b4b;
+}
+
+[data-theme="light"] .dict-colloc-item,
+[data-theme="light"] .dict-quote-card {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #1e293b;
+}
+
+[data-theme="light"] .dict-colloc-en {
+  color: #0f172a;
+}
+
+[data-theme="light"] .dict-colloc-vi {
+  color: #475569;
+}
+
+[data-theme="light"] .dict-tip-box {
+  background: #fffbeb;
+  border-color: #fcd34d;
+  color: #78350f;
+}
+
+

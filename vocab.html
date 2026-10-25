@@ -6,10 +6,10 @@
   <title>Từ Vựng &amp; Từ Điển 40 Đề ETS (450+ ➔ 850+) — TOEIC Master</title>
   <meta name="description" content="Kho từ vựng và từ điển tổng hợp từ 40 bộ đề ETS TOEIC (450+ ➔ 850+): tra map 8.000 câu hỏi, gia đình từ cùng gốc, Flashcard và Quiz thực chiến.">
 
-  <link rel="stylesheet" href="css/base.css?v=20261025v12">
-  <link rel="stylesheet" href="css/layout.css?v=20261025v12">
-  <link rel="stylesheet" href="css/components.css?v=20261025v12">
-  <link rel="stylesheet" href="css/responsive.css?v=20261025v12">
+  <link rel="stylesheet" href="css/base.css?v=20261025v13">
+  <link rel="stylesheet" href="css/layout.css?v=20261025v13">
+  <link rel="stylesheet" href="css/components.css?v=20261025v13">
+  <link rel="stylesheet" href="css/responsive.css?v=20261025v13">
   <style>
     /* ── Ultra-Minimalist Top Filter & Control Bar ── */
     .study-top-section {
@@ -868,9 +868,9 @@
     <div class="dict-modal-panel" id="dict-word-modal-body" onclick="event.stopPropagation()"></div>
   </div>
 
-  <script src="js/app-config.js?v=20261025v12"></script>
-  <script src="js/storage-service.js?v=20261025v12"></script>
-  <script src="js/study-data.js?v=20261025v12"></script>
+  <script src="js/app-config.js?v=20261025v13"></script>
+  <script src="js/storage-service.js?v=20261025v13"></script>
+  <script src="js/study-data.js?v=20261025v13"></script>
   <script>
     // Unified State across 100% of the 40-Test ETS Dictionary (4,153 headwords + 386 Official Part 5 Vocab Qs)
     const PACK_SIZE = 30;
@@ -988,6 +988,38 @@
       }
     }
 
+    function escapeHtmlAttr(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    function normalizeSpokenEnglish(rawText) {
+      return String(rawText || '')
+        .replace(/^["'“”]+|["'“”]+$/g, '')
+        .replace(/\bsb\b/gi, 'somebody')
+        .replace(/\bsth\b/gi, 'something')
+        .replace(/\+\s*(?:V3\/ed|V-ing|to-V|V0|V\(bare\)|Noun|Object|Adj|Adv|S\s*\+\s*V)/gi, '')
+        .replace(/\s*\/\s*/g, ' or ')
+        .replace(/-{3,}/g, ', ... ,')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function splitCollocationDisplay(rawColloc) {
+      const s = String(rawColloc || '').trim();
+      const idx = s.indexOf(':');
+      if (idx > 0) {
+        return {
+          en: s.slice(0, idx).trim(),
+          vi: s.slice(idx + 1).trim()
+        };
+      }
+      return { en: s, vi: '' };
+    }
+
     function speakEnglishWord(text, event) {
       if (event && typeof event.stopPropagation === 'function') event.stopPropagation();
       if (typeof window === 'undefined' || !window.speechSynthesis || typeof SpeechSynthesisUtterance === 'undefined') {
@@ -1003,6 +1035,15 @@
       } catch (_) {
         return false;
       }
+    }
+
+    function speakFromButton(btnEl, event) {
+      if (event && typeof event.stopPropagation === 'function') event.stopPropagation();
+      const raw = btnEl && typeof btnEl.getAttribute === 'function'
+        ? btnEl.getAttribute('data-speak')
+        : (btnEl && btnEl.dataset ? btnEl.dataset.speak : '');
+      if (!raw) return false;
+      return speakEnglishWord(normalizeSpokenEnglish(raw), event);
     }
 
     function computeBandStats(bandId) {
@@ -1431,7 +1472,21 @@
               <div class="fc-body">
                 <div class="fc-word">${e.w}</div>
                 <div class="fc-ipa">${e.ipa || `Xuất hiện ${e.tot} lần trong 40 đề ETS`}</div>
-                ${sampleEx ? `<div class="fc-example-en">"${sampleEx.en}"</div>` : (e.colloc && e.colloc.length ? `<div class="fc-example-en">${e.colloc.join(' • ')}</div>` : '')}
+                ${sampleEx ? `
+                  <div class="fc-example-en">
+                    <div>"${sampleEx.en}"</div>
+                    <div style="margin-top:6px;" onclick="event.stopPropagation()">
+                      <button type="button" class="quote-speak-btn" data-speak="${escapeHtmlAttr(sampleEx.en)}" onclick="speakFromButton(this, event)" aria-label="Nghe câu ví dụ tiếng Anh">🔊 Nghe câu</button>
+                    </div>
+                  </div>
+                ` : (e.colloc && e.colloc.length ? `
+                  <div class="fc-example-en" style="text-align:left;">
+                    ${e.colloc.map(c => {
+                      const p = splitCollocationDisplay(c);
+                      return `<div style="margin-bottom:3px;">• <strong>${p.en}</strong></div>`;
+                    }).join('')}
+                  </div>
+                ` : '')}
               </div>
               <div class="fc-hint">Nhấn vào thẻ hoặc phím Space để lật xem nghĩa, gia đình từ &amp; ví dụ ETS</div>
             ` : `
@@ -1440,12 +1495,31 @@
                 <div class="fc-meaning">${e.m}</div>
                 <div class="fc-back-details">
                   ${otherFam.length > 0 ? `<div><strong>🌳 Từ cùng gốc:</strong> ${otherFam.map(f => `${f.w} (${f.pos})`).join(', ')}</div>` : ''}
-                  ${e.colloc && e.colloc.length > 0 ? `<div><strong>📌 Cụm từ:</strong> ${e.colloc.join(' • ')}</div>` : ''}
-                  ${e.tip ? `<div><strong>💡 Ghi chú ETS:</strong> ${e.tip}</div>` : ''}
+                  ${e.colloc && e.colloc.length > 0 ? `
+                    <div>
+                      <strong>📌 Cụm từ hay gặp:</strong>
+                      <div class="fc-colloc-list" onclick="event.stopPropagation()">
+                        ${e.colloc.map(c => {
+                          const p = splitCollocationDisplay(c);
+                          return `
+                            <div style="display:flex;align-items:flex-start;gap:6px;">
+                              <button type="button" class="quote-speak-btn is-mini" data-speak="${escapeHtmlAttr(p.en)}" onclick="speakFromButton(this, event)" aria-label="Nghe cụm từ">🔊</button>
+                              <span><strong>${p.en}</strong>${p.vi ? ` — <span style="color:var(--text-secondary);">${p.vi}</span>` : ''}</span>
+                            </div>
+                          `;
+                        }).join('')}
+                      </div>
+                    </div>
+                  ` : ''}
+                  ${e.tip ? `<div><strong>💡 Mẹo thi ETS:</strong> ${e.tip}</div>` : ''}
                   ${sampleEx ? `
-                    <div style="padding-top:4px;border-top:1px solid rgba(255,255,255,0.06);">
-                      <strong>${sampleEx.q}:</strong> "${sampleEx.en}"<br>
-                      <span style="color:var(--text-secondary);">→ ${sampleEx.vi}</span>
+                    <div style="padding-top:6px;border-top:1px solid rgba(255,255,255,0.06);">
+                      <div class="dict-quote-head" onclick="event.stopPropagation()">
+                        <strong>${sampleEx.q}</strong>
+                        <button type="button" class="quote-speak-btn" data-speak="${escapeHtmlAttr(sampleEx.en)}" onclick="speakFromButton(this, event)" aria-label="Nghe câu ví dụ tiếng Anh">🔊 Nghe câu</button>
+                      </div>
+                      <div>"${sampleEx.en}"</div>
+                      <div style="color:var(--text-secondary);margin-top:2px;">→ ${sampleEx.vi}</div>
                     </div>
                   ` : ''}
                 </div>
@@ -1568,7 +1642,7 @@
         questionText: `Trong đề thi TOEIC, từ vựng "${entry.w}" (${entry.pos}) mang nghĩa nào sau đây?`,
         options: { A: orderedMeanings[0], B: orderedMeanings[1], C: orderedMeanings[2], D: orderedMeanings[3] },
         correctAnswer: correctLetter,
-        questionTranslation: entry.colloc && entry.colloc.length ? `Cụm từ thường gặp: ${entry.colloc.join(' • ')}` : '',
+        questionTranslation: entry.colloc && entry.colloc.length ? `<br>• ${entry.colloc.join('<br>• ')}` : '',
         explanation: `<strong>${entry.w}</strong> (${entry.pos}): ${entry.m}.${entry.tip ? ' 💡 ' + entry.tip : ''}`
       };
     }
@@ -1726,12 +1800,19 @@
           ` : questionsToRender.map((q, idx) => {
             const userChoice = quizUserAnswers[q.id] || null;
             const safeDictKey = (q.dictId || q.word || '').replace(/'/g, "\\'");
+            const correctOptText = (q.options && q.options[q.correctAnswer]) || '';
+            const spokenQuizSentence = !q.isMeaningMode
+              ? (userChoice && correctOptText
+                  ? String(q.questionText || '').replace(/-{3,}/g, correctOptText)
+                  : String(q.questionText || ''))
+              : (q.word || '');
             return `
               <div class="quiz-item-card">
                 <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:0.74rem;color:var(--text-muted);flex-wrap:wrap;">
                   <strong>Câu ${idx + 1}/${questionsToRender.length}</strong>
-                  <span style="display:inline-flex;align-items:center;gap:8px;">
+                  <span style="display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;">
                     <span>${q.source}</span>
+                    <button type="button" class="quote-speak-btn" data-speak="${escapeHtmlAttr(spokenQuizSentence)}" onclick="speakFromButton(this, event)" aria-label="Nghe phát âm tiếng Anh">🔊 ${q.isMeaningMode ? 'Nghe từ' : 'Nghe câu'}</button>
                     ${q.reviewHref ? `<a href="${q.reviewHref}" class="slim-link-btn" style="text-decoration:none;padding:2px 7px;font-size:0.7rem;">🔗 Mở đề gốc</a>` : ''}
                   </span>
                 </div>
@@ -1850,9 +1931,25 @@
         ` : ''}
 
         ${(entry.colloc && entry.colloc.length > 0) || entry.tip ? `
-          <div class="dict-sec-block" style="font-size:0.84rem;line-height:1.5;">
-            ${entry.colloc && entry.colloc.length > 0 ? `<div><strong>📌 Cụm từ hay gặp:</strong> ${entry.colloc.join(' • ')}</div>` : ''}
-            ${entry.tip ? `<div style="margin-top:4px;color:var(--text-secondary);"><strong>💡 Mẹo thi ETS:</strong> ${entry.tip}</div>` : ''}
+          <div class="dict-sec-block">
+            ${entry.colloc && entry.colloc.length > 0 ? `
+              <div class="dict-sec-title">📌 Cụm từ hay gặp trong đề ETS (${entry.colloc.length} cụm)</div>
+              <ul class="dict-colloc-list">
+                ${entry.colloc.map(c => {
+                  const p = splitCollocationDisplay(c);
+                  return `
+                    <li class="dict-colloc-item">
+                      <button type="button" class="quote-speak-btn is-mini" data-speak="${escapeHtmlAttr(p.en)}" onclick="speakFromButton(this, event)" aria-label="Nghe cụm từ ${escapeHtmlAttr(p.en)}" title="Nghe phát âm cụm từ">🔊</button>
+                      <div class="dict-colloc-text">
+                        <span class="dict-colloc-en">${p.en}</span>
+                        ${p.vi ? `<span class="dict-colloc-vi"> — ${p.vi}</span>` : ''}
+                      </div>
+                    </li>
+                  `;
+                }).join('')}
+              </ul>
+            ` : ''}
+            ${entry.tip ? `<div class="dict-tip-box"><strong>💡 Mẹo thi ETS:</strong> ${entry.tip}</div>` : ''}
           </div>
         ` : ''}
 
@@ -1860,8 +1957,11 @@
           <div class="dict-sec-block">
             <div class="dict-sec-title">📝 Ngữ cảnh thực tế trích từ Bộ đề ETS</div>
             ${entry.ex.map(s => `
-              <div style="font-size:0.83rem;line-height:1.48;margin-bottom:8px;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.03);border:1px solid var(--border-glass);">
-                <div style="font-size:0.72rem;color:var(--accent-secondary);font-weight:700;margin-bottom:2px;">${s.q}</div>
+              <div class="dict-quote-card">
+                <div class="dict-quote-head">
+                  <span style="font-size:0.74rem;color:var(--accent-secondary);font-weight:700;">${s.q}</span>
+                  <button type="button" class="quote-speak-btn" data-speak="${escapeHtmlAttr(s.en)}" onclick="speakFromButton(this, event)" aria-label="Nghe câu trích dẫn tiếng Anh" title="Nghe đọc cả câu tiếng Anh">🔊 Nghe câu</button>
+                </div>
                 <div style="font-weight:600;color:var(--text-primary);">"${s.en}"</div>
                 <div style="color:var(--text-secondary);margin-top:2px;">→ ${s.vi}</div>
               </div>
@@ -2098,6 +2198,7 @@
       window.triggerImportStudyBackup = triggerImportStudyBackup;
       window.handleImportStudyBackup = handleImportStudyBackup;
       window.speakEnglishWord = speakEnglishWord;
+      window.speakFromButton = speakFromButton;
       window.toggleTheme = toggleTheme;
     }
 
@@ -2129,6 +2230,8 @@
         closeDictWordModal,
         resolveDictEntry,
         decodeQMapCode,
+        splitCollocationDisplay,
+        speakFromButton,
         getFilteredDictionaryEntries,
         exportStudyBackup,
         computeBandStats
