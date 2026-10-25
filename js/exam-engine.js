@@ -75,6 +75,18 @@ const ExamEngine = {
   async init(customParams = null) {
     this._isSubmitting = false;
     const searchSource = customParams || (typeof window !== 'undefined' && window.location ? window.location.search : '');
+    try {
+      if (typeof searchSource === 'string' && searchSource) {
+        const sp = new URLSearchParams(searchSource.startsWith('?') ? searchSource.slice(1) : searchSource);
+        const rawBook = sp.get('book');
+        if (rawBook && typeof AppConfig !== 'undefined' && AppConfig && typeof AppConfig.setSelectedBook === 'function') {
+          AppConfig.setSelectedBook(rawBook);
+        }
+        if (sp.get('from') === 'roadmap' && typeof sessionStorage !== 'undefined') {
+          sessionStorage.setItem('toeic_roadmap_return', '1');
+        }
+      }
+    } catch (_) {}
     const parsed = this.parseQueryParams(searchSource);
     this.testId = parsed.testId;
     this.mode = parsed.mode;

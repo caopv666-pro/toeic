@@ -6,10 +6,10 @@
   <title>Ngữ Pháp TOEIC 450+ ➔ 850+ — TOEIC Master</title>
   <meta name="description" content="Học ngữ pháp TOEIC tinh gọn theo từng mục tiêu điểm 450+, 550+, 650+, 750+, 850+: công thức cốt lõi, mẹo giải nhanh 5 giây và bài tập ETS thực chiến.">
 
-  <link rel="stylesheet" href="css/base.css?v=20261025v13">
-  <link rel="stylesheet" href="css/layout.css?v=20261025v13">
-  <link rel="stylesheet" href="css/components.css?v=20261025v13">
-  <link rel="stylesheet" href="css/responsive.css?v=20261025v13">
+  <link rel="stylesheet" href="css/base.css?v=20261025v14">
+  <link rel="stylesheet" href="css/layout.css?v=20261025v14">
+  <link rel="stylesheet" href="css/components.css?v=20261025v14">
+  <link rel="stylesheet" href="css/responsive.css?v=20261025v14">
   <style>
     /* ── Ultra-Minimalist Top Filter & Control Bar (Synced with index.html & vocab.html) ── */
     .study-top-section {
@@ -462,6 +462,15 @@
         <div class="header-ctrl-popover main-menu-popover" id="main-menu-popover" style="display: none;" onclick="event.stopPropagation()">
           <div class="popover-ctrl-title">🧭 Menu Học Tập &amp; Cài Đặt</div>
           <div class="main-menu-list">
+            <a href="roadmap.html" class="main-menu-item">
+              <span class="main-menu-item-left">
+                <span class="main-menu-item-icon">🗺️</span>
+                <span class="main-menu-item-text">
+                  <span class="main-menu-item-title">Lộ Trình Mục Tiêu</span>
+                  <span class="main-menu-item-sub">Bản đồ Game • Test đầu vào &amp; Nhiệm vụ ngày</span>
+                </span>
+              </span>
+            </a>
             <a href="index.html" class="main-menu-item">
               <span class="main-menu-item-left">
                 <span class="main-menu-item-icon">📝</span>
@@ -513,6 +522,10 @@
   <!-- Main Workspace -->
   <main class="container">
     <section class="study-top-section">
+      <div id="roadmap-return-strip" style="display: none; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; padding: 7px 12px; margin-bottom: 10px; border-radius: var(--radius-md); background: rgba(99, 102, 241, 0.14); border: 1px solid rgba(99, 102, 241, 0.38); font-size: 0.78rem;">
+        <span>🗺️ <strong>Nhiệm vụ Lộ trình đang mở</strong> — Giải bài xong hệ thống tự động cộng ⭐ trên Bản đồ!</span>
+        <a href="roadmap.html" class="slim-link-btn" style="color: #ffffff; background: var(--accent-primary); border-color: var(--accent-primary); text-decoration: none;">⬅ Quay về Bản đồ</a>
+      </div>
       <!-- 1. Compact Score Band Selector Row -->
       <div class="band-chip-row" id="grammar-band-selector" role="tablist" aria-label="Chọn mục tiêu điểm ngữ pháp"></div>
 
@@ -538,9 +551,9 @@
     <section class="grammar-content-wrap" id="grammar-workspace-container" aria-live="polite"></section>
   </main>
 
-  <script src="js/app-config.js?v=20261025v13"></script>
-  <script src="js/storage-service.js?v=20261025v13"></script>
-  <script src="js/study-data.js?v=20261025v13"></script>
+  <script src="js/app-config.js?v=20261025v14"></script>
+  <script src="js/storage-service.js?v=20261025v14"></script>
+  <script src="js/study-data.js?v=20261025v14"></script>
   <script>
     let currentBand = '450';
     let currentTopicId = '';
@@ -1115,12 +1128,23 @@
         if (storage && typeof storage.getStudyProgress === 'function') {
           initialBand = storage.getStudyProgress().lastBand || '450';
         }
+        let targetTopic = '';
+        let fromRoadmap = false;
         try {
           const params = new URLSearchParams(window.location.search);
           if (params.get('band')) initialBand = params.get('band');
           if (params.get('tab')) switchGrammarTab(params.get('tab'));
+          if (params.get('topic')) targetTopic = params.get('topic');
+          if (params.get('from') === 'roadmap') fromRoadmap = true;
         } catch (_) {}
         selectGrammarBand(initialBand);
+        if (targetTopic) {
+          selectGrammarTopic(targetTopic);
+        }
+        if (fromRoadmap) {
+          const rStrip = document.getElementById('roadmap-return-strip');
+          if (rStrip && rStrip.style) rStrip.style.display = 'flex';
+        }
       });
     }
 

@@ -7,10 +7,10 @@
   <meta name="description" content="Kết quả bài thi TOEIC trực tuyến, phân tích điểm số chuẩn ETS và lời giải chi tiết từng câu.">
   
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="css/base.css?v=20261025v13">
-  <link rel="stylesheet" href="css/layout.css?v=20261025v13">
-  <link rel="stylesheet" href="css/components.css?v=20261025v13">
-  <link rel="stylesheet" href="css/responsive.css?v=20261025v13">
+  <link rel="stylesheet" href="css/base.css?v=20261025v14">
+  <link rel="stylesheet" href="css/layout.css?v=20261025v14">
+  <link rel="stylesheet" href="css/components.css?v=20261025v14">
+  <link rel="stylesheet" href="css/responsive.css?v=20261025v14">
   <style>
     /* Compact Navbar so sticky Part 1..7 bar has maximum vertical room and is never covered */
     :root {
@@ -460,6 +460,15 @@
         <div class="header-ctrl-popover main-menu-popover" id="main-menu-popover" style="display: none;" onclick="event.stopPropagation()">
           <div class="popover-ctrl-title">🧭 Menu Học Tập &amp; Cài Đặt</div>
           <div class="main-menu-list">
+            <a href="roadmap.html" class="main-menu-item">
+              <span class="main-menu-item-left">
+                <span class="main-menu-item-icon">🗺️</span>
+                <span class="main-menu-item-text">
+                  <span class="main-menu-item-title">Lộ Trình Mục Tiêu</span>
+                  <span class="main-menu-item-sub">Bản đồ Game • Test đầu vào &amp; Nhiệm vụ ngày</span>
+                </span>
+              </span>
+            </a>
             <a href="index.html" class="main-menu-item">
               <span class="main-menu-item-left">
                 <span class="main-menu-item-icon">🏠</span>
@@ -538,6 +547,9 @@
 
         <!-- Action Buttons -->
         <div class="result-action-btns">
+          <a href="roadmap.html" class="btn btn-primary btn-lg" id="btn-return-roadmap" style="display: none; background: linear-gradient(135deg, #10b981, #059669); border-color: #10b981; text-decoration: none;" onclick="try { sessionStorage.removeItem('toeic_roadmap_return'); } catch(_) {}">
+            🗺️ Quay về Bản Đồ Lộ Trình nhận ⭐ ➔
+          </a>
           <button type="button" class="btn btn-primary btn-lg result-btn-detail" onclick="showDetailedReviewAndSyncAria()" id="btn-show-detail" aria-expanded="false" aria-controls="detailed-review-section" aria-label="Xem chi tiết bài làm và lời giải phân tích">
             📝 Xem Chi Tiết Bài Làm & Lời Giải ➔
           </button>
@@ -670,6 +682,12 @@
         if (typeof ResultViewer !== 'undefined' && ResultViewer && typeof ResultViewer.init === 'function') {
           await ResultViewer.init();
         }
+        try {
+          if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('toeic_roadmap_return') === '1') {
+            const rmBtn = document.getElementById('btn-return-roadmap');
+            if (rmBtn && rmBtn.style) rmBtn.style.display = 'inline-flex';
+          }
+        } catch (_) {}
 
         // Deep-linking (?show=review, ?section=review, hoặc ?q=62)
         try {

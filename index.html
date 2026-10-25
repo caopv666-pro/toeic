@@ -7,11 +7,46 @@
   <meta name="description" content="Nền tảng thi thử TOEIC trực tuyến chuẩn format ETS 2022, audio cắt từng câu, chấm điểm 990 tự động và lời giải chi tiết.">
   
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="css/base.css?v=20261025v13">
-  <link rel="stylesheet" href="css/layout.css?v=20261025v13">
-  <link rel="stylesheet" href="css/components.css?v=20261025v13">
-  <link rel="stylesheet" href="css/responsive.css?v=20261025v13">
+  <link rel="stylesheet" href="css/base.css?v=20261025v14">
+  <link rel="stylesheet" href="css/layout.css?v=20261025v14">
+  <link rel="stylesheet" href="css/components.css?v=20261025v14">
+  <link rel="stylesheet" href="css/responsive.css?v=20261025v14">
   <style>
+    .roadmap-quick-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      max-width: 600px;
+      margin: 0 auto 12px;
+      padding: 7px 12px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(90deg, rgba(99, 102, 241, 0.14), rgba(16, 185, 129, 0.1));
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      font-size: 0.79rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      transition: all var(--transition-fast);
+    }
+    .roadmap-quick-strip:hover {
+      border-color: var(--accent-primary);
+      transform: translateY(-1px);
+    }
+    .roadmap-quick-cta {
+      padding: 3px 9px;
+      border-radius: var(--radius-full);
+      background: var(--accent-primary);
+      color: #ffffff;
+      font-size: 0.73rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    [data-theme="light"] .roadmap-quick-strip {
+      background: linear-gradient(90deg, #eef2ff, #ecfdf5);
+      border-color: #a5b4fc;
+      color: #1e293b;
+    }
     .part-filter-btn,
     .day-filter-btn,
     .book-filter-btn {
@@ -212,6 +247,15 @@
         <div class="header-ctrl-popover main-menu-popover" id="main-menu-popover" style="display: none;" onclick="event.stopPropagation()">
           <div class="popover-ctrl-title">🧭 Menu Học Tập &amp; Cài Đặt</div>
           <div class="main-menu-list">
+            <a href="roadmap.html" class="main-menu-item">
+              <span class="main-menu-item-left">
+                <span class="main-menu-item-icon">🗺️</span>
+                <span class="main-menu-item-text">
+                  <span class="main-menu-item-title">Lộ Trình Mục Tiêu</span>
+                  <span class="main-menu-item-sub">Bản đồ Game • Test đầu vào &amp; Nhiệm vụ ngày</span>
+                </span>
+              </span>
+            </a>
             <a href="index.html" class="main-menu-item active">
               <span class="main-menu-item-left">
                 <span class="main-menu-item-icon">📝</span>
@@ -280,6 +324,12 @@
         </div>
       </div>
 
+      <!-- Ultra-Compact Roadmap Game Map Quick Strip -->
+      <a href="roadmap.html" class="roadmap-quick-strip" id="roadmap-quick-strip" aria-label="Mở Bản đồ Lộ trình Mục tiêu TOEIC">
+        <span id="roadmap-strip-label">🗺️ <strong>Lộ trình Game TOEIC:</strong> Chẩn đoán đầu vào &amp; nhận nhiệm vụ ngày tới Đích 450+ ➔ 850+</span>
+        <span class="roadmap-quick-cta" id="roadmap-strip-cta">Mở Bản đồ ➔</span>
+      </a>
+
       <!-- Book Selector Pills (1 Single Compact Row: ETS 2022 / ETS 2023 / ETS 2024 / ETS 2026) -->
       <div id="book-selector-wrap" class="book-chip-row" role="group" aria-label="Chọn bộ đề thi">
         <button class="book-filter-btn active" id="book-btn-2022" data-book="EST 2022" type="button" onclick="selectBook('EST 2022')" aria-pressed="true">ETS 2022</button>
@@ -338,8 +388,8 @@
   </main>
 
   <!-- Scripts -->
-  <script src="js/app-config.js?v=20261024v8"></script>
-  <script src="js/storage-service.js?v=20261024v8"></script>
+  <script src="js/app-config.js?v=20261025v14"></script>
+  <script src="js/storage-service.js?v=20261025v14"></script>
   <script>
     let currentMode = 'full';
     let selectedPart = 'part1';
@@ -421,9 +471,36 @@
       } catch (_) {}
 
       checkActiveSession();
+      renderRoadmapQuickStrip();
       renderTestCards();
     });
   }
+
+    function renderRoadmapQuickStrip() {
+      if (typeof document === 'undefined' || typeof document.getElementById !== 'function') return;
+      const labelEl = document.getElementById('roadmap-strip-label');
+      const ctaEl = document.getElementById('roadmap-strip-cta');
+      if (!labelEl || !ctaEl) return;
+      const storage = getSafeStorage();
+      if (!storage || typeof storage.getRoadmapState !== 'function') return;
+      const rm = storage.getRoadmapState();
+      if (rm && rm.initialized && rm.profile) {
+        let done = 0;
+        let total = 0;
+        (rm.zones || []).forEach(z => {
+          if (z.zoneStatus === 'cleared_by_placement') return;
+          (z.nodes || []).forEach(n => {
+            if (n.type === 'placement_cleared') return;
+            total++;
+            if (rm.nodeProgress && rm.nodeProgress[n.id] && rm.nodeProgress[n.id].status === 'completed') done++;
+          });
+        });
+        const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+        const streak = (rm.streak && rm.streak.count) || 0;
+        labelEl.innerHTML = `🗺️ <strong>Lộ trình:</strong> ~${rm.profile.currentScore || rm.profile.startScore}đ ➔ 🏁 <strong>${rm.profile.targetScore}+</strong> (${pct}%) ${streak > 0 ? `• 🔥 ${streak} ngày` : ''}`;
+        ctaEl.textContent = 'Nhiệm vụ hôm nay ➔';
+      }
+    }
 
     function selectBook(bookKey) {
       currentBook = (bookKey === 'EST 2026' || bookKey === 'EST 2024' || bookKey === 'EST 2023') ? bookKey : 'EST 2022';

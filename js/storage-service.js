@@ -35,6 +35,7 @@ const StorageService = {
   DEFAULT_ZOOM: 100,
   ZOOM_LEVELS: [80, 90, 100, 110, 120, 130, 140],
   STUDY_PROGRESS_KEY: 'toeic_study_progress_v1',
+  ROADMAP_STATE_KEY: 'toeic_roadmap_v1',
   _getStorage() {
     return getSafeLocalStorage();
   },
@@ -911,13 +912,121 @@ const StorageService = {
     this.saveStudyProgress(prog);
     return prog.grammarQuizBest[key];
   },
+  _getDefaultRoadmapState() {
+    return {
+      version: '1.0.0',
+      initialized: false,
+      placementDone: false,
+      placementResult: null,
+      profile: null,
+      zones: [],
+      nodeProgress: {},
+      reviewQueue: {},
+      streak: {
+        count: 0,
+        best: 0,
+        lastActiveDate: null,
+        activeDates: []
+      },
+      updatedAt: new Date().toISOString()
+    };
+  },
+  getRoadmapState() {
+    const def = this._getDefaultRoadmapState();
+    try {
+      const storage = this._getStorage();
+      if (!storage) return def;
+      const raw = storage.getItem(this.ROADMAP_STATE_KEY);
+      if (!raw) return def;
+      const parsed = JSON.parse(raw);
+      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return def;
+      const rawStreak = (parsed.streak && typeof parsed.streak === 'object' && !Array.isArray(parsed.streak))
+        ? parsed.streak
+        : {};
+      return {
+        version: '1.0.0',
+        initialized: Boolean(parsed.initialized),
+        placementDone: Boolean(parsed.placementDone),
+        placementResult: (parsed.placementResult && typeof parsed.placementResult === 'object' && !Array.isArray(parsed.placementResult))
+          ? this._sanitizePlainObject(parsed.placementResult)
+          : null,
+        profile: (parsed.profile && typeof parsed.profile === 'object' && !Array.isArray(parsed.profile))
+          ? this._sanitizePlainObject(parsed.profile)
+          : null,
+        zones: Array.isArray(parsed.zones) ? parsed.zones : [],
+        nodeProgress: this._sanitizePlainObject(parsed.nodeProgress),
+        reviewQueue: this._sanitizePlainObject(parsed.reviewQueue),
+        streak: {
+          count: Math.max(0, parseInt(rawStreak.count, 10) || 0),
+          best: Math.max(0, parseInt(rawStreak.best, 10) || 0),
+          lastActiveDate: typeof rawStreak.lastActiveDate === 'string' ? rawStreak.lastActiveDate : null,
+          activeDates: Array.isArray(rawStreak.activeDates) ? rawStreak.activeDates.slice(-60) : []
+        },
+        updatedAt: typeof parsed.updatedAt === 'string' ? parsed.updatedAt : def.updatedAt
+      };
+    } catch (_) {
+      return def;
+    }
+  },
+  saveRoadmapState(stateObj) {
+    if (!stateObj || typeof stateObj !== 'object' || Array.isArray(stateObj)) return false;
+    try {
+      const storage = this._getStorage();
+      if (!storage) return false;
+      const current = this.getRoadmapState();
+      const nextStreak = (stateObj.streak && typeof stateObj.streak === 'object' && !Array.isArray(stateObj.streak))
+        ? stateObj.streak
+        : current.streak;
+      const merged = {
+        version: '1.0.0',
+        initialized: typeof stateObj.initialized === 'boolean' ? stateObj.initialized : current.initialized,
+        placementDone: typeof stateObj.placementDone === 'boolean' ? stateObj.placementDone : current.placementDone,
+        placementResult: stateObj.placementResult !== undefined
+          ? (stateObj.placementResult ? this._sanitizePlainObject(stateObj.placementResult) : null)
+          : current.placementResult,
+        profile: stateObj.profile !== undefined
+          ? (stateObj.profile ? this._sanitizePlainObject(stateObj.profile) : null)
+          : current.profile,
+        zones: Array.isArray(stateObj.zones) ? stateObj.zones : current.zones,
+        nodeProgress: stateObj.nodeProgress !== undefined
+          ? this._sanitizePlainObject(stateObj.nodeProgress)
+          : current.nodeProgress,
+        reviewQueue: stateObj.reviewQueue !== undefined
+          ? this._sanitizePlainObject(stateObj.reviewQueue)
+          : current.reviewQueue,
+        streak: {
+          count: Math.max(0, parseInt(nextStreak.count, 10) || 0),
+          best: Math.max(0, parseInt(nextStreak.best, 10) || 0),
+          lastActiveDate: typeof nextStreak.lastActiveDate === 'string' ? nextStreak.lastActiveDate : null,
+          activeDates: Array.isArray(nextStreak.activeDates) ? nextStreak.activeDates.slice(-60) : []
+        },
+        updatedAt: new Date().toISOString()
+      };
+      storage.setItem(this.ROADMAP_STATE_KEY, JSON.stringify(merged));
+      return true;
+    } catch (_) {
+      return false;
+    }
+  },
+  resetRoadmapState() {
+    try {
+      const storage = this._getStorage();
+      if (!storage) return false;
+      storage.removeItem(this.ROADMAP_STATE_KEY);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  },
   exportStudyProgressJSON() {
     const progress = this.getStudyProgress();
+    const roadmapState = this.getRoadmapState();
     const payload = {
       app: 'TOEIC Master Study Backup',
-      backupVersion: '1.0.0',
+      backupVersion: '1.1.0',
       exportedAt: new Date().toISOString(),
-      studyProgress: progress
+      studyProgress: progress,
+      roadmapState
     };
     return JSON.stringify(payload, null, 2);
   },
@@ -930,28 +1039,38 @@ const StorageService = {
       const source = (parsed.studyProgress && typeof parsed.studyProgress === 'object')
         ? parsed.studyProgress
         : parsed;
-      if (
-        !source.vocabStatus &&
-        !source.vocabStarred &&
-        !source.vocabQuizBest &&
-        !source.grammarCompleted &&
-        !source.grammarQuizBest
-      ) {
-        return { ok: false, error: 'File backup không chứa dữ liệu tiến độ Từ vựng / Ngữ pháp.' };
+      const incomingRoadmap = (parsed.roadmapState && typeof parsed.roadmapState === 'object' && !Array.isArray(parsed.roadmapState))
+        ? parsed.roadmapState
+        : null;
+      const hasStudyFields = Boolean(
+        source.vocabStatus ||
+        source.vocabStarred ||
+        source.vocabQuizBest ||
+        source.grammarCompleted ||
+        source.grammarQuizBest
+      );
+      if (!hasStudyFields && !incomingRoadmap) {
+        return { ok: false, error: 'File backup không chứa dữ liệu tiến độ Từ vựng / Ngữ pháp / Lộ trình.' };
       }
-      const current = this.getStudyProgress();
-      const merged = {
-        version: '1.0.0',
-        lastBand: source.lastBand || current.lastBand || '450',
-        vocabStatus: { ...current.vocabStatus, ...this._sanitizePlainObject(source.vocabStatus) },
-        vocabStarred: { ...current.vocabStarred, ...this._sanitizePlainObject(source.vocabStarred) },
-        vocabQuizBest: { ...current.vocabQuizBest, ...this._sanitizePlainObject(source.vocabQuizBest) },
-        grammarCompleted: { ...current.grammarCompleted, ...this._sanitizePlainObject(source.grammarCompleted) },
-        grammarQuizBest: { ...current.grammarQuizBest, ...this._sanitizePlainObject(source.grammarQuizBest) },
-        updatedAt: new Date().toISOString()
-      };
-      const saved = this.saveStudyProgress(merged);
-      return { ok: saved, progress: this.getStudyProgress() };
+      let saved = true;
+      if (hasStudyFields) {
+        const current = this.getStudyProgress();
+        const merged = {
+          version: '1.0.0',
+          lastBand: source.lastBand || current.lastBand || '450',
+          vocabStatus: { ...current.vocabStatus, ...this._sanitizePlainObject(source.vocabStatus) },
+          vocabStarred: { ...current.vocabStarred, ...this._sanitizePlainObject(source.vocabStarred) },
+          vocabQuizBest: { ...current.vocabQuizBest, ...this._sanitizePlainObject(source.vocabQuizBest) },
+          grammarCompleted: { ...current.grammarCompleted, ...this._sanitizePlainObject(source.grammarCompleted) },
+          grammarQuizBest: { ...current.grammarQuizBest, ...this._sanitizePlainObject(source.grammarQuizBest) },
+          updatedAt: new Date().toISOString()
+        };
+        saved = this.saveStudyProgress(merged);
+      }
+      if (incomingRoadmap) {
+        this.saveRoadmapState(incomingRoadmap);
+      }
+      return { ok: saved, progress: this.getStudyProgress(), roadmapState: this.getRoadmapState() };
     } catch (err) {
       return { ok: false, error: 'Không thể đọc file JSON: ' + (err && err.message ? err.message : 'Lỗi cú pháp') };
     }

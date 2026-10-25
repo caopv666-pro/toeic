@@ -1,0 +1,2329 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Lộ Trình Mục Tiêu TOEIC (Game Map) — TOEIC Master</title>
+  <meta name="description" content="Bản đồ lộ trình chinh phục mục tiêu TOEIC 450+ đến 850+: Kiểm tra đầu vào Nghe-Đọc, ôn tập ngắt quãng Ebbinghaus và nhiệm vụ thực chiến ETS hằng ngày.">
+
+  <link rel="stylesheet" href="css/base.css?v=20261025v14">
+  <link rel="stylesheet" href="css/layout.css?v=20261025v14">
+  <link rel="stylesheet" href="css/components.css?v=20261025v14">
+  <link rel="stylesheet" href="css/responsive.css?v=20261025v14">
+  <style>
+    @property --value {
+      syntax: '<number>';
+      inherits: true;
+      initial-value: 0;
+    }
+
+    .roadmap-shell {
+      max-width: 900px;
+      margin: 0 auto 64px;
+      padding-top: 14px;
+    }
+
+    /* ── Semantic Progress Ring (modern-web-guidance) ── */
+    .progress-ring-wrapper {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 58px;
+      height: 58px;
+      flex-shrink: 0;
+    }
+    progress.progress-ring {
+      --size: 58px;
+      --thickness: 6px;
+      --track-color: rgba(255, 255, 255, 0.12);
+      --fill-color: var(--accent-primary);
+      --value: 0;
+      appearance: none;
+      -webkit-appearance: none;
+      width: var(--size);
+      height: var(--size);
+      border-radius: 50%;
+      border: 0;
+      background: conic-gradient(var(--fill-color) calc(var(--value) * 1%), var(--track-color) 0);
+      mask-image: radial-gradient(transparent calc(50% - var(--thickness)), black calc(50% - var(--thickness) + 0.5px));
+      -webkit-mask-image: radial-gradient(transparent calc(50% - var(--thickness)), black calc(50% - var(--thickness) + 0.5px));
+      transition: --value 0s ease-in-out;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      progress.progress-ring {
+        transition-duration: 0.4s;
+      }
+    }
+    progress.progress-ring::-webkit-progress-bar,
+    progress.progress-ring::-webkit-progress-value {
+      background: transparent;
+    }
+    progress.progress-ring::-moz-progress-bar {
+      background: transparent;
+    }
+    progress.progress-ring[value="100"] {
+      --fill-color: var(--success);
+    }
+    .progress-ring-content {
+      position: absolute;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      pointer-events: none;
+    }
+
+    /* ── Top HUD & Runner Track ── */
+    .rm-hud-card {
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .rm-hud-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .rm-hud-score-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+    .rm-score-headline {
+      font-size: 1.02rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .rm-score-sub {
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+    .rm-hud-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .rm-chip-btn {
+      padding: 5px 10px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-glass);
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .rm-chip-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--accent-primary);
+      background: rgba(99, 102, 241, 0.12);
+    }
+
+    /* Visual Start -> Runner -> Finish Track */
+    .rm-journey-track-box {
+      background: rgba(15, 23, 42, 0.45);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 10px 14px 8px;
+    }
+    .rm-track-labels {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+    .rm-track-rail {
+      position: relative;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 8px 6px 4px;
+    }
+    .rm-track-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #10b981, #6366f1, #f59e0b);
+      transition: width 0.35s ease;
+    }
+    .rm-track-runner {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -58%);
+      font-size: 1.15rem;
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
+      transition: left 0.35s ease;
+      user-select: none;
+    }
+    .rm-track-flag {
+      position: absolute;
+      right: -4px;
+      top: 50%;
+      transform: translateY(-60%);
+      font-size: 1.05rem;
+      user-select: none;
+    }
+
+    .rm-status-pills {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+    .rm-stat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-glass);
+      color: var(--text-secondary);
+    }
+    .rm-stat-pill.is-streak {
+      color: #fb923c;
+      border-color: rgba(251, 146, 60, 0.35);
+      background: rgba(251, 146, 60, 0.1);
+    }
+    .rm-stat-pill.is-ahead,
+    .rm-stat-pill.is-ontrack,
+    .rm-stat-pill.is-finished {
+      color: #34d399;
+      border-color: rgba(16, 185, 129, 0.35);
+      background: rgba(16, 185, 129, 0.1);
+    }
+    .rm-stat-pill.is-behind {
+      color: #fbbf24;
+      border-color: rgba(245, 158, 11, 0.35);
+      background: rgba(245, 158, 11, 0.1);
+    }
+
+    /* ── Today's Active Mission Card ── */
+    .rm-today-card {
+      background: linear-gradient(145deg, rgba(99, 102, 241, 0.14), rgba(15, 23, 42, 0.72));
+      border: 1px solid rgba(99, 102, 241, 0.42);
+      border-radius: var(--radius-lg);
+      padding: 15px 16px;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+    .rm-today-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .rm-today-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .rm-today-sub {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+    .rm-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .rm-step-box {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      transition: border-color 0.2s ease, transform 0.15s ease;
+    }
+    .rm-step-box.is-done {
+      border-color: rgba(16, 185, 129, 0.5);
+      background: rgba(16, 185, 129, 0.07);
+    }
+    .rm-step-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.73rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: var(--accent-secondary);
+    }
+    .rm-step-box.is-done .rm-step-top {
+      color: var(--success);
+    }
+    .rm-step-name {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.35;
+      margin: 4px 0;
+    }
+    .rm-step-desc {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+    .rm-step-btn {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+      box-sizing: border-box;
+    }
+    .rm-step-btn.primary {
+      background: var(--accent-primary);
+      color: #ffffff;
+    }
+    .rm-step-btn.primary:hover {
+      filter: brightness(1.08);
+    }
+    .rm-step-btn.done {
+      background: rgba(16, 185, 129, 0.16);
+      color: #34d399;
+      border-color: rgba(16, 185, 129, 0.38);
+    }
+
+    /* ── Winding S-Curve Game Map ── */
+    .rm-zones-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .rm-zone-island {
+      position: relative;
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: 16px 14px 22px;
+      overflow: hidden;
+    }
+    .rm-zone-island.is-locked {
+      opacity: 0.86;
+    }
+    .rm-zone-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--border-glass);
+    }
+    .rm-zone-title-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .rm-zone-emblem {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-size: 1.3rem;
+      background: rgba(99, 102, 241, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      flex-shrink: 0;
+    }
+    .rm-zone-name {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .rm-zone-desc {
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+    .rm-zone-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .rm-skip-zone-btn {
+      padding: 6px 11px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(245, 158, 11, 0.48);
+      background: rgba(245, 158, 11, 0.14);
+      color: #fbbf24;
+      font-size: 0.75rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .rm-skip-zone-btn:hover {
+      background: rgba(245, 158, 11, 0.24);
+      transform: translateY(-1px);
+    }
+
+    /* Winding Vertical Path Nodes */
+    .rm-winding-path {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      padding: 8px 0 6px;
+      position: relative;
+    }
+    .rm-node-row {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform: translateX(var(--node-offset, 0px));
+      z-index: 2;
+    }
+    .rm-node-connector {
+      width: 4px;
+      height: 24px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.25);
+      margin-top: -24px;
+      margin-bottom: 4px;
+    }
+    .rm-node-connector.is-cleared {
+      background: linear-gradient(180deg, #10b981, #34d399);
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.45);
+    }
+    .rm-avatar-callout {
+      margin-bottom: 6px;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      background: var(--accent-primary);
+      color: #ffffff;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      box-shadow: 0 4px 14px var(--accent-primary-glow);
+      animation: avatarBounce 1.8s ease-in-out infinite;
+      white-space: nowrap;
+    }
+    @keyframes avatarBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .rm-avatar-callout { animation: none; }
+    }
+
+    .rm-node-btn {
+      width: 66px;
+      height: 66px;
+      border-radius: 50%;
+      border: 3px solid rgba(148, 163, 184, 0.35);
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.16s ease, box-shadow 0.2s ease;
+      box-shadow: 0 5px 0 rgba(15, 23, 42, 0.65);
+    }
+    .rm-node-btn:hover {
+      transform: translateY(-2px) scale(1.04);
+    }
+    .rm-node-btn.is-completed {
+      background: linear-gradient(145deg, #10b981, #059669);
+      border-color: #6ee7b7;
+      color: #ffffff;
+      box-shadow: 0 5px 0 #065f46, 0 0 16px rgba(16, 185, 129, 0.32);
+    }
+    .rm-node-btn.is-active {
+      background: linear-gradient(145deg, #6366f1, #4f46e5);
+      border-color: #c7d2fe;
+      color: #ffffff;
+      box-shadow: 0 5px 0 #3730a3, 0 0 0 6px rgba(99, 102, 241, 0.24);
+    }
+    .rm-node-btn.is-locked {
+      background: rgba(30, 41, 59, 0.85);
+      border-color: rgba(148, 163, 184, 0.24);
+      color: var(--text-muted);
+    }
+    .rm-node-btn.is-boss {
+      width: 82px;
+      height: 82px;
+      border-radius: 24px;
+      border-width: 3px;
+    }
+    .rm-node-btn.is-boss.is-locked {
+      border-color: rgba(245, 158, 11, 0.38);
+    }
+    .rm-node-btn.is-boss.is-active {
+      background: linear-gradient(145deg, #f59e0b, #d97706);
+      border-color: #fde68a;
+      box-shadow: 0 5px 0 #92400e, 0 0 0 7px rgba(245, 158, 11, 0.25);
+    }
+    .rm-node-btn.is-boss.is-completed {
+      background: linear-gradient(145deg, #f59e0b, #10b981);
+      border-color: #fde68a;
+      box-shadow: 0 5px 0 #065f46, 0 0 20px rgba(245, 158, 11, 0.4);
+    }
+    .rm-node-icon {
+      font-size: 1.45rem;
+      line-height: 1;
+    }
+    .rm-node-btn.is-boss .rm-node-icon {
+      font-size: 1.85rem;
+    }
+    .rm-node-stars {
+      margin-top: 5px;
+      font-size: 0.74rem;
+      letter-spacing: 1px;
+      line-height: 1;
+      min-height: 12px;
+    }
+    .rm-node-caption {
+      margin-top: 3px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      text-align: center;
+      max-width: 190px;
+    }
+    .rm-node-subcaption {
+      font-size: 0.69rem;
+      color: var(--text-secondary);
+      text-align: center;
+      max-width: 200px;
+    }
+
+    /* Checkered Finish Line Banner */
+    .rm-finish-arch {
+      margin-top: 18px;
+      padding: 18px 16px;
+      border-radius: var(--radius-lg);
+      text-align: center;
+      background:
+        linear-gradient(135deg, rgba(245, 158, 11, 0.18), rgba(16, 185, 129, 0.16)),
+        var(--bg-glass-card);
+      border: 2px dashed rgba(245, 158, 11, 0.55);
+    }
+    .rm-finish-checkered {
+      height: 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      background-image: repeating-linear-gradient(
+        90deg,
+        #f8fafc 0px,
+        #f8fafc 12px,
+        #0f172a 12px,
+        #0f172a 24px
+      );
+      opacity: 0.85;
+    }
+
+    /* ── Placement Test & Onboarding Gate ── */
+    .rm-gate-card {
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: 22px 20px;
+      max-width: 720px;
+      margin: 12px auto 32px;
+    }
+    .rm-feature-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 14px 0 18px;
+    }
+    .rm-pl-topbar {
+      position: sticky;
+      top: 52px;
+      z-index: 40;
+      background: var(--bg-glass);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 10px 12px;
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .rm-pl-pills {
+      display: flex;
+      gap: 5px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+    .rm-pl-qpill {
+      min-width: 28px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid var(--border-glass);
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      font-size: 0.73rem;
+      font-weight: 700;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .rm-pl-qpill.answered {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border-color: rgba(16, 185, 129, 0.45);
+    }
+    .rm-pl-qpill.current {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+    }
+    .rm-opt-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .rm-opt-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      text-align: left;
+      padding: 11px 13px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-glass);
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.14s ease;
+    }
+    .rm-opt-btn:hover {
+      border-color: var(--accent-primary);
+      background: rgba(99, 102, 241, 0.08);
+    }
+    .rm-opt-btn.selected {
+      border-color: var(--accent-primary);
+      background: rgba(99, 102, 241, 0.2);
+      font-weight: 700;
+    }
+    .rm-opt-btn.correct {
+      border-color: #10b981;
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      font-weight: 700;
+    }
+    .rm-opt-btn.wrong {
+      border-color: #ef4444;
+      background: rgba(239, 68, 68, 0.18);
+      color: #f87171;
+    }
+    .rm-opt-letter {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 0.78rem;
+      font-weight: 800;
+      background: rgba(255, 255, 255, 0.08);
+      flex-shrink: 0;
+    }
+    .rm-passage-box {
+      max-height: 300px;
+      overflow-y: auto;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-glass);
+      background: #ffffff;
+      padding: 8px;
+      margin: 10px 0;
+      text-align: center;
+    }
+    .rm-passage-box img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+    }
+
+    /* Diagnostic Result & Setup Selector */
+    .rm-skill-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 10px;
+    }
+    .rm-skill-bar {
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+    }
+    .rm-skill-fill {
+      height: 100%;
+      border-radius: 999px;
+    }
+    .rm-setup-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 8px;
+      margin: 8px 0 14px;
+    }
+    .rm-choice-card {
+      padding: 10px 10px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-glass);
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s ease;
+    }
+    .rm-choice-card.active {
+      border-color: var(--accent-primary);
+      background: rgba(99, 102, 241, 0.2);
+      box-shadow: 0 2px 12px var(--accent-primary-glow);
+    }
+
+    /* ── Universal Roadmap Modal (with Top-Right ✕ & Back popstate) ── */
+    .rm-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+      background: rgba(2, 6, 23, 0.74);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+    }
+    .rm-modal-backdrop.open {
+      display: flex;
+    }
+    .rm-modal-panel {
+      position: relative;
+      width: 100%;
+      max-width: 580px;
+      max-height: 88vh;
+      overflow-y: auto;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: 20px 18px 18px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+    }
+    .rm-modal-close-top {
+      position: sticky;
+      top: 0;
+      float: right;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--border-glass);
+      background: var(--bg-glass-card);
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      transition: all 0.15s ease;
+    }
+    .rm-modal-close-top:hover {
+      background: rgba(239, 68, 68, 0.18);
+      color: #f87171;
+      border-color: rgba(239, 68, 68, 0.45);
+    }
+
+    /* ── Mobile & Light Theme Adjustments ── */
+    @media (max-width: 720px) {
+      .rm-steps-grid {
+        grid-template-columns: 1fr;
+      }
+      .rm-node-row {
+        transform: translateX(calc(var(--node-offset, 0px) * 0.58));
+      }
+    }
+
+    [data-theme="light"] .rm-hud-card,
+    [data-theme="light"] .rm-zone-island,
+    [data-theme="light"] .rm-gate-card,
+    [data-theme="light"] .rm-modal-panel,
+    [data-theme="light"] .rm-step-box,
+    [data-theme="light"] .rm-opt-btn,
+    [data-theme="light"] .rm-choice-card,
+    [data-theme="light"] .rm-chip-btn {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      color: #0f172a;
+    }
+    [data-theme="light"] .rm-today-card {
+      background: linear-gradient(145deg, #eef2ff, #f8fafc);
+      border-color: #818cf8;
+    }
+    [data-theme="light"] .rm-journey-track-box {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+    [data-theme="light"] .rm-track-rail,
+    [data-theme="light"] .rm-skill-bar {
+      background: #e2e8f0;
+    }
+    [data-theme="light"] progress.progress-ring {
+      --track-color: #e2e8f0;
+    }
+    [data-theme="light"] .rm-node-btn.is-locked {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      color: #64748b;
+      box-shadow: 0 4px 0 #cbd5e1;
+    }
+    [data-theme="light"] .rm-choice-card.active,
+    [data-theme="light"] .rm-opt-btn.selected {
+      background: #eef2ff;
+      border-color: var(--accent-primary);
+      color: #312e81;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Minimalist Navigation Bar -->
+  <nav class="app-navbar">
+    <div class="nav-brand">
+      <a href="index.html" style="color: inherit; display: flex; align-items: center; gap: 8px; text-decoration: none;">
+        <span>🎯 TOEIC Master</span>
+      </a>
+      <span class="brand-badge">Lộ Trình</span>
+    </div>
+    <div class="nav-links">
+      <div class="header-ctrl-dropdown" id="header-zoom-ctrl">
+        <button type="button" class="nav-icon-ctrl-btn" id="zoom-menu-btn" onclick="StorageService.toggleHeaderPopover('zoom-popover-menu', event)" aria-label="Điều chỉnh cỡ chữ và thu phóng toàn trang" title="Chỉnh cỡ chữ / Thu phóng toàn trang">
+          <span>🔤</span>
+          <span id="zoom-level-label">100%</span>
+        </button>
+        <div class="header-ctrl-popover" id="zoom-popover-menu" style="display: none;" onclick="event.stopPropagation()">
+          <div class="popover-ctrl-title">🔤 Cỡ chữ / Zoom toàn trang</div>
+          <div class="zoom-stepper-row">
+            <button type="button" class="zoom-step-btn" onclick="StorageService.stepPageZoom(-10)" title="Thu nhỏ (-10%)" aria-label="Thu nhỏ 10%">➖</button>
+            <span class="zoom-current-val" id="zoom-popover-val">100%</span>
+            <button type="button" class="zoom-step-btn" onclick="StorageService.stepPageZoom(10)" title="Phóng to (+10%)" aria-label="Phóng to 10%">➕</button>
+          </div>
+          <div class="ctrl-preset-grid">
+            <button type="button" class="zoom-preset-btn" data-zoom="85" onclick="StorageService.setPageZoom(85)">85%</button>
+            <button type="button" class="zoom-preset-btn" data-zoom="90" onclick="StorageService.setPageZoom(90)">90%</button>
+            <button type="button" class="zoom-preset-btn active" data-zoom="100" onclick="StorageService.setPageZoom(100)">100%</button>
+            <button type="button" class="zoom-preset-btn" data-zoom="110" onclick="StorageService.setPageZoom(110)">110%</button>
+            <button type="button" class="zoom-preset-btn" data-zoom="120" onclick="StorageService.setPageZoom(120)">120%</button>
+            <button type="button" class="zoom-preset-btn" data-zoom="130" onclick="StorageService.setPageZoom(130)">130%</button>
+          </div>
+        </div>
+      </div>
+
+      <button class="fullscreen-toggle-btn" id="fullscreen-btn" type="button" onclick="StorageService.toggleFullscreen()" aria-label="Bật chế độ toàn màn hình" aria-pressed="false" title="Bật / Tắt chế độ toàn màn hình">
+        <svg class="fs-icon-enter" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+        <svg class="fs-icon-exit" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/></svg>
+      </button>
+
+      <div class="header-ctrl-dropdown" id="header-main-menu-ctrl">
+        <button type="button" class="nav-menu-trigger-btn" id="main-menu-btn" onclick="StorageService.toggleHeaderPopover('main-menu-popover', event)" aria-label="Mở menu điều hướng và cài đặt" title="Menu chức năng">
+          <span aria-hidden="true">☰</span>
+        </button>
+        <div class="header-ctrl-popover main-menu-popover" id="main-menu-popover" style="display: none;" onclick="event.stopPropagation()">
+          <div class="popover-ctrl-title">🧭 Menu Học Tập &amp; Cài Đặt</div>
+          <div class="main-menu-list">
+            <a href="roadmap.html" class="main-menu-item active">
+              <span class="main-menu-item-left">
+                <span class="main-menu-item-icon">🗺️</span>
+                <span class="main-menu-item-text">
+                  <span class="main-menu-item-title">Lộ Trình Mục Tiêu</span>
+                  <span class="main-menu-item-sub">Bản đồ Game • Test đầu vào &amp; Nhiệm vụ ngày</span>
+                </span>
+              </span>
+            </a>
+            <a href="index.html" class="main-menu-item">
+              <span class="main-menu-item-left">
+                <span class="main-menu-item-icon">📝</span>
+                <span class="main-menu-item-text">
+                  <span class="main-menu-item-title">Luyện đề ETS</span>
+                  <span class="main-menu-item-sub">40 đề gốc • Từng Part • Lộ trình 6 ngày</span>
+                </span>
+              </span>
+            </a>
+            <a href="vocab.html" class="main-menu-item">
+              <span class="main-menu-item-left">
+                <span class="main-menu-item-icon">📚</span>
+                <span class="main-menu-item-text">
+                  <span class="main-menu-item-title">Học Từ Vựng</span>
+                  <span class="main-menu-item-sub">450+ ➔ 850+ • Từ điển 40 đề, Flashcard &amp; Quiz</span>
+                </span>
+              </span>
+            </a>
+            <a href="grammar.html" class="main-menu-item">
+              <span class="main-menu-item-left">
+                <span class="main-menu-item-icon">📐</span>
+                <span class="main-menu-item-text">
+                  <span class="main-menu-item-title">Học Ngữ Pháp</span>
+                  <span class="main-menu-item-sub">450+ ➔ 850+ • Công thức &amp; 814 câu Part 5</span>
+                </span>
+              </span>
+            </a>
+            <a href="history.html" class="main-menu-item nav-link-btn">
+              <span class="main-menu-item-left">
+                <span class="main-menu-item-icon">📊</span>
+                <span class="main-menu-item-text">
+                  <span class="main-menu-item-title">Lịch sử thi</span>
+                </span>
+              </span>
+            </a>
+            <div class="main-menu-divider"></div>
+            <div class="main-menu-theme-row">
+              <span class="main-menu-theme-label"><span>🎨</span><span>Giao diện Sáng / Tối</span></span>
+              <button class="theme-toggle-btn" id="theme-btn" type="button" onclick="toggleTheme()" aria-label="Đổi giao diện Sáng / Tối" title="Đổi giao diện Sáng / Tối">
+                🌓
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Workspace -->
+  <main class="container roadmap-shell">
+    <input type="file" id="roadmap-backup-file-input" accept=".json,application/json" style="display: none;" onchange="handleImportRoadmapBackup(event)">
+
+    <!-- Dynamic Root Container (Gate / Placement Runner / Goal Setup / Game Map) -->
+    <div id="roadmap-root" aria-live="polite"></div>
+  </main>
+
+  <!-- Universal Modal (Node Mission Details / Inline Spaced Repetition Quiz / Skip-Zone Challenge / Settings) -->
+  <div class="rm-modal-backdrop" id="roadmap-modal" role="dialog" aria-modal="true" aria-labelledby="roadmap-modal-title" onclick="handleModalBackdropClick(event)">
+    <div class="rm-modal-panel" id="roadmap-modal-panel" onclick="event.stopPropagation()">
+      <button type="button" class="rm-modal-close-top" id="roadmap-modal-close-btn" onclick="closeRoadmapModal()" aria-label="Đóng hộp thoại" title="Đóng (Esc)">✕</button>
+      <div id="roadmap-modal-body"></div>
+    </div>
+  </div>
+
+  <script src="js/app-config.js?v=20261025v14"></script>
+  <script src="js/storage-service.js?v=20261025v14"></script>
+  <script src="js/study-data.js?v=20261025v14"></script>
+  <script src="js/roadmap-engine.js?v=20261025v14"></script>
+  <script>
+    // ── Controller State ──
+    let viewMode = 'loading'; // 'gate' | 'placement_test' | 'goal_setup' | 'map'
+    let placementQuestions = [];
+    let placementAnswers = {};
+    let placementIdx = 0;
+    let placementTimerSec = 15 * 60;
+    let placementInterval = null;
+
+    // Post-placement setup state
+    let setupTargetBand = '650';
+    let setupDailyMinutes = 45;
+
+    // Modal & Inline Quiz / Challenge state
+    let activeModalOpen = false;
+    let modalHistoryPushed = false;
+    let inlineSession = null; // { type: 'review'|'skip_zone'|'boss_quick', nodeId, zoneBand, questions, idx, answers, revealed, timerSec, timerId }
+
+    const WINDING_OFFSETS_PX = [0, -54, -84, -44, 18, 66, 84, 38];
+
+    function getSafeStorage() {
+      return (typeof StorageService !== 'undefined' && StorageService)
+        ? StorageService
+        : (typeof window !== 'undefined' && window.StorageService ? window.StorageService : null);
+    }
+
+    function getEngine() {
+      return (typeof RoadmapEngine !== 'undefined' && RoadmapEngine)
+        ? RoadmapEngine
+        : (typeof window !== 'undefined' && window.RoadmapEngine ? window.RoadmapEngine : null);
+    }
+
+    function toggleTheme() {
+      const storage = getSafeStorage();
+      if (storage && typeof storage.toggleTheme === 'function') {
+        storage.toggleTheme();
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function speakText(text, event) {
+      if (event && typeof event.stopPropagation === 'function') event.stopPropagation();
+      if (typeof window === 'undefined' || !window.speechSynthesis || typeof SpeechSynthesisUtterance === 'undefined') {
+        return false;
+      }
+      try {
+        window.speechSynthesis.cancel();
+        const cleaned = String(text || '').replace(/-{3,}/g, ', ... ,').trim();
+        const u = new SpeechSynthesisUtterance(cleaned);
+        u.lang = 'en-US';
+        u.rate = 0.94;
+        window.speechSynthesis.speak(u);
+        return true;
+      } catch (_) {
+        return false;
+      }
+    }
+
+    function formatTimer(sec) {
+      const s = Math.max(0, Math.floor(Number(sec) || 0));
+      const m = Math.floor(s / 60);
+      const r = s % 60;
+      return `${String(m).padStart(2, '0')}:${String(r).padStart(2, '0')}`;
+    }
+
+    function stopAllTimers() {
+      if (placementInterval) {
+        clearInterval(placementInterval);
+        placementInterval = null;
+      }
+      if (inlineSession && inlineSession.timerId) {
+        clearInterval(inlineSession.timerId);
+        inlineSession.timerId = null;
+      }
+    }
+
+    // ── Modal Lifecycle with Top-Right ✕ & Browser Back (popstate) ──
+    function openRoadmapModalWithHtml(innerHtml) {
+      const modal = typeof document !== 'undefined' ? document.getElementById('roadmap-modal') : null;
+      const body = typeof document !== 'undefined' ? document.getElementById('roadmap-modal-body') : null;
+      if (!modal || !body) return false;
+
+      const wasOpen = activeModalOpen;
+      activeModalOpen = true;
+      body.innerHTML = innerHtml;
+      modal.classList.add('open');
+      if (document.body && document.body.style) document.body.style.overflow = 'hidden';
+
+      if (typeof window !== 'undefined' && window.history && typeof window.history.pushState === 'function') {
+        try {
+          if (!wasOpen && !modalHistoryPushed) {
+            window.history.pushState({ roadmapModal: true }, '');
+            modalHistoryPushed = true;
+          }
+        } catch (_) {}
+      }
+      return true;
+    }
+
+    function closeRoadmapModal(options = {}) {
+      const fromPopstate = Boolean(options && options.fromPopstate);
+      activeModalOpen = false;
+      if (inlineSession && inlineSession.timerId) {
+        clearInterval(inlineSession.timerId);
+        inlineSession.timerId = null;
+      }
+      inlineSession = null;
+
+      const modal = typeof document !== 'undefined' ? document.getElementById('roadmap-modal') : null;
+      if (modal && modal.classList) modal.classList.remove('open');
+      if (typeof document !== 'undefined' && document.body && document.body.style) {
+        document.body.style.overflow = '';
+      }
+
+      if (!fromPopstate && modalHistoryPushed && typeof window !== 'undefined' && window.history && typeof window.history.back === 'function') {
+        modalHistoryPushed = false;
+        try {
+          window.history.back();
+        } catch (_) {}
+      } else {
+        modalHistoryPushed = false;
+      }
+      return true;
+    }
+
+    function handleModalBackdropClick(event) {
+      if (event && event.target && event.target.id === 'roadmap-modal') {
+        closeRoadmapModal();
+      }
+    }
+
+    function handleRoadmapPopstate() {
+      if (activeModalOpen) {
+        modalHistoryPushed = false;
+        closeRoadmapModal({ fromPopstate: true });
+      }
+    }
+
+    // ── Main View Router ──
+    function initRoadmapApp() {
+      const storage = getSafeStorage();
+      const engine = getEngine();
+      if (!storage || !engine) return;
+
+      let state = storage.getRoadmapState();
+      if (state.initialized) {
+        state = engine.syncRoadmapProgress(state);
+        viewMode = 'map';
+      } else if (state.placementDone && state.placementResult) {
+        setupTargetBand = state.placementResult.recommendedTargetBand || '650';
+        viewMode = 'goal_setup';
+      } else {
+        viewMode = 'gate';
+      }
+      renderRoadmapView();
+    }
+
+    function renderRoadmapView() {
+      const root = typeof document !== 'undefined' ? document.getElementById('roadmap-root') : null;
+      if (!root) return;
+
+      // Preserve continuous playback when answering or stepping across Part 3/4 shared group audio
+      let prevAudioSnap = null;
+      if (typeof document !== 'undefined' && typeof document.getElementById === 'function') {
+        const oldAudio = document.getElementById('pl-audio-player');
+        if (oldAudio && oldAudio.getAttribute) {
+          prevAudioSnap = {
+            src: oldAudio.getAttribute('src') || '',
+            currentTime: Number(oldAudio.currentTime) || 0,
+            wasPlaying: !oldAudio.paused
+          };
+          if (typeof oldAudio.pause === 'function') {
+            try { oldAudio.pause(); } catch (_) {}
+          }
+        }
+      }
+
+      if (viewMode === 'gate') {
+        root.innerHTML = buildPlacementGateHtml();
+      } else if (viewMode === 'placement_test') {
+        root.innerHTML = buildPlacementRunnerHtml();
+        if (prevAudioSnap && prevAudioSnap.src && typeof document.getElementById === 'function') {
+          const nextAudio = document.getElementById('pl-audio-player');
+          if (nextAudio && nextAudio.getAttribute && nextAudio.getAttribute('src') === prevAudioSnap.src) {
+            try {
+              if (prevAudioSnap.currentTime > 0) nextAudio.currentTime = prevAudioSnap.currentTime;
+              if (prevAudioSnap.wasPlaying && typeof nextAudio.play === 'function') {
+                const p = nextAudio.play();
+                if (p && typeof p.catch === 'function') p.catch(() => {});
+              }
+            } catch (_) {}
+          }
+        }
+      } else if (viewMode === 'goal_setup') {
+        root.innerHTML = buildGoalSetupHtml();
+      } else if (viewMode === 'map') {
+        root.innerHTML = buildGameMapDashboardHtml();
+        syncProgressRingElement();
+      }
+    }
+
+    // ── VIEW 1: Mandatory Placement Test Gate ──
+    function buildPlacementGateHtml() {
+      return `
+        <section class="rm-gate-card">
+          <div style="text-align: center;">
+            <div style="font-size: 2.6rem; margin-bottom: 6px;">🗺️</div>
+            <h1 style="font-size: 1.35rem; font-weight: 800; margin: 0 0 8px;">Khởi Tạo Bản Đồ Chinh Phục TOEIC</h1>
+            <p style="font-size: 0.88rem; color: var(--text-secondary); max-width: 560px; margin: 0 auto; line-height: 1.55;">
+              Để hệ thống đặt bạn vào đúng <strong>Chặng xuất phát</strong> và cá nhân hóa bài tập khắc phục điểm yếu hằng ngày, hãy hoàn thành bài <strong>Mini TOEIC Đầu Vào</strong> rút gọn trước khi mở bản đồ.
+            </p>
+            <div class="rm-feature-pills">
+              <span class="rm-stat-pill">🎧 10 câu Nghe Audio ETS thật (Part 1–4)</span>
+              <span class="rm-stat-pill">📖 10 câu Đọc &amp; Ngữ pháp 450+ ➔ 850+</span>
+              <span class="rm-stat-pill">⏱️ 15 phút • Chấm LC + RC tức thì</span>
+            </div>
+          </div>
+
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 12px 14px; margin-bottom: 18px; font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5;">
+            💡 <strong>Mẹo trước khi làm:</strong> Bật loa hoặc đeo tai nghe để làm chính xác phần Nghe phản xạ (Part 1–2) và Hội thoại (Part 3–4). Những câu làm sai sẽ được đưa thẳng vào <strong>Hộp Ôn Tập Ngắt Quãng Ngày 1</strong>!
+          </div>
+
+          <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="speakText('Welcome to TOEIC Master diagnostic placement test. Your audio is working clearly.', event)">
+              🔊 Thử loa 3 giây
+            </button>
+            <button type="button" class="btn btn-primary" id="btn-start-placement" onclick="startPlacementTest()" style="padding: 10px 22px; font-weight: 800;">
+              🚀 Bắt đầu Test Đầu Vào (20 câu • 15p) ➔
+            </button>
+            <button type="button" class="rm-chip-btn" onclick="triggerImportRoadmapBackup()" title="Đã có file sao lưu lộ trình từ thiết bị khác?">
+              📂 Khôi phục từ JSON
+            </button>
+          </div>
+        </section>
+      `;
+    }
+
+    async function startPlacementTest(injectedTestObj = null) {
+      stopAllTimers();
+      const engine = getEngine();
+      if (!engine) return false;
+
+      const root = typeof document !== 'undefined' ? document.getElementById('roadmap-root') : null;
+      if (root && !injectedTestObj) {
+        root.innerHTML = `
+          <div class="rm-gate-card" style="text-align: center; padding: 40px 20px;">
+            <div style="font-size: 2rem; margin-bottom: 10px;">⏳</div>
+            <div style="font-weight: 700;">Đang chuẩn bị đề Mini TOEIC Nghe + Đọc chuẩn ETS...</div>
+          </div>
+        `;
+      }
+
+      let testObj = injectedTestObj;
+      let bookName = 'EST 2026';
+      if (!testObj) {
+        const loaded = await engine.loadDiagnosticTestData('EST 2026', 10);
+        testObj = loaded.test;
+        bookName = loaded.book;
+      }
+
+      placementQuestions = engine.buildPlacementTestQuestions({ testObj, bookName });
+      placementAnswers = {};
+      placementIdx = 0;
+      placementTimerSec = engine.PLACEMENT_DURATION_SEC || (15 * 60);
+      viewMode = 'placement_test';
+      renderRoadmapView();
+
+      placementInterval = setInterval(() => {
+        placementTimerSec--;
+        const timerEl = typeof document !== 'undefined' ? document.getElementById('pl-timer-val') : null;
+        if (timerEl) timerEl.textContent = formatTimer(placementTimerSec);
+        if (placementTimerSec <= 0) {
+          stopAllTimers();
+          submitPlacementTest(true);
+        }
+      }, 1000);
+
+      return placementQuestions;
+    }
+
+    function buildPlacementRunnerHtml() {
+      const q = placementQuestions[placementIdx];
+      if (!q) return '';
+      const answeredCount = Object.keys(placementAnswers).length;
+      const picked = placementAnswers[q.uid] || '';
+
+      const pillsHtml = placementQuestions.map((item, idx) => {
+        const cls = idx === placementIdx
+          ? 'rm-pl-qpill current'
+          : (placementAnswers[item.uid] ? 'rm-pl-qpill answered' : 'rm-pl-qpill');
+        return `<button type="button" class="${cls}" onclick="jumpPlacementQuestion(${idx})">${idx + 1}</button>`;
+      }).join('');
+
+      const audioHtml = q.audioUrl ? `
+        <div style="margin: 10px 0; padding: 10px 12px; border-radius: var(--radius-md); background: rgba(99, 102, 241, 0.12); border: 1px solid rgba(99, 102, 241, 0.32);">
+          <div style="font-size: 0.76rem; font-weight: 700; color: var(--accent-secondary); margin-bottom: 6px;">
+            🎧 Bấm phát băng nghe ETS (có thể nghe tối đa 2 lần nếu cần):
+          </div>
+          <audio id="pl-audio-player" controls preload="auto" src="${escapeHtml(q.audioUrl)}" style="width: 100%; height: 36px;"></audio>
+        </div>
+      ` : '';
+
+      const imagesHtml = (Array.isArray(q.imageUrls) && q.imageUrls.length > 0) ? `
+        <div class="rm-passage-box">
+          ${q.imageUrls.map(u => `<img src="${escapeHtml(u)}" alt="Hình minh họa câu hỏi ETS" loading="eager">`).join('')}
+        </div>
+      ` : '';
+
+      const optKeys = Object.keys(q.options || {});
+      const optsHtml = optKeys.map(letter => {
+        const isSel = picked === letter;
+        return `
+          <button type="button" class="rm-opt-btn ${isSel ? 'selected' : ''}" onclick="selectPlacementAnswer('${escapeHtml(q.uid)}', '${letter}')">
+            <span class="rm-opt-letter">${letter}</span>
+            <span>${escapeHtml(q.options[letter])}</span>
+          </button>
+        `;
+      }).join('');
+
+      return `
+        <section style="max-width: 760px; margin: 0 auto;">
+          <div class="rm-pl-topbar">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;">
+              <span style="font-size: 0.84rem; font-weight: 800;">🧭 Placement Test • Câu ${placementIdx + 1}/${placementQuestions.length} <span style="color: var(--text-secondary); font-weight: 600;">(Đã làm ${answeredCount}/${placementQuestions.length})</span></span>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="rm-stat-pill">⏱️ <strong id="pl-timer-val">${formatTimer(placementTimerSec)}</strong></span>
+                <button type="button" class="btn btn-primary btn-sm" onclick="submitPlacementTest(false)">🏁 Nộp bài</button>
+              </div>
+            </div>
+            <div class="rm-pl-pills">${pillsHtml}</div>
+          </div>
+
+          <div class="rm-gate-card" style="margin-top: 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap;">
+              <span class="rm-stat-pill" style="color: var(--accent-secondary); border-color: rgba(99, 102, 241, 0.35);">${escapeHtml(q.partBadge)}</span>
+              <span style="font-size: 0.74rem; color: var(--text-muted);">${escapeHtml(q.sourceLabel || '')}</span>
+            </div>
+
+            ${audioHtml}
+            ${imagesHtml}
+
+            <div style="font-size: 0.98rem; font-weight: 700; line-height: 1.5; margin-top: 8px; color: var(--text-primary);">
+              Câu ${placementIdx + 1}. ${escapeHtml(q.prompt)}
+            </div>
+
+            <div class="rm-opt-list">
+              ${optsHtml}
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border-glass);">
+              <button type="button" class="btn btn-secondary btn-sm" onclick="jumpPlacementQuestion(${placementIdx - 1})" ${placementIdx === 0 ? 'disabled' : ''}>
+                ← Câu trước
+              </button>
+              ${placementIdx < placementQuestions.length - 1
+                ? `<button type="button" class="btn btn-primary btn-sm" onclick="jumpPlacementQuestion(${placementIdx + 1})">Câu tiếp theo →</button>`
+                : `<button type="button" class="btn btn-primary btn-sm" onclick="submitPlacementTest(false)">🏁 Hoàn tất &amp; Xem kết quả ➔</button>`
+              }
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function jumpPlacementQuestion(nextIdx) {
+      if (nextIdx < 0 || nextIdx >= placementQuestions.length) return;
+      placementIdx = nextIdx;
+      renderRoadmapView();
+    }
+
+    function selectPlacementAnswer(uid, letter) {
+      placementAnswers[uid] = letter;
+      renderRoadmapView();
+    }
+
+    function submitPlacementTest(isAutoTimeout = false) {
+      const answered = Object.keys(placementAnswers).length;
+      if (!isAutoTimeout && answered < placementQuestions.length) {
+        if (typeof confirm === 'function' && !confirm(`Bạn mới trả lời ${answered}/${placementQuestions.length} câu. Bạn có chắc muốn nộp bài kiểm tra đầu vào ngay bây giờ?`)) {
+          return null;
+        }
+      }
+      stopAllTimers();
+      const engine = getEngine();
+      const storage = getSafeStorage();
+      if (!engine || !storage) return null;
+
+      const diag = engine.evaluatePlacementResult(placementQuestions, placementAnswers);
+      const curState = storage.getRoadmapState();
+      const seededQueue = engine.seedReviewQueueFromMistakes(curState.reviewQueue, diag.wrongItems);
+
+      storage.saveRoadmapState({
+        ...curState,
+        placementDone: true,
+        placementResult: diag,
+        reviewQueue: seededQueue
+      });
+
+      setupTargetBand = diag.recommendedTargetBand || '650';
+      setupDailyMinutes = 45;
+      viewMode = 'goal_setup';
+      renderRoadmapView();
+      return diag;
+    }
+
+    // ── VIEW 2: Diagnostic Report & Goal / Timeline Personalization ──
+    function buildGoalSetupHtml() {
+      const storage = getSafeStorage();
+      const engine = getEngine();
+      const state = storage ? storage.getRoadmapState() : null;
+      const diag = state && state.placementResult;
+      if (!diag || !engine) return buildPlacementGateHtml();
+
+      const targets = engine.suggestTargetBands(diag.estimatedScore);
+      if (!targets.some(t => t.band === setupTargetBand)) {
+        setupTargetBand = (targets.find(t => t.recommended) || targets[0]).band;
+      }
+
+      const est = engine.calculateTimelineEstimate(diag.estimatedScore, setupTargetBand, setupDailyMinutes);
+
+      const skillsHtml = (diag.skillBreakdown || []).map(s => {
+        const fillColor = s.level === 'strong' ? '#10b981' : (s.level === 'medium' ? '#6366f1' : '#f59e0b');
+        const tagText = s.level === 'strong' ? 'Vững' : (s.level === 'medium' ? 'Khá' : 'Ưu tiên bù đắp');
+        return `
+          <div class="rm-skill-row">
+            <div style="display: flex; justify-content: space-between; font-size: 0.79rem;">
+              <span style="font-weight: 700;">${escapeHtml(s.label)}</span>
+              <span style="color: ${fillColor}; font-weight: 700;">${s.correct}/${s.total} (${s.percent}% • ${tagText})</span>
+            </div>
+            <div class="rm-skill-bar">
+              <div class="rm-skill-fill" style="width: ${Math.max(6, s.percent)}%; background: ${fillColor};"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      const targetCardsHtml = targets.map(t => `
+        <button type="button" class="rm-choice-card ${setupTargetBand === t.band ? 'active' : ''}" onclick="selectSetupTarget('${t.band}')">
+          <div style="font-size: 1.05rem; font-weight: 800;">🏁 ${t.targetScore}+</div>
+          <div style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px;">${escapeHtml(t.label)}</div>
+          ${t.recommended ? `<div style="font-size: 0.68rem; color: var(--success); font-weight: 800; margin-top: 3px;">★ Khuyên dùng</div>` : ''}
+        </button>
+      `).join('');
+
+      const timeOptions = [
+        { mins: 30, label: '30 phút / ngày', sub: 'Nhẹ nhàng, bền bỉ' },
+        { mins: 45, label: '45 phút / ngày', sub: 'Tối ưu nhất ★' },
+        { mins: 60, label: '60 phút / ngày', sub: 'Tăng tốc về đích' }
+      ];
+      const timeCardsHtml = timeOptions.map(opt => `
+        <button type="button" class="rm-choice-card ${setupDailyMinutes === opt.mins ? 'active' : ''}" onclick="selectSetupMinutes(${opt.mins})">
+          <div style="font-size: 0.92rem; font-weight: 800;">⏰ ${opt.label}</div>
+          <div style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px;">${opt.sub}</div>
+        </button>
+      `).join('');
+
+      return `
+        <section class="rm-gate-card">
+          <div style="text-align: center; padding-bottom: 14px; border-bottom: 1px solid var(--border-glass); margin-bottom: 16px;">
+            <span class="rm-stat-pill is-ontrack" style="margin-bottom: 8px;">✅ Đã hoàn thành Chẩn đoán Đầu vào (${diag.totalCorrect}/${diag.totalQuestions} câu đúng)</span>
+            <div style="font-size: 2.2rem; font-weight: 900; color: var(--accent-primary); line-height: 1.15;">
+              ${diag.estimatedScore} <span style="font-size: 1rem; font-weight: 700; color: var(--text-secondary);">/ 990 điểm</span>
+            </div>
+            <div style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 4px;">
+              🎧 Listening ước tính: <strong>${diag.lcScore}</strong> • 📖 Reading ước tính: <strong>${diag.rcScore}</strong> • Xếp vào <strong>Chặng ${diag.startBand}+</strong>
+            </div>
+          </div>
+
+          <h2 style="font-size: 0.92rem; font-weight: 800; margin: 0 0 10px;">📊 Bắt mạch 5 nhóm kỹ năng của bạn</h2>
+          <div style="margin-bottom: 18px;">
+            ${skillsHtml}
+          </div>
+
+          <h2 style="font-size: 0.92rem; font-weight: 800; margin: 0 0 6px;">1. Chọn Vạch Đích Mục Tiêu 🏁</h2>
+          <div class="rm-setup-grid">
+            ${targetCardsHtml}
+          </div>
+
+          <h2 style="font-size: 0.92rem; font-weight: 800; margin: 0 0 6px;">2. Chọn Quỹ Thời Gian Học Mỗi Ngày ⏰</h2>
+          <div class="rm-setup-grid">
+            ${timeCardsHtml}
+          </div>
+
+          <div style="background: rgba(99, 102, 241, 0.12); border: 1px solid rgba(99, 102, 241, 0.35); border-radius: var(--radius-md); padding: 12px 14px; margin: 14px 0 18px; font-size: 0.83rem; line-height: 1.55;">
+            <div>🎯 <strong>Phác đồ Khoa học Ngôn ngữ:</strong> Tăng <strong>+${est.deltaScore} điểm</strong> (~${est.totalStudyHours} giờ tích lũy thực chất).</div>
+            <div>🗺️ <strong>Cấu trúc Bản đồ:</strong> <strong>${est.totalStudyNodes} Nút bài học ngày</strong> + <strong>${est.totalBossNodes} Ải Boss</strong> qua <strong>${est.activeZonesCount} Chặng</strong>.</div>
+            <div>📅 <strong>Ngày dự kiến chạm Vạch Đích (ETA):</strong> <strong style="color: var(--success);">${est.etaDateFormatted}</strong> (${est.estimatedDays} ngày).</div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <button type="button" class="rm-chip-btn" onclick="startPlacementTest()">🔄 Thi lại Test đầu vào</button>
+            <button type="button" class="btn btn-primary" id="btn-confirm-roadmap" onclick="confirmAndCreateRoadmap()" style="padding: 10px 22px; font-weight: 800;">
+              🗺️ Mở Bản Đồ Game &amp; Bắt Đầu Ngày 1 ➔
+            </button>
+          </div>
+        </section>
+      `;
+    }
+
+    function selectSetupTarget(band) {
+      setupTargetBand = String(band);
+      renderRoadmapView();
+    }
+
+    function selectSetupMinutes(mins) {
+      setupDailyMinutes = Number(mins) || 45;
+      renderRoadmapView();
+    }
+
+    function confirmAndCreateRoadmap() {
+      const storage = getSafeStorage();
+      const engine = getEngine();
+      if (!storage || !engine) return null;
+
+      const cur = storage.getRoadmapState();
+      const diag = cur.placementResult || { estimatedScore: 400, weakParts: ['part2', 'part3', 'part7'] };
+
+      const plan = engine.generateRoadmapPlan({
+        startScore: diag.estimatedScore,
+        targetBand: setupTargetBand,
+        dailyMinutes: setupDailyMinutes,
+        weakParts: diag.weakParts
+      });
+
+      storage.setStudyBand(plan.profile.startBand);
+      const nextState = {
+        ...cur,
+        initialized: true,
+        placementDone: true,
+        profile: plan.profile,
+        zones: plan.zones,
+        nodeProgress: plan.nodeProgress
+      };
+      storage.saveRoadmapState(nextState);
+
+      viewMode = 'map';
+      renderRoadmapView();
+      return nextState;
+    }
+
+    // ── VIEW 3: Interactive Game Map Dashboard ──
+    function syncProgressRingElement() {
+      if (typeof document === 'undefined') return;
+      const ring = document.getElementById('rm-hud-progress-ring');
+      if (ring) {
+        const val = Number(ring.getAttribute('value')) || 0;
+        if (ring.style && typeof ring.style.setProperty === 'function') {
+          ring.style.setProperty('--value', String(val));
+        }
+      }
+    }
+
+    function scrollToActiveNode() {
+      if (typeof document === 'undefined') return;
+      const el = document.getElementById('rm-active-avatar-anchor');
+      if (el && typeof el.scrollIntoView === 'function') {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    function renderStarsText(stars, isCompleted) {
+      if (!isCompleted) return '';
+      const s = Math.max(1, Math.min(3, Number(stars) || 1));
+      return '⭐'.repeat(s) + '☆'.repeat(3 - s);
+    }
+
+    function buildStepActionHtml(node, step, stepDone, learnProgressText) {
+      if (step.stepKey === 'review') {
+        return `
+          <div class="rm-step-box ${stepDone.review ? 'is-done' : ''}">
+            <div>
+              <div class="rm-step-top">
+                <span>Bước 1 • Ôn tập</span>
+                <span>${stepDone.review ? '✅ Xong' : `~${step.estMinutes}p`}</span>
+              </div>
+              <div class="rm-step-name">🔄 ${escapeHtml(step.title)}</div>
+              <div class="rm-step-desc">${escapeHtml(step.desc)}</div>
+            </div>
+            <button type="button" class="rm-step-btn ${stepDone.review ? 'done' : 'primary'}" onclick="openInlineSpacedReview('${escapeHtml(node.id)}', '${escapeHtml(node.zoneBand)}', ${step.questionCount || 5})">
+              ${stepDone.review ? '✓ Ôn thêm lượt nữa' : '▶️ Bắt đầu Ôn ngay'}
+            </button>
+          </div>
+        `;
+      }
+
+      if (step.stepKey === 'learn') {
+        const progHint = (!stepDone.learn && learnProgressText) ? ` (${learnProgressText})` : '';
+        return `
+          <div class="rm-step-box ${stepDone.learn ? 'is-done' : ''}">
+            <div>
+              <div class="rm-step-top">
+                <span>Bước 2 • Kiến thức mới</span>
+                <span>${stepDone.learn ? '✅ Xong' : `~${step.estMinutes}p${escapeHtml(progHint)}`}</span>
+              </div>
+              <div class="rm-step-name">${step.kind === 'grammar_topic' ? '📐' : '📚'} ${escapeHtml(step.title)}</div>
+              <div class="rm-step-desc">${escapeHtml(step.desc)}</div>
+            </div>
+            <a href="${escapeHtml(step.url)}" class="rm-step-btn ${stepDone.learn ? 'done' : 'primary'}">
+              ${stepDone.learn ? '✓ Xem lại bài học' : '🚀 Mở bài học ➔'}
+            </a>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="rm-step-box ${stepDone.practice ? 'is-done' : ''}">
+          <div>
+            <div class="rm-step-top">
+              <span>Bước 3 • Thực chiến ETS</span>
+              <span>${stepDone.practice ? '✅ Xong' : `~${step.estMinutes}p`}</span>
+            </div>
+            <div class="rm-step-name">🎯 ${escapeHtml(step.title)}</div>
+            <div class="rm-step-desc">${escapeHtml(step.desc)}</div>
+          </div>
+          <a href="${escapeHtml(step.url)}" onclick="markRoadmapExamLaunch('${escapeHtml(step.book || 'EST 2022')}')" class="rm-step-btn ${stepDone.practice ? 'done' : 'primary'}">
+            ${stepDone.practice ? '✓ Làm lại / Xem đề' : '🎧 Vào phòng luyện ➔'}
+          </a>
+        </div>
+      `;
+    }
+
+    function markRoadmapExamLaunch(bookName) {
+      try {
+        if (typeof AppConfig !== 'undefined' && AppConfig && typeof AppConfig.setSelectedBook === 'function') {
+          AppConfig.setSelectedBook(bookName);
+        }
+        if (typeof sessionStorage !== 'undefined') {
+          sessionStorage.setItem('toeic_roadmap_return', '1');
+        }
+      } catch (_) {}
+    }
+
+    function buildGameMapDashboardHtml() {
+      const storage = getSafeStorage();
+      const engine = getEngine();
+      if (!storage || !engine) return '';
+
+      const state = engine.syncRoadmapProgress();
+      const m = engine.getDashboardMetrics(state);
+      if (!m.initialized) return buildPlacementGateHtml();
+
+      const runnerPos = Math.max(3, Math.min(96, m.progressPercent));
+      const paceClass = m.paceState === 'behind' ? 'is-behind' : (m.paceState === 'ahead' ? 'is-ahead' : 'is-ontrack');
+
+      // Active Today Card
+      let todayCardHtml = '';
+      if (m.isAllFinished) {
+        todayCardHtml = `
+          <section class="rm-today-card" style="border-color: rgba(16, 185, 129, 0.55);">
+            <div style="text-align: center; padding: 8px 4px;">
+              <div style="font-size: 2.2rem;">🏆🎉</div>
+              <h2 class="rm-today-title" style="font-size: 1.15rem; margin-top: 4px;">Chúc mừng bạn đã chinh phục Vạch Đích ${m.targetScore}+ TOEIC!</h2>
+              <p class="rm-today-sub" style="margin: 6px auto 12px; max-width: 520px;">
+                Bạn đã hoàn thành toàn bộ ${m.totalNodes}/${m.totalNodes} nút lộ trình và tích lũy ${m.totalStars} ⭐. Bạn có thể nâng mục tiêu lên mốc cao hơn hoặc duy trì Ôn tập Ngắt quãng hằng ngày!
+              </p>
+              <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
+                <button type="button" class="btn btn-primary btn-sm" onclick="openInlineSpacedReview(null, '${escapeHtml(m.targetBand)}', 6)">🔄 Ôn tập duy trì phong độ</button>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="openRoadmapSettingsModal()">🎯 Nâng Vạch Đích mới</button>
+              </div>
+            </div>
+          </section>
+        `;
+      } else if (m.activeNode) {
+        const an = m.activeNode;
+        const np = state.nodeProgress[an.id] || { stepDone: {} };
+        if (an.type === 'boss') {
+          const bossStep = (an.steps || [])[0];
+          todayCardHtml = `
+            <section class="rm-today-card" style="border-color: rgba(245, 158, 11, 0.55);">
+              <div class="rm-today-head">
+                <div>
+                  <h2 class="rm-today-title">${escapeHtml(an.title)}</h2>
+                  <div class="rm-today-sub">${escapeHtml(an.subtitle)}</div>
+                </div>
+                <span class="rm-stat-pill" style="color: #fbbf24; border-color: rgba(245, 158, 11, 0.45);">👑 Ải Boss Chốt Chặng</span>
+              </div>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <a href="${escapeHtml(bossStep ? bossStep.url : 'index.html')}" onclick="markRoadmapExamLaunch('${escapeHtml((bossStep && bossStep.book) || 'EST 2022')}')" class="btn btn-primary btn-sm" style="font-weight: 800;">
+                  🏟️ Vào Thi Full Test 200 Câu Chuẩn ETS (Khuyên dùng) ➔
+                </a>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="openZoneChallengeModal('boss_quick', '${escapeHtml(an.zoneBand)}')">
+                  ⚡ Thi Khảo Sát Boss Nhanh (15 câu • 12p)
+                </button>
+              </div>
+            </section>
+          `;
+        } else {
+          const stepsHtml = (an.steps || [])
+            .map(st => buildStepActionHtml(an, st, np.stepDone || {}, np.learnProgressText || ''))
+            .join('');
+          todayCardHtml = `
+            <section class="rm-today-card">
+              <div class="rm-today-head">
+                <div>
+                  <h2 class="rm-today-title">📌 Hôm Nay Học Gì — ${escapeHtml(an.title)} (${escapeHtml(m.activeZone ? m.activeZone.shortName : '')})</h2>
+                  <div class="rm-today-sub">Hoàn thành đủ 3 bước khoa học bên dưới để nhận tối đa ⭐⭐⭐ và mở ải kế tiếp!</div>
+                </div>
+                <span class="rm-stat-pill">⏰ ~${m.dailyMinutes} phút</span>
+              </div>
+              <div class="rm-steps-grid">
+                ${stepsHtml}
+              </div>
+            </section>
+          `;
+        }
+      }
+
+      // Render Winding Zones & Nodes
+      let globalVisualIdx = 0;
+      const zonesHtml = (state.zones || []).map(zone => {
+        const nodes = zone.nodes || [];
+        const realNodes = nodes.filter(n => n.type !== 'placement_cleared');
+        const doneCount = realNodes.filter(n => state.nodeProgress[n.id] && state.nodeProgress[n.id].status === 'completed').length;
+        const canSkipZone = zone.zoneStatus !== 'completed' && zone.zoneStatus !== 'cleared_by_placement';
+
+        const pathNodesHtml = nodes.map((node, nIdx) => {
+          const np = state.nodeProgress[node.id] || { status: 'locked', stars: 0 };
+          const isCompleted = np.status === 'completed';
+          const isActive = np.status === 'active';
+          const isBoss = node.type === 'boss';
+          const offsetPx = node.type === 'placement_cleared'
+            ? 0
+            : WINDING_OFFSETS_PX[globalVisualIdx++ % WINDING_OFFSETS_PX.length];
+
+          const btnClasses = [
+            'rm-node-btn',
+            isCompleted ? 'is-completed' : (isActive ? 'is-active' : 'is-locked'),
+            isBoss ? 'is-boss' : ''
+          ].filter(Boolean).join(' ');
+
+          const iconDisplay = np.status === 'locked' && !isBoss ? '🔒' : node.icon;
+
+          return `
+            <div class="rm-node-row" style="--node-offset: ${offsetPx}px;" ${isActive ? 'id="rm-active-avatar-anchor"' : ''}>
+              ${nIdx > 0 ? `<div class="rm-node-connector ${isCompleted || isActive ? 'is-cleared' : ''}"></div>` : ''}
+              ${isActive ? `<div class="rm-avatar-callout">🧑‍🎓 VỊ TRÍ HIỆN TẠI</div>` : ''}
+              <button type="button" class="${btnClasses}" onclick="openNodeMissionModal('${escapeHtml(node.id)}')" aria-label="${escapeHtml(node.title)}">
+                <span class="rm-node-icon">${iconDisplay}</span>
+              </button>
+              <div class="rm-node-stars">${renderStarsText(np.stars, isCompleted)}</div>
+              <div class="rm-node-caption">${escapeHtml(node.title)}</div>
+              <div class="rm-node-subcaption">${escapeHtml(node.subtitle)}</div>
+            </div>
+          `;
+        }).join('');
+
+        const finishBannerHtml = zone.isFinalZone ? `
+          <div class="rm-finish-arch">
+            <div class="rm-finish-checkered"></div>
+            <div style="font-size: 1.8rem;">🏁🏆🏁</div>
+            <div style="font-size: 1.02rem; font-weight: 900; margin-top: 4px;">VẠCH ĐÍCH CHINH PHỤC ${m.targetScore}+ TOEIC</div>
+            <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 3px;">
+              Dự kiến cán đích: <strong>${escapeHtml(m.etaDateFormatted)}</strong> • Còn <strong>${m.remainingNodes}</strong> chặng bài học
+            </div>
+          </div>
+        ` : '';
+
+        return `
+          <section class="rm-zone-island ${zone.zoneStatus === 'locked' ? 'is-locked' : ''}" style="border-top: 3px solid ${zone.themeColor};">
+            <div class="rm-zone-header">
+              <div class="rm-zone-title-group">
+                <div class="rm-zone-emblem" style="background: ${zone.themeColor}22; border-color: ${zone.themeColor}66;">${zone.icon}</div>
+                <div>
+                  <h3 class="rm-zone-name">${escapeHtml(zone.name)}</h3>
+                  <div class="rm-zone-desc">${escapeHtml(zone.subtitle)}</div>
+                </div>
+              </div>
+              <div class="rm-zone-right">
+                ${zone.zoneStatus === 'cleared_by_placement'
+                  ? `<span class="rm-stat-pill is-ontrack">✨ Vượt từ đầu vào</span>`
+                  : `<span class="rm-stat-pill">${doneCount}/${realNodes.length} ải</span>`
+                }
+                ${canSkipZone
+                  ? `<button type="button" class="rm-skip-zone-btn" onclick="openZoneChallengeModal('skip_zone', '${escapeHtml(zone.band)}')" title="Làm bài khảo sát 12 câu (>=75%) để vượt thẳng qua chặng này">⚡ Thi vượt chặng</button>`
+                  : ''
+                }
+              </div>
+            </div>
+
+            <div class="rm-winding-path">
+              ${pathNodesHtml}
+            </div>
+
+            ${finishBannerHtml}
+          </section>
+        `;
+      }).join('');
+
+      return `
+        <!-- Top HUD Card -->
+        <section class="rm-hud-card">
+          <div class="rm-hud-top">
+            <div class="rm-hud-score-wrap">
+              <div class="progress-ring-wrapper">
+                <progress id="rm-hud-progress-ring" value="${m.progressPercent}" max="100" aria-label="Tiến độ hoàn thành lộ trình" class="progress-ring"></progress>
+                <div class="progress-ring-content">${m.progressPercent}%</div>
+              </div>
+              <div>
+                <div class="rm-score-headline">
+                  <span>🚩 ${m.startScore}đ</span>
+                  <span style="color: var(--text-muted);">➔</span>
+                  <span style="color: var(--accent-secondary);">Hiện tại ~${m.currentScore}đ</span>
+                  <span style="color: var(--text-muted);">➔</span>
+                  <span style="color: #fbbf24;">🏁 Đích ${m.targetScore}+</span>
+                </div>
+                <div class="rm-score-sub">
+                  Đã qua <strong>${m.completedNodes}/${m.totalNodes}</strong> nút bản đồ • Tích lũy <strong>${m.totalStars} ⭐</strong> • Quỹ học <strong>${m.dailyMinutes}p/ngày</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="rm-hud-actions">
+              <button type="button" class="rm-chip-btn" onclick="scrollToActiveNode()" title="Cuộn tới vị trí nhân vật hiện tại">📍 Vị trí hiện tại</button>
+              <button type="button" class="rm-chip-btn" onclick="exportRoadmapBackup()" title="Sao lưu toàn bộ Lộ trình + Từ vựng + Ngữ pháp">💾 Lưu</button>
+              <button type="button" class="rm-chip-btn" onclick="triggerImportRoadmapBackup()" title="Khôi phục từ file JSON">📂 Mở</button>
+              <button type="button" class="rm-chip-btn" onclick="openRoadmapSettingsModal()" title="Đổi mục tiêu, thời gian học hoặc Test lại">⚙️ Cài đặt</button>
+            </div>
+          </div>
+
+          <div class="rm-journey-track-box">
+            <div class="rm-track-labels">
+              <span>🚩 Xuất phát (${m.startScore}đ)</span>
+              <span>📅 Đích dự kiến: <strong>${escapeHtml(m.etaDateFormatted)}</strong></span>
+              <span>🏁 Đích ${m.targetScore}+</span>
+            </div>
+            <div class="rm-track-rail">
+              <div class="rm-track-fill" style="width: ${m.progressPercent}%;"></div>
+              <span class="rm-track-runner" style="left: ${runnerPos}%;" title="Vị trí hiện tại (${m.progressPercent}%)">🏃</span>
+              <span class="rm-track-flag" title="Vạch Đích">🏁</span>
+            </div>
+          </div>
+
+          <div class="rm-status-pills">
+            <span class="rm-stat-pill is-streak">🔥 Streak: ${m.streakCount} ngày</span>
+            <span class="rm-stat-pill ${paceClass}">${escapeHtml(m.paceLabel)}</span>
+            <span class="rm-stat-pill" style="cursor: pointer;" onclick="openInlineSpacedReview('${escapeHtml(m.activeNode ? m.activeNode.id : '')}', '${escapeHtml(m.targetBand)}', 5)">
+              🧠 Hộp nhớ cần ôn hôm nay: <strong>${m.dueReviewCount}</strong> mục
+            </span>
+          </div>
+        </section>
+
+        ${todayCardHtml}
+
+        <div class="rm-zones-stack" id="winding-map-zones">
+          ${zonesHtml}
+        </div>
+      `;
+    }
+
+    // ── Node Mission Detail Modal ──
+    function findNodeById(state, nodeId) {
+      for (const z of (state.zones || [])) {
+        for (const n of (z.nodes || [])) {
+          if (n.id === nodeId) return { zone: z, node: n };
+        }
+      }
+      return null;
+    }
+
+    function openNodeMissionModal(nodeId) {
+      const storage = getSafeStorage();
+      const engine = getEngine();
+      if (!storage || !engine) return false;
+
+      const state = engine.syncRoadmapProgress();
+      const found = findNodeById(state, nodeId);
+      if (!found) return false;
+
+      const { zone, node } = found;
+      const np = state.nodeProgress[node.id] || { status: 'locked', stars: 0, stepDone: {} };
+
+      if (node.type === 'placement_cleared') {
+        const html = `
+          <h3 id="roadmap-modal-title" style="margin: 0 0 8px; font-size: 1.08rem; font-weight: 800;">✨ ${escapeHtml(node.title)}</h3>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">
+            Nhờ kết quả bài Test Đầu Vào, bạn đã được công nhận vượt qua chặng nền tảng này. Nếu muốn ôn nhanh lại từ vựng hoặc ngữ pháp mốc ${zone.badge}, bạn vẫn có thể mở tự do bên dưới:
+          </p>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px;">
+            <a href="vocab.html?band=${zone.band}&mode=flashcard&from=roadmap" class="btn btn-secondary btn-sm">📚 Ôn Flashcard ${zone.badge}</a>
+            <a href="grammar.html?band=${zone.band}&tab=theory&from=roadmap" class="btn btn-secondary btn-sm">📐 Xem Ngữ pháp ${zone.badge}</a>
+          </div>
+        `;
+        return openRoadmapModalWithHtml(html);
+      }
+
+      const statusBadge = np.status === 'completed'
+        ? `<span class="rm-stat-pill is-ontrack">✅ Đã hoàn thành (${renderStarsText(np.stars, true)})</span>`
+        : (np.status === 'active'
+          ? `<span class="rm-stat-pill" style="color: var(--accent-secondary);">🧑‍🎓 Đang mở khóa</span>`
+          : `<span class="rm-stat-pill">🔒 Chưa mở khóa (Hoàn thành nút trước hoặc bấm ⚡ Thi vượt chặng)</span>`);
+
+      let stepsListHtml = '';
+      if (node.type === 'boss') {
+        const bossStep = (node.steps || [])[0];
+        stepsListHtml = `
+          <div style="margin-top: 12px; padding: 12px; border-radius: var(--radius-md); background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.35);">
+            <div style="font-weight: 800; font-size: 0.92rem; margin-bottom: 6px;">${escapeHtml(bossStep ? bossStep.title : node.title)}</div>
+            <div style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 12px;">${escapeHtml(bossStep ? bossStep.desc : node.subtitle)}</div>
+            ${np.status !== 'locked' ? `
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <a href="${escapeHtml(bossStep ? bossStep.url : 'index.html')}" onclick="markRoadmapExamLaunch('${escapeHtml((bossStep && bossStep.book) || 'EST 2022')}')" class="btn btn-primary btn-sm">🏟️ Làm Full Test 200c</a>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="openZoneChallengeModal('boss_quick', '${escapeHtml(zone.band)}')">⚡ Khảo sát Boss Nhanh (12p)</button>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      } else {
+        stepsListHtml = `
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px;">
+            ${(node.steps || []).map(st => {
+              if (np.status === 'locked') {
+                return `
+                  <div class="rm-step-box" style="opacity: 0.75;">
+                    <div class="rm-step-name">🔒 ${escapeHtml(st.title)}</div>
+                    <div class="rm-step-desc">${escapeHtml(st.desc)}</div>
+                  </div>
+                `;
+              }
+              return buildStepActionHtml(node, st, np.stepDone || {}, np.learnProgressText || '');
+            }).join('')}
+          </div>
+        `;
+      }
+
+      const html = `
+        <div style="padding-right: 34px;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-secondary);">${escapeHtml(zone.name)}</div>
+          <h3 id="roadmap-modal-title" style="margin: 2px 0 8px; font-size: 1.15rem; font-weight: 800;">${node.icon} ${escapeHtml(node.title)}</h3>
+          ${statusBadge}
+        </div>
+        ${stepsListHtml}
+      `;
+      return openRoadmapModalWithHtml(html);
+    }
+
+    // ── Inline Spaced Repetition Quiz & Zone Skip / Boss Quick Challenge ──
+    function openInlineSpacedReview(nodeId, band, count = 5) {
+      const storage = getSafeStorage();
+      const engine = getEngine();
+      if (!storage || !engine) return false;
+
+      const state = storage.getRoadmapState();
+      const quizQs = engine.buildDailyReviewQuiz(state, band || '450', count || 5);
+      storage.saveRoadmapState(state);
+
+      inlineSession = {
+        type: 'review',
+        title: '🔄 Ôn Tập Ngắt Quãng (Chu kỳ Ebbinghaus 1–3–7–14 ngày)',
+        nodeId: nodeId || null,
+        zoneBand: band || '450',
+        questions: quizQs.map(q => ({
+          uid: q.reviewId,
+          reviewId: q.reviewId,
+          box: q.box,
+          kind: q.kind,
+          wordId: q.wordId,
+          prompt: q.prompt,
+          options: q.options,
+          correctAnswer: q.correctAnswer,
+          explanation: q.explanation,
+          audioUrl: q.audioUrl,
+          speakWord: q.speakWord
+        })),
+        idx: 0,
+        answers: {},
+        timerSec: 0,
+        timerId: null
+      };
+
+      renderInlineSessionModal();
+      return true;
+    }
+
+    async function openZoneChallengeModal(challengeType, zoneBand, injectedTestObj = null) {
+      const engine = getEngine();
+      if (!engine) return false;
+
+      openRoadmapModalWithHtml(`
+        <div style="text-align: center; padding: 28px 10px;">
+          <div style="font-size: 1.8rem; margin-bottom: 8px;">⚡</div>
+          <h3 id="roadmap-modal-title" style="margin: 0 0 6px;">Đang tải đề thử thách Chặng ${escapeHtml(zoneBand)}+...</h3>
+        </div>
+      `);
+
+      let testObj = injectedTestObj;
+      if (!testObj) {
+        const loaded = await engine.loadDiagnosticTestData('EST 2024', 9);
+        testObj = loaded.test;
+      }
+
+      const count = challengeType === 'boss_quick' ? 15 : 12;
+      const qs = engine.buildZoneChallengeQuestions(zoneBand, { testObj, count });
+
+      if (inlineSession && inlineSession.timerId) clearInterval(inlineSession.timerId);
+      inlineSession = {
+        type: challengeType, // 'skip_zone' | 'boss_quick'
+        title: challengeType === 'skip_zone'
+          ? `⚡ Thi Vượt Chặng ${zoneBand}+ (Cần đạt >= 75%)`
+          : `👑 Khảo Sát Boss Chặng ${zoneBand}+ (Cần đạt >= 72%)`,
+        nodeId: null,
+        zoneBand,
+        questions: qs,
+        idx: 0,
+        answers: {},
+        timerSec: engine.CHALLENGE_DURATION_SEC || (12 * 60),
+        timerId: null
+      };
+
+      inlineSession.timerId = setInterval(() => {
+        if (!inlineSession) return;
+        inlineSession.timerSec--;
+        const tEl = typeof document !== 'undefined' ? document.getElementById('inline-quiz-timer') : null;
+        if (tEl) tEl.textContent = formatTimer(inlineSession.timerSec);
+        if (inlineSession.timerSec <= 0) {
+          clearInterval(inlineSession.timerId);
+          inlineSession.timerId = null;
+          finishInlineSession();
+        }
+      }, 1000);
+
+      renderInlineSessionModal();
+      return true;
+    }
+
+    function renderInlineSessionModal() {
+      if (!inlineSession || !Array.isArray(inlineSession.questions)) return;
+      const s = inlineSession;
+      const q = s.questions[s.idx];
+      if (!q) return;
+
+      const picked = s.answers[q.uid] || '';
+      const isReviewImmediate = (s.type === 'review') && picked !== '';
+
+      const optsHtml = Object.keys(q.options || {}).map(letter => {
+        let cls = 'rm-opt-btn';
+        if (isReviewImmediate) {
+          if (letter === q.correctAnswer) cls += ' correct';
+          else if (letter === picked && picked !== q.correctAnswer) cls += ' wrong';
+        } else if (letter === picked) {
+          cls += ' selected';
+        }
+        return `
+          <button type="button" class="${cls}" onclick="answerInlineQuestion('${escapeHtml(q.uid)}', '${letter}')" ${isReviewImmediate ? 'disabled' : ''}>
+            <span class="rm-opt-letter">${letter}</span>
+            <span>${escapeHtml(q.options[letter])}</span>
+          </button>
+        `;
+      }).join('');
+
+      const audioHtml = q.audioUrl ? `
+        <audio controls preload="auto" src="${escapeHtml(q.audioUrl)}" style="width: 100%; height: 34px; margin: 8px 0;"></audio>
+      ` : '';
+
+      const speakBtnHtml = q.speakWord ? `
+        <button type="button" class="rm-chip-btn" onclick="speakText('${escapeHtml(q.speakWord)}', event)" style="margin-left: 6px;">🔊 Phát âm</button>
+      ` : '';
+
+      const feedbackHtml = isReviewImmediate ? `
+        <div style="margin-top: 12px; padding: 10px 12px; border-radius: var(--radius-md); background: ${picked === q.correctAnswer ? 'rgba(16, 185, 129, 0.12)' : 'rgba(239, 68, 68, 0.12)'}; border: 1px solid ${picked === q.correctAnswer ? 'rgba(16, 185, 129, 0.4)' : 'rgba(239, 68, 68, 0.4)'}; font-size: 0.82rem; line-height: 1.5;">
+          <div style="font-weight: 800; margin-bottom: 3px;">
+            ${picked === q.correctAnswer
+              ? `✅ Chính xác! Đẩy lên Hộp nhớ ${Math.min(5, (q.box || 1) + 1)}`
+              : `❌ Chưa đúng (Đáp án: ${q.correctAnswer}) — Sẽ nhắc ôn lại vào ngày mai!`}
+          </div>
+          <div>${escapeHtml(q.explanation || '')}</div>
+        </div>
+      ` : '';
+
+      const html = `
+        <div style="padding-right: 34px; margin-bottom: 10px;">
+          <h3 id="roadmap-modal-title" style="margin: 0; font-size: 1rem; font-weight: 800;">${escapeHtml(s.title)}</h3>
+          <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px; font-size: 0.76rem; color: var(--text-secondary);">
+            <span>Câu <strong>${s.idx + 1}/${s.questions.length}</strong></span>
+            ${s.timerSec > 0 ? `<span class="rm-stat-pill">⏱️ <strong id="inline-quiz-timer">${formatTimer(s.timerSec)}</strong></span>` : ''}
+            ${q.partBadge ? `<span class="rm-stat-pill">${escapeHtml(q.partBadge)}</span>` : ''}
+            ${speakBtnHtml}
+          </div>
+        </div>
+
+        ${audioHtml}
+
+        <div style="font-size: 0.94rem; font-weight: 700; line-height: 1.5; margin-top: 6px;">
+          ${escapeHtml(q.prompt)}
+        </div>
+
+        <div class="rm-opt-list">
+          ${optsHtml}
+        </div>
+
+        ${feedbackHtml}
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border-glass);">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="stepInlineQuestion(-1)" ${s.idx === 0 ? 'disabled' : ''}>← Trước</button>
+          ${s.idx < s.questions.length - 1
+            ? `<button type="button" class="btn btn-primary btn-sm" onclick="stepInlineQuestion(1)">Tiếp theo →</button>`
+            : `<button type="button" class="btn btn-primary btn-sm" onclick="finishInlineSession()">🏁 Hoàn thành &amp; Chấm điểm</button>`
+          }
+        </div>
+      `;
+
+      openRoadmapModalWithHtml(html);
+    }
+
+    function answerInlineQuestion(uid, letter) {
+      if (!inlineSession) return;
+      inlineSession.answers[uid] = letter;
+      renderInlineSessionModal();
+    }
+
+    function stepInlineQuestion(delta) {
+      if (!inlineSession) return;
+      const next = inlineSession.idx + delta;
+      if (next >= 0 && next < inlineSession.questions.length) {
+        inlineSession.idx = next;
+        renderInlineSessionModal();
+      }
+    }
+
+    function finishInlineSession() {
+      if (!inlineSession) return null;
+      if (inlineSession.timerId) {
+        clearInterval(inlineSession.timerId);
+        inlineSession.timerId = null;
+      }
+
+      const storage = getSafeStorage();
+      const engine = getEngine();
+      if (!storage || !engine) return null;
+
+      const s = inlineSession;
+      const state = storage.getRoadmapState();
+
+      if (s.type === 'review') {
+        const res = engine.recordReviewQuizSubmission(state, s.nodeId, s.questions, s.answers);
+        inlineSession = null;
+        renderRoadmapView();
+        openRoadmapModalWithHtml(`
+          <div style="text-align: center; padding: 14px 8px;">
+            <div style="font-size: 2.3rem;">🧠✨</div>
+            <h3 id="roadmap-modal-title" style="margin: 6px 0;">Hoàn thành Ôn tập Ngắt quãng!</h3>
+            <p style="font-size: 0.88rem; color: var(--text-secondary);">
+              Bạn trả lời đúng <strong>${res.correct}/${res.total}</strong> câu. Hệ thống đã cập nhật lịch lặp lại Ebbinghaus (1–3–7–14 ngày) cho từng mục!
+            </p>
+            <button type="button" class="btn btn-primary btn-sm" onclick="closeRoadmapModal()">Tuyệt vời, tiếp tục Lộ trình ➔</button>
+          </div>
+        `);
+        return res;
+      }
+
+      // Challenge mode: skip_zone or boss_quick
+      let correct = 0;
+      const wrongForQueue = [];
+      s.questions.forEach(q => {
+        const picked = String(s.answers[q.uid] || '').toUpperCase();
+        if (picked && picked === String(q.correctAnswer || '').toUpperCase()) {
+          correct++;
+        } else {
+          wrongForQueue.push({
+            uid: q.uid,
+            band: s.zoneBand,
+            prompt: q.prompt,
+            options: q.options,
+            correctAnswer: q.correctAnswer,
+            explanation: q.explanation || ''
+          });
+        }
+      });
+
+      state.reviewQueue = engine.seedReviewQueueFromMistakes(state.reviewQueue, wrongForQueue);
+      const outcome = engine.completeZoneOrBossChallenge(state, s.type, s.zoneBand, correct, s.questions.length);
+      storage.saveRoadmapState(state);
+
+      inlineSession = null;
+      renderRoadmapView();
+
+      const pct = Math.round((correct / Math.max(1, s.questions.length)) * 100);
+      openRoadmapModalWithHtml(`
+        <div style="text-align: center; padding: 14px 8px;">
+          <div style="font-size: 2.4rem;">${outcome.passed ? '🏆⚡' : '💪📚'}</div>
+          <h3 id="roadmap-modal-title" style="margin: 6px 0;">
+            ${outcome.passed
+              ? `Vượt ải Chặng ${escapeHtml(s.zoneBand)}+ thành công (${correct}/${s.questions.length} • ${pct}%)!`
+              : `Chưa đủ chuẩn vượt ải (${correct}/${s.questions.length} • ${pct}%)`}
+          </h3>
+          <p style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.5;">
+            ${outcome.passed
+              ? 'Bản đồ đã mở khóa chặng tiếp theo và cập nhật vị trí nhân vật của bạn!'
+              : 'Những câu chưa vững vừa được thêm vào Hộp Ôn Tập Ngắt Quãng. Hãy luyện thêm vài nút bài học rồi thử sức lại nhé!'}
+          </p>
+          <button type="button" class="btn btn-primary btn-sm" onclick="closeRoadmapModal()">Quay lại Bản đồ</button>
+        </div>
+      `);
+      return outcome;
+    }
+
+    // ── Settings & Backup Modal ──
+    function openRoadmapSettingsModal() {
+      const storage = getSafeStorage();
+      const state = storage ? storage.getRoadmapState() : null;
+      const prof = (state && state.profile) || { startScore: 400, targetBand: '650', dailyMinutes: 45 };
+
+      const html = `
+        <div style="padding-right: 34px;">
+          <h3 id="roadmap-modal-title" style="margin: 0 0 8px; font-size: 1.1rem; font-weight: 800;">⚙️ Điều Chỉnh Lộ Trình &amp; Kiểm Tra Lại</h3>
+          <p style="font-size: 0.82rem; color: var(--text-secondary); margin: 0 0 14px;">
+            Đổi Vạch Đích hoặc quỹ thời gian mỗi ngày để tái tính toán lộ trình, hoặc làm lại bài Test Đầu Vào mới.
+          </p>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <button type="button" class="rm-opt-btn" onclick="reopenGoalSetupFromSettings()">
+            <span class="rm-opt-letter">🎯</span>
+            <span><strong>Đổi Vạch Đích (${escapeHtml(prof.targetBand)}+) hoặc Quỹ giờ (${prof.dailyMinutes}p/ngày)</strong><br><small style="color: var(--text-secondary);">Giữ nguyên kết quả Chẩn đoán đầu vào &amp; Hộp nhớ Ebbinghaus</small></span>
+          </button>
+
+          <button type="button" class="rm-opt-btn" onclick="retakePlacementFromSettings()">
+            <span class="rm-opt-letter">🧭</span>
+            <span><strong>Làm lại Bài Kiểm Tra Đầu Vào (20 câu • 15 phút)</strong><br><small style="color: var(--text-secondary);">Đo lại trình độ Nghe + Đọc để xếp chặng mới từ đầu</small></span>
+          </button>
+        </div>
+      `;
+      openRoadmapModalWithHtml(html);
+    }
+
+    function reopenGoalSetupFromSettings() {
+      const storage = getSafeStorage();
+      const state = storage ? storage.getRoadmapState() : null;
+      if (state && state.profile) {
+        setupTargetBand = state.profile.targetBand || '650';
+        setupDailyMinutes = state.profile.dailyMinutes || 45;
+      }
+      closeRoadmapModal();
+      viewMode = 'goal_setup';
+      renderRoadmapView();
+    }
+
+    function retakePlacementFromSettings() {
+      if (typeof confirm === 'function' && !confirm('Làm lại Test đầu vào sẽ tạo lại Bản đồ Lộ trình mới theo điểm chẩn đoán mới (tiến độ Từ vựng/Ngữ pháp và Lịch sử thi vẫn giữ nguyên). Tiếp tục?')) {
+        return;
+      }
+      closeRoadmapModal();
+      startPlacementTest();
+    }
+
+    function exportRoadmapBackup() {
+      const storage = getSafeStorage();
+      if (!storage || typeof storage.exportStudyProgressJSON !== 'function') return '';
+      const jsonStr = storage.exportStudyProgressJSON();
+      if (typeof Blob !== 'undefined' && typeof URL !== 'undefined' && typeof document !== 'undefined') {
+        const blob = new Blob([jsonStr], { type: 'application/json;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const dateTag = new Date().toISOString().slice(0, 10);
+        a.href = url;
+        a.download = `toeic-master-roadmap-backup-${dateTag}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+      return jsonStr;
+    }
+
+    function triggerImportRoadmapBackup() {
+      const input = typeof document !== 'undefined' ? document.getElementById('roadmap-backup-file-input') : null;
+      if (input && typeof input.click === 'function') input.click();
+    }
+
+    function handleImportRoadmapBackup(event) {
+      const file = event && event.target && event.target.files && event.target.files[0];
+      if (!file || typeof FileReader === 'undefined') return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e && e.target ? e.target.result : '';
+        const storage = getSafeStorage();
+        if (storage && typeof storage.importStudyProgressJSON === 'function') {
+          const res = storage.importStudyProgressJSON(content);
+          if (res && res.ok) {
+            if (typeof alert === 'function') alert('✅ Khôi phục Lộ trình & Tiến độ học tập thành công!');
+            initRoadmapApp();
+          } else if (typeof alert === 'function') {
+            alert('⚠️ ' + ((res && res.error) || 'File backup không hợp lệ.'));
+          }
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') {
+      document.addEventListener('DOMContentLoaded', () => {
+        const storage = getSafeStorage();
+        if (storage && typeof storage.initTheme === 'function') storage.initTheme();
+        initRoadmapApp();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.code === 'Escape' && activeModalOpen) {
+          closeRoadmapModal();
+        }
+      });
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible' && viewMode === 'map' && !activeModalOpen) {
+          renderRoadmapView();
+        }
+      });
+    }
+
+    if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+      window.addEventListener('popstate', handleRoadmapPopstate);
+      window.addEventListener('pageshow', () => {
+        if (viewMode === 'map' && !activeModalOpen) {
+          renderRoadmapView();
+        }
+      });
+    }
+
+    if (typeof window !== 'undefined') {
+      window.initRoadmapApp = initRoadmapApp;
+      window.startPlacementTest = startPlacementTest;
+      window.jumpPlacementQuestion = jumpPlacementQuestion;
+      window.selectPlacementAnswer = selectPlacementAnswer;
+      window.submitPlacementTest = submitPlacementTest;
+      window.selectSetupTarget = selectSetupTarget;
+      window.selectSetupMinutes = selectSetupMinutes;
+      window.confirmAndCreateRoadmap = confirmAndCreateRoadmap;
+      window.openNodeMissionModal = openNodeMissionModal;
+      window.openInlineSpacedReview = openInlineSpacedReview;
+      window.openZoneChallengeModal = openZoneChallengeModal;
+      window.answerInlineQuestion = answerInlineQuestion;
+      window.stepInlineQuestion = stepInlineQuestion;
+      window.finishInlineSession = finishInlineSession;
+      window.openRoadmapSettingsModal = openRoadmapSettingsModal;
+      window.reopenGoalSetupFromSettings = reopenGoalSetupFromSettings;
+      window.retakePlacementFromSettings = retakePlacementFromSettings;
+      window.closeRoadmapModal = closeRoadmapModal;
+      window.handleModalBackdropClick = handleModalBackdropClick;
+      window.handleRoadmapPopstate = handleRoadmapPopstate;
+      window.scrollToActiveNode = scrollToActiveNode;
+      window.exportRoadmapBackup = exportRoadmapBackup;
+      window.triggerImportRoadmapBackup = triggerImportRoadmapBackup;
+      window.handleImportRoadmapBackup = handleImportRoadmapBackup;
+      window.markRoadmapExamLaunch = markRoadmapExamLaunch;
+      window.speakText = speakText;
+      window.toggleTheme = toggleTheme;
+    }
+
+    if (typeof module !== 'undefined' && module.exports) {
+      module.exports = {
+        initRoadmapApp,
+        startPlacementTest,
+        jumpPlacementQuestion,
+        selectPlacementAnswer,
+        submitPlacementTest,
+        selectSetupTarget,
+        selectSetupMinutes,
+        confirmAndCreateRoadmap,
+        openNodeMissionModal,
+        openInlineSpacedReview,
+        openZoneChallengeModal,
+        answerInlineQuestion,
+        stepInlineQuestion,
+        finishInlineSession,
+        openRoadmapSettingsModal,
+        closeRoadmapModal,
+        handleRoadmapPopstate,
+        exportRoadmapBackup
+      };
+    }
+  </script>
+</body>
+</html>
