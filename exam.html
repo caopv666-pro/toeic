@@ -7,10 +7,10 @@
   <meta name="description" content="Giao diện thi thử TOEIC trực tuyến chuẩn định dạng ETS, tự động tính giờ và lưu tiến độ.">
   
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="css/base.css?v=20261025v15">
-  <link rel="stylesheet" href="css/layout.css?v=20261025v15">
-  <link rel="stylesheet" href="css/components.css?v=20261025v15">
-  <link rel="stylesheet" href="css/responsive.css?v=20261025v15">
+  <link rel="stylesheet" href="css/base.css?v=20261025v16">
+  <link rel="stylesheet" href="css/layout.css?v=20261025v16">
+  <link rel="stylesheet" href="css/components.css?v=20261025v16">
+  <link rel="stylesheet" href="css/responsive.css?v=20261025v16">
 </head>
 <body>
 
@@ -205,11 +205,11 @@
   </style>
 
   <!-- JavaScript Modules -->
-  <script src="js/app-config.js?v=20261025v15"></script>
-  <script src="js/storage-service.js?v=20261025v15"></script>
-  <script src="js/audio-controller.js?v=20261025v15"></script>
-  <script src="js/ui-renderer.js?v=20261025v15"></script>
-  <script src="js/exam-engine.js?v=20261025v15"></script>
+  <script src="js/app-config.js?v=20261025v16"></script>
+  <script src="js/storage-service.js?v=20261025v16"></script>
+  <script src="js/audio-controller.js?v=20261025v16"></script>
+  <script src="js/ui-renderer.js?v=20261025v16"></script>
+  <script src="js/exam-engine.js?v=20261025v16"></script>
 
   <script>
     function confirmExitExam(event) {
@@ -257,6 +257,15 @@
               titleBadge.textContent = `Test ${testNumStr} • Ngày ${dayNum}/6`;
             } else {
               titleBadge.textContent = `Test ${testNumStr}`;
+            }
+          }
+
+          if ((urlParams.get('from') || '').toLowerCase().trim() === 'roadmap') {
+            const exitLink = document.querySelector('.exam-exit-link');
+            if (exitLink) {
+              exitLink.setAttribute('href', 'roadmap.html');
+              exitLink.setAttribute('title', 'Quay lại Lộ trình Mục tiêu');
+              exitLink.setAttribute('aria-label', 'Quay lại Lộ trình Mục tiêu');
             }
           }
         } catch (_) {}

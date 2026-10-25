@@ -466,7 +466,7 @@ const RoadmapEngine = {
           targetWord: q.targetWord || '',
           topicId: q.topicId || '',
           prompt: q.maskOptionText
-            ? `[${q.partBadge}] ${q.sourceLabel || ''}`
+            ? `${q.prompt} (${q.sourceLabel || q.partBadge})`
             : q.prompt,
           options: q.realOptions || q.options,
           correctAnswer: q.correctAnswer,
@@ -539,8 +539,9 @@ const RoadmapEngine = {
     const cleanBand = String(zoneBand || '550').replace('+', '').trim();
     const studyData = this._getStudyData(options.studyData);
     const testObj = options.testObj || null;
-    const bookName = options.bookName || 'EST 2024';
     const count = options.count || 12;
+    const isBossQuick = options.challengeType === 'boss_quick' || count >= 15;
+    const bandIdx = Math.max(0, ['450', '550', '650', '750', '850'].indexOf(cleanBand));
     const items = [];
     if (testObj && testObj.listening) {
       const p2List = Array.isArray(testObj.listening.part2)
@@ -549,23 +550,30 @@ const RoadmapEngine = {
       const p3Groups = Array.isArray(testObj.listening.part3)
         ? testObj.listening.part3
         : (testObj.listening.part3 && testObj.listening.part3.groups) || [];
-      if (p2List[4] && p2List[4].audioUrl) {
-        const q = p2List[4];
+      const p2PickIdx = p2List.length > 0
+        ? ((bandIdx * 4 + (isBossQuick ? 7 : 2)) % p2List.length)
+        : 0;
+      const p2Item = p2List[p2PickIdx] || p2List[0];
+      if (p2Item && p2Item.audioUrl) {
         items.push({
-          uid: `ch_p2_${cleanBand}_${q.questionNumber}`,
+          uid: `ch_p2_${cleanBand}_${p2Item.questionNumber}`,
           section: 'listening',
           band: cleanBand,
           partBadge: `Nghe phản xạ Part 2 (${cleanBand}+)`,
           prompt: 'Nghe câu hỏi và 3 phương án (A, B, C), chọn đáp án đúng nhất:',
-          audioUrl: this._resolveUrl(q.audioUrl),
+          audioUrl: this._resolveUrl(p2Item.audioUrl),
           imageUrls: [],
           maskOptionText: true,
           options: { A: 'Đáp án (A)', B: 'Đáp án (B)', C: 'Đáp án (C)' },
-          correctAnswer: String(q.correctAnswer || 'A').trim().toUpperCase(),
-          explanation: q.analysis || q.transcript || ''
+          realOptions: p2Item.options || null,
+          correctAnswer: String(p2Item.correctAnswer || 'A').trim().toUpperCase(),
+          explanation: p2Item.analysis || p2Item.transcript || ''
         });
       }
-      const g = p3Groups[2] || p3Groups[0];
+      const p3PickIdx = p3Groups.length > 0
+        ? ((bandIdx * 2 + (isBossQuick ? 5 : 1)) % p3Groups.length)
+        : 0;
+      const g = p3Groups[p3PickIdx] || p3Groups[0];
       if (g && g.audioUrl && Array.isArray(g.questions)) {
         g.questions.slice(0, 2).forEach((q, idx) => {
           items.push({
@@ -575,7 +583,7 @@ const RoadmapEngine = {
             partBadge: `Nghe hội thoại Part 3 (Câu ${idx + 1}/2)`,
             prompt: q.questionText,
             audioUrl: this._resolveUrl(g.audioUrl),
-            imageUrls: [],
+            imageUrls: q.imageUrl ? [this._resolveUrl(q.imageUrl)] : [],
             maskOptionText: false,
             options: q.options,
             correctAnswer: String(q.correctAnswer || 'A').trim().toUpperCase(),
@@ -585,11 +593,13 @@ const RoadmapEngine = {
       }
     }
     const gTopics = (studyData.grammarTopics || []).filter(t => String(t.band) === cleanBand);
+    const gOffsets = isBossQuick ? [1, 5] : [0, 4];
     gTopics.forEach((topic, tIdx) => {
       const pqs = topic.practiceQuestions || [];
-      [0, 4].forEach(offset => {
-        const q = pqs[offset + tIdx];
-        if (q && items.length < count) {
+      if (pqs.length === 0) return;
+      gOffsets.forEach(offset => {
+        const q = pqs[(offset + tIdx) % pqs.length];
+        if (q && items.length < count && !items.some(x => x.uid === `ch_g_${cleanBand}_${q.id}`)) {
           items.push({
             uid: `ch_g_${cleanBand}_${q.id}`,
             section: 'reading',
@@ -607,9 +617,9 @@ const RoadmapEngine = {
       });
     });
     const vList = (studyData.officialVocabPart5 || []).filter(q => String(q.band) === cleanBand);
-    let vIdx = 0;
-    while (items.length < count && vIdx < vList.length) {
-      const q = vList[vIdx++];
+    const vStart = isBossQuick ? 6 : 0;
+    for (let step = 0; items.length < count && step < vList.length; step++) {
+      const q = vList[(vStart + step) % vList.length];
       if (!q || items.some(x => x.uid.endsWith(q.id))) continue;
       items.push({
         uid: `ch_v_${cleanBand}_${q.id}`,
@@ -1073,7 +1083,16 @@ const RoadmapEngine = {
       ]);
       candidateWordIds.forEach(wId => {
         const qKey = `rv_word_${wId}`;
-        if (queue[qKey]) return;
+        if (queue[qKey]) {
+          if (sp.vocabStatus && sp.vocabStatus[wId] === 'learning' && (queue[qKey].box || 1) >= 3) {
+            queue[qKey] = {
+              ...queue[qKey],
+              box: 1,
+              nextReviewAt: nowIso
+            };
+          }
+          return;
+        }
         const entry = dictById[wId];
         if (!entry) return;
         const sameBand = dict.filter(d => d.band === entry.band && d.id !== entry.id);
@@ -1314,8 +1333,8 @@ const RoadmapEngine = {
       const np = roadmapState.nodeProgress[nodeId];
       np.stepDone = { ...(np.stepDone || {}), review: true };
       np.reviewScore = { correct, total: quizQuestions.length };
-      this._touchStreak(roadmapState, now);
     }
+    this._touchStreak(roadmapState, now);
     this.syncRoadmapProgress(roadmapState);
     if (storage && typeof storage.saveRoadmapState === 'function') {
       storage.saveRoadmapState(roadmapState);
@@ -1368,7 +1387,7 @@ const RoadmapEngine = {
     const usedExamRecordKeys = new Set();
     allNodesFlat.forEach(({ node }) => {
       const np = state.nodeProgress[node.id];
-      if (np && np.status === 'completed' && np.matchedExamKey) {
+      if (np && (np.status === 'completed' || (np.stepDone && np.stepDone.practice)) && np.matchedExamKey) {
         usedExamRecordKeys.add(np.matchedExamKey);
       }
     });
@@ -1602,12 +1621,18 @@ const RoadmapEngine = {
       const startS = Number(state.profile.startScore) || 350;
       const targetS = Number(state.profile.targetScore) || 650;
       const interpolated = Math.round((startS + ((targetS - startS) * (completedRealNodes / totalRealNodes))) / 5) * 5;
+      let highestClearedZoneScore = 0;
+      state.zones.forEach(z => {
+        if (z.zoneStatus === 'completed') {
+          highestClearedZoneScore = Math.max(highestClearedZoneScore, Number(z.targetScore) || 0);
+        }
+      });
       const recentFullScores = examHistory
         .filter(r => r && r.mode !== 'part' && r.mode !== 'daily' && Number(r.totalScore) > 0)
         .slice(0, 3)
         .map(r => Number(r.totalScore));
       const bestRecentFull = recentFullScores.length > 0 ? Math.max(...recentFullScores) : 0;
-      const nextCurrent = Math.max(startS, interpolated, bestRecentFull);
+      const nextCurrent = Math.max(startS, interpolated, highestClearedZoneScore, bestRecentFull);
       if (nextCurrent !== state.profile.currentScore) {
         state.profile.currentScore = nextCurrent;
         anyChanged = true;
@@ -1753,6 +1778,11 @@ const RoadmapEngine = {
     const daysLeftForEta = Math.max(0, remainingNodes - (didCompleteToday ? 0 : 1));
     const etaDate = new Date(now.getTime() + daysLeftForEta * 24 * 3600 * 1000);
     const dueReviews = this.getDueReviewItems(roadmapState, now);
+    const rawStreak = roadmapState.streak || {};
+    const daysSinceLastActive = rawStreak.lastActiveDate
+      ? this._daysBetween(rawStreak.lastActiveDate, now)
+      : 999;
+    const effectiveStreakCount = daysSinceLastActive > 1 ? 0 : (Number(rawStreak.count) || 0);
     return {
       initialized: true,
       isAllFinished,
@@ -1767,8 +1797,8 @@ const RoadmapEngine = {
       progressPercent,
       totalStars,
       maxStars,
-      streakCount: (roadmapState.streak && roadmapState.streak.count) || 0,
-      bestStreak: (roadmapState.streak && roadmapState.streak.best) || 0,
+      streakCount: effectiveStreakCount,
+      bestStreak: Number(rawStreak.best) || 0,
       paceState,
       paceDelta,
       paceLabel,

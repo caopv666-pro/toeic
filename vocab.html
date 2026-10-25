@@ -6,10 +6,10 @@
   <title>Từ Vựng &amp; Từ Điển 40 Đề ETS (450+ ➔ 850+) — TOEIC Master</title>
   <meta name="description" content="Kho từ vựng và từ điển tổng hợp từ 40 bộ đề ETS TOEIC (450+ ➔ 850+): tra map 8.000 câu hỏi, gia đình từ cùng gốc, Flashcard và Quiz thực chiến.">
 
-  <link rel="stylesheet" href="css/base.css?v=20261025v15">
-  <link rel="stylesheet" href="css/layout.css?v=20261025v15">
-  <link rel="stylesheet" href="css/components.css?v=20261025v15">
-  <link rel="stylesheet" href="css/responsive.css?v=20261025v15">
+  <link rel="stylesheet" href="css/base.css?v=20261025v16">
+  <link rel="stylesheet" href="css/layout.css?v=20261025v16">
+  <link rel="stylesheet" href="css/components.css?v=20261025v16">
+  <link rel="stylesheet" href="css/responsive.css?v=20261025v16">
   <style>
     /* ── Ultra-Minimalist Top Filter & Control Bar ── */
     .study-top-section {
@@ -917,9 +917,9 @@
     <div class="dict-modal-panel" id="dict-word-modal-body" onclick="event.stopPropagation()"></div>
   </div>
 
-  <script src="js/app-config.js?v=20261025v15"></script>
-  <script src="js/storage-service.js?v=20261025v15"></script>
-  <script src="js/study-data.js?v=20261025v15"></script>
+  <script src="js/app-config.js?v=20261025v16"></script>
+  <script src="js/storage-service.js?v=20261025v16"></script>
+  <script src="js/study-data.js?v=20261025v16"></script>
   <script>
     // Unified State across 100% of the 40-Test ETS Dictionary (4,153 headwords + 386 Official Part 5 Vocab Qs)
     const PACK_SIZE = 30;
@@ -2165,11 +2165,62 @@
       sessionJustAnswered.add(questionId);
       const storage = getSafeStorage();
       if (storage && typeof storage.saveVocabQuizScore === 'function') {
-        const packKey = quizSourceMode === 'dict'
-          ? `pack_${currentBand}_${vocabPosFilter}_${currentPack}`
-          : `ets_p5_vocab_${currentBand}`;
-        const answeredKeys = Object.keys(quizUserAnswers);
-        storage.saveVocabQuizScore(packKey, answeredKeys.length, Math.max(answeredKeys.length, PACK_SIZE));
+        if (quizSourceMode === 'dict') {
+          const filteredDictEntries = getFilteredDictionaryEntries(true);
+          const { items: packEntries } = getCurrentPackSlice(filteredDictEntries);
+          const packQuestions = packEntries.map(e => buildDictQuizQuestionForEntry(e, filteredDictEntries));
+          let packAnswered = 0;
+          let packCorrect = 0;
+          let currentQuestionCorrect = false;
+          packQuestions.forEach(q => {
+            const u = quizUserAnswers[q.id];
+            if (u) {
+              packAnswered++;
+              if (u === q.correctAnswer) packCorrect++;
+              if (q.id === questionId && u === q.correctAnswer) currentQuestionCorrect = true;
+            }
+          });
+          const packKey = `pack_${currentBand}_${vocabPosFilter}_${currentPack}`;
+          storage.saveVocabQuizScore(packKey, packCorrect, Math.max(1, packQuestions.length));
+
+          // Also sync with Roadmap quizTopicId (`dict_${band}_p${packNum}`) once at least 8 questions (or full pack) are answered
+          const minRequiredForRoadmap = Math.min(8, Math.max(1, packQuestions.length));
+          if (currentBand !== 'all' && vocabPosFilter === 'all' && packAnswered >= minRequiredForRoadmap) {
+            storage.saveVocabQuizScore(`dict_${currentBand}_p${currentPack}`, packCorrect, Math.max(1, packQuestions.length));
+          }
+
+          // Update word status so missed words enter Ebbinghaus review queue and mastered words sync with Roadmap
+          if (dictKey && typeof storage.setVocabWordStatus === 'function') {
+            if (!currentQuestionCorrect) {
+              storage.setVocabWordStatus(dictKey, 'learning');
+            } else {
+              const curStatus = typeof storage.getVocabWordStatus === 'function' ? storage.getVocabWordStatus(dictKey) : 'unseen';
+              if (curStatus === 'unseen') {
+                storage.setVocabWordStatus(dictKey, 'mastered');
+              }
+            }
+          }
+        } else {
+          const data = getStudyData();
+          const allOfficialP5 = (data.officialVocabPart5 || []).filter(
+            q => currentBand === 'all' || String(q.band) === String(currentBand)
+          );
+          let p5Correct = 0;
+          let p5Answered = 0;
+          let currentQuestionCorrect = false;
+          allOfficialP5.forEach(q => {
+            const u = quizUserAnswers[q.id];
+            if (u) {
+              p5Answered++;
+              if (u === q.correctAnswer) p5Correct++;
+              if (q.id === questionId && u === q.correctAnswer) currentQuestionCorrect = true;
+            }
+          });
+          storage.saveVocabQuizScore(`ets_p5_vocab_${currentBand}`, p5Correct, Math.max(p5Answered, PACK_SIZE));
+          if (dictKey && !currentQuestionCorrect && typeof storage.setVocabWordStatus === 'function') {
+            storage.setVocabWordStatus(dictKey, 'learning');
+          }
+        }
       }
       renderWorkspace();
     }

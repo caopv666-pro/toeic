@@ -6,10 +6,10 @@
   <title>Lộ Trình Mục Tiêu TOEIC (Game Map) — TOEIC Master</title>
   <meta name="description" content="Bản đồ lộ trình chinh phục mục tiêu TOEIC 450+ đến 850+: Kiểm tra đầu vào Nghe-Đọc, ôn tập ngắt quãng Ebbinghaus và nhiệm vụ thực chiến ETS hằng ngày.">
 
-  <link rel="stylesheet" href="css/base.css?v=20261025v15">
-  <link rel="stylesheet" href="css/layout.css?v=20261025v15">
-  <link rel="stylesheet" href="css/components.css?v=20261025v15">
-  <link rel="stylesheet" href="css/responsive.css?v=20261025v15">
+  <link rel="stylesheet" href="css/base.css?v=20261025v16">
+  <link rel="stylesheet" href="css/layout.css?v=20261025v16">
+  <link rel="stylesheet" href="css/components.css?v=20261025v16">
+  <link rel="stylesheet" href="css/responsive.css?v=20261025v16">
   <style>
     @property --value {
       syntax: '<number>';
@@ -1014,10 +1014,10 @@
     </div>
   </div>
 
-  <script src="js/app-config.js?v=20261025v15"></script>
-  <script src="js/storage-service.js?v=20261025v15"></script>
-  <script src="js/study-data.js?v=20261025v15"></script>
-  <script src="js/roadmap-engine.js?v=20261025v15"></script>
+  <script src="js/app-config.js?v=20261025v16"></script>
+  <script src="js/storage-service.js?v=20261025v16"></script>
+  <script src="js/study-data.js?v=20261025v16"></script>
+  <script src="js/roadmap-engine.js?v=20261025v16"></script>
   <script>
     // ── Controller State ──
     let viewMode = 'loading'; // 'gate' | 'placement_test' | 'goal_setup' | 'map'
@@ -1421,9 +1421,10 @@
           <div class="rm-pl-topbar">
             <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;">
               <span style="font-size: 0.84rem; font-weight: 800;">🧭 Placement Test • Câu ${placementIdx + 1}/${placementQuestions.length} <span style="color: var(--text-secondary); font-weight: 600;">(Đã làm ${answeredCount}/${placementQuestions.length})</span></span>
-              <div style="display: flex; align-items: center; gap: 8px;">
+              <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
                 <span class="rm-stat-pill">⏱️ <strong id="pl-timer-val">${formatTimer(placementTimerSec)}</strong></span>
                 <button type="button" class="btn btn-primary btn-sm" onclick="submitPlacementTest(false)">🏁 Nộp bài</button>
+                <button type="button" class="rm-chip-btn" onclick="cancelPlacementTest()" title="Thoát bài kiểm tra đầu vào">✕ Hủy</button>
               </div>
             </div>
             <div class="rm-pl-pills">${pillsHtml}</div>
@@ -1460,6 +1461,25 @@
       `;
     }
 
+    function cancelPlacementTest() {
+      if (typeof confirm === 'function' && Object.keys(placementAnswers).length > 0) {
+        if (!confirm('Bạn có chắc muốn hủy bài kiểm tra đầu vào đang làm dở?')) return false;
+      }
+      stopAllTimers();
+      clearPlacementDraft();
+      const storage = getSafeStorage();
+      const state = storage ? storage.getRoadmapState() : null;
+      if (state && state.initialized) {
+        viewMode = 'map';
+      } else if (state && state.placementDone && state.placementResult) {
+        viewMode = 'goal_setup';
+      } else {
+        viewMode = 'gate';
+      }
+      renderRoadmapView();
+      return true;
+    }
+
     function jumpPlacementQuestion(nextIdx) {
       if (nextIdx < 0 || nextIdx >= placementQuestions.length) return;
       placementIdx = nextIdx;
@@ -1491,10 +1511,15 @@
       const seededQueue = engine.seedReviewQueueFromMistakes(curState.reviewQueue, diag.wrongItems);
 
       storage.saveRoadmapState({
-        ...curState,
+        version: curState.version || '1.0.0',
+        initialized: false,
         placementDone: true,
         placementResult: diag,
-        reviewQueue: seededQueue
+        profile: null,
+        zones: [],
+        nodeProgress: {},
+        reviewQueue: seededQueue,
+        streak: curState.streak || { count: 0, best: 0, lastActiveDate: null, activeDates: [] }
       });
 
       setupTargetBand = diag.recommendedTargetBand || '650';
@@ -1509,7 +1534,16 @@
       const storage = getSafeStorage();
       const engine = getEngine();
       const state = storage ? storage.getRoadmapState() : null;
-      const diag = state && state.placementResult;
+      const diag = (state && state.placementResult) || (state && state.profile ? {
+        totalCorrect: 10,
+        totalQuestions: 20,
+        estimatedScore: state.profile.startScore || 400,
+        lcScore: Math.round((state.profile.startScore || 400) / 2),
+        rcScore: (state.profile.startScore || 400) - Math.round((state.profile.startScore || 400) / 2),
+        startBand: state.profile.startBand || '450',
+        weakParts: state.profile.weakParts || ['part2', 'part3', 'part7'],
+        skillBreakdown: []
+      } : null);
       if (!diag || !engine) return buildPlacementGateHtml();
 
       const targets = engine.suggestTargetBands(diag.estimatedScore);
@@ -1517,7 +1551,12 @@
         setupTargetBand = (targets.find(t => t.recommended) || targets[0]).band;
       }
 
-      const est = engine.calculateTimelineEstimate(diag.estimatedScore, setupTargetBand, setupDailyMinutes);
+      const est = engine.calculateTimelineEstimate(
+        diag.estimatedScore,
+        setupTargetBand,
+        setupDailyMinutes,
+        state && state.profile ? state.profile.startedAt : null
+      );
 
       const skillsHtml = (diag.skillBreakdown || []).map(s => {
         const fillColor = s.level === 'strong' ? '#10b981' : (s.level === 'medium' ? '#6366f1' : '#f59e0b');
@@ -1555,6 +1594,8 @@
         </button>
       `).join('');
 
+      const isReplanning = Boolean(state && state.initialized);
+
       return `
         <section class="rm-gate-card">
           <div style="text-align: center; padding-bottom: 14px; border-bottom: 1px solid var(--border-glass); margin-bottom: 16px;">
@@ -1567,10 +1608,12 @@
             </div>
           </div>
 
-          <h2 style="font-size: 0.92rem; font-weight: 800; margin: 0 0 10px;">📊 Bắt mạch 5 nhóm kỹ năng của bạn</h2>
-          <div style="margin-bottom: 18px;">
-            ${skillsHtml}
-          </div>
+          ${skillsHtml ? `
+            <h2 style="font-size: 0.92rem; font-weight: 800; margin: 0 0 10px;">📊 Bắt mạch 5 nhóm kỹ năng của bạn</h2>
+            <div style="margin-bottom: 18px;">
+              ${skillsHtml}
+            </div>
+          ` : ''}
 
           <h2 style="font-size: 0.92rem; font-weight: 800; margin: 0 0 6px;">1. Chọn Vạch Đích Mục Tiêu 🏁</h2>
           <div class="rm-setup-grid">
@@ -1589,13 +1632,21 @@
           </div>
 
           <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;">
-            <button type="button" class="rm-chip-btn" onclick="startPlacementTest()">🔄 Thi lại Test đầu vào</button>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              ${isReplanning ? `<button type="button" class="rm-chip-btn" onclick="cancelGoalSetup()">⬅ Quay lại Bản đồ</button>` : ''}
+              <button type="button" class="rm-chip-btn" onclick="startPlacementTest()">🔄 Thi lại Test đầu vào</button>
+            </div>
             <button type="button" class="btn btn-primary" id="btn-confirm-roadmap" onclick="confirmAndCreateRoadmap()" style="padding: 10px 22px; font-weight: 800;">
-              🗺️ Mở Bản Đồ Game &amp; Bắt Đầu Ngày 1 ➔
+              ${isReplanning ? '💾 Lưu Mục Tiêu Mới &amp; Cập Nhật Bản Đồ ➔' : '🗺️ Mở Bản Đồ Game &amp; Bắt Đầu Ngày 1 ➔'}
             </button>
           </div>
         </section>
       `;
+    }
+
+    function cancelGoalSetup() {
+      viewMode = 'map';
+      renderRoadmapView();
     }
 
     function selectSetupTarget(band) {
@@ -2094,7 +2145,7 @@
       }
 
       const count = challengeType === 'boss_quick' ? 15 : 12;
-      const qs = engine.buildZoneChallengeQuestions(zoneBand, { testObj, count });
+      const qs = engine.buildZoneChallengeQuestions(zoneBand, { testObj, count, challengeType });
 
       if (inlineSession && inlineSession.timerId) clearInterval(inlineSession.timerId);
       inlineSession = {
@@ -2119,7 +2170,7 @@
         if (inlineSession.timerSec <= 0) {
           clearInterval(inlineSession.timerId);
           inlineSession.timerId = null;
-          finishInlineSession();
+          finishInlineSession(true);
         }
       }, 1000);
 
@@ -2133,8 +2184,31 @@
       const q = s.questions[s.idx];
       if (!q) return;
 
+      // Snapshot active modal audio state so answering/navigating within the same audio file does not reset playback
+      let prevAudioSnap = null;
+      if (typeof document !== 'undefined') {
+        const prevAudioEl = document.getElementById('inline-quiz-audio');
+        if (prevAudioEl) {
+          const prevSrc = prevAudioEl.getAttribute('src') || '';
+          if (prevSrc) {
+            prevAudioSnap = {
+              src: prevSrc,
+              currentTime: Number(prevAudioEl.currentTime) || 0,
+              wasPlaying: !prevAudioEl.paused && !prevAudioEl.ended
+            };
+          }
+        }
+      }
+
       const picked = s.answers[q.uid] || '';
       const isReviewImmediate = (s.type === 'review') && picked !== '';
+
+      const pillsHtml = s.questions.map((item, idx) => {
+        const cls = ['rm-pl-pill'];
+        if (idx === s.idx) cls.push('current');
+        if (s.answers[item.uid]) cls.push('answered');
+        return `<button type="button" class="${cls.join(' ')}" onclick="jumpInlineQuestion(${idx})" aria-label="Câu ${idx + 1}">${idx + 1}</button>`;
+      }).join('');
 
       const optsHtml = Object.keys(q.options || {}).map(letter => {
         let cls = 'rm-opt-btn';
@@ -2153,7 +2227,7 @@
       }).join('');
 
       const audioHtml = q.audioUrl ? `
-        <audio controls preload="auto" src="${escapeHtml(q.audioUrl)}" style="width: 100%; height: 34px; margin: 8px 0;"></audio>
+        <audio id="inline-quiz-audio" controls preload="auto" src="${escapeHtml(q.audioUrl)}" style="width: 100%; height: 34px; margin: 8px 0;"></audio>
       ` : '';
 
       const imagesHtml = (Array.isArray(q.imageUrls) && q.imageUrls.length > 0) ? `
@@ -2178,14 +2252,18 @@
       ` : '';
 
       const html = `
-        <div style="padding-right: 34px; margin-bottom: 10px;">
+        <div style="padding-right: 34px; margin-bottom: 8px;">
           <h3 id="roadmap-modal-title" style="margin: 0; font-size: 1rem; font-weight: 800;">${escapeHtml(s.title)}</h3>
           <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px; font-size: 0.76rem; color: var(--text-secondary);">
-            <span>Câu <strong>${s.idx + 1}/${s.questions.length}</strong></span>
+            <span>Câu <strong>${s.idx + 1}/${s.questions.length}</strong> (${Object.keys(s.answers).length}/${s.questions.length} đã chọn)</span>
             ${s.timerSec > 0 ? `<span class="rm-stat-pill">⏱️ <strong id="inline-quiz-timer">${formatTimer(s.timerSec)}</strong></span>` : ''}
             ${q.partBadge ? `<span class="rm-stat-pill">${escapeHtml(q.partBadge)}</span>` : ''}
             ${speakBtnHtml}
           </div>
+        </div>
+
+        <div class="rm-pl-pills" style="margin-bottom: 10px;">
+          ${pillsHtml}
         </div>
 
         ${imagesHtml}
@@ -2211,6 +2289,20 @@
       `;
 
       openRoadmapModalWithHtml(html);
+
+      // Restore audio playback if same audio source continues
+      if (prevAudioSnap && typeof document !== 'undefined') {
+        const nextAudioEl = document.getElementById('inline-quiz-audio');
+        if (nextAudioEl && (nextAudioEl.getAttribute('src') || '') === prevAudioSnap.src) {
+          try {
+            if (prevAudioSnap.currentTime > 0) nextAudioEl.currentTime = prevAudioSnap.currentTime;
+            if (prevAudioSnap.wasPlaying && typeof nextAudioEl.play === 'function') {
+              const p = nextAudioEl.play();
+              if (p && typeof p.catch === 'function') p.catch(() => {});
+            }
+          } catch (_) {}
+        }
+      }
     }
 
     function answerInlineQuestion(uid, letter) {
@@ -2219,26 +2311,39 @@
       renderInlineSessionModal();
     }
 
-    function stepInlineQuestion(delta) {
-      if (!inlineSession) return;
-      // Pause any audio or speech before stepping
+    function jumpInlineQuestion(targetIdx) {
+      if (!inlineSession || !Array.isArray(inlineSession.questions)) return;
+      if (targetIdx < 0 || targetIdx >= inlineSession.questions.length) return;
+      const curQ = inlineSession.questions[inlineSession.idx];
+      const nextQ = inlineSession.questions[targetIdx];
+      const sameAudio = curQ && nextQ && curQ.audioUrl && curQ.audioUrl === nextQ.audioUrl;
       try {
         if (typeof window !== 'undefined' && window.speechSynthesis) window.speechSynthesis.cancel();
-        if (typeof document !== 'undefined') {
+        if (!sameAudio && typeof document !== 'undefined') {
           const modalAudios = document.querySelectorAll('#roadmap-modal-body audio');
           modalAudios.forEach(a => { try { a.pause(); } catch(_) {} });
         }
       } catch (_) {}
-
-      const next = inlineSession.idx + delta;
-      if (next >= 0 && next < inlineSession.questions.length) {
-        inlineSession.idx = next;
-        renderInlineSessionModal();
-      }
+      inlineSession.idx = targetIdx;
+      renderInlineSessionModal();
     }
 
-    function finishInlineSession() {
+    function stepInlineQuestion(delta) {
+      if (!inlineSession) return;
+      const next = inlineSession.idx + delta;
+      jumpInlineQuestion(next);
+    }
+
+    function finishInlineSession(isAutoTimeout = false) {
       if (!inlineSession) return null;
+      const s = inlineSession;
+      const answeredCount = Object.keys(s.answers || {}).length;
+      if (!isAutoTimeout && answeredCount < s.questions.length) {
+        if (typeof confirm === 'function' && !confirm(`Bạn mới trả lời ${answeredCount}/${s.questions.length} câu. Nộp bài và chấm điểm ngay?`)) {
+          return null;
+        }
+      }
+
       if (inlineSession.timerId) {
         clearInterval(inlineSession.timerId);
         inlineSession.timerId = null;
@@ -2257,7 +2362,6 @@
       const engine = getEngine();
       if (!storage || !engine) return null;
 
-      const s = inlineSession;
       const state = storage.getRoadmapState();
 
       if (s.type === 'review') {
@@ -2288,8 +2392,8 @@
           wrongForQueue.push({
             uid: q.uid,
             band: s.zoneBand,
-            prompt: q.prompt,
-            options: q.options,
+            prompt: q.maskOptionText ? `${q.prompt} (${q.partBadge || ''})` : q.prompt,
+            options: q.realOptions || q.options,
             correctAnswer: q.correctAnswer,
             explanation: q.explanation || '',
             audioUrl: q.audioUrl || '',
@@ -2417,6 +2521,7 @@
         }
       };
       reader.readAsText(file);
+      try { if (event && event.target) event.target.value = ''; } catch (_) {}
     }
 
     if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') {
@@ -2451,16 +2556,19 @@
     if (typeof window !== 'undefined') {
       window.initRoadmapApp = initRoadmapApp;
       window.startPlacementTest = startPlacementTest;
+      window.cancelPlacementTest = cancelPlacementTest;
       window.jumpPlacementQuestion = jumpPlacementQuestion;
       window.selectPlacementAnswer = selectPlacementAnswer;
       window.submitPlacementTest = submitPlacementTest;
       window.selectSetupTarget = selectSetupTarget;
       window.selectSetupMinutes = selectSetupMinutes;
+      window.cancelGoalSetup = cancelGoalSetup;
       window.confirmAndCreateRoadmap = confirmAndCreateRoadmap;
       window.openNodeMissionModal = openNodeMissionModal;
       window.openInlineSpacedReview = openInlineSpacedReview;
       window.openZoneChallengeModal = openZoneChallengeModal;
       window.answerInlineQuestion = answerInlineQuestion;
+      window.jumpInlineQuestion = jumpInlineQuestion;
       window.stepInlineQuestion = stepInlineQuestion;
       window.finishInlineSession = finishInlineSession;
       window.openRoadmapSettingsModal = openRoadmapSettingsModal;
@@ -2482,16 +2590,19 @@
       module.exports = {
         initRoadmapApp,
         startPlacementTest,
+        cancelPlacementTest,
         jumpPlacementQuestion,
         selectPlacementAnswer,
         submitPlacementTest,
         selectSetupTarget,
         selectSetupMinutes,
+        cancelGoalSetup,
         confirmAndCreateRoadmap,
         openNodeMissionModal,
         openInlineSpacedReview,
         openZoneChallengeModal,
         answerInlineQuestion,
+        jumpInlineQuestion,
         stepInlineQuestion,
         finishInlineSession,
         openRoadmapSettingsModal,
