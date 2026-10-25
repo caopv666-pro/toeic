@@ -7,10 +7,10 @@
   <meta name="description" content="Kết quả bài thi TOEIC trực tuyến, phân tích điểm số chuẩn ETS và lời giải chi tiết từng câu.">
   
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="css/base.css?v=20261025v14">
-  <link rel="stylesheet" href="css/layout.css?v=20261025v14">
-  <link rel="stylesheet" href="css/components.css?v=20261025v14">
-  <link rel="stylesheet" href="css/responsive.css?v=20261025v14">
+  <link rel="stylesheet" href="css/base.css?v=20261025v15">
+  <link rel="stylesheet" href="css/layout.css?v=20261025v15">
+  <link rel="stylesheet" href="css/components.css?v=20261025v15">
+  <link rel="stylesheet" href="css/responsive.css?v=20261025v15">
   <style>
     /* Compact Navbar so sticky Part 1..7 bar has maximum vertical room and is never covered */
     :root {
@@ -572,6 +572,15 @@
 
     <!-- Page 2: Detailed Review Section (Separate Page shown when user clicks 'Xem Chi Tiết Bài Làm') -->
     <section id="detailed-review-section" style="display: none; scroll-margin-top: 90px;" class="animate-fade-in">
+      <div id="review-return-roadmap-strip" style="display: none; margin-bottom: 14px; padding: 10px 14px; background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 10px; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;">
+        <span style="font-size: 0.88rem; font-weight: 600; color: var(--text-primary);">
+          🎯 Đang trong lộ trình học mục tiêu. Hoàn tất xem giải thích câu sai?
+        </span>
+        <a href="roadmap.html" class="btn btn-primary btn-sm" style="background: linear-gradient(135deg, #10b981, #059669); border-color: #10b981; text-decoration: none; font-weight: 700;" onclick="try { sessionStorage.removeItem('toeic_roadmap_return'); } catch(_) {}">
+          🗺️ Quay về Bản Đồ Lộ Trình ➔
+        </a>
+      </div>
+
       <div class="review-section-header">
         <h2 style="font-size: 1.5rem; display: flex; align-items: center; gap: 8px;">
           <span>📝</span> Chi Tiết Bài Làm & Đáp Án
@@ -634,11 +643,11 @@
   </main>
 
   <!-- JavaScript Modules -->
-  <script src="js/app-config.js?v=20261024v8"></script>
-  <script src="js/storage-service.js?v=20261024v8"></script>
-  <script src="js/audio-controller.js?v=20261024v8"></script>
-  <script src="js/ui-renderer.js?v=20261024v8"></script>
-  <script src="js/result-viewer.js?v=20261024v8"></script>
+  <script src="js/app-config.js?v=20261025v15"></script>
+  <script src="js/storage-service.js?v=20261025v15"></script>
+  <script src="js/audio-controller.js?v=20261025v15"></script>
+  <script src="js/ui-renderer.js?v=20261025v15"></script>
+  <script src="js/result-viewer.js?v=20261025v15"></script>
 
   <script>
     if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') {
@@ -686,6 +695,8 @@
           if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('toeic_roadmap_return') === '1') {
             const rmBtn = document.getElementById('btn-return-roadmap');
             if (rmBtn && rmBtn.style) rmBtn.style.display = 'inline-flex';
+            const rmReviewStrip = document.getElementById('review-return-roadmap-strip');
+            if (rmReviewStrip && rmReviewStrip.style) rmReviewStrip.style.display = 'flex';
           }
         } catch (_) {}
 

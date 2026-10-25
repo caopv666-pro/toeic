@@ -6,10 +6,10 @@
   <title>Lộ Trình Mục Tiêu TOEIC (Game Map) — TOEIC Master</title>
   <meta name="description" content="Bản đồ lộ trình chinh phục mục tiêu TOEIC 450+ đến 850+: Kiểm tra đầu vào Nghe-Đọc, ôn tập ngắt quãng Ebbinghaus và nhiệm vụ thực chiến ETS hằng ngày.">
 
-  <link rel="stylesheet" href="css/base.css?v=20261025v14">
-  <link rel="stylesheet" href="css/layout.css?v=20261025v14">
-  <link rel="stylesheet" href="css/components.css?v=20261025v14">
-  <link rel="stylesheet" href="css/responsive.css?v=20261025v14">
+  <link rel="stylesheet" href="css/base.css?v=20261025v15">
+  <link rel="stylesheet" href="css/layout.css?v=20261025v15">
+  <link rel="stylesheet" href="css/components.css?v=20261025v15">
+  <link rel="stylesheet" href="css/responsive.css?v=20261025v15">
   <style>
     @property --value {
       syntax: '<number>';
@@ -734,6 +734,8 @@
       align-items: center;
       justify-content: center;
       padding: 14px;
+      overflow: hidden;
+      overscroll-behavior: contain;
     }
     .rm-modal-backdrop.open {
       display: flex;
@@ -744,6 +746,7 @@
       max-width: 580px;
       max-height: 88vh;
       overflow-y: auto;
+      overscroll-behavior: contain;
       background: var(--bg-secondary);
       border: 1px solid var(--border-glass);
       border-radius: var(--radius-lg);
@@ -782,6 +785,19 @@
       }
       .rm-node-row {
         transform: translateX(calc(var(--node-offset, 0px) * 0.58));
+      }
+    }
+    @media (max-width: 420px) {
+      .rm-track-labels {
+        flex-wrap: wrap;
+        gap: 4px 8px;
+      }
+      .rm-node-row {
+        transform: translateX(calc(var(--node-offset, 0px) * 0.42));
+      }
+      .rm-node-caption,
+      .rm-node-subcaption {
+        max-width: 156px;
       }
     }
 
@@ -823,6 +839,59 @@
       background: #eef2ff;
       border-color: var(--accent-primary);
       color: #312e81;
+    }
+    [data-theme="light"] .rm-stat-pill {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      color: #334155;
+    }
+    [data-theme="light"] .rm-stat-pill.is-streak {
+      color: #c2410c;
+      background: #fff7ed;
+      border-color: #fdba74;
+    }
+    [data-theme="light"] .rm-stat-pill.is-ahead,
+    [data-theme="light"] .rm-stat-pill.is-ontrack,
+    [data-theme="light"] .rm-stat-pill.is-finished,
+    [data-theme="light"] .rm-step-btn.done,
+    [data-theme="light"] .rm-pl-qpill.answered {
+      color: #047857;
+      background: #ecfdf5;
+      border-color: #6ee7b7;
+    }
+    [data-theme="light"] .rm-stat-pill.is-behind,
+    [data-theme="light"] .rm-skip-zone-btn {
+      color: #b45309;
+      background: #fffbeb;
+      border-color: #fcd34d;
+    }
+    [data-theme="light"] .rm-opt-btn.correct {
+      color: #065f46;
+      background: #ecfdf5;
+      border-color: #10b981;
+    }
+    [data-theme="light"] .rm-opt-btn.wrong {
+      color: #b91c1c;
+      background: #fef2f2;
+      border-color: #ef4444;
+    }
+    [data-theme="light"] .rm-opt-letter {
+      background: #f1f5f9;
+      color: #1e293b;
+    }
+    [data-theme="light"] .rm-pl-topbar {
+      background: rgba(255, 255, 255, 0.94);
+      border-color: #cbd5e1;
+    }
+    [data-theme="light"] .rm-modal-close-top {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      color: #1e293b;
+    }
+    [data-theme="light"] .rm-finish-arch {
+      background: linear-gradient(135deg, #fffbeb, #ecfdf5);
+      border-color: #f59e0b;
+      color: #0f172a;
     }
   </style>
 </head>
@@ -945,10 +1014,10 @@
     </div>
   </div>
 
-  <script src="js/app-config.js?v=20261025v14"></script>
-  <script src="js/storage-service.js?v=20261025v14"></script>
-  <script src="js/study-data.js?v=20261025v14"></script>
-  <script src="js/roadmap-engine.js?v=20261025v14"></script>
+  <script src="js/app-config.js?v=20261025v15"></script>
+  <script src="js/storage-service.js?v=20261025v15"></script>
+  <script src="js/study-data.js?v=20261025v15"></script>
+  <script src="js/roadmap-engine.js?v=20261025v15"></script>
   <script>
     // ── Controller State ──
     let viewMode = 'loading'; // 'gate' | 'placement_test' | 'goal_setup' | 'map'
@@ -1042,7 +1111,6 @@
       activeModalOpen = true;
       body.innerHTML = innerHtml;
       modal.classList.add('open');
-      if (document.body && document.body.style) document.body.style.overflow = 'hidden';
 
       if (typeof window !== 'undefined' && window.history && typeof window.history.pushState === 'function') {
         try {
@@ -1058,6 +1126,16 @@
     function closeRoadmapModal(options = {}) {
       const fromPopstate = Boolean(options && options.fromPopstate);
       activeModalOpen = false;
+
+      // Cleanly stop any audio or speech playback inside modal
+      try {
+        if (typeof window !== 'undefined' && window.speechSynthesis) window.speechSynthesis.cancel();
+        if (typeof document !== 'undefined') {
+          const modalAudios = document.querySelectorAll('#roadmap-modal-body audio');
+          modalAudios.forEach(a => { try { a.pause(); } catch(_) {} });
+        }
+      } catch (_) {}
+
       if (inlineSession && inlineSession.timerId) {
         clearInterval(inlineSession.timerId);
         inlineSession.timerId = null;
@@ -1066,9 +1144,6 @@
 
       const modal = typeof document !== 'undefined' ? document.getElementById('roadmap-modal') : null;
       if (modal && modal.classList) modal.classList.remove('open');
-      if (typeof document !== 'undefined' && document.body && document.body.style) {
-        document.body.style.overflow = '';
-      }
 
       if (!fromPopstate && modalHistoryPushed && typeof window !== 'undefined' && window.history && typeof window.history.back === 'function') {
         modalHistoryPushed = false;
@@ -1094,6 +1169,31 @@
       }
     }
 
+    // ── Placement Test Persistence (Survives accidental reload) ──
+    const PLACEMENT_DRAFT_KEY = 'toeic_placement_draft_v1';
+
+    function savePlacementDraft() {
+      try {
+        if (typeof sessionStorage === 'undefined') return;
+        if (viewMode !== 'placement_test' || !Array.isArray(placementQuestions) || placementQuestions.length === 0) return;
+        sessionStorage.setItem(PLACEMENT_DRAFT_KEY, JSON.stringify({
+          questions: placementQuestions,
+          answers: placementAnswers,
+          idx: placementIdx,
+          timerSec: placementTimerSec,
+          savedAt: Date.now()
+        }));
+      } catch (_) {}
+    }
+
+    function clearPlacementDraft() {
+      try {
+        if (typeof sessionStorage !== 'undefined') {
+          sessionStorage.removeItem(PLACEMENT_DRAFT_KEY);
+        }
+      } catch (_) {}
+    }
+
     // ── Main View Router ──
     function initRoadmapApp() {
       const storage = getSafeStorage();
@@ -1108,7 +1208,46 @@
         setupTargetBand = state.placementResult.recommendedTargetBand || '650';
         viewMode = 'goal_setup';
       } else {
-        viewMode = 'gate';
+        // Check for active Placement Test draft in sessionStorage
+        let restoredDraft = false;
+        try {
+          if (typeof sessionStorage !== 'undefined') {
+            const raw = sessionStorage.getItem(PLACEMENT_DRAFT_KEY);
+            if (raw) {
+              const draft = JSON.parse(raw);
+              if (draft && Array.isArray(draft.questions) && draft.questions.length > 0) {
+                const elapsedSec = Math.max(0, Math.floor((Date.now() - (draft.savedAt || Date.now())) / 1000));
+                const remaining = Math.max(0, (draft.timerSec || (15 * 60)) - elapsedSec);
+                if (remaining > 5) {
+                  placementQuestions = draft.questions;
+                  placementAnswers = draft.answers || {};
+                  placementIdx = Math.min(placementQuestions.length - 1, Math.max(0, draft.idx || 0));
+                  placementTimerSec = remaining;
+                  viewMode = 'placement_test';
+                  restoredDraft = true;
+
+                  stopAllTimers();
+                  placementInterval = setInterval(() => {
+                    placementTimerSec--;
+                    const timerEl = typeof document !== 'undefined' ? document.getElementById('pl-timer-val') : null;
+                    if (timerEl) timerEl.textContent = formatTimer(placementTimerSec);
+                    savePlacementDraft();
+                    if (placementTimerSec <= 0) {
+                      stopAllTimers();
+                      submitPlacementTest(true);
+                    }
+                  }, 1000);
+                } else {
+                  clearPlacementDraft();
+                }
+              }
+            }
+          }
+        } catch (_) {}
+
+        if (!restoredDraft) {
+          viewMode = 'gate';
+        }
       }
       renderRoadmapView();
     }
@@ -1222,11 +1361,13 @@
       placementTimerSec = engine.PLACEMENT_DURATION_SEC || (15 * 60);
       viewMode = 'placement_test';
       renderRoadmapView();
+      savePlacementDraft();
 
       placementInterval = setInterval(() => {
         placementTimerSec--;
         const timerEl = typeof document !== 'undefined' ? document.getElementById('pl-timer-val') : null;
         if (timerEl) timerEl.textContent = formatTimer(placementTimerSec);
+        savePlacementDraft();
         if (placementTimerSec <= 0) {
           stopAllTimers();
           submitPlacementTest(true);
@@ -1322,11 +1463,13 @@
     function jumpPlacementQuestion(nextIdx) {
       if (nextIdx < 0 || nextIdx >= placementQuestions.length) return;
       placementIdx = nextIdx;
+      savePlacementDraft();
       renderRoadmapView();
     }
 
     function selectPlacementAnswer(uid, letter) {
       placementAnswers[uid] = letter;
+      savePlacementDraft();
       renderRoadmapView();
     }
 
@@ -1338,6 +1481,7 @@
         }
       }
       stopAllTimers();
+      clearPlacementDraft();
       const engine = getEngine();
       const storage = getSafeStorage();
       if (!engine || !storage) return null;
@@ -1476,18 +1620,21 @@
         startScore: diag.estimatedScore,
         targetBand: setupTargetBand,
         dailyMinutes: setupDailyMinutes,
-        weakParts: diag.weakParts
+        weakParts: diag.weakParts,
+        startedAt: cur.profile ? cur.profile.startedAt : null
       });
 
       storage.setStudyBand(plan.profile.startBand);
-      const nextState = {
-        ...cur,
-        initialized: true,
-        placementDone: true,
-        profile: plan.profile,
-        zones: plan.zones,
-        nodeProgress: plan.nodeProgress
-      };
+      const nextState = (typeof engine.mergeRoadmapProgressOnReplan === 'function')
+        ? engine.mergeRoadmapProgressOnReplan(cur, plan)
+        : {
+            ...cur,
+            initialized: true,
+            placementDone: true,
+            profile: plan.profile,
+            zones: plan.zones,
+            nodeProgress: plan.nodeProgress
+          };
       storage.saveRoadmapState(nextState);
 
       viewMode = 'map';
@@ -1668,7 +1815,7 @@
         const nodes = zone.nodes || [];
         const realNodes = nodes.filter(n => n.type !== 'placement_cleared');
         const doneCount = realNodes.filter(n => state.nodeProgress[n.id] && state.nodeProgress[n.id].status === 'completed').length;
-        const canSkipZone = zone.zoneStatus !== 'completed' && zone.zoneStatus !== 'cleared_by_placement';
+        const canSkipZone = !zone.isFinalZone && zone.zoneStatus !== 'completed' && zone.zoneStatus !== 'cleared_by_placement';
 
         const pathNodesHtml = nodes.map((node, nIdx) => {
           const np = state.nodeProgress[node.id] || { status: 'locked', stars: 0 };
@@ -1916,6 +2063,7 @@
           correctAnswer: q.correctAnswer,
           explanation: q.explanation,
           audioUrl: q.audioUrl,
+          imageUrls: Array.isArray(q.imageUrls) ? q.imageUrls : [],
           speakWord: q.speakWord
         })),
         idx: 0,
@@ -2008,6 +2156,12 @@
         <audio controls preload="auto" src="${escapeHtml(q.audioUrl)}" style="width: 100%; height: 34px; margin: 8px 0;"></audio>
       ` : '';
 
+      const imagesHtml = (Array.isArray(q.imageUrls) && q.imageUrls.length > 0) ? `
+        <div class="rm-passage-box">
+          ${q.imageUrls.map(u => `<img src="${escapeHtml(u)}" alt="Hình minh họa câu hỏi ETS" loading="eager">`).join('')}
+        </div>
+      ` : '';
+
       const speakBtnHtml = q.speakWord ? `
         <button type="button" class="rm-chip-btn" onclick="speakText('${escapeHtml(q.speakWord)}', event)" style="margin-left: 6px;">🔊 Phát âm</button>
       ` : '';
@@ -2034,6 +2188,7 @@
           </div>
         </div>
 
+        ${imagesHtml}
         ${audioHtml}
 
         <div style="font-size: 0.94rem; font-weight: 700; line-height: 1.5; margin-top: 6px;">
@@ -2066,6 +2221,15 @@
 
     function stepInlineQuestion(delta) {
       if (!inlineSession) return;
+      // Pause any audio or speech before stepping
+      try {
+        if (typeof window !== 'undefined' && window.speechSynthesis) window.speechSynthesis.cancel();
+        if (typeof document !== 'undefined') {
+          const modalAudios = document.querySelectorAll('#roadmap-modal-body audio');
+          modalAudios.forEach(a => { try { a.pause(); } catch(_) {} });
+        }
+      } catch (_) {}
+
       const next = inlineSession.idx + delta;
       if (next >= 0 && next < inlineSession.questions.length) {
         inlineSession.idx = next;
@@ -2079,6 +2243,15 @@
         clearInterval(inlineSession.timerId);
         inlineSession.timerId = null;
       }
+
+      // Stop any active modal audio or speech
+      try {
+        if (typeof window !== 'undefined' && window.speechSynthesis) window.speechSynthesis.cancel();
+        if (typeof document !== 'undefined') {
+          const modalAudios = document.querySelectorAll('#roadmap-modal-body audio');
+          modalAudios.forEach(a => { try { a.pause(); } catch(_) {} });
+        }
+      } catch (_) {}
 
       const storage = getSafeStorage();
       const engine = getEngine();
@@ -2118,7 +2291,9 @@
             prompt: q.prompt,
             options: q.options,
             correctAnswer: q.correctAnswer,
-            explanation: q.explanation || ''
+            explanation: q.explanation || '',
+            audioUrl: q.audioUrl || '',
+            imageUrls: Array.isArray(q.imageUrls) ? q.imageUrls.slice() : []
           });
         }
       });
@@ -2195,6 +2370,7 @@
       if (typeof confirm === 'function' && !confirm('Làm lại Test đầu vào sẽ tạo lại Bản đồ Lộ trình mới theo điểm chẩn đoán mới (tiến độ Từ vựng/Ngữ pháp và Lịch sử thi vẫn giữ nguyên). Tiếp tục?')) {
         return;
       }
+      clearPlacementDraft();
       closeRoadmapModal();
       startPlacementTest();
     }

@@ -472,7 +472,8 @@ const RoadmapEngine = {
           correctAnswer: q.correctAnswer,
           userAnswer: picked || null,
           explanation: q.explanation || '',
-          audioUrl: q.audioUrl || ''
+          audioUrl: q.audioUrl || '',
+          imageUrls: Array.isArray(q.imageUrls) ? q.imageUrls.slice() : []
         });
       }
     });
@@ -679,7 +680,8 @@ const RoadmapEngine = {
     const basePerZone = Math.max(4, Math.floor(est.totalStudyNodes / Math.max(1, activeZones.length)));
     let remainder = Math.max(0, est.totalStudyNodes - basePerZone * activeZones.length);
     const booksCycle = ['EST 2022', 'EST 2023', 'EST 2024', 'EST 2026'];
-    let dailySlotCursor = 0; // each 6 slots = 1 full 200Q test in 6-day split mode!
+    let dailySlotCursor = 0; // each 6 slots = 1 full 200Q test (Tests 1..8) in 6-day split mode!
+    let weakDrillCursor = 0; // dedicated cursor so Weak-Part drills never repeat the same Book+Test+Part
     let bossTestCursor = 0;
     let globalDayNum = 0;
     const zonesOutput = [];
@@ -721,42 +723,63 @@ const RoadmapEngine = {
       const totalPacksInBand = Math.max(1, Math.ceil(bandWords.length / this.PACK_SIZE));
       const bandGrammar = grammarTopics.filter(t => String(t.band) === zMeta.band);
       const checkpointIndex = studyCountForZone >= 6 ? Math.floor(studyCountForZone / 2) : -1;
+      let vocabPackCursor = 0;
+      let grammarTopicCursor = 0;
       for (let i = 0; i < studyCountForZone; i++) {
         globalDayNum++;
         const isCheckpoint = (i === checkpointIndex);
         const nodeId = `node_${zMeta.band}_d${globalDayNum}`;
-        const isGrammarFocus = (bandGrammar.length > 0) && (i % 3 === 1);
-        const packNum = ((Math.floor(i * 0.7)) % totalPacksInBand) + 1;
-        const gTopic = bandGrammar.length > 0 ? bandGrammar[Math.floor(i / 3) % bandGrammar.length] : null;
+        const wantGrammarSlot = (bandGrammar.length > 0) && (i % 3 === 1);
+        const canUseFreshGrammar = wantGrammarSlot && (
+          grammarTopicCursor < bandGrammar.length || vocabPackCursor >= totalPacksInBand
+        );
         let learnTask;
-        if (isGrammarFocus && gTopic) {
+        if (canUseFreshGrammar) {
+          const gTopic = bandGrammar[grammarTopicCursor % bandGrammar.length];
+          const grammarPass = Math.floor(grammarTopicCursor / bandGrammar.length) + 1;
+          grammarTopicCursor++;
+          const qTotal = Array.isArray(gTopic.practiceQuestions) ? gTopic.practiceQuestions.length : 20;
+          const baseMinQ = dailyMinutes >= 45 ? 8 : 5;
+          const clampedMinQ = Math.min(Math.max(1, qTotal), baseMinQ * grammarPass);
           learnTask = {
             stepKey: 'learn',
             kind: 'grammar_topic',
             band: zMeta.band,
             topicId: gTopic.id,
             topicTitle: gTopic.title,
-            questionCount: Array.isArray(gTopic.practiceQuestions) ? gTopic.practiceQuestions.length : 20,
-            title: `Ngữ pháp ${zMeta.badge}: ${gTopic.title}`,
+            grammarPass,
+            questionCount: qTotal,
+            title: grammarPass > 1
+              ? `Ngữ pháp ${zMeta.badge}: ${gTopic.title} (Chuyên sâu)`
+              : `Ngữ pháp ${zMeta.badge}: ${gTopic.title}`,
             desc: dailyMinutes >= 45
-              ? `Đọc công thức Mẹo 5s & giải tối thiểu 8 câu Part 5 chuyên đề "${gTopic.title}"`
-              : `Nắm công thức Mẹo 5s & giải tối thiểu 5 câu Part 5 chuyên đề "${gTopic.title}"`,
-            minQuestions: dailyMinutes >= 45 ? 8 : 5,
+              ? `Đọc công thức Mẹo 5s & giải tối thiểu ${clampedMinQ} câu Part 5 chuyên đề "${gTopic.title}"`
+              : `Nắm công thức Mẹo 5s & giải tối thiểu ${clampedMinQ} câu Part 5 chuyên đề "${gTopic.title}"`,
+            minQuestions: clampedMinQ,
             estMinutes: dailyMinutes >= 45 ? 15 : 10,
             url: `grammar.html?band=${zMeta.band}&tab=theory&topic=${encodeURIComponent(gTopic.id)}&from=roadmap&node=${encodeURIComponent(nodeId)}`
           };
         } else {
+          const packNum = (vocabPackCursor % totalPacksInBand) + 1;
+          vocabPackCursor++;
+          const sliceStart = (packNum - 1) * this.PACK_SIZE;
+          const actualPackSize = bandWords.length > 0
+            ? Math.max(1, Math.min(this.PACK_SIZE, bandWords.length - sliceStart))
+            : this.PACK_SIZE;
+          const rawMinWords = dailyMinutes >= 45 ? 10 : 8;
+          const clampedMinWords = Math.min(actualPackSize, rawMinWords);
           learnTask = {
             stepKey: 'learn',
             kind: 'vocab_pack',
             band: zMeta.band,
             packNum,
+            packSize: actualPackSize,
             quizTopicId: `dict_${zMeta.band}_p${packNum}`,
-            title: `Từ vựng ${zMeta.badge}: Bộ ${packNum} (${this.PACK_SIZE} từ ETS)`,
+            title: `Từ vựng ${zMeta.badge}: Bộ ${packNum} (${actualPackSize} từ ETS)`,
             desc: dailyMinutes >= 45
-              ? `Lật Flashcard Bộ ${packNum} (đánh dấu ít nhất 10 từ) hoặc hoàn thành bài Quiz Bộ ${packNum}`
-              : `Học Flashcard Bộ ${packNum} (đánh dấu ít nhất 8 từ) hoặc làm Quiz Bộ ${packNum}`,
-            minMarkedWords: dailyMinutes >= 45 ? 10 : 8,
+              ? `Lật Flashcard Bộ ${packNum} (đánh dấu ít nhất ${clampedMinWords} từ) hoặc hoàn thành bài Quiz Bộ ${packNum}`
+              : `Học Flashcard Bộ ${packNum} (đánh dấu ít nhất ${clampedMinWords} từ) hoặc làm Quiz Bộ ${packNum}`,
+            minMarkedWords: clampedMinWords,
             estMinutes: dailyMinutes >= 45 ? 15 : 10,
             url: `vocab.html?band=${zMeta.band}&mode=flashcard&pack=${packNum}&from=roadmap&node=${encodeURIComponent(nodeId)}`
           };
@@ -764,9 +787,10 @@ const RoadmapEngine = {
         const useWeakPartDrill = !isCheckpoint && (i % 3 === 2) && weakParts.length > 0;
         let practiceTask;
         if (useWeakPartDrill) {
-          const targetPart = weakParts[Math.floor(i / 3) % weakParts.length] || 'part3';
-          const pBook = booksCycle[Math.floor(dailySlotCursor / 60) % booksCycle.length];
-          const pTest = ((Math.floor(dailySlotCursor / 6) + 1) % 9) + 1; // Tests 1..9
+          const targetPart = weakParts[weakDrillCursor % weakParts.length] || 'part3';
+          const pBook = booksCycle[weakDrillCursor % booksCycle.length];
+          const pTest = (Math.floor(weakDrillCursor / booksCycle.length) % 8) + 1; // Tests 1..8
+          weakDrillCursor++;
           practiceTask = {
             stepKey: 'practice',
             kind: 'exam_part',
@@ -780,8 +804,8 @@ const RoadmapEngine = {
             url: `exam.html?book=${encodeURIComponent(pBook)}&test=${pTest}&mode=part&part=${encodeURIComponent(targetPart)}&from=roadmap&node=${encodeURIComponent(nodeId)}`
           };
         } else {
-          const dBook = booksCycle[Math.floor(dailySlotCursor / 54) % booksCycle.length];
-          const dTest = (Math.floor(dailySlotCursor / 6) % 9) + 1; // Tests 1..9
+          const dBook = booksCycle[Math.floor(dailySlotCursor / 48) % booksCycle.length];
+          const dTest = (Math.floor(dailySlotCursor / 6) % 8) + 1; // Tests 1..8 (reserving Tests 9..10 for Boss & Placement)
           const dDay = (dailySlotCursor % 6) + 1; // Day 1..6
           dailySlotCursor++;
           practiceTask = {
@@ -827,10 +851,18 @@ const RoadmapEngine = {
         };
         if (!firstActiveAssigned) firstActiveAssigned = true;
       }
+      const bossSlots = [
+        { book: 'EST 2022', testId: 10 },
+        { book: 'EST 2023', testId: 10 },
+        { book: 'EST 2024', testId: 10 },
+        { book: 'EST 2026', testId: 9 },
+        { book: 'EST 2022', testId: 9 }
+      ];
       globalDayNum++;
+      const bossPick = bossSlots[bossTestCursor % bossSlots.length];
       bossTestCursor++;
-      const bossBook = booksCycle[(bossTestCursor - 1) % booksCycle.length];
-      const bossTestId = Math.min(9, bossTestCursor + 4);
+      const bossBook = bossPick.book;
+      const bossTestId = bossPick.testId;
       const bossNodeId = `node_boss_${zMeta.band}`;
       zoneNodes.push({
         id: bossNodeId,
@@ -898,6 +930,102 @@ const RoadmapEngine = {
       nodeProgress
     };
   },
+  mergeRoadmapProgressOnReplan(previousState, freshPlan, studyDataOverride = null) {
+    if (!freshPlan || typeof freshPlan !== 'object') return freshPlan;
+    const hasPriorActivePlan = Boolean(
+      previousState &&
+      previousState.initialized &&
+      previousState.profile &&
+      previousState.nodeProgress &&
+      typeof previousState.nodeProgress === 'object'
+    );
+    const mergedState = {
+      ...(previousState && typeof previousState === 'object' ? previousState : {}),
+      initialized: true,
+      placementDone: true,
+      profile: {
+        ...freshPlan.profile,
+        startedAt: (hasPriorActivePlan && previousState.profile.startedAt)
+          ? previousState.profile.startedAt
+          : freshPlan.profile.startedAt,
+        currentScore: hasPriorActivePlan
+          ? Math.max(Number(freshPlan.profile.startScore) || 0, Number(previousState.profile.currentScore) || 0)
+          : freshPlan.profile.currentScore
+      },
+      zones: freshPlan.zones,
+      nodeProgress: { ...freshPlan.nodeProgress },
+      reviewQueue: (previousState && previousState.reviewQueue) ? { ...previousState.reviewQueue } : {},
+      streak: (previousState && previousState.streak)
+        ? { ...previousState.streak }
+        : { count: 0, best: 0, lastActiveDate: null, activeDates: [] }
+    };
+    if (hasPriorActivePlan) {
+      const oldNpMap = previousState.nodeProgress || {};
+      const oldCompletedReviewQueue = [];
+      Object.keys(oldNpMap).forEach(oldId => {
+        const oldNp = oldNpMap[oldId];
+        if (!oldNp || oldId.startsWith('node_pre_')) return;
+        if (oldId.startsWith('node_boss_')) {
+          if (mergedState.nodeProgress[oldId] && oldNp.status === 'completed') {
+            mergedState.nodeProgress[oldId] = { ...oldNp };
+          }
+          return;
+        }
+        if (oldNp.skippedByChallenge && mergedState.nodeProgress[oldId]) {
+          mergedState.nodeProgress[oldId] = { ...oldNp };
+          return;
+        }
+        if (oldNp.status === 'completed' && mergedState.nodeProgress[oldId]) {
+          mergedState.nodeProgress[oldId] = { ...oldNp };
+          return;
+        }
+        if (oldNp.stepDone && oldNp.stepDone.review) {
+          oldCompletedReviewQueue.push({
+            oldId,
+            reviewScore: oldNp.reviewScore || null,
+            completedAt: oldNp.completedAt || null,
+            stars: oldNp.stars || 0
+          });
+        }
+      });
+      const skippedBands = new Set();
+      (previousState.zones || []).forEach(oz => {
+        const realOld = (oz.nodes || []).filter(n => n.type !== 'placement_cleared');
+        if (realOld.length > 0 && realOld.every(n => oldNpMap[n.id] && oldNpMap[n.id].skippedByChallenge)) {
+          skippedBands.add(String(oz.band));
+        }
+      });
+      let reviewCarryIdx = 0;
+      (mergedState.zones || []).forEach(z => {
+        if (z.zoneStatus === 'cleared_by_placement') return;
+        const isZoneSkipped = skippedBands.has(String(z.band));
+        (z.nodes || []).forEach(n => {
+          if (n.type === 'placement_cleared') return;
+          if (isZoneSkipped) {
+            mergedState.nodeProgress[n.id] = {
+              ...(mergedState.nodeProgress[n.id] || {}),
+              status: 'completed',
+              stars: 2,
+              skippedByChallenge: true,
+              completedAt: new Date().toISOString(),
+              stepDone: { review: true, learn: true, practice: true }
+            };
+            return;
+          }
+          if (n.type !== 'boss' && reviewCarryIdx < oldCompletedReviewQueue.length) {
+            const carried = oldCompletedReviewQueue[reviewCarryIdx++];
+            const curNp = mergedState.nodeProgress[n.id] || {};
+            mergedState.nodeProgress[n.id] = {
+              ...curNp,
+              stepDone: { ...(curNp.stepDone || {}), review: true },
+              reviewScore: carried.reviewScore
+            };
+          }
+        });
+      });
+    }
+    return this.syncRoadmapProgress(mergedState, studyDataOverride);
+  },
   seedReviewQueueFromMistakes(existingQueue = {}, wrongItems = []) {
     const queue = { ...(existingQueue || {}) };
     const todayIso = new Date().toISOString();
@@ -918,6 +1046,8 @@ const RoadmapEngine = {
           correctAnswer: item.correctAnswer,
           explanation: item.explanation || '',
           audioUrl: item.audioUrl || '',
+          imageUrls: Array.isArray(item.imageUrls) ? item.imageUrls.slice() : [],
+          speakWord: item.speakWord || item.targetWord || '',
           targetWord: item.targetWord || ''
         }
       };
@@ -930,6 +1060,8 @@ const RoadmapEngine = {
     const studyData = this._getStudyData(studyDataOverride);
     const queue = { ...(roadmapState.reviewQueue || {}) };
     const nowIso = new Date().toISOString();
+    const gTopics = Array.isArray(studyData.grammarTopics) ? studyData.grammarTopics : [];
+    const vPart5List = Array.isArray(studyData.officialVocabPart5) ? studyData.officialVocabPart5 : [];
     if (storage && typeof storage.getStudyProgress === 'function') {
       const sp = storage.getStudyProgress();
       const dict = Array.isArray(studyData.etsDictionary) ? studyData.etsDictionary : [];
@@ -973,11 +1105,11 @@ const RoadmapEngine = {
             options: optMap,
             correctAnswer: letters[ansIdx >= 0 ? ansIdx : 0],
             explanation: `${entry.w} ${entry.ipa || ''}: ${entry.m}${entry.ex ? ' — VD: ' + entry.ex : ''}`,
+            imageUrls: [],
             speakWord: entry.w
           }
         };
       });
-      const gTopics = Array.isArray(studyData.grammarTopics) ? studyData.grammarTopics : [];
       gTopics.forEach(topic => {
         const bestRec = sp.grammarQuizBest && sp.grammarQuizBest[topic.id];
         if (!bestRec || !bestRec.answers) return;
@@ -997,13 +1129,72 @@ const RoadmapEngine = {
                   prompt: q.questionText,
                   options: q.options,
                   correctAnswer: q.correctAnswer,
-                  explanation: q.explanation || q.questionTranslation || ''
+                  explanation: q.explanation || q.questionTranslation || '',
+                  imageUrls: []
                 }
               };
             }
           }
         });
       });
+    }
+    if (storage && typeof storage.getExamHistory === 'function') {
+      const historyList = storage.getExamHistory() || [];
+      if (historyList.length > 0 && (vPart5List.length > 0 || gTopics.length > 0)) {
+        const part5Lookup = {};
+        vPart5List.forEach(q => {
+          if (q && q.bookShort && q.testId && q.questionNumber) {
+            part5Lookup[`${q.bookShort}_${q.testId}_${q.questionNumber}`] = { ...q, kind: 'vocab', band: q.band || '550' };
+          }
+        });
+        gTopics.forEach(t => {
+          (t.practiceQuestions || []).forEach(q => {
+            if (q && q.bookShort && q.testId && q.questionNumber) {
+              part5Lookup[`${q.bookShort}_${q.testId}_${q.questionNumber}`] = { ...q, kind: 'grammar', band: t.band || '550' };
+            }
+          });
+        });
+        const getBookShort = (rec) => {
+          const raw = String(rec.bookName || rec.testTitle || '');
+          if (raw.includes('2026')) return '26';
+          if (raw.includes('2024')) return '24';
+          if (raw.includes('2023')) return '23';
+          return '22';
+        };
+        historyList.slice(0, 8).forEach(rec => {
+          if (!rec || !Array.isArray(rec.detailedQuestions)) return;
+          const bShort = getBookShort(rec);
+          const tId = Number(rec.testId) || 1;
+          rec.detailedQuestions.forEach(dq => {
+            const qNum = Number(dq && (dq.questionNumber || dq.questionNum));
+            if (!dq || qNum < 101 || qNum > 130) return;
+            const userPick = dq.userChoice || dq.userSelected;
+            if (!userPick || dq.isCorrect) return;
+            const lookupKey = `${bShort}_${tId}_${qNum}`;
+            const p5Item = part5Lookup[lookupKey];
+            if (!p5Item) return;
+            const qKey = `rv_examp5_${lookupKey}`;
+            if (queue[qKey]) return;
+            queue[qKey] = {
+              id: qKey,
+              kind: p5Item.kind || 'exam_q',
+              band: String(p5Item.band || '550'),
+              box: 1,
+              wrongCount: 1,
+              nextReviewAt: nowIso,
+              payload: {
+                prompt: p5Item.questionText,
+                options: p5Item.options,
+                correctAnswer: p5Item.correctAnswer,
+                explanation: p5Item.explanation || p5Item.questionTranslation || '',
+                audioUrl: '',
+                imageUrls: [],
+                speakWord: p5Item.targetWord || ''
+              }
+            };
+          });
+        });
+      }
     }
     roadmapState.reviewQueue = queue;
     return queue;
@@ -1036,6 +1227,7 @@ const RoadmapEngine = {
         correctAnswer: item.payload.correctAnswer,
         explanation: item.payload.explanation || '',
         audioUrl: item.payload.audioUrl || '',
+        imageUrls: Array.isArray(item.payload.imageUrls) ? item.payload.imageUrls.slice() : [],
         speakWord: item.payload.speakWord || ''
       });
     });
@@ -1059,6 +1251,7 @@ const RoadmapEngine = {
           correctAnswer: q.correctAnswer,
           explanation: q.explanation || q.questionTranslation || '',
           audioUrl: '',
+          imageUrls: [],
           speakWord: q.targetWord || ''
         });
       }
@@ -1108,6 +1301,9 @@ const RoadmapEngine = {
             correctAnswer: q.correctAnswer,
             explanation: q.explanation || '',
             audioUrl: q.audioUrl || '',
+            imageUrls: Array.isArray(q.imageUrls)
+              ? q.imageUrls.slice()
+              : (existing && existing.payload && Array.isArray(existing.payload.imageUrls) ? existing.payload.imageUrls.slice() : []),
             speakWord: q.speakWord || ''
           }
         };
@@ -1169,6 +1365,13 @@ const RoadmapEngine = {
     state.zones.forEach(z => {
       (z.nodes || []).forEach(n => allNodesFlat.push({ zone: z, node: n }));
     });
+    const usedExamRecordKeys = new Set();
+    allNodesFlat.forEach(({ node }) => {
+      const np = state.nodeProgress[node.id];
+      if (np && np.status === 'completed' && np.matchedExamKey) {
+        usedExamRecordKeys.add(np.matchedExamKey);
+      }
+    });
     const checkLearnStepDone = (step) => {
       if (!step) return { done: true, accuracy: 0.85 };
       if (step.kind === 'vocab_pack') {
@@ -1183,7 +1386,7 @@ const RoadmapEngine = {
           const s = studyProg.vocabStatus && studyProg.vocabStatus[e.id];
           return s === 'mastered' || s === 'learning';
         }).length;
-        const minReq = step.minMarkedWords || 8;
+        const minReq = Math.min(step.minMarkedWords || 8, Math.max(1, packSlice.length));
         if (markedCount >= minReq) {
           const masteredCount = packSlice.filter(e => studyProg.vocabStatus && studyProg.vocabStatus[e.id] === 'mastered').length;
           return { done: true, accuracy: Math.min(1, 0.7 + (masteredCount / Math.max(1, packSlice.length)) * 0.3) };
@@ -1191,25 +1394,24 @@ const RoadmapEngine = {
         return { done: false, progressText: `${markedCount}/${minReq} từ` };
       }
       if (step.kind === 'grammar_topic') {
-        if (studyProg.grammarCompleted && studyProg.grammarCompleted[step.topicId]) {
-          const rec = studyProg.grammarQuizBest && studyProg.grammarQuizBest[step.topicId];
-          const acc = (rec && Number(rec.total) > 0) ? (Number(rec.correct) / Number(rec.total)) : 0.85;
-          return { done: true, accuracy: acc };
-        }
         const rec = studyProg.grammarQuizBest && studyProg.grammarQuizBest[step.topicId];
         const answeredCount = rec && rec.answers ? Object.keys(rec.answers).length : 0;
         const minQ = step.minQuestions || 5;
+        if ((!step.grammarPass || step.grammarPass <= 1) && studyProg.grammarCompleted && studyProg.grammarCompleted[step.topicId]) {
+          const acc = (rec && Number(rec.total) > 0) ? (Number(rec.correct) / Number(rec.total)) : 0.85;
+          return { done: true, accuracy: acc };
+        }
         if (answeredCount >= minQ) {
-          const acc = Number(rec.total) > 0 ? (Number(rec.correct) / Number(rec.total)) : 0.75;
+          const acc = Number(rec && rec.total) > 0 ? (Number(rec.correct) / Number(rec.total)) : 0.75;
           return { done: true, accuracy: acc };
         }
         return { done: false, progressText: `${answeredCount}/${minQ} câu` };
       }
       return { done: false };
     };
-    const checkPracticeStepDone = (step, unlockedAtIso) => {
+    const checkPracticeStepDone = (step, unlockedAtIso, currentNodeNp = null) => {
       if (!step) return { done: true, accuracy: 0.85 };
-      const unlockedTs = unlockedAtIso ? new Date(unlockedAtIso).getTime() - 60000 : 0;
+      const unlockedTs = unlockedAtIso ? new Date(unlockedAtIso).getTime() : 0;
       const normalizeBook = (rec) => {
         if (rec.bookName) return rec.bookName;
         const t = String(rec.testTitle || '');
@@ -1218,9 +1420,15 @@ const RoadmapEngine = {
         if (t.includes('2023')) return 'EST 2023';
         return 'EST 2022';
       };
+      const getRecKey = (rec) => {
+        if (rec.id) return String(rec.id);
+        return `${rec.completedAt || ''}_${rec.mode || ''}_${rec.testId || ''}_${rec.dayFilter || rec.partFilter || 'full'}`;
+      };
       if (step.kind === 'exam_daily') {
         const match = examHistory.find(rec => {
           if (!rec || rec.mode !== 'daily') return false;
+          const k = getRecKey(rec);
+          if (usedExamRecordKeys.has(k) && (!currentNodeNp || currentNodeNp.matchedExamKey !== k)) return false;
           const exactTarget = normalizeBook(rec) === step.book &&
             Number(rec.testId) === Number(step.testId) &&
             Number(rec.dayFilter) === Number(step.dayFilter);
@@ -1228,14 +1436,19 @@ const RoadmapEngine = {
           return exactTarget || takenAfterUnlock;
         });
         if (match) {
+          const k = getRecKey(match);
+          usedExamRecordKeys.add(k);
+          if (currentNodeNp) currentNodeNp.matchedExamKey = k;
           const acc = Number(match.totalQuestions) > 0 ? (Number(match.totalCorrect) / Number(match.totalQuestions)) : 0.75;
-          return { done: true, accuracy: acc };
+          return { done: true, accuracy: acc, matchedKey: k };
         }
         return { done: false };
       }
       if (step.kind === 'exam_part') {
         const match = examHistory.find(rec => {
           if (!rec || rec.mode !== 'part') return false;
+          const k = getRecKey(rec);
+          if (usedExamRecordKeys.has(k) && (!currentNodeNp || currentNodeNp.matchedExamKey !== k)) return false;
           const samePart = String(rec.partFilter || '').toLowerCase() === String(step.partFilter || '').toLowerCase();
           if (!samePart) return false;
           const exactTarget = normalizeBook(rec) === step.book && Number(rec.testId) === Number(step.testId);
@@ -1243,8 +1456,11 @@ const RoadmapEngine = {
           return exactTarget || takenAfterUnlock;
         });
         if (match) {
+          const k = getRecKey(match);
+          usedExamRecordKeys.add(k);
+          if (currentNodeNp) currentNodeNp.matchedExamKey = k;
           const acc = Number(match.totalQuestions) > 0 ? (Number(match.totalCorrect) / Number(match.totalQuestions)) : 0.75;
-          return { done: true, accuracy: acc };
+          return { done: true, accuracy: acc, matchedKey: k };
         }
         return { done: false };
       }
@@ -1252,6 +1468,8 @@ const RoadmapEngine = {
         const minPass = Number(step.minPassScore) || 430;
         const match = examHistory.find(rec => {
           if (!rec || rec.mode === 'part' || rec.mode === 'daily') return false;
+          const k = getRecKey(rec);
+          if (usedExamRecordKeys.has(k) && (!currentNodeNp || currentNodeNp.matchedExamKey !== k)) return false;
           const score = Number(rec.totalScore) || 0;
           if (score < minPass) return false;
           const exactTarget = normalizeBook(rec) === step.book && Number(rec.testId) === Number(step.testId);
@@ -1259,7 +1477,10 @@ const RoadmapEngine = {
           return exactTarget || takenAfterUnlock;
         });
         if (match) {
-          return { done: true, accuracy: 0.9, fullScore: Number(match.totalScore) || minPass };
+          const k = getRecKey(match);
+          usedExamRecordKeys.add(k);
+          if (currentNodeNp) currentNodeNp.matchedExamKey = k;
+          return { done: true, accuracy: 0.9, fullScore: Number(match.totalScore) || minPass, matchedKey: k };
         }
         return { done: false };
       }
@@ -1291,7 +1512,7 @@ const RoadmapEngine = {
       if (node.type === 'boss') {
         const bossStep = (node.steps || [])[0];
         if (!np.stepDone.practice) {
-          const res = checkPracticeStepDone(bossStep, np.unlockedAt);
+          const res = checkPracticeStepDone(bossStep, np.unlockedAt, np);
           if (res.done) {
             np.stepDone.practice = true;
             np.bossClearedBy = 'full_exam';
@@ -1329,7 +1550,7 @@ const RoadmapEngine = {
           accSum += (learnCheck.accuracy || 0.8);
           accCount++;
         }
-        const pracCheck = checkPracticeStepDone(practiceStep, np.unlockedAt);
+        const pracCheck = checkPracticeStepDone(practiceStep, np.unlockedAt, np);
         if (pracCheck.done && !np.stepDone.practice) {
           np.stepDone.practice = true;
           this._touchStreak(state);
@@ -1391,6 +1612,36 @@ const RoadmapEngine = {
         state.profile.currentScore = nextCurrent;
         anyChanged = true;
       }
+      if (examHistory.length > 0) {
+        const partAccuracyAccum = {};
+        examHistory.slice(0, 5).forEach(rec => {
+          if (!rec) return;
+          if (rec.partBreakdown && typeof rec.partBreakdown === 'object') {
+            Object.keys(rec.partBreakdown).forEach(pk => {
+              const pb = rec.partBreakdown[pk];
+              if (!pb || !pb.total) return;
+              if (!partAccuracyAccum[pk]) partAccuracyAccum[pk] = { correct: 0, total: 0 };
+              partAccuracyAccum[pk].correct += (Number(pb.correct) || 0);
+              partAccuracyAccum[pk].total += (Number(pb.total) || 0);
+            });
+          }
+        });
+        const dynamicWeak = Object.keys(partAccuracyAccum)
+          .filter(pk => {
+            const acc = partAccuracyAccum[pk].total > 0
+              ? (partAccuracyAccum[pk].correct / partAccuracyAccum[pk].total)
+              : 1;
+            return acc < 0.65;
+          })
+          .sort((a, b) => (partAccuracyAccum[a].correct / partAccuracyAccum[a].total) - (partAccuracyAccum[b].correct / partAccuracyAccum[b].total));
+        if (dynamicWeak.length > 0) {
+          const mergedWeak = Array.from(new Set([...dynamicWeak, ...(state.profile.weakParts || [])])).slice(0, 4);
+          if (JSON.stringify(mergedWeak) !== JSON.stringify(state.profile.weakParts)) {
+            state.profile.weakParts = mergedWeak;
+            anyChanged = true;
+          }
+        }
+      }
     }
     if (anyChanged && storage && typeof storage.saveRoadmapState === 'function') {
       storage.saveRoadmapState(state);
@@ -1411,19 +1662,23 @@ const RoadmapEngine = {
     const nowIso = new Date().toISOString();
     const stars = ratio >= 0.9 ? 3 : 2;
     if (mode === 'skip_zone') {
-      (targetZone.nodes || []).forEach(n => {
-        const np = roadmapState.nodeProgress[n.id] || {};
-        if (np.status !== 'completed') {
-          roadmapState.nodeProgress[n.id] = {
-            ...np,
-            status: 'completed',
-            stars,
-            completedAt: nowIso,
-            skippedByChallenge: true,
-            stepDone: { review: true, learn: true, practice: true }
-          };
-        }
-      });
+      roadmapState.zones
+        .filter(z => z.order <= targetZone.order && z.zoneStatus !== 'cleared_by_placement')
+        .forEach(zToComplete => {
+          (zToComplete.nodes || []).forEach(n => {
+            const np = roadmapState.nodeProgress[n.id] || {};
+            if (np.status !== 'completed') {
+              roadmapState.nodeProgress[n.id] = {
+                ...np,
+                status: 'completed',
+                stars,
+                completedAt: nowIso,
+                skippedByChallenge: true,
+                stepDone: { review: true, learn: true, practice: true }
+              };
+            }
+          });
+        });
     } else if (mode === 'boss_quick') {
       const bossNode = (targetZone.nodes || []).find(n => n.type === 'boss');
       if (bossNode) {
