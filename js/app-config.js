@@ -1,9 +1,17 @@
 /* Protected by TOEIC Master DataShield v2 */
 const AppConfig = {
   API_BASE_URL: '',
-  ASSET_VERSION: '20261024v2',
+  ASSET_VERSION: '20261027v1',
   SHARD_SALT: 'TM_V2_SALT_9821',
   BOOK_NAME: 'EST 2022',
+  FIREBASE_CONFIG: {
+    apiKey: '',
+    authDomain: '',
+    projectId: '',
+    storageBucket: '',
+    messagingSenderId: '',
+    appId: ''
+  },
   BOOKS: {
     'EST 2022': { label: 'ETS 2022', dbFile: 'data/database_EST_2022.json' },
     'EST 2023': { label: 'ETS 2023', dbFile: 'data/database_EST_2023.json' },
