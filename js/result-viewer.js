@@ -1892,6 +1892,16 @@ const ResultViewer = {
       gSents.forEach(s => {
         if (s && s.analysis) collectDictFromText(s.analysis);
       });
+      const gPassages = (grp && Array.isArray(grp.groupPassages) && grp.groupPassages.length > 0)
+        ? grp.groupPassages
+        : (Array.isArray(qContext.groupPassages) ? qContext.groupPassages : []);
+      gPassages.forEach(p => {
+        if (p && Array.isArray(p.sentences)) {
+          p.sentences.forEach(s => {
+            if (s && s.analysis) collectDictFromText(s.analysis);
+          });
+        }
+      });
     }
     const findPhraseMeaning = (enQuote) => {
       if (!enQuote) return '';
@@ -1937,11 +1947,12 @@ const ResultViewer = {
           if (!viRegex.test(qm[1])) quoted.push(qm[1].trim());
         }
         const tts = quoted.join('. ');
-        let enrichedText = itemText;
+        let leftPart = itemText;
+        let rightPart = '';
         const arrowSplit = itemText.split(/\s*(?:➔|->)\s*/);
         if (arrowSplit.length === 2) {
-          let leftPart = arrowSplit[0].trim();
-          let rightPart = arrowSplit[1].trim();
+          leftPart = arrowSplit[0].trim();
+          rightPart = arrowSplit[1].trim();
           const leftStripped = leftPart.replace(/^\[Trong bài[^\]]*\]/i, '');
           if (!viRegex.test(leftStripped)) {
             const leftQuotes = [];
@@ -1955,19 +1966,25 @@ const ResultViewer = {
               leftPart += ` (${leftQuotes.slice(0, 2).join('; ')})`;
             }
           }
-          const rightStripped = rightPart.replace(/^\[Trong đáp án\]/i, '');
+          const rightStripped = rightPart.replace(/^\[(?:Trong )?đáp án[^\]]*\]/i, '');
           if (!viRegex.test(rightStripped) && qContext) {
             const cKey = qContext.correctChoice || qContext.correctAnswer;
             const optVi = (cKey && qContext.optionsTranslation && qContext.optionsTranslation[cKey])
-              ? String(qContext.optionsTranslation[cKey]).replace(/\.$/, '').trim()
+              ? String(qContext.optionsTranslation[cKey]).split('\n')[0].replace(/\.$/, '').trim()
               : '';
             if (optVi) {
               rightPart = rightPart.replace(/\.$/, '') + ` (${optVi})`;
             }
           }
-          enrichedText = `${leftPart} ➔ ${rightPart}`;
         }
-        return `<li class="analysis-list-item"><span class="analysis-meaning">${esc(enrichedText)}</span>${renderSpeakerBtn(tts)}</li>`;
+        const styleSide = (sideStr, badgeCls) => {
+          const safe = esc(sideStr);
+          return safe.replace(/^(\[[^\]]+\])\s*/, `<span class="paraphrase-badge ${badgeCls}">$1</span> `);
+        };
+        if (rightPart) {
+          return `<li class="analysis-list-item paraphrase-map-item"><span class="analysis-meaning">${styleSide(leftPart, 'badge-source')} <span class="paraphrase-arrow-icon">➔</span> ${styleSide(rightPart, 'badge-target')}</span>${renderSpeakerBtn(tts)}</li>`;
+        }
+        return `<li class="analysis-list-item paraphrase-map-item"><span class="analysis-meaning">${esc(itemText)}</span>${renderSpeakerBtn(tts)}</li>`;
       }
       const eqIdx = itemText.indexOf(' = ');
       const colIdx = itemText.indexOf(': ');
@@ -2068,6 +2085,11 @@ const ResultViewer = {
     closeList();
     return html;
   },
+  formatAnalysisText(rawText, qContext = null) {
+    if (!rawText || typeof rawText !== 'string') return '';
+    const cleaned = rawText.replace(/^(\s*)(?:[*•\-+]\s*)?(?![IA]\s+[a-zA-Z])(?:\([A-D]\)|[A-D][.)])\s+(?=.*(?:->|→|➔))/gm, '$1* ');
+    return this.formatSentenceAnalysis(cleaned, qContext);
+  },
   formatTipsText(rawTips) {
     if (!rawTips || typeof rawTips !== 'string') return '';
     return rawTips
@@ -2075,7 +2097,89 @@ const ResultViewer = {
       .replace(/^\*[ \t]+/gm, '• ')
       .trim();
   },
-  renderExplanationContent(q, hasExplanation) {
+  formatTipsHtml(rawTips) {
+    if (!rawTips || typeof rawTips !== 'string') return '';
+    const esc = (s) => this.escapeHtml(s);
+    const normalized = rawTips
+      .replace(/([^\n])[ \t]+\*[ \t]+/g, '$1\n* ')
+      .replace(/\r\n/g, '\n');
+    const lines = normalized.split('\n').map(l => l.trim()).filter(Boolean);
+    if (lines.length === 0) return '';
+    let html = '';
+    let inList = false;
+    const closeList = () => {
+      if (inList) {
+        html += '</ul>';
+        inList = false;
+      }
+    };
+    lines.forEach((line, idx) => {
+      const bulletMatch = line.match(/^(?:[*•\-+]|\d+[.)])\s+(.*)$/);
+      const isHeader = !bulletMatch && (idx === 0 || /^(?:💡|⚠️|📌)?\s*(?:Mẹo|Chiến thuật|Lưu ý)/i.test(line)) && (line.endsWith(':') || lines.length > 1);
+      if (isHeader) {
+        closeList();
+        const cleanTitle = line.replace(/^💡\s*/, '');
+        html += `<div class="analysis-section-title tips-section-title">💡 ${esc(cleanTitle)}</div>`;
+      } else {
+        if (!inList) {
+          html += '<ul class="analysis-list tips-list">';
+          inList = true;
+        }
+        const itemContent = bulletMatch ? bulletMatch[1].trim() : line;
+        const labelMatch = itemContent.match(/^([^:]{3,42}):\s+(.+)$/);
+        if (labelMatch) {
+          const lbl = labelMatch[1].trim();
+          const body = labelMatch[2].trim();
+          const isTrap = /bẫy|loại|sai|cảnh giác|tránh/i.test(lbl);
+          html += `<li class="analysis-list-item tips-list-item"><strong class="tips-item-label ${isTrap ? 'trap-label' : 'strategy-label'}">${esc(lbl)}:</strong> <span class="analysis-meaning">${esc(body)}</span></li>`;
+        } else {
+          html += `<li class="analysis-list-item tips-list-item"><span class="analysis-meaning">${esc(itemContent)}</span></li>`;
+        }
+      }
+    });
+    closeList();
+    return html;
+  },
+  formatExplanationHtml(rawExp) {
+    if (!rawExp || typeof rawExp !== 'string') return '';
+    if (/<(?:div|ul|li|p|strong|span|br)\b/i.test(rawExp)) return rawExp;
+    const esc = (s) => this.escapeHtml(s);
+    const lines = rawExp.replace(/\r\n/g, '\n').split('\n').map(l => l.trim()).filter(Boolean);
+    if (lines.length === 0) return '';
+    const decorateLine = (str) => {
+      let safe = esc(str);
+      safe = safe.replace(
+        /^((?:Bằng chứng trích dẫn nguyên văn từ bài đọc|Bằng chứng trích dẫn|Bằng chứng trong bài đọc|Bằng chứng trong bài|Trích dẫn nguyên văn bài đọc|Trích dẫn nguyên văn|Dẫn chứng trong bài đọc|Giải thích chi tiết|Lý giải):)/i,
+        '<strong class="exp-lead-label">$1</strong>'
+      );
+      safe = safe.replace(/\(([A-D])\)/g, '<strong class="exp-opt-ref">($1)</strong>');
+      return safe;
+    };
+    let html = '';
+    let inList = false;
+    const closeList = () => {
+      if (inList) {
+        html += '</ul>';
+        inList = false;
+      }
+    };
+    lines.forEach(line => {
+      const bulletMatch = line.match(/^(?:[*•\-+])\s+(.*)$/);
+      if (bulletMatch) {
+        if (!inList) {
+          html += '<ul class="analysis-list exp-bullet-list">';
+          inList = true;
+        }
+        html += `<li class="analysis-list-item">${decorateLine(bulletMatch[1].trim())}</li>`;
+      } else {
+        closeList();
+        html += `<div class="exp-prose-paragraph">${decorateLine(line)}</div>`;
+      }
+    });
+    closeList();
+    return html;
+  },
+  renderExplanationContent(q, hasExplanation = true) {
     const hasExp = Boolean(q && q.explanation);
     const hasAnalysis = Boolean(q && q.analysis);
     const hasTips = Boolean(q && q.tips);
@@ -2086,6 +2190,10 @@ const ResultViewer = {
         </div>
       `;
     }
+    const isParaphraseCard = hasAnalysis && (/Paraphrase/i.test(q.analysis) || ['part3', 'part4', 'part6', 'part7'].includes(q.part));
+    const analysisCardTitle = isParaphraseCard
+      ? 'Phân tích Paraphrase & Từ vựng'
+      : 'Phân tích từ vựng & Cấu trúc ngữ pháp';
     return `
       <!-- Card: Lời giải chi tiết -->
       ${hasExp ? `
@@ -2095,16 +2203,16 @@ const ResultViewer = {
             <span class="exp-title">Lời giải chi tiết</span>
           </div>
           <div class="exp-card-content">
-            <div class="exp-text-prose">${q.explanation}</div>
+            <div class="exp-text-prose">${this.formatExplanationHtml(q.explanation)}</div>
           </div>
         </div>
       ` : ''}
-      <!-- Card: Phân tích từ vựng & Cấu trúc ngữ pháp -->
+      <!-- Card: Phân tích Paraphrase & Từ vựng / Cấu trúc ngữ pháp -->
       ${hasAnalysis ? `
         <div class="exp-card exp-analysis-card">
           <div class="exp-card-header">
             <span class="exp-icon">📚</span>
-            <span class="exp-title">Phân tích từ vựng & Cấu trúc ngữ pháp</span>
+            <span class="exp-title">${analysisCardTitle}</span>
           </div>
           <div class="exp-card-content">
             <div class="exp-text-prose exp-analysis-text">${this.formatSentenceAnalysis(q.analysis, q)}</div>
@@ -2119,7 +2227,7 @@ const ResultViewer = {
             <span class="exp-title">Mẹo làm bài & Bẫy thường gặp</span>
           </div>
           <div class="exp-card-content">
-            <div class="exp-text-prose exp-analysis-text" style="white-space: pre-line;">${this.formatTipsText(q.tips)}</div>
+            <div class="exp-text-prose exp-analysis-text">${this.formatTipsHtml(q.tips)}</div>
           </div>
         </div>
       ` : ''}
