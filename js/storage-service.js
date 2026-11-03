@@ -1164,6 +1164,14 @@ const StorageService = {
       appId: extractField('appId') || ''
     };
   },
+  DEFAULT_FIREBASE_CONFIG: {
+    apiKey: 'AIzaSyAGvB3jeoxHTM8LS-gZo6z21JJz6NGWxFM',
+    authDomain: 'toeic-master-cloud.firebaseapp.com',
+    projectId: 'toeic-master-cloud',
+    storageBucket: 'toeic-master-cloud.firebasestorage.app',
+    messagingSenderId: '1029190218523',
+    appId: '1:1029190218523:web:1b4b0a70edc00e41e619be'
+  },
   getFirebaseConfig() {
     try {
       const cfgSource = (typeof AppConfig !== 'undefined' && AppConfig && AppConfig.FIREBASE_CONFIG)
@@ -1180,7 +1188,7 @@ const StorageService = {
         }
       }
     } catch (_) {}
-    return null;
+    return this.parseFirebaseConfigSnippet(this.DEFAULT_FIREBASE_CONFIG);
   },
   isFirebaseConfigured() {
     return Boolean(this.getFirebaseConfig());
@@ -1815,7 +1823,6 @@ const StorageService = {
   updateCloudAuthHeaderBadge() {
     if (typeof document === 'undefined' || typeof document.getElementById !== 'function') return;
     const user = this.getCachedCloudUser();
-    const configured = this.isFirebaseConfigured();
     const authBtn = document.getElementById('menu-cloud-auth-btn');
     const menuTriggerBtn = document.getElementById('main-menu-btn');
     if (menuTriggerBtn && menuTriggerBtn.classList && typeof menuTriggerBtn.classList.toggle === 'function') {
@@ -1839,15 +1846,12 @@ const StorageService = {
         </span>
       `;
     } else {
-      const subText = configured
-        ? 'Đăng nhập Google / Email để lưu dữ liệu đa thiết bị'
-        : 'Đăng nhập & Hướng dẫn kết nối Firebase Cloud';
       authBtn.innerHTML = `
         <span class="main-menu-item-left">
           <span class="main-menu-item-icon">☁️</span>
           <span class="main-menu-item-text">
-            <span class="main-menu-item-title">Tài Khoản &amp; Đồng Bộ Đám Mây</span>
-            <span class="main-menu-item-sub">${subText}</span>
+            <span class="main-menu-item-title">Đăng Nhập Với Google</span>
+            <span class="main-menu-item-sub">Đồng bộ Lịch sử thi, Từ vựng &amp; Lộ trình đa thiết bị</span>
           </span>
         </span>
       `;
@@ -1879,28 +1883,16 @@ const StorageService = {
           </div>
           <button type="button" class="cloud-auth-close-btn" id="cloud-auth-close-btn" onclick="StorageService.closeCloudAuthModal()" aria-label="Đóng hộp thoại" title="Đóng (Esc)">✕</button>
         </div>
-        <div class="cloud-auth-tabs-bar" id="cloud-auth-tabs-bar">
-          <button type="button" class="cloud-auth-tab-btn" data-tab="auth" onclick="StorageService.switchCloudModalTab('auth')">👤 Tài khoản</button>
-          <button type="button" class="cloud-auth-tab-btn" data-tab="config" onclick="StorageService.switchCloudModalTab('config')">⚙️ Cấu hình Firebase</button>
-          <button type="button" class="cloud-auth-tab-btn" data-tab="guide" onclick="StorageService.switchCloudModalTab('guide')">📖 Hướng dẫn (4 bước)</button>
-        </div>
         <div class="cloud-auth-modal-body" id="cloud-auth-modal-body"></div>
       </div>
     `;
     document.body.appendChild(modal);
     return modal;
   },
-  openCloudAuthModal(initialTab = null) {
+  openCloudAuthModal() {
     this.closeHeaderPopovers();
     const modal = this._ensureCloudModalDOM();
     if (!modal) return false;
-    if (initialTab) {
-      this._cloudModalTab = initialTab;
-    } else if (!this.isFirebaseConfigured()) {
-      this._cloudModalTab = 'guide';
-    } else {
-      this._cloudModalTab = 'auth';
-    }
     this._cloudModalOpen = true;
     modal.style.display = 'flex';
     try {
@@ -1908,9 +1900,7 @@ const StorageService = {
         window.history.pushState({ toeicCloudAuthModal: true }, '');
       }
     } catch (_) {}
-    if (this.isFirebaseConfigured()) {
-      this.ensureFirebaseInitialized();
-    }
+    this.ensureFirebaseInitialized();
     this.renderCloudAuthModalBody();
     return true;
   },
@@ -1931,16 +1921,6 @@ const StorageService = {
     }
     return true;
   },
-  switchCloudModalTab(tabName) {
-    if (!['auth', 'config', 'guide'].includes(tabName)) return;
-    this._cloudModalTab = tabName;
-    this.renderCloudAuthModalBody();
-  },
-  switchAuthFormMode(mode) {
-    if (!['login', 'register', 'reset'].includes(mode)) return;
-    this._authFormMode = mode;
-    this.renderCloudAuthModalBody();
-  },
   setCloudModalFeedback(msg, isError = false) {
     if (typeof document === 'undefined') return;
     const box = document.getElementById('cloud-auth-feedback');
@@ -1958,112 +1938,7 @@ const StorageService = {
     if (typeof document === 'undefined') return;
     const body = document.getElementById('cloud-auth-modal-body');
     if (!body) return;
-    const tabsBar = document.getElementById('cloud-auth-tabs-bar');
-    if (tabsBar && typeof tabsBar.querySelectorAll === 'function') {
-      tabsBar.querySelectorAll('.cloud-auth-tab-btn').forEach(btn => {
-        const t = btn.getAttribute('data-tab');
-        if (btn.classList) btn.classList.toggle('active', t === this._cloudModalTab);
-      });
-    }
-    const configured = this.isFirebaseConfigured();
     const user = this.getCachedCloudUser();
-    if (this._cloudModalTab === 'guide') {
-      const host = (typeof window !== 'undefined' && window.location && window.location.hostname)
-        ? window.location.hostname
-        : 'ten-web-cua-ban.pages.dev';
-      const firestoreRules = `rules_version = '2';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /users/{userId} {\n      allow read, write: if request.auth != null && request.auth.uid == userId;\n    }\n  }\n}`;
-      body.innerHTML = `
-        <div class="cloud-guide-container">
-          <div class="cloud-guide-banner">
-            <strong>🚀 Hướng dẫn cài đặt Đăng nhập &amp; Lưu dữ liệu Đám mây (Hướng B: Firebase + Cloudflare Pages)</strong>
-            <p>Chỉ mất ~3 phút để tạo kho lưu trữ miễn phí của Google (100% Free cho hàng chục nghìn người dùng) và kết nối với Cloudflare Pages.</p>
-          </div>
-          <div class="cloud-guide-steps">
-            <div class="cloud-guide-step">
-              <div class="step-badge">Bước 1</div>
-              <div class="step-content">
-                <h4>Tạo Firebase Project &amp; Lấy mã Web App</h4>
-                <ol>
-                  <li>Truy cập <a href="https://console.firebase.google.com/" target="_blank" rel="noopener">console.firebase.google.com</a> ➔ Nhấn <strong>Create a project</strong> (Đặt tên tùy ý, ví dụ: <code>toeic-master-cloud</code>).</li>
-                  <li>Tại trang chủ Project, bấm biểu tượng <strong>Web (<code>&lt;/&gt;</code>)</strong> để tạo ứng dụng Web.</li>
-                  <li>Copy khối mã <code>const firebaseConfig = { apiKey: "...", ... };</code> mà Firebase cung cấp.</li>
-                </ol>
-              </div>
-            </div>
-            <div class="cloud-guide-step">
-              <div class="step-badge">Bước 2</div>
-              <div class="step-content">
-                <h4>Bật Đăng nhập Google / Email &amp; Cấp quyền tên miền Cloudflare Pages</h4>
-                <ol>
-                  <li>Menu trái chọn <strong>Build ➔ Authentication ➔ Get started</strong>.</li>
-                  <li>Trong tab <strong>Sign-in method</strong>: Bật (Enable) <strong>Google</strong> và <strong>Email/Password</strong> ➔ Nhấn <strong>Save</strong>.</li>
-                  <li>Chuyển sang tab <strong>Settings ➔ Authorized domains</strong> ➔ Nhấn <strong>Add domain</strong> và thêm tên miền Cloudflare Pages của bạn (ví dụ: <code>${host}</code>).</li>
-                </ol>
-              </div>
-            </div>
-            <div class="cloud-guide-step">
-              <div class="step-badge">Bước 3</div>
-              <div class="step-content">
-                <h4>Tạo Cloud Firestore Database &amp; Dán Quy tắc Bảo mật (Rules)</h4>
-                <ol>
-                  <li>Menu trái chọn <strong>Build ➔ Firestore Database ➔ Create database</strong> (Chọn vị trí <code>asia-southeast1 (Singapore)</code> để tốc độ về Việt Nam nhanh nhất).</li>
-                  <li>Vào tab <strong>Rules</strong> của Firestore, dán đoạn mã bảo mật bên dưới (chỉ cho phép chính chủ đọc/ghi dữ liệu của mình) rồi nhấn <strong>Publish</strong>:</li>
-                </ol>
-                <div class="cloud-code-box-wrap">
-                  <pre class="cloud-code-pre" id="firestore-rules-code">${firestoreRules}</pre>
-                  <button type="button" class="btn btn-secondary btn-sm cloud-copy-btn" onclick="StorageService.copyFirestoreRules()">📋 Copy Rules</button>
-                </div>
-              </div>
-            </div>
-            <div class="cloud-guide-step">
-              <div class="step-badge">Bước 4</div>
-              <div class="step-content">
-                <h4>Dán cấu hình vào Web để hoàn tất</h4>
-                <p>Cách 1 (Thử ngay trên trình duyệt): Chuyển sang tab <strong>⚙️ Cấu hình Firebase</strong> bên trên và dán đoạn <code>firebaseConfig</code> vào.</p>
-                <p>Cách 2 (Cố định cho mọi người dùng trên Cloudflare Pages): Dán vào mục <code>FIREBASE_CONFIG</code> trong file <code>toeic-web/js/app-config.js</code> rồi chạy lệnh deploy (<code>/cao-deploy</code>).</p>
-              </div>
-            </div>
-          </div>
-          <div class="cloud-guide-footer">
-            <button type="button" class="btn btn-primary" onclick="StorageService.switchCloudModalTab('config')">⚙️ Mở tab Dán Cấu hình Firebase ➔</button>
-          </div>
-        </div>
-      `;
-      return;
-    }
-    if (this._cloudModalTab === 'config') {
-      const currentCfg = this.getFirebaseConfig();
-      const prettyJson = currentCfg ? JSON.stringify(currentCfg, null, 2) : '';
-      body.innerHTML = `
-        <div class="cloud-config-container">
-          <div id="cloud-auth-feedback" style="display:none;"></div>
-          <p class="cloud-config-desc">
-            Dán nguyên khối <code>const firebaseConfig = { ... }</code> hoặc JSON từ <strong>Firebase Console ➔ Project Settings ➔ General ➔ Your apps</strong> vào ô dưới đây:
-          </p>
-          <textarea id="firebase-config-input" class="cloud-config-textarea" rows="8" placeholder='const firebaseConfig = {\n  apiKey: "AIzaSy...",\n  authDomain: "your-app.firebaseapp.com",\n  projectId: "your-app",\n  storageBucket: "your-app.appspot.com",\n  messagingSenderId: "123456789",\n  appId: "1:123456789:web:abcdef"\n};'>${prettyJson}</textarea>
-          <div class="cloud-config-actions">
-            <button type="button" class="btn btn-primary" onclick="StorageService.handleSaveFirebaseConfigClick()">💾 Lưu &amp; Kết nối ngay</button>
-            <button type="button" class="btn btn-secondary" onclick="StorageService.copyAppConfigSnippet()">📋 Copy mã cho js/app-config.js</button>
-            ${currentCfg ? `<button type="button" class="btn btn-secondary" onclick="StorageService.handleClearFirebaseConfigClick()" style="color: var(--danger);">🗑️ Xóa cấu hình</button>` : ''}
-          </div>
-        </div>
-      `;
-      return;
-    }
-    if (!configured) {
-      body.innerHTML = `
-        <div class="cloud-unconfigured-card">
-          <div class="unconfigured-icon">⚡</div>
-          <h4>Chưa kết nối thông số Firebase Project</h4>
-          <p>Để bật tính năng Đăng nhập Google / Email và đồng bộ dữ liệu trên Cloudflare Pages, bạn chỉ cần tạo 1 Project Firebase miễn phí và dán cấu hình vào đây.</p>
-          <div class="unconfigured-actions">
-            <button type="button" class="btn btn-primary" onclick="StorageService.switchCloudModalTab('guide')">📖 Xem Hướng dẫn 4 bước</button>
-            <button type="button" class="btn btn-secondary" onclick="StorageService.switchCloudModalTab('config')">⚙️ Dán mã firebaseConfig</button>
-          </div>
-        </div>
-      `;
-      return;
-    }
     if (user) {
       const histCount = this.getExamHistory().length;
       const study = this.getStudyProgress();
@@ -2124,44 +1999,17 @@ const StorageService = {
       `;
       return;
     }
-    const mode = this._authFormMode || 'login';
     body.innerHTML = `
       <div class="cloud-login-container">
         <div id="cloud-auth-feedback" style="display:none;"></div>
-        <button type="button" class="cloud-google-btn" onclick="StorageService.handleGoogleLoginClick()">
-          <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.6-.4-3.9z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.6-.4-3.9z"/></svg>
-          <span>Tiếp tục nhanh bằng tài khoản Google</span>
-        </button>
-        <div class="cloud-auth-divider"><span>hoặc dùng Email</span></div>
-        <form class="cloud-email-form" onsubmit="event.preventDefault(); StorageService.handleEmailFormSubmit()">
-          ${mode === 'register' ? `
-            <div class="cloud-form-field">
-              <label for="cloud-auth-name">Tên hiển thị</label>
-              <input type="text" id="cloud-auth-name" placeholder="Ví dụ: Minh Hoàng" autocomplete="name">
-            </div>
-          ` : ''}
-          <div class="cloud-form-field">
-            <label for="cloud-auth-email">Địa chỉ Email</label>
-            <input type="email" id="cloud-auth-email" placeholder="you@example.com" required autocomplete="email">
-          </div>
-          ${mode !== 'reset' ? `
-            <div class="cloud-form-field">
-              <label for="cloud-auth-password">Mật khẩu (tối thiểu 6 ký tự)</label>
-              <input type="password" id="cloud-auth-password" placeholder="••••••••" required autocomplete="${mode === 'register' ? 'new-password' : 'current-password'}">
-            </div>
-          ` : ''}
-          <button type="submit" class="btn btn-primary cloud-submit-btn">
-            ${mode === 'register' ? '✨ Tạo tài khoản &amp; Đồng bộ ngay' : (mode === 'reset' ? '📩 Gửi link đặt lại mật khẩu' : '🔑 Đăng nhập &amp; Đồng bộ')}
-          </button>
-        </form>
-        <div class="cloud-auth-switch-links">
-          ${mode === 'login' ? `
-            <span>Chưa có tài khoản? <button type="button" class="cloud-link-btn" onclick="StorageService.switchAuthFormMode('register')">Đăng ký miễn phí</button></span>
-            <button type="button" class="cloud-link-btn" onclick="StorageService.switchAuthFormMode('reset')">Quên mật khẩu?</button>
-          ` : `
-            <span>Đã có tài khoản? <button type="button" class="cloud-link-btn" onclick="StorageService.switchAuthFormMode('login')">Quay lại Đăng nhập</button></span>
-          `}
+        <div class="cloud-guide-banner" style="margin-bottom: 16px;">
+          <strong>☁️ Đồng bộ tự động tiến độ học tập giữa Điện thoại &amp; Máy tính</strong>
+          <p>Đăng nhập 1 chạm bằng tài khoản Google để sao lưu và gộp thông minh Lịch sử thi, Phiên làm bài dở, Từ vựng – Ngữ pháp và Bản đồ Lộ trình Game.</p>
         </div>
+        <button type="button" class="cloud-google-btn" onclick="StorageService.handleGoogleLoginClick()">
+          <svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.6-.4-3.9z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.6-.4-3.9z"/></svg>
+          <span>Đăng nhập với Google</span>
+        </button>
       </div>
     `;
   },

@@ -5,12 +5,12 @@ const AppConfig = {
   SHARD_SALT: 'TM_V2_SALT_9821',
   BOOK_NAME: 'EST 2022',
   FIREBASE_CONFIG: {
-    apiKey: '',
-    authDomain: '',
-    projectId: '',
-    storageBucket: '',
-    messagingSenderId: '',
-    appId: ''
+    apiKey: 'AIzaSyAGvB3jeoxHTM8LS-gZo6z21JJz6NGWxFM',
+    authDomain: 'toeic-master-cloud.firebaseapp.com',
+    projectId: 'toeic-master-cloud',
+    storageBucket: 'toeic-master-cloud.firebasestorage.app',
+    messagingSenderId: '1029190218523',
+    appId: '1:1029190218523:web:1b4b0a70edc00e41e619be'
   },
   BOOKS: {
     'EST 2022': { label: 'ETS 2022', dbFile: 'data/database_EST_2022.json' },
