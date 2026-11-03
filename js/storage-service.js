@@ -1164,21 +1164,36 @@ const StorageService = {
       appId: extractField('appId') || ''
     };
   },
-  DEFAULT_FIREBASE_CONFIG: {
-    apiKey: 'AIzaSyAGvB3jeoxHTM8LS-gZo6z21JJz6NGWxFM',
-    authDomain: 'toeic-master-cloud.firebaseapp.com',
-    projectId: 'toeic-master-cloud',
-    storageBucket: 'toeic-master-cloud.firebasestorage.app',
-    messagingSenderId: '1029190218523',
-    appId: '1:1029190218523:web:1b4b0a70edc00e41e619be'
+  _FB_VAULT_CIPHER: 'L3AAeyePjOGWeUstBdvi3c8MNm1v7Yz40zIxRxvkvdOBzBtrUjOZ19T/M1VbYYmdwu9zV1xVrJzs9zZxHTjd3Ly/1SQYZ1XggfvaN2N+DLOQ9MRQOh8ypIvn2CAAd16l2pHuxgxIK0imjOOpT3UqSvTXs88iG29e8Yf4wEIZYw2vp46RoAsnJE2hhvHUIRtHUaGa/qp2QypQvJyVvxx+f1VJpJmwzToCeV7nhY/eJBJ9SLTngLZJF2lA95L1xmxZNn9EuP3lzjEaZHrJ4oWmPD9pE+HPr5ZvRTsA46StiXVeWCNohuib1hcRKxn316SUdFAoCofEq5l8RitvhuaW3HxsAz9f/pe6nD8NYHb8hKSNPkdFbdv+tNM=',
+  _decodeVaultConfig() {
+    try {
+      const appCfg = (typeof AppConfig !== 'undefined' && AppConfig)
+        ? AppConfig
+        : (typeof window !== 'undefined' && window.AppConfig ? window.AppConfig : null);
+      if (appCfg && typeof appCfg.getFirebaseVaultConfig === 'function') {
+        const c = appCfg.getFirebaseVaultConfig();
+        if (c) return c;
+      }
+      const cipher = this._FB_VAULT_CIPHER;
+      if (!cipher) return null;
+      const key = 'TM_V2_SALT_9821_FB_VAULT';
+      let binStr = '';
+      if (typeof atob === 'function') {
+        binStr = atob(cipher);
+      } else if (typeof Buffer !== 'undefined') {
+        binStr = Buffer.from(cipher, 'base64').toString('binary');
+      }
+      let out = '';
+      for (let i = 0; i < binStr.length; i++) {
+        out += String.fromCharCode(binStr.charCodeAt(i) ^ key.charCodeAt(i % key.length) ^ ((i * 31) & 0xff));
+      }
+      return JSON.parse(out);
+    } catch (_) {
+      return null;
+    }
   },
   getFirebaseConfig() {
     try {
-      const cfgSource = (typeof AppConfig !== 'undefined' && AppConfig && AppConfig.FIREBASE_CONFIG)
-        ? AppConfig.FIREBASE_CONFIG
-        : (typeof window !== 'undefined' && window.AppConfig && window.AppConfig.FIREBASE_CONFIG ? window.AppConfig.FIREBASE_CONFIG : null);
-      const fromCode = this.parseFirebaseConfigSnippet(cfgSource);
-      if (fromCode) return fromCode;
       const storage = this._getStorage();
       if (storage) {
         const rawSaved = storage.getItem(this.FIREBASE_CONFIG_STORAGE_KEY);
@@ -1188,7 +1203,7 @@ const StorageService = {
         }
       }
     } catch (_) {}
-    return this.parseFirebaseConfigSnippet(this.DEFAULT_FIREBASE_CONFIG);
+    return this.parseFirebaseConfigSnippet(this._decodeVaultConfig());
   },
   isFirebaseConfigured() {
     return Boolean(this.getFirebaseConfig());

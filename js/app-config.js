@@ -4,13 +4,26 @@ const AppConfig = {
   ASSET_VERSION: '20261027v1',
   SHARD_SALT: 'TM_V2_SALT_9821',
   BOOK_NAME: 'EST 2022',
-  FIREBASE_CONFIG: {
-    apiKey: 'AIzaSyAGvB3jeoxHTM8LS-gZo6z21JJz6NGWxFM',
-    authDomain: 'toeic-master-cloud.firebaseapp.com',
-    projectId: 'toeic-master-cloud',
-    storageBucket: 'toeic-master-cloud.firebasestorage.app',
-    messagingSenderId: '1029190218523',
-    appId: '1:1029190218523:web:1b4b0a70edc00e41e619be'
+  _FB_VAULT_CIPHER: 'L3AAeyePjOGWeUstBdvi3c8MNm1v7Yz40zIxRxvkvdOBzBtrUjOZ19T/M1VbYYmdwu9zV1xVrJzs9zZxHTjd3Ly/1SQYZ1XggfvaN2N+DLOQ9MRQOh8ypIvn2CAAd16l2pHuxgxIK0imjOOpT3UqSvTXs88iG29e8Yf4wEIZYw2vp46RoAsnJE2hhvHUIRtHUaGa/qp2QypQvJyVvxx+f1VJpJmwzToCeV7nhY/eJBJ9SLTngLZJF2lA95L1xmxZNn9EuP3lzjEaZHrJ4oWmPD9pE+HPr5ZvRTsA46StiXVeWCNohuib1hcRKxn316SUdFAoCofEq5l8RitvhuaW3HxsAz9f/pe6nD8NYHb8hKSNPkdFbdv+tNM=',
+  getFirebaseVaultConfig() {
+    try {
+      const cipher = this._FB_VAULT_CIPHER;
+      if (!cipher) return null;
+      const key = (this.SHARD_SALT || 'TM_V2_SALT_9821') + '_FB_VAULT';
+      let binStr = '';
+      if (typeof atob === 'function') {
+        binStr = atob(cipher);
+      } else if (typeof Buffer !== 'undefined') {
+        binStr = Buffer.from(cipher, 'base64').toString('binary');
+      }
+      let out = '';
+      for (let i = 0; i < binStr.length; i++) {
+        out += String.fromCharCode(binStr.charCodeAt(i) ^ key.charCodeAt(i % key.length) ^ ((i * 31) & 0xff));
+      }
+      return JSON.parse(out);
+    } catch (_) {
+      return null;
+    }
   },
   BOOKS: {
     'EST 2022': { label: 'ETS 2022', dbFile: 'data/database_EST_2022.json' },
